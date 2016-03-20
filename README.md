@@ -10,8 +10,8 @@ Realizar [cadastro](https://github.com/join?source=header-home) no GitHub e [adi
 
 [Download](http://dev.mysql.com/downloads/mysql/) e [instalação](https://dev.mysql.com/doc/refman/5.5/en/installing.html) do mysql ou [MySQL Workbench](https://dev.mysql.com/doc/refman/5.5/en/installing.html);
 
-Executar comandos da raiz do diretório:
-  - Clonar o repositório;
+- Clonar o repositório;
+- Executar comandos da raiz do diretório:
   - Para configuração do git:
     - `git config --global user.name "Seu Nome"`;
     - `git config --global user.email seu_email@example.com`;
