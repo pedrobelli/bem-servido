@@ -1,0 +1,35 @@
+{
+  "name": "bemservido",
+  "version": "0.0.1",
+  "authors": [
+    "Pedro <pedro.belli2@gmail.com>"
+  ],
+  "description": "Bem Servido",
+  "main": "server.js",
+  "keywords": [
+    "pass",
+    "server"
+  ],
+  "license": "No Licence",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "4.5.0",
+    "moment": "2.10.2",
+    "sweetalert": "0.5.0",
+    "knockout": "3.4.0",
+    "jquery": "2.2.1",
+    "Materialize": "materialize#^0.97.5",
+    "underscore": "^1.8.3",
+    "hammerjs": "^2.0.6",
+    "velocity": "^1.2.3",
+    "sammy": "0.7.6",
+    "requirejs": "2.1.20",
+    "requirejs-text": "2.0.14"
+  }
+}

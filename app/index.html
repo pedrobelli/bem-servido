@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+
+  <link type="text/css" rel="stylesheet" href="assets/css/main.css"  media="screen,projection"/>
+
+  <title></title>
+
+</head>
+<body>
+
+  <div data-bind="html: headerComponent"></div>
+  <div data-bind="component: {name: pageComponent, params: pageParams}"></div>
+  <div data-bind="html: footerComponent"></div>
+
+  <script data-main="load" src="lib/require.js"></script>
+
+  </body>
+</html>

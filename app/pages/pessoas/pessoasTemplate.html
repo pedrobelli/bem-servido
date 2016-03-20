@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+<p class="center login-form-text">Pessoas</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody data-bind="foreach: pessoas">
+    <tr>
+      <th scope="row" data-bind="text: id"></th>
+      <td data-bind="text: nome"></td>
+      <td>
+        <a data-bind="attr: {href: '#pessoas/edit/'+id}" class="btn btn-link">EDITAR</a>|
+        <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<a class="btn btn-default" href="#pessoas/new">NOVO</a>

@@ -1,0 +1,17 @@
+[
+  {
+    "path"   : "#pessoas",
+    "page"   : "pages/pessoas/pessoasComponent",
+    "params" : { "name" : "index" }
+  },
+  {
+    "path"   : "#pessoas/new",
+    "page"   : "pages/pessoas/form/pessoasFormComponent",
+    "params" : { "name" : "new" }
+  },
+  {
+    "path"   : "#pessoas/edit/:id",
+    "page"   : "pages/pessoas/form/pessoasFormComponent",
+    "params" : { "name" : "edit" }
+  }
+]
