@@ -2,11 +2,7 @@ var db             = require('../../models'),
     pessoasManager = require('../../manager/pessoas/pessoasManager');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
-  apiRoutes.get('/', function(req, res) {
-    res.json({ message: 'Welcome to Bem Servido API!' });
-  });
-
-  apiRoutes.get(endpoint + '', function(req, res) {
+  apiRoutes.get(endpoint, function(req, res) {
     return pessoasManager.findAll(req, res);
   });
 
@@ -18,7 +14,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return pessoasManager.destroy(req, res);
   });
 
-  apiRoutes.post(endpoint + '', function(req, res) {
+  apiRoutes.post(endpoint, function(req, res) {
     return pessoasManager.create(req, res);
   });
 
