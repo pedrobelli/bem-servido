@@ -1,5 +1,4 @@
-var db             = require('../../models'),
-    clientesManager = require('../../manager/clientes/clientesManager');
+var clientesManager = require('../../manager/clientes/clientesManager');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {

@@ -5,6 +5,19 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {len: [3, 100]}
+		},
+		email: {
+			allowNull: false,
+			type: DataTypes.STRING,
+			validate: {isEmail: true}
+		},
+		telefone: {
+			type: DataTypes.STRING,
+			validate: {len: [8, 9]}
+		},
+		senha: {
+			allowNull: false,
+			type: DataTypes.STRING
 		}
 	});
 
