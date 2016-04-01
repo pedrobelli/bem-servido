@@ -1,24 +1,24 @@
 var db             = require('../../models'),
-    pessoasManager = require('../../manager/pessoas/pessoasManager');
+    clientesManager = require('../../manager/clientes/clientesManager');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {
-    return pessoasManager.findAll(req, res);
+    return clientesManager.findAll(req, res);
   });
 
   apiRoutes.get(endpoint + '/:id', function(req, res) {
-    return pessoasManager.find(req, res);
+    return clientesManager.find(req, res);
   });
 
   apiRoutes.delete(endpoint + '/:id', function(req, res) {
-    return pessoasManager.destroy(req, res);
+    return clientesManager.destroy(req, res);
   });
 
   apiRoutes.post(endpoint, function(req, res) {
-    return pessoasManager.create(req, res);
+    return clientesManager.create(req, res);
   });
 
   apiRoutes.post(endpoint + '/:id', function(req, res) {
-    return pessoasManager.update(req, res);
+    return clientesManager.update(req, res);
   });
 }

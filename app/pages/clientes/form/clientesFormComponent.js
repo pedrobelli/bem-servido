@@ -1,13 +1,13 @@
-define(['ko', 'text!./pessoasFormTemplate.html', 'bridge'],
+define(['ko', 'text!./clientesFormTemplate.html', 'bridge'],
 function(ko, template, bridge) {
 
   var viewModel = function(params) {
     var self = this;
 
     var mode = params.name == 'new' ? "Salvar" : "Editar";
-    var pageHeaderText = params.name == 'new' ? 'Nova Pessoa' : 'Editar Pessoa';
-    var CREATE_PATH = "/api/pessoas";
-    var UPDATE_PATH = "/api/pessoas/"+params.id;
+    var pageHeaderText = params.name == 'new' ? 'Nova Cliente' : 'Editar Cliente';
+    var CREATE_PATH = "/api/clientes";
+    var UPDATE_PATH = "/api/clientes/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -27,7 +27,7 @@ function(ko, template, bridge) {
         console.log("Erros: ", context.errors);
       })
       .done(function(){
-        window.location.hash = "pessoas"
+        window.location.hash = "clientes"
       });
     };
 
@@ -43,12 +43,12 @@ function(ko, template, bridge) {
 
     var init = function(){
       if (isEditMode()) {
-        bridge.get("/api/pessoas/"+params.id)
+        bridge.get("/api/clientes/"+params.id)
         .then(function(response){
           if (!response)
             return;
 
-          self.nome(response.pessoa.nome);
+          self.nome(response.cliente.nome);
         });
       }
     };
@@ -64,7 +64,7 @@ function(ko, template, bridge) {
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Pessoas form"
+      return "Clientes form"
     }
   };
 });

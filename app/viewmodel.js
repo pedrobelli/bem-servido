@@ -10,7 +10,7 @@ define ([
 		var self = this;
 
 		self.pageParams = ko.observable({});
-    	self.pageComponent = ko.observable();
+  	self.pageComponent = ko.observable();
 		self.isLoginPage = ko.observable(false);
 
 		self.dashboardButton = function(){

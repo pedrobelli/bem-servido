@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
-	var Pessoa = sequelize.define('pessoas', {
+	var Cliente = sequelize.define('clientes', {
 		nome: {
 			allowNull: false,
 			type: DataTypes.STRING,
@@ -8,5 +8,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	});
 
-	return Pessoa;
+	return Cliente;
 };
