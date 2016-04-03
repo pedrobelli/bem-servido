@@ -13,5 +13,20 @@
     "path"   : "#clientes/edit/:id",
     "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "edit" }
+  },
+  {
+    "path"   : "#especialidades",
+    "page"   : "pages/especialidades/especialidadesComponent",
+    "params" : { "name" : "index" }
+  },
+  {
+    "path"   : "#especialidades/new",
+    "page"   : "pages/especialidades/form/especialidadesFormComponent",
+    "params" : { "name" : "new" }
+  },
+  {
+    "path"   : "#especialidades/edit/:id",
+    "page"   : "pages/especialidades/form/especialidadesFormComponent",
+    "params" : { "name" : "edit" }
   }
 ]
