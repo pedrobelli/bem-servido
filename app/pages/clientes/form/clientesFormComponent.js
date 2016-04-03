@@ -4,8 +4,7 @@ function(ko, template, bridge) {
   var viewModel = function(params) {
     var self = this;
 
-    var mode = params.name == 'new' ? "Salvar" : "Editar";
-    var pageHeaderText = params.name == 'new' ? 'Nova Cliente' : 'Editar Cliente';
+    var pageHeaderText = params.name == 'new' ? 'Novo Cliente' : 'Editar Cliente';
     var CREATE_PATH = "/api/clientes";
     var UPDATE_PATH = "/api/clientes/"+params.id;
 
@@ -15,7 +14,6 @@ function(ko, template, bridge) {
     self.telefone = ko.observable();
     self.senha = ko.observable();
     self.confirmSenha = ko.observable();
-    self.saveButtonText = ko.observable(mode);
     self.pageMode = ko.observable(pageHeaderText);
 
     self.validForm = ko.pureComputed(function(){
@@ -33,7 +31,7 @@ function(ko, template, bridge) {
     self.save = function(){
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
-      if (isEditMode() && (self.senha() != self.confirmSenha())) {
+      if (!isEditMode() && (self.senha() != self.confirmSenha())) {
         console.log("Erro: Os campos de senha estão diferentes!");
         return;
       }
