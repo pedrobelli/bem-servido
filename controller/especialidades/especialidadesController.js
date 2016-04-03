@@ -1,23 +1,52 @@
 var db                    =  require('../../models'),
-    especialidadesManager =  require('../../manager/especialidades/especialidadesManager');
+    controllerHelper = require('../shared/controllerHelper');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {
-    return especialidadesManager.findAll(req, res);
+    db.especialidades.findAll().then(function(entities) {
+      res.statusCode = 200;
+      res.json({especialidades: entities})
+    }).catch(function(errors) {
+      return controllerHelper.writeErrors(res, errors);
+    });
   });
 
   apiRoutes.get(endpoint + '/:id', function(req, res) {
-    return especialidadesManager.find(req, res);
+    db.especialidades.find({ where : {id: req.param('id')} }).then(function(entity){
+      res.statusCode = 200;
+      res.json({especialidade: entity})
+    }).catch(function(errors) {
+      return controllerHelper.writeErrors(res, errors);
+    });
   });
+
   apiRoutes.delete(endpoint + '/:id', function(req, res) {
-    return especialidadesManager.destroy(req, res);
+    db.especialidades.find({ where: {id: req.param('id')} }).then(function(entity) {
+      entity.destroy().then(function() {
+        res.send(204)
+      })
+    }).catch(function(errors) {
+      return controllerHelper.writeErrors(res, errors);
+    });
   });
 
   apiRoutes.post(endpoint, function(req, res) {
-    return especialidadesManager.create(req, res);
+    db.especialidades.create(req.body).then(function(entity) {
+      res.statusCode = 200;
+      res.json(entity)
+    }).catch(function(errors) {
+      return controllerHelper.writeErrors(res, errors);
+    });
   });
 
   apiRoutes.post(endpoint + '/:id', function(req, res) {
-    return especialidadesManager.update(req, res);
+    db.especialidades.find({ where: {id: req.param('id')} }).then(function(entity) {
+      entity.updateAttributes(req.body).then(function(entity) {
+        res.statusCode = 200;
+        res.json(entity)
+      })
+    }).catch(function(errors) {
+      return controllerHelper.writeErrors(res, errors);
+    });
   });
 }

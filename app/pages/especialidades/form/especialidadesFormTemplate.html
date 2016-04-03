@@ -10,12 +10,12 @@
             <label>Nome:</label>
             <input data-bind="value: nome" type="text" class="form-control" id="nome" placeholder="Nome">
             <label>Descrição:</label>
-            <input data-bind="value: descricao" type="text" class="form-control" id="descricao" placeholder="Especialidade">
+            <input data-bind="value: descricao" type="text" class="form-control" id="descricao" placeholder="Descrição da especialidade">
           </div>
         </div>
       </div>
 
-      <input  class="btn btn-primary" type="submit" data-bind="css: { disabled: !validForm() }, value: saveButtonText, click:save">
+      <input  class="btn btn-primary" type="submit" data-bind="css: { disabled: !validForm() }, value: saveButtonText, click:save" value="SALVAR">
     </form>
 
     <p></p>

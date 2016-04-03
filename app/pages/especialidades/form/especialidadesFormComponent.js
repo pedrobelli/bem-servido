@@ -47,8 +47,8 @@ function(ko, template, bridge) {
           if(!response)
             return;
 
-            self.nome(response.especialidade.nome);
-            self.descricao(response.especialidade.descricao);
+          self.nome(response.especialidade.nome);
+          self.descricao(response.especialidade.descricao);
         });
       }
     };
