@@ -11,16 +11,27 @@ function(ko, template, bridge) {
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
+    self.email = ko.observable();
+    self.telefone = ko.observable();
+    self.senha = ko.observable();
+    self.confirmSenha = ko.observable();
     self.saveButtonText = ko.observable(mode);
     self.pageMode = ko.observable(pageHeaderText);
 
     self.validForm = ko.pureComputed(function(){
-      return !!self.nome();
+      valid = !!self.nome();
+      valid = valid && (!!self.senha() && !!self.confirmSenha());
+      return valid;
     });
 
 
     self.save = function(){
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
+
+      if (self.senha() != self.confirmSenha()) {
+        console.log("Erro: Os campos de senha estão diferentes!");
+        return;
+      }
 
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError){
@@ -33,7 +44,10 @@ function(ko, template, bridge) {
 
     var generatePayload = function(){
       var payload = {
-        nome : self.nome()
+        nome     : self.nome(),
+        email    : self.email(),
+        telefone : self.telefone(),
+        senha    : self.senha()
       };
 
       if(isEditMode()) payload.id = params.id;

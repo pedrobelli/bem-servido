@@ -6,6 +6,7 @@
       <tr>
         <th>#</th>
         <th>Nome</th>
+        <th>Email</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -14,6 +15,7 @@
     <tr>
       <th scope="row" data-bind="text: id"></th>
       <td data-bind="text: nome"></td>
+      <td data-bind="text: email"></td>
       <td>
         <a data-bind="attr: {href: '#clientes/edit/'+id}" class="btn btn-link">EDITAR</a>|
         <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>

@@ -17,8 +17,9 @@ function(ko, template, bridge) {
       if(!clientes) return self.clientes([]);
       var clientes = clientes.map(function(cliente){
         return {
-          id   : cliente.id,
-          nome : cliente.nome
+          id    : cliente.id,
+          nome  : cliente.nome,
+          email : cliente.email
         };
       });
 

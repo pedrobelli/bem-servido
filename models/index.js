@@ -14,7 +14,7 @@ directories.forEach(function(directory){
   fs.readdirSync(__dirname+"/"+directory).filter(function (file){
     return (file.indexOf('.') !== 0)
   }).forEach(function (file) {
-    var model = sequelize['import'](path.join(__dirname+'/'+directory+'/'+file));
+    var model = sequelize.import(path.join(__dirname+'/'+directory+'/'+file));
     db[model.name] = model;
   });
 })
