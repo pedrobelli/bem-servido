@@ -44,7 +44,7 @@ function ($, ko, _, sammyFramework, routesText, appViewModel) {
 
   var configureRoutes = function(pagesByModuleName) {
     sammy.get('#/', function() {
-      window.location.hash = '#pessoas';
+      window.location.hash = '#clientes';
     });
 
     routes.forEach(function(route) {

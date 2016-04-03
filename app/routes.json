@@ -1,17 +1,17 @@
 [
   {
-    "path"   : "#pessoas",
-    "page"   : "pages/pessoas/pessoasComponent",
+    "path"   : "#clientes",
+    "page"   : "pages/clientes/clientesComponent",
     "params" : { "name" : "index" }
   },
   {
-    "path"   : "#pessoas/new",
-    "page"   : "pages/pessoas/form/pessoasFormComponent",
+    "path"   : "#clientes/new",
+    "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "new" }
   },
   {
-    "path"   : "#pessoas/edit/:id",
-    "page"   : "pages/pessoas/form/pessoasFormComponent",
+    "path"   : "#clientes/edit/:id",
+    "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "edit" }
   }
 ]

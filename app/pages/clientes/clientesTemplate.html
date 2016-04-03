@@ -1,21 +1,23 @@
 <div class="panel panel-default">
-<p class="center login-form-text">Pessoas</p>
+<p class="center login-form-text">Clientes</p>
 
   <table class="table">
     <thead>
       <tr>
         <th>#</th>
         <th>Nome</th>
+        <th>Email</th>
         <th>Ações</th>
       </tr>
     </thead>
 
-    <tbody data-bind="foreach: pessoas">
+    <tbody data-bind="foreach: clientes">
     <tr>
       <th scope="row" data-bind="text: id"></th>
       <td data-bind="text: nome"></td>
+      <td data-bind="text: email"></td>
       <td>
-        <a data-bind="attr: {href: '#pessoas/edit/'+id}" class="btn btn-link">EDITAR</a>|
+        <a data-bind="attr: {href: '#clientes/edit/'+id}" class="btn btn-link">EDITAR</a>|
         <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>
       </td>
     </tr>
@@ -23,4 +25,4 @@
   </table>
 </div>
 
-<a class="btn btn-default" href="#pessoas/new">NOVO</a>
+<a class="btn btn-default" href="#clientes/new">NOVO</a>

@@ -5,7 +5,7 @@ var express  = require('express'),
   bodyParser = require('body-parser'),
   morgan     = require('morgan'),
   db         = require('./models'),
-  pessoasController    = require('./controller/pessoas/pessoasController');
+  clientesController    = require('./controller/clientes/clientesController');
 
 var path = require('path');
 var app = express();
@@ -35,7 +35,7 @@ db.sequelize
 function loadRoutes(){
   var apiRoutes = express.Router();
 
-  pessoasController.loadRoutes("/pessoas", apiRoutes);
+  clientesController.loadRoutes("/clientes", apiRoutes);
 
   app.use('/api', apiRoutes);
 
