@@ -20,7 +20,12 @@ function(ko, template, bridge) {
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.nome();
-      valid = valid && (!!self.senha() && !!self.confirmSenha());
+
+      if (isEditMode()) {
+        valid = valid && !!self.senha();
+      } else {
+        valid = valid && (!!self.senha() && !!self.confirmSenha());
+      }
       return valid;
     });
 
@@ -28,7 +33,7 @@ function(ko, template, bridge) {
     self.save = function(){
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
-      if (self.senha() != self.confirmSenha()) {
+      if (isEditMode() && (self.senha() != self.confirmSenha())) {
         console.log("Erro: Os campos de senha estão diferentes!");
         return;
       }
@@ -63,6 +68,9 @@ function(ko, template, bridge) {
             return;
 
           self.nome(response.cliente.nome);
+          self.email(response.cliente.email);
+          self.telefone(response.cliente.telefone);
+          self.senha(response.cliente.senha);
         });
       }
     };
