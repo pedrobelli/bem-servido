@@ -7,7 +7,7 @@ function(ko, template, bridge) {
     self.especialidades = ko.observableArray([]);
 
     self.exclude = function(especialidades) {
-      bridge.del("/api/especialidades" + especialidades.id).then(function(response) {
+      bridge.del("/api/especialidades/" + especialidades.id).then(function(response) {
         init();
       });
     };
@@ -26,7 +26,7 @@ function(ko, template, bridge) {
     };
 
     var init = function() {
-      bridge.get("/api/pessoas").then(function(response) {
+      bridge.get("/api/especialidades").then(function(response) {
         mapResponseToEspecialidades(response.especialidades);
       });
     };

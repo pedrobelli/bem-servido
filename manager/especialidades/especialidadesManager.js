@@ -9,7 +9,7 @@ exports.findAll = function(req, res) {
 exports.find = function(req, res) {
   db.especialidades.find({where: {id:req.param('id')} }).then(function(entity) {
     if(entity) {
-      res.json({Especialidade: entity})
+      res.json({especialidade: entity})
     } else {
       res.send(404)
     }

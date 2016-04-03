@@ -1,5 +1,5 @@
 var db                    =  require('../../models'),
-    especialidadesManager =  require('../../manager/pessoas/prestadores/especialidades/especialidadesManager');
+    especialidadesManager =  require('../../manager/especialidades/especialidadesManager');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {

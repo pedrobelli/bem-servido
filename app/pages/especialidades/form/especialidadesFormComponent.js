@@ -11,14 +11,15 @@ function(ko, template, bridge) {
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
+    self.descricao = ko.observable();
     self.saveButtonText = ko.observable(mode);
     self.pageMode = ko.observable(pageHeaderText);
 
-    slef.validForm = ko.pureComputed(function(){
+    self.validForm = ko.pureComputed(function(){
       return !!self.nome();
     });
 
-    slef.save = function() {
+    self.save = function() {
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
       bridge.post(path, generatePayload()).fail(function(context, errorMessage, serverError) {
@@ -31,7 +32,8 @@ function(ko, template, bridge) {
 
     var generatePayload = function() {
       var payload = {
-        nome : self.nome()
+        nome : self.nome(),
+        descricao : self.descricao()
       };
 
       if(isEditMode()) payload.id = params.id;
@@ -46,6 +48,7 @@ function(ko, template, bridge) {
             return;
 
             self.nome(response.especialidade.nome);
+            self.descricao(response.especialidade.descricao);
         });
       }
     };
