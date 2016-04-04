@@ -13,5 +13,21 @@
     "path"   : "#clientes/edit/:id",
     "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "edit" }
+  },
+
+ {
+    "path"   : "#prestadores",
+    "page"   : "pages/prestadores/prestadoresComponent",
+    "params" : { "name" : "index" }
+  },
+  {
+    "path"   : "#prestadores/new",
+    "page"   : "pages/prestadores/form/prestadoresFormComponent",
+    "params" : { "name" : "new" }
+  },
+  {
+    "path"   : "#prestadores/edit/:id",
+    "page"   : "pages/prestadores/form/prestadoresFormComponent",
+    "params" : { "name" : "edit" }
   }
 ]
