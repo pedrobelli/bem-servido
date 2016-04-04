@@ -5,7 +5,8 @@ var express  = require('express'),
   bodyParser = require('body-parser'),
   morgan     = require('morgan'),
   db         = require('./models'),
-  clientesController    = require('./controller/clientes/clientesController');
+  clientesController    = require('./controller/clientes/clientesController'),
+  especialidadesController = require('./controller/especialidades/especialidadesController');
 
 var path = require('path');
 var app = express();
@@ -36,6 +37,7 @@ function loadRoutes(){
   var apiRoutes = express.Router();
 
   clientesController.loadRoutes("/clientes", apiRoutes);
+  especialidadesController.loadRoutes("/especialidades", apiRoutes);
 
   app.use('/api', apiRoutes);
 

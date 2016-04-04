@@ -1,31 +1,27 @@
-var db = require('../../models'),
+var db                    =  require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {
-    db.clientes.findAll().then(function(entities) {
+    db.especialidades.findAll().then(function(entities) {
       res.statusCode = 200;
-      res.json({clientes: entities})
+      res.json({especialidades: entities})
     }).catch(function(errors) {
       return controllerHelper.writeErrors(res, errors);
     });
   });
 
   apiRoutes.get(endpoint + '/:id', function(req, res) {
-    db.clientes.find({ where: { id: req.param('id') } }).then(function(entity) {
-      // console.log(asd);
-      // var pedro = Object.create(asd.Cliente)
-      // console.log(pedro);
-
+    db.especialidades.find({ where : {id: req.param('id')} }).then(function(entity){
       res.statusCode = 200;
-      res.json({cliente: entity})
+      res.json({especialidade: entity})
     }).catch(function(errors) {
       return controllerHelper.writeErrors(res, errors);
     });
   });
 
   apiRoutes.delete(endpoint + '/:id', function(req, res) {
-    db.clientes.find({ where: { id: req.param('id') } }).then(function(entity) {
+    db.especialidades.find({ where: {id: req.param('id')} }).then(function(entity) {
       entity.destroy().then(function() {
         res.send(204)
       })
@@ -35,7 +31,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
   });
 
   apiRoutes.post(endpoint, function(req, res) {
-    db.clientes.create(req.body).then(function(entity) {
+    db.especialidades.create(req.body).then(function(entity) {
       res.statusCode = 200;
       res.json(entity)
     }).catch(function(errors) {
@@ -44,7 +40,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
   });
 
   apiRoutes.post(endpoint + '/:id', function(req, res) {
-    db.clientes.find({ where: { id: req.param('id') } }).then(function(entity) {
+    db.especialidades.find({ where: {id: req.param('id')} }).then(function(entity) {
       entity.updateAttributes(req.body).then(function(entity) {
         res.statusCode = 200;
         res.json(entity)
