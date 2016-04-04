@@ -4,7 +4,6 @@ function(ko, template, bridge) {
   var viewModel = function(params) {
     var self = this;
 
-    var mode = params.name == 'new' ? "Salvar" : "Editar";
     var pageHeaderText = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
     var CREATE_PATH = "/api/especialidades";
     var UPDATE_PATH = "/api/especialidades/"+params.id;
@@ -12,7 +11,6 @@ function(ko, template, bridge) {
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
     self.descricao = ko.observable();
-    self.saveButtonText = ko.observable(mode);
     self.pageMode = ko.observable(pageHeaderText);
 
     self.validForm = ko.pureComputed(function(){
