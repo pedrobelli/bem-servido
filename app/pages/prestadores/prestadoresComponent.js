@@ -6,8 +6,8 @@ function(ko, template, bridge) {
 
     self.prestadores = ko.observableArray([]);
 
-    self.exclude = function(prestadores){
-      bridge.del("/api/prestadores/"+prestador.id)
+    self.exclude = function(prestador){
+      bridge.del("/api/prestadores/" + prestador.id)
       .then(function(response){
         init();
       });
