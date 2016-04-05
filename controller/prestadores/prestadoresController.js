@@ -1,6 +1,6 @@
 var db = require('../../models'),
     controllerHelper = require('../shared/controllerHelper'),
-    asd = require('../../models/prestador/prestador');
+
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {
@@ -14,10 +14,6 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
   apiRoutes.get(endpoint + '/:id', function(req, res) {
     db.prestadores.find({ where: { id: req.param('id') } }).then(function(entity) {
-      // console.log(asd);
-      // var pedro = Object.create(asd.prestador)
-      // console.log(pedro);
-
       res.statusCode = 200;
       res.json({prestador: entity})
     }).catch(function(errors) {
