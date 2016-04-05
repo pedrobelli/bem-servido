@@ -13,10 +13,6 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
   apiRoutes.get(endpoint + '/:id', function(req, res) {
     db.clientes.find({ where: { id: req.param('id') } }).then(function(entity) {
-      // console.log(asd);
-      // var pedro = Object.create(asd.Cliente)
-      // console.log(pedro);
-
       res.statusCode = 200;
       res.json({cliente: entity})
     }).catch(function(errors) {

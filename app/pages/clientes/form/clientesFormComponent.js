@@ -18,6 +18,7 @@ function(ko, template, bridge) {
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.nome();
+      valid = valid && !!self.email();
 
       if (isEditMode()) {
         valid = valid && !!self.senha();

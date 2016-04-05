@@ -1,7 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
   var Especialidade = sequelize.define('especialidades', {
-
     nome: {
       allowNull: false,
       type: DataTypes.STRING,
@@ -10,9 +9,9 @@ module.exports = function(sequelize, DataTypes) {
     descricao: {
       allowNull: false,
       type: DataTypes.STRING,
-      validate: {len: [10, 500]}
+      validate: {len: [5, 500]}
     }
-    
   });
+
   return Especialidade
 };
