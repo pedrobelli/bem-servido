@@ -1,16 +1,14 @@
 'use strict';
 
-var express  = require('express'),
-  config     = require('./config/config'),
-  bodyParser = require('body-parser'),
-  morgan     = require('morgan'),
-  db         = require('./models'),
-  clientesController    = require('./controller/clientes/clientesController'),
-<<<<<<< HEAD
-  prestadoresController    = require('./controller/prestadores/prestadoresController');
-=======
-  especialidadesController = require('./controller/especialidades/especialidadesController');
->>>>>>> origin
+var express                = require('express'),
+  config                   = require('./config/config'),
+  bodyParser               = require('body-parser'),
+  morgan                   = require('morgan'),
+  db                       = require('./models'),
+  clientesController       = require('./controller/clientes/clientesController'),
+  prestadoresController    = require('./controller/prestadores/prestadoresController'),
+  especialidadesController = require('./controller/especialidades/especialidadesController'),
+  servicosController       = require('./controller/servicos/servicosController');
 
 var path = require('path');
 var app = express();
@@ -41,11 +39,11 @@ function loadRoutes(){
   var apiRoutes = express.Router();
 
   clientesController.loadRoutes("/clientes", apiRoutes);
-<<<<<<< HEAD
+
   prestadoresController.loadRoutes("/prestadores", apiRoutes);
-=======
   especialidadesController.loadRoutes("/especialidades", apiRoutes);
->>>>>>> origin
+
+  servicosController.loadRoutes("/servicos", apiRoutes);
 
   app.use('/api', apiRoutes);
 
