@@ -7,7 +7,7 @@ var express                = require('express'),
   db                       = require('./models'),
   clientesController       = require('./controller/clientes/clientesController'),
   prestadoresController    = require('./controller/prestadores/prestadoresController'),
-  especialidadesController = require('./controller/especialidades/especialidadesController'),
+  especialidadesController = require('./controller/prestadores/especialidadesController'),
   servicosController       = require('./controller/servicos/servicosController');
 
 var path = require('path');

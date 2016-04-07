@@ -17,9 +17,9 @@ function(ko, template, bridge) {
       if(!servicos) return self.servicos([]);
       var servicos = servicos.map(function(servico){
         return {
-          id    : servico.id,
-          nome  : servico.nome,
-          valor : servico.email
+          id        : servico.id,
+          descricao : servico.descricao,
+          valor     : servico.valor
         };
       });
 

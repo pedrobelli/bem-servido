@@ -1,4 +1,4 @@
-var db                    =  require('../../models'),
+var db               =  require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 exports.loadRoutes = function(endpoint, apiRoutes) {

@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 		valor: {
 			allowNull: false,
 			type: DataTypes.DOUBLE,
-			validate: {isNumeric: true}
+			validate: {isFloat: true}
 		}
 	});
 

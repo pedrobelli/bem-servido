@@ -9,12 +9,12 @@ function(ko, template, bridge) {
     var UPDATE_PATH = "/api/servicos/"+params.id;
 
     self.id = ko.observable(params.id);
-    self.nome = ko.observable();
+    self.descricao = ko.observable();
     self.valor = ko.observable();
     self.pageMode = ko.observable(pageHeaderText);
 
     self.validForm = ko.pureComputed(function(){
-      valid = !!self.nome();
+      valid = !!self.descricao();
       valid = valid && !!self.valor();
 
       return valid;
@@ -34,8 +34,8 @@ function(ko, template, bridge) {
 
     var generatePayload = function(){
       var payload = {
-        nome     : self.nome(),
-        valor    : self.valor(),
+        descricao : self.descricao(),
+        valor     : self.valor(),
       };
 
       if(isEditMode()) payload.id = params.id;
@@ -50,7 +50,7 @@ function(ko, template, bridge) {
           if (!response)
             return;
 
-          self.nome(response.servico.nome);
+          self.descricao(response.servico.descricao);
           self.valor(response.servico.valor);
         });
       }

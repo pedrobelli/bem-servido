@@ -14,7 +14,10 @@ function(ko, template, bridge) {
     self.pageMode = ko.observable(pageHeaderText);
 
     self.validForm = ko.pureComputed(function(){
-      return !!self.nome();
+      valid = !!self.nome();
+      valid = valid && !!self.descricao();
+
+      return valid;
     });
 
     self.save = function() {
@@ -30,7 +33,7 @@ function(ko, template, bridge) {
 
     var generatePayload = function() {
       var payload = {
-        nome : self.nome(),
+        nome      : self.nome(),
         descricao : self.descricao()
       };
 

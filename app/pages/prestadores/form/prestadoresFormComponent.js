@@ -15,6 +15,7 @@ function(ko, template, bridge) {
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.nome();
+      valid = valid && !!self.email();
 
       return valid;
     });
@@ -34,8 +35,8 @@ function(ko, template, bridge) {
 
     var generatePayload = function(){
       var payload = {
-        nome     : self.nome(),
-        email    : self.email()
+        nome  : self.nome(),
+        email : self.email()
       };
 
       if(isEditMode()) payload.id = params.id;
