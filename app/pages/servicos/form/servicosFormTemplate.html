@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <p class="center login-form-text" data-bind="text: pageMode"></p>
+  <div class="panel-body">
+
+    <form id="new-service-form" method="post">
+      <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+              <label>Nome:</label>
+              <input data-bind="value: nome" type="text" class="form-control" id="nome" placeholder="Nome">
+            </div>
+
+            <div class="form-group">
+              <label>Valor:</label>
+              <input data-bind="value: valor" type="text" class="form-control" id="valor" placeholder="Valor">
+            </div>
+
+        </div>
+
+      </div>
+
+      <input class="btn btn-primary" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
+    </form>
+
+    <p></p>
+
+    <a class="btn btn-default" href="/#servicos">VOLTAR</a>
+
+  </div>
+</div>
