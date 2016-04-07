@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <p class="center login-form-text" data-bind="text: pageMode"></p>
+  <div class="panel-body">
+
+    <form id="new-user-form" method="post">
+      <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+              <label>Nome:</label>
+              <input data-bind="value: nome" type="text" class="form-control" id="nome" placeholder="Nome">
+            </div>
+
+            <div class="form-group">
+              <label>Email:</label>
+              <input data-bind="value: email" type="text" class="form-control" id="email" placeholder="Email">
+            </div>
+
+
+        </div>
+
+      </div>
+
+      <input class="btn btn-primary" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
+    </form>
+
+    <p></p>
+
+    <a class="btn btn-default" href="/#prestadores">VOLTAR</a>
+
+  </div>
+</div>

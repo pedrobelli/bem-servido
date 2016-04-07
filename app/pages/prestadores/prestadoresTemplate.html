@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+<p class="center login-form-text">Prestadores</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody data-bind="foreach: prestadores">
+    <tr>
+      <th scope="row" data-bind="text: id"></th>
+      <td data-bind="text: nome"></td>
+      <td data-bind="text: email"></td>
+      <td>
+        <a data-bind="attr: {href: '#prestadores/edit/'+id}" class="btn btn-link">EDITAR</a>|
+        <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<a class="btn btn-default" href="#prestadores/new">NOVO</a>

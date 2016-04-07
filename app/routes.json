@@ -14,6 +14,22 @@
     "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "edit" }
   },
+<<<<<<< HEAD
+
+ {
+    "path"   : "#prestadores",
+    "page"   : "pages/prestadores/prestadoresComponent",
+    "params" : { "name" : "index" }
+  },
+  {
+    "path"   : "#prestadores/new",
+    "page"   : "pages/prestadores/form/prestadoresFormComponent",
+    "params" : { "name" : "new" }
+  },
+  {
+    "path"   : "#prestadores/edit/:id",
+    "page"   : "pages/prestadores/form/prestadoresFormComponent",
+=======
   {
     "path"   : "#especialidades",
     "page"   : "pages/especialidades/especialidadesComponent",
@@ -27,6 +43,7 @@
   {
     "path"   : "#especialidades/edit/:id",
     "page"   : "pages/especialidades/form/especialidadesFormComponent",
+>>>>>>> origin
     "params" : { "name" : "edit" }
   }
 ]

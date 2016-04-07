@@ -6,7 +6,11 @@ var express  = require('express'),
   morgan     = require('morgan'),
   db         = require('./models'),
   clientesController    = require('./controller/clientes/clientesController'),
+<<<<<<< HEAD
+  prestadoresController    = require('./controller/prestadores/prestadoresController');
+=======
   especialidadesController = require('./controller/especialidades/especialidadesController');
+>>>>>>> origin
 
 var path = require('path');
 var app = express();
@@ -37,7 +41,11 @@ function loadRoutes(){
   var apiRoutes = express.Router();
 
   clientesController.loadRoutes("/clientes", apiRoutes);
+<<<<<<< HEAD
+  prestadoresController.loadRoutes("/prestadores", apiRoutes);
+=======
   especialidadesController.loadRoutes("/especialidades", apiRoutes);
+>>>>>>> origin
 
   app.use('/api', apiRoutes);
 
