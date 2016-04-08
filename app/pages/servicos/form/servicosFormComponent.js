@@ -1,5 +1,5 @@
-define(['ko', 'text!./servicosFormTemplate.html', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize'],
+function(ko, template, bridge, $, materialize) {
 
   var viewModel = function(params) {
     var self = this;
@@ -11,11 +11,15 @@ function(ko, template, bridge) {
     self.id = ko.observable(params.id);
     self.descricao = ko.observable();
     self.valor = ko.observable();
+    self.especialidade = ko.observable();
     self.pageMode = ko.observable(pageHeaderText);
+
+    self.especialidades = ko.observableArray([]);
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.descricao();
       valid = valid && !!self.valor();
+      valid = valid && !!self.especialidade();
 
       return valid;
     });
@@ -34,8 +38,9 @@ function(ko, template, bridge) {
 
     var generatePayload = function(){
       var payload = {
-        descricao : self.descricao(),
-        valor     : self.valor(),
+        descricao     : self.descricao(),
+        valor         : self.valor(),
+        especialidadeId : self.especialidade()
       };
 
       if(isEditMode()) payload.id = params.id;
@@ -44,20 +49,39 @@ function(ko, template, bridge) {
     };
 
     var init = function(){
-      if (isEditMode()) {
-        bridge.get("/api/servicos/"+params.id)
-        .then(function(response){
-          if (!response)
-            return;
-
-          self.descricao(response.servico.descricao);
-          self.valor(response.servico.valor);
+      bridge.get("/api/servicos/form_options")
+      .then(function(response){
+        var especialidades = response.especialidades.map(function(especialidade){
+          return {
+            id   : especialidade.id,
+            nome : especialidade.nome
+          }
         });
-      }
+
+        self.especialidades(especialidades);
+      })
+      .then(function(){
+        if (isEditMode()) {
+          return bridge.get("/api/servicos/get/"+params.id)
+          .then(function(response){
+            if (!response)
+              return;
+
+            self.descricao(response.servico.descricao);
+            self.valor(response.servico.valor);
+            self.especialidade(response.servico.especialidadeId);
+          });
+        }
+
+      })
+      .then(function(){
+        $('select').material_select();
+      });
+
     };
 
     var isEditMode = function(){
-        return params.name == "edit"
+      return params.name == "edit"
     }
 
     init();

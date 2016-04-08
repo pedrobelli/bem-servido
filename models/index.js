@@ -26,6 +26,9 @@ Object.keys(db).forEach(function (modelName) {
   }
 });
 
+db['servicos'].belongsTo(db['especialidades'], { foreignKey: { allowNull: false } });
+db['servicos'].belongsToMany(db['prestadores'], { through: 'prestador_servicos' });
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
