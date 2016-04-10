@@ -9,6 +9,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.index(req, res);
   });
 
+  apiRoutes.get(endpoint + '/query/:query', function(req, res) {
+    return self.index(req, res);
+  });
+
   apiRoutes.get(endpoint + '/get/:id', function(req, res) {
     return self.get(req, res);
   });
@@ -32,11 +36,20 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.prestadores.All(t);
+    query = req.param('query');
+
+    if (!!query) {
+      return db.prestadores.Search(t, query);
+    } else {
+      return db.prestadores.All(t);
+    }
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ prestadores: entities });
+    res.json({
+      prestadores: entities,
+      placeholderOptions: ["Nome"],
+    });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -47,12 +60,12 @@ self.get = function(req, res) {
   return sequelize.transaction(function(t) {
     return db.prestadores.Get(t, req.param('id')).then(function(prestador) {
       prestadorDecorator.model = prestador
-      prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(servicos) {
+      return prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(servicos) {
         prestadorDecorator.servicos = servicos;
-      });
-      return prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(especialidades) {
-        prestadorDecorator.especialidades = especialidades;
-        return prestadorDecorator
+        return prestador.getEspecialidades({attributes: ['id']}, { transaction: t }).then(function(especialidades) {
+          prestadorDecorator.especialidades = especialidades;
+          return prestadorDecorator
+        });
       });
     });
 

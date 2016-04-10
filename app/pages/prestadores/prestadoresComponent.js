@@ -1,10 +1,14 @@
-define(['ko', 'text!./prestadoresTemplate.html', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!./prestadoresTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/search/searchComponent'],
+function(ko, template, bridge, $, materialize, searchComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
     self.prestadores = ko.observableArray([]);
+
+    searchComponent.subscribe("/api/prestadores/query", function(response){
+      mapResponseToPrestadores(response.prestadores);
+    });
 
     self.exclude = function(prestador){
       bridge.del("/api/prestadores/" + prestador.id)
@@ -30,6 +34,7 @@ function(ko, template, bridge, $, materialize) {
       bridge.get("/api/prestadores")
       .then(function(response){
         mapResponseToPrestadores(response.prestadores);
+        searchComponent.setPlaceholderText(response.placeholderOptions);
       });
     };
 
