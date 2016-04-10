@@ -1,46 +1,50 @@
-<div class="panel panel-default">
   <p class="center login-form-text" data-bind="text: pageMode"></p>
-  <div class="panel-body">
 
-    <form id="new-user-form" method="post">
+<form id="new-customer-form" method="post">
+  <div class="row">
+    <div class="col s12">
+
       <div class="row">
-        <div class="col-md-12">
-
-            <div class="form-group">
-              <label>Nome:</label>
-              <input data-bind="value: nome" type="text" class="form-control" id="nome" placeholder="Nome">
-            </div>
-
-            <div class="form-group">
-              <label>Email:</label>
-              <input data-bind="value: email" type="text" class="form-control" id="email" placeholder="Email">
-            </div>
-
-            <div class="form-group">
-              <label>Telefone:</label>
-              <input data-bind="value: telefone" type="text" class="form-control" id="telefone" placeholder="Telefone">
-            </div>
-
-            <div class="form-group">
-              <label>Senha:</label>
-              <input data-bind="value: senha" type="password" class="form-control" id="senha">
-            </div>
-
-            <div class="form-group">
-              <label>Confirmar Senha:</label>
-              <input data-bind="value: confirmSenha" type="password" class="form-control" id="confirmSenha">
-            </div>
-
+        <div class="col s12">
+          <label>Nome:</label>
+          <input data-bind="value: nome" type="text" id="nome" placeholder="Nome">
         </div>
-
       </div>
 
-      <input class="btn btn-primary" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
-    </form>
+      <div class="row">
+        <div class="col s12">
+          <label>Email:</label>
+          <input data-bind="value: email" type="text" id="email" placeholder="Email">
+        </div>
+      </div>
 
-    <p></p>
+      <div class="row">
+        <div class="col s12">
+          <label>Telefone:</label>
+          <input data-bind="value: telefone" type="text" id="telefone" placeholder="Telefone">
+        </div>
+      </div>
 
-    <a class="btn btn-default" href="/#clientes">VOLTAR</a>
+      <div class="row">
+        <div class="col s12">
+          <label>Senha:</label>
+          <input data-bind="value: senha" type="password" id="senha">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label>Confirmar Senha:</label>
+          <input data-bind="value: confirmSenha" type="password" id="confirmSenha">
+        </div>
+      </div>
+
+    </div>
 
   </div>
-</div>
+
+  <input class="btn" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
+</form>
+
+<p></p>
+<a class="btn" href="/#clientes">VOLTAR</a>

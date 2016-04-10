@@ -1,12 +1,12 @@
-define(['ko', 'text!./clientesFormTemplate.html', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize'],
+function(ko, template, bridge, $, materialize) {
 
   var viewModel = function(params) {
     var self = this;
 
     var pageHeaderText = params.name == 'new' ? 'Novo Cliente' : 'Editar Cliente';
-    var CREATE_PATH = "/api/clientes";
-    var UPDATE_PATH = "/api/clientes/"+params.id;
+    var CREATE_PATH = "/api/clientes/new";
+    var UPDATE_PATH = "/api/clientes/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -18,6 +18,7 @@ function(ko, template, bridge) {
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.nome();
+      valid = valid && !!self.email();
 
       if (isEditMode()) {
         valid = valid && !!self.senha();
@@ -26,7 +27,6 @@ function(ko, template, bridge) {
       }
       return valid;
     });
-
 
     self.save = function(){
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
@@ -60,7 +60,7 @@ function(ko, template, bridge) {
 
     var init = function(){
       if (isEditMode()) {
-        bridge.get("/api/clientes/"+params.id)
+        bridge.get("/api/clientes/get/"+params.id)
         .then(function(response){
           if (!response)
             return;

@@ -14,9 +14,7 @@
     "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "edit" }
   },
-<<<<<<< HEAD
-
- {
+  {
     "path"   : "#prestadores",
     "page"   : "pages/prestadores/prestadoresComponent",
     "params" : { "name" : "index" }
@@ -29,21 +27,36 @@
   {
     "path"   : "#prestadores/edit/:id",
     "page"   : "pages/prestadores/form/prestadoresFormComponent",
-=======
+    "params" : { "name" : "edit" }
+  },
   {
     "path"   : "#especialidades",
-    "page"   : "pages/especialidades/especialidadesComponent",
+    "page"   : "pages/prestadores/especialidadesComponent",
     "params" : { "name" : "index" }
   },
   {
     "path"   : "#especialidades/new",
-    "page"   : "pages/especialidades/form/especialidadesFormComponent",
+    "page"   : "pages/prestadores/form/especialidadesFormComponent",
     "params" : { "name" : "new" }
   },
   {
     "path"   : "#especialidades/edit/:id",
-    "page"   : "pages/especialidades/form/especialidadesFormComponent",
->>>>>>> origin
+    "page"   : "pages/prestadores/form/especialidadesFormComponent",
+    "params" : { "name" : "edit" }
+  },
+  {
+    "path"   : "#servicos",
+    "page"   : "pages/servicos/servicosComponent",
+    "params" : { "name" : "index" }
+  },
+  {
+    "path"   : "#servicos/new",
+    "page"   : "pages/servicos/form/servicosFormComponent",
+    "params" : { "name" : "new" }
+  },
+  {
+    "path"   : "#servicos/edit/:id",
+    "page"   : "pages/servicos/form/servicosFormComponent",
     "params" : { "name" : "edit" }
   }
 ]

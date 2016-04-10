@@ -24,15 +24,19 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
     return self.update(req, res);
   });
+
+  apiRoutes.get(endpoint + '/form_options', function(req, res) {
+    return self.formOptions(req, res);
+  });
 }
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.All(t);
+    return db.servicos.All(t);
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ clientes: entities });
+    res.json({ servicos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -40,11 +44,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Get(t, req.param('id'));
+    return db.servicos.Get(t, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ cliente: entity });
+    res.json({ servico: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -52,7 +56,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Destroy(t, req.param('id'));
+    return db.servicos.Destroy(t, req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -63,11 +67,11 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Create(t, req);
+    return db.servicos.Create(t, req);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ cliente: entity });
+    res.json({ servico: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -75,12 +79,27 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Update(t, req);
+    return db.servicos.Update(t, req);
 
   }).then(function(entity) {
     console.log(entity);
     res.statusCode = 200;
-    res.json({ cliente: entity });
+    res.json({ servico: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.formOptions = function(req, res) {
+  var options = {}
+  return sequelize.transaction(function(t) {
+    return db.especialidades.All(t).then(function(entities) {
+      options.especialidades = entities;
+    });
+
+  }).then(function() {
+    res.statusCode = 200;
+    res.json(options);
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

@@ -26,6 +26,15 @@ Object.keys(db).forEach(function (modelName) {
   }
 });
 
+db['servicos'].belongsTo(db['especialidades'], { foreignKey: { allowNull: false } });
+db['especialidades'].hasMany(db['servicos'], { foreignKey: { allowNull: false } });
+
+db['servicos'].belongsToMany(db['prestadores'], { through: 'prestador_servicos' });
+db['prestadores'].belongsToMany(db['servicos'], { through: 'prestador_servicos' });
+
+db['especialidades'].belongsToMany(db['prestadores'], { through: 'prestador_especialidades' });
+db['prestadores'].belongsToMany(db['especialidades'], { through: 'prestador_especialidades' });
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

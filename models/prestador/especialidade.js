@@ -1,17 +1,17 @@
 module.exports = function(sequelize, DataTypes) {
 
-	var Prestador = sequelize.define('prestadores', {
-		nome: {
-			allowNull: false,
-			type: DataTypes.STRING,
-			validate: {len: [3, 100]}
-		},
-		email: {
-			allowNull: false,
-			type: DataTypes.STRING,
-			validate: {isEmail: true}
-		}
-	}, {
+  var Especialidade = sequelize.define('especialidades', {
+    nome: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {len: [3, 50]}
+    },
+    descricao: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {len: [5, 500]}
+    }
+  }, {
 		classMethods: {
 			All: function(t){
 				return this.findAll({transaction: t});
@@ -31,9 +31,14 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: req.param('id') } }, {transaction: t}).then(function(entity) {
 		      return entity.updateAttributes(req.body, {transaction: t});
 		    });
+			},
+			FindByServicos: function(t, servico, servicoIds){
+				return this.findAll({ include: [ { model: servico, where: {
+           id: JSON.parse(servicoIds)
+        } } ], transaction: t })
 			}
 		}
-	});
+  });
 
-	return Prestador;
+  return Especialidade
 };

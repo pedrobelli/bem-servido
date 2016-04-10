@@ -1,12 +1,12 @@
-define(['ko', 'text!./especialidadesFormTemplate.html', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!./especialidadesFormTemplate.html', 'bridge', 'jquery', 'materialize'],
+function(ko, template, bridge, $, materialize) {
 
   var viewModel = function(params) {
     var self = this;
 
     var pageHeaderText = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
-    var CREATE_PATH = "/api/especialidades";
-    var UPDATE_PATH = "/api/especialidades/"+params.id;
+    var CREATE_PATH = "/api/especialidades/new";
+    var UPDATE_PATH = "/api/especialidades/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -14,7 +14,10 @@ function(ko, template, bridge) {
     self.pageMode = ko.observable(pageHeaderText);
 
     self.validForm = ko.pureComputed(function(){
-      return !!self.nome();
+      valid = !!self.nome();
+      valid = valid && !!self.descricao();
+
+      return valid;
     });
 
     self.save = function() {
@@ -30,7 +33,7 @@ function(ko, template, bridge) {
 
     var generatePayload = function() {
       var payload = {
-        nome : self.nome(),
+        nome      : self.nome(),
         descricao : self.descricao()
       };
 
@@ -41,7 +44,7 @@ function(ko, template, bridge) {
 
     var init = function() {
       if (isEditMode()) {
-        bridge.get("/api/especialidades/"+params.id).then(function(response) {
+        bridge.get("/api/especialidades/get/"+params.id).then(function(response) {
           if(!response)
             return;
 

@@ -1,0 +1,40 @@
+<p class="center login-form-text" data-bind="text: pageMode"></p>
+
+<form id="new-service-form" method="post">
+  <div class="row">
+    <div class="col s12">
+
+      <div class="row">
+        <div class="col s12">
+          <label for="descricao">Descrição:</label>
+          <input placeholder="Descrição" data-bind="value: descricao" type="text" id="descricao">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label>Valor:</label>
+          <input data-bind="value: valor" type="text" id="valor" placeholder="Valor">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label>Especialidade:</label>
+          <select data-bind="value: especialidade" id="especialidade">
+            <option value="" disabled>Especialidades</option>
+            <!-- ko foreach: $data.especialidades -->
+            <option data-bind="value: $data.id, text: $data.nome"></option>
+            <!-- /ko -->
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <input class="btn" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
+</form>
+
+<p></p>
+<a class="btn" href="/#servicos">VOLTAR</a>
