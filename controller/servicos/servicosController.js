@@ -2,36 +2,36 @@ var db               = require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
+var self = {};
 
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {
-    return index(req, res);
+    return self.index(req, res);
   });
 
   apiRoutes.get(endpoint + '/get/:id', function(req, res) {
-    return get(req, res);
+    return self.get(req, res);
   });
 
   apiRoutes.delete(endpoint + '/:id', function(req, res) {
-    return destroy(req, res);
+    return self.destroy(req, res);
   });
 
-  apiRoutes.post(endpoint, function(req, res) {
-    return create(req, res);
+  apiRoutes.post(endpoint + '/new', function(req, res) {
+    return self.create(req, res);
   });
 
-  apiRoutes.post(endpoint + '/:id', function(req, res) {
-    return update(req, res);
+  apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
+    return self.update(req, res);
   });
 
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
-    return formOptions(req, res);
+    return self.formOptions(req, res);
   });
 }
 
-index = function(req, res) {
+self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-
     return db.servicos.All(t);
 
   }).then(function(entities) {
@@ -42,10 +42,9 @@ index = function(req, res) {
   });
 }
 
-get = function(req, res) {
+self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-
-    return db.servicos.Get(t, req);
+    return db.servicos.Get(t, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -55,10 +54,9 @@ get = function(req, res) {
   });
 }
 
-destroy = function(req, res) {
+self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-
-    return db.servicos.Destroy(t, req);
+    return db.servicos.Destroy(t, req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -67,9 +65,8 @@ destroy = function(req, res) {
   });
 }
 
-create = function(req, res) {
+self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-
     return db.servicos.Create(t, req);
 
   }).then(function(entity) {
@@ -80,12 +77,12 @@ create = function(req, res) {
   });
 }
 
-update = function(req, res) {
+self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-
     return db.servicos.Update(t, req);
 
   }).then(function(entity) {
+    console.log(entity);
     res.statusCode = 200;
     res.json({ servico: entity });
   }).catch(function(errors) {
@@ -93,10 +90,9 @@ update = function(req, res) {
   });
 }
 
-formOptions = function(req, res) {
+self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-
     return db.especialidades.All(t).then(function(entities) {
       options.especialidades = entities;
     });

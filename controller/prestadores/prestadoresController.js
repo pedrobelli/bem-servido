@@ -1,52 +1,110 @@
 var db               = require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
+var sequelize = controllerHelper.createSequelizeInstance();
+var self = {};
+
 exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.get(endpoint, function(req, res) {
-    db.prestadores.findAll().then(function(entities) {
-      res.statusCode = 200;
-      res.json({prestadores: entities})
-    }).catch(function(errors) {
-      return controllerHelper.writeErrors(res, errors);
-    });
+    return self.index(req, res);
   });
 
-  apiRoutes.get(endpoint + '/:id', function(req, res) {
-    db.prestadores.find({ where: { id: req.param('id') } }).then(function(entity) {
-      res.statusCode = 200;
-      res.json({prestador: entity})
-    }).catch(function(errors) {
-      return controllerHelper.writeErrors(res, errors);
-    });
+  apiRoutes.get(endpoint + '/get/:id', function(req, res) {
+    return self.get(req, res);
   });
 
   apiRoutes.delete(endpoint + '/:id', function(req, res) {
-    db.prestadores.find({ where: { id: req.param('id') } }).then(function(entity) {
-      entity.destroy().then(function() {
-        res.send(204)
-      })
-    }).catch(function(errors) {
-      return controllerHelper.writeErrors(res, errors);
-    });
+    return self.destroy(req, res);
   });
 
-  apiRoutes.post(endpoint, function(req, res) {
-    db.prestadores.create(req.body).then(function(entity) {
-      res.statusCode = 200;
-      res.json(entity)
-    }).catch(function(errors) {
-      return controllerHelper.writeErrors(res, errors);
-    });
+  apiRoutes.post(endpoint + '/new', function(req, res) {
+    return self.create(req, res);
   });
 
-  apiRoutes.post(endpoint + '/:id', function(req, res) {
-    db.prestadores.find({ where: { id: req.param('id') } }).then(function(entity) {
-      entity.updateAttributes(req.body).then(function(entity) {
-        res.statusCode = 200;
-        res.json(entity)
-      })
-    }).catch(function(errors) {
-      return controllerHelper.writeErrors(res, errors);
+  apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
+    return self.update(req, res);
+  });
+
+  apiRoutes.get(endpoint + '/form_options', function(req, res) {
+    return self.formOptions(req, res);
+  });
+}
+
+self.index = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return db.prestadores.All(t);
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ prestadores: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.get = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return db.prestadores.Get(t, req.param('id'));
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ prestador: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.destroy = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return db.prestadores.Destroy(t, req.param('id'));
+
+  }).then(function(entity) {
+    res.send(204)
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.create = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return db.prestadores.Create(t, req).then(function(prestador) {
+      prestador.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
+      return prestador.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
+        return prestador;
+      });
     });
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ prestador: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.update = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return db.prestadores.Update(t, req);
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ prestador: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.formOptions = function(req, res) {
+  var options = {}
+  return sequelize.transaction(function(t) {
+    return db.servicos.All(t).then(function(entities) {
+      options.servicos = entities;
+    });
+
+  }).then(function() {
+    res.statusCode = 200;
+    res.json(options);
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
   });
 }

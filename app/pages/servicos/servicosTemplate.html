@@ -1,28 +1,26 @@
-<div class="panel panel-default">
 <p class="center login-form-text">Serviços</p>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nome</th>
-        <th>Valor</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-
-    <tbody data-bind="foreach: servicos">
+<table class="table">
+  <thead>
     <tr>
-      <th scope="row" data-bind="text: id"></th>
-      <td data-bind="text: descricao"></td>
-      <td data-bind="text: valor"></td>
-      <td>
-        <a data-bind="attr: {href: '#servicos/edit/'+id}" class="btn btn-link">EDITAR</a>|
-        <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>
-      </td>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Valor</th>
+      <th>Ações</th>
     </tr>
-    </tbody>
-  </table>
-</div>
+  </thead>
 
-<a class="btn btn-default" href="#servicos/new">NOVO</a>
+  <tbody data-bind="foreach: servicos">
+  <tr>
+    <th scope="row" data-bind="text: id"></th>
+    <td data-bind="text: descricao"></td>
+    <td data-bind="text: valor"></td>
+    <td>
+      <a data-bind="attr: {href: '#servicos/edit/'+id}" class="btn">EDITAR</a>|
+      <a data-bind="click: $component.exclude" class="btn">EXCLUIR</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<a class="btn" href="#servicos/new">NOVO</a>

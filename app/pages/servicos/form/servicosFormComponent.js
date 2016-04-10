@@ -5,8 +5,8 @@ function(ko, template, bridge, $, materialize) {
     var self = this;
 
     var pageHeaderText = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
-    var CREATE_PATH = "/api/servicos";
-    var UPDATE_PATH = "/api/servicos/"+params.id;
+    var CREATE_PATH = "/api/servicos/new";
+    var UPDATE_PATH = "/api/servicos/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.descricao = ko.observable();

@@ -1,5 +1,5 @@
-define(['ko', 'text!./servicosTemplate.html', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!./servicosTemplate.html', 'bridge', 'jquery', 'materialize'],
+function(ko, template, bridge, $, materialize) {
 
   var viewModel = function(params) {
     var self = this;

@@ -2,8 +2,8 @@
 
 <form id="new-service-form" method="post">
   <div class="row">
-
     <div class="col s12">
+
       <div class="row">
         <div class="col s12">
           <label for="descricao">Descrição:</label>
@@ -22,7 +22,7 @@
         <div class="col s12">
           <label>Especialidade:</label>
           <select data-bind="value: especialidade" id="especialidade">
-            <option value="">Especialidades</option>
+            <option value="" disabled>Especialidades</option>
             <!-- ko foreach: $data.especialidades -->
             <option data-bind="value: $data.id, text: $data.nome"></option>
             <!-- /ko -->
@@ -33,9 +33,8 @@
     </div>
   </div>
 
-  <input class="btn btn-primary" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
+  <input class="btn" type="submit" data-bind="css: { disabled : !validForm() }, click: save" value="SALVAR">
 </form>
 
 <p></p>
-
-<a class="btn btn-default" href="/#servicos">VOLTAR</a>
+<a class="btn" href="/#servicos">VOLTAR</a>
