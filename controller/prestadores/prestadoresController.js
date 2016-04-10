@@ -43,8 +43,18 @@ self.index = function(req, res) {
 }
 
 self.get = function(req, res) {
+  prestadorDecorator = {}
   return sequelize.transaction(function(t) {
-    return db.prestadores.Get(t, req.param('id'));
+    return db.prestadores.Get(t, req.param('id')).then(function(prestador) {
+      prestadorDecorator.model = prestador
+      prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(servicos) {
+        prestadorDecorator.servicos = servicos;
+      });
+      return prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(especialidades) {
+        prestadorDecorator.especialidades = especialidades;
+        return prestadorDecorator
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -84,7 +94,12 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.prestadores.Update(t, req);
+    return db.prestadores.Update(t, req).then(function(prestador) {
+      prestador.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
+      return prestador.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
+        return prestador;
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;

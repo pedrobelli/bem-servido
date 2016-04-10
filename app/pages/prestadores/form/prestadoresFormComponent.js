@@ -28,26 +28,8 @@ function(ko, template, bridge, $, materialize) {
     });
 
     self.servicosSelecionadosChange = ko.computed(function(){
-      if (!!self.servicosSelecionados() && self.servicosSelecionados().length > 0) {
-        bridge.post('/api/especialidades/by_servicos', { servicos : JSON.stringify(self.servicosSelecionados()) })
-        .fail(function(context, errorMessage, serverError){
-          console.log("Erros: ", context.errors);
-        })
-        .done(function(response){
-          var especialidades = ""
-          var especialidadesSelecionadas = []
-
-          response.especialidades.forEach(function(especialidade) {
-            especialidades += especialidade.nome+", "
-            especialidadesSelecionadas.push(especialidade.id)
-          });
-
-          self.especialidades(especialidades);
-          self.especialidadesSelecionadas(especialidadesSelecionadas);
-        });
-      } else {
-        self.especialidades(undefined);
-        self.especialidadesSelecionadas(undefined);
+      if (!!self.servicosSelecionados()) {
+        selectEspecialidades(self.servicosSelecionados());
       }
     });
 
@@ -76,6 +58,30 @@ function(ko, template, bridge, $, materialize) {
       return payload;
     };
 
+    var selectEspecialidades = function(servicos){
+      if (!!servicos && servicos.length > 0) {
+        bridge.post('/api/especialidades/by_servicos', { servicos : JSON.stringify(servicos) })
+        .fail(function(context, errorMessage, serverError){
+          console.log("Erros: ", context.errors);
+        })
+        .done(function(response){
+          var especialidades = ""
+          var especialidadesSelecionadas = []
+
+          response.especialidades.forEach(function(especialidade) {
+            especialidades += especialidade.nome+", "
+            especialidadesSelecionadas.push(especialidade.id)
+          });
+
+          self.especialidades(especialidades);
+          self.especialidadesSelecionadas(especialidadesSelecionadas);
+        });
+      } else {
+        self.especialidades(undefined);
+        self.especialidadesSelecionadas(undefined);
+      }
+    };
+
     var init = function(){
       bridge.get("/api/prestadores/form_options")
       .then(function(response){
@@ -90,14 +96,19 @@ function(ko, template, bridge, $, materialize) {
       })
       .then(function(){
         if (isEditMode()) {
-          bridge.get("/api/prestadores/get/"+params.id)
+          return bridge.get("/api/prestadores/get/"+params.id)
           .then(function(response){
             if (!response)
               return;
 
-            self.nome(response.prestador.nome);
-            self.email(response.prestador.email);
+            servicosSelecionados = [];
+            response.prestador.servicos.forEach(function(servico) {
+              servicosSelecionados.push(servico.id);
+            });
 
+            self.nome(response.prestador.model.nome);
+            self.email(response.prestador.model.email);
+            self.servicosSelecionados(servicosSelecionados);
           });
         }
       })
