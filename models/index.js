@@ -29,11 +29,11 @@ Object.keys(db).forEach(function (modelName) {
 db['servicos'].belongsTo(db['especialidades'], { foreignKey: { allowNull: false } });
 db['especialidades'].hasMany(db['servicos'], { foreignKey: { allowNull: false } });
 
-db['servicos'].belongsToMany(db['prestadores'], { through: 'prestador_servicos' });
-db['prestadores'].belongsToMany(db['servicos'], { through: 'prestador_servicos' });
+db['servicos'].belongsToMany(db['funcionarios'], { through: 'funcionario_servicos' });
+db['funcionarios'].belongsToMany(db['servicos'], { through: 'funcionario_servicos' });
 
-db['especialidades'].belongsToMany(db['prestadores'], { through: 'prestador_especialidades' });
-db['prestadores'].belongsToMany(db['especialidades'], { through: 'prestador_especialidades' });
+db['especialidades'].belongsToMany(db['funcionarios'], { through: 'funcionario_especialidades' });
+db['funcionarios'].belongsToMany(db['especialidades'], { through: 'funcionario_especialidades' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

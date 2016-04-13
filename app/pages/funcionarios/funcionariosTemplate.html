@@ -1,4 +1,4 @@
-<p class="center login-form-text">Prestadores</p>
+<p class="center login-form-text">Funcionarios</p>
 
 <div data-bind="component: { name: 'search-component' }"></div>
 
@@ -12,17 +12,17 @@
     </tr>
   </thead>
 
-  <tbody data-bind="foreach: prestadores">
+  <tbody data-bind="foreach: funcionarios">
   <tr>
     <th scope="row" data-bind="text: id"></th>
     <td data-bind="text: nome"></td>
     <td data-bind="text: email"></td>
     <td>
-      <a data-bind="attr: {href: '#prestadores/edit/'+id}" class="btn">EDITAR</a>|
+      <a data-bind="attr: {href: '#funcionarios/edit/'+id}" class="btn">EDITAR</a>|
       <a data-bind="click: $component.exclude" class="btn">EXCLUIR</a>
     </td>
   </tr>
   </tbody>
 </table>
 
-<a class="btn" href="#prestadores/new">NOVO</a>
+<a class="btn" href="#funcionarios/new">NOVO</a>

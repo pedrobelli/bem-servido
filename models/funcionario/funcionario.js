@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
-	var Prestador = sequelize.define('prestadores', {
+	var Funcionario = sequelize.define('funcionarios', {
 		nome: {
 			allowNull: false,
 			type: DataTypes.STRING,
@@ -40,5 +40,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	});
 
-	return Prestador;
+	return Funcionario;
 };
