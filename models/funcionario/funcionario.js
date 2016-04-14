@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
-	var Prestador = sequelize.define('prestadores', {
+	var Funcionario = sequelize.define('funcionarios', {
 		nome: {
 			allowNull: false,
 			type: DataTypes.STRING,
@@ -15,6 +15,11 @@ module.exports = function(sequelize, DataTypes) {
 		classMethods: {
 			All: function(t){
 				return this.findAll({transaction: t});
+			},
+			Search: function(t, query){
+				return this.findAll({ where: { nome: {
+					$like: '%'+query+'%'
+				} }, transaction: t});
 			},
 			Get: function(t, id){
 				return this.find({ where: { id: id } }, {transaction: t});
@@ -35,5 +40,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	});
 
-	return Prestador;
+	return Funcionario;
 };

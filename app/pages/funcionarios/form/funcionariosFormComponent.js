@@ -1,12 +1,12 @@
-define(['ko', 'text!./prestadoresFormTemplate.html', 'bridge', 'jquery', 'materialize'],
+define(['ko', 'text!./funcionariosFormTemplate.html', 'bridge', 'jquery', 'materialize'],
 function(ko, template, bridge, $, materialize) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var pageHeaderText = params.name == 'new' ? 'Novo Prestador' : 'Editar Prestador';
-    var CREATE_PATH = "/api/prestadores/new";
-    var UPDATE_PATH = "/api/prestadores/edit/"+params.id;
+    var pageHeaderText = params.name == 'new' ? 'Novo Funcionario' : 'Editar Funcionario';
+    var CREATE_PATH = "/api/funcionarios/new";
+    var UPDATE_PATH = "/api/funcionarios/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -41,7 +41,7 @@ function(ko, template, bridge, $, materialize) {
         console.log("Erros: ", context.errors);
       })
       .done(function(){
-        window.location.hash = "prestadores"
+        window.location.hash = "funcionarios"
       });
     };
 
@@ -83,7 +83,7 @@ function(ko, template, bridge, $, materialize) {
     };
 
     var init = function(){
-      bridge.get("/api/prestadores/form_options")
+      bridge.get("/api/funcionarios/form_options")
       .then(function(response){
         var servicos = response.servicos.map(function(servico){
           return {
@@ -96,18 +96,18 @@ function(ko, template, bridge, $, materialize) {
       })
       .then(function(){
         if (isEditMode()) {
-          return bridge.get("/api/prestadores/get/"+params.id)
+          return bridge.get("/api/funcionarios/get/"+params.id)
           .then(function(response){
             if (!response)
               return;
 
             servicosSelecionados = [];
-            response.prestador.servicos.forEach(function(servico) {
+            response.funcionario.servicos.forEach(function(servico) {
               servicosSelecionados.push(servico.id);
             });
 
-            self.nome(response.prestador.model.nome);
-            self.email(response.prestador.model.email);
+            self.nome(response.funcionario.model.nome);
+            self.email(response.funcionario.model.email);
             self.servicosSelecionados(servicosSelecionados);
           });
         }
@@ -129,7 +129,7 @@ function(ko, template, bridge, $, materialize) {
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Prestadores form"
+      return "Funcionarios form"
     }
   };
 });

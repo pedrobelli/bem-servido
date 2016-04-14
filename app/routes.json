@@ -15,33 +15,33 @@
     "params" : { "name" : "edit" }
   },
   {
-    "path"   : "#prestadores",
-    "page"   : "pages/prestadores/prestadoresComponent",
+    "path"   : "#funcionarios",
+    "page"   : "pages/funcionarios/funcionariosComponent",
     "params" : { "name" : "index" }
   },
   {
-    "path"   : "#prestadores/new",
-    "page"   : "pages/prestadores/form/prestadoresFormComponent",
+    "path"   : "#funcionarios/new",
+    "page"   : "pages/funcionarios/form/funcionariosFormComponent",
     "params" : { "name" : "new" }
   },
   {
-    "path"   : "#prestadores/edit/:id",
-    "page"   : "pages/prestadores/form/prestadoresFormComponent",
+    "path"   : "#funcionarios/edit/:id",
+    "page"   : "pages/funcionarios/form/funcionariosFormComponent",
     "params" : { "name" : "edit" }
   },
   {
     "path"   : "#especialidades",
-    "page"   : "pages/prestadores/especialidadesComponent",
+    "page"   : "pages/funcionarios/especialidadesComponent",
     "params" : { "name" : "index" }
   },
   {
     "path"   : "#especialidades/new",
-    "page"   : "pages/prestadores/form/especialidadesFormComponent",
+    "page"   : "pages/funcionarios/form/especialidadesFormComponent",
     "params" : { "name" : "new" }
   },
   {
     "path"   : "#especialidades/edit/:id",
-    "page"   : "pages/prestadores/form/especialidadesFormComponent",
+    "page"   : "pages/funcionarios/form/especialidadesFormComponent",
     "params" : { "name" : "edit" }
   },
   {

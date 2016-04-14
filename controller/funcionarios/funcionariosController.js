@@ -9,6 +9,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.index(req, res);
   });
 
+  apiRoutes.get(endpoint + '/query/:query', function(req, res) {
+    return self.index(req, res);
+  });
+
   apiRoutes.get(endpoint + '/get/:id', function(req, res) {
     return self.get(req, res);
   });
@@ -32,33 +36,42 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.prestadores.All(t);
+    query = req.param('query');
+
+    if (!!query) {
+      return db.funcionarios.Search(t, query);
+    } else {
+      return db.funcionarios.All(t);
+    }
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ prestadores: entities });
+    res.json({
+      funcionarios: entities,
+      placeholderOptions: ["Nome"],
+    });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
 }
 
 self.get = function(req, res) {
-  prestadorDecorator = {}
+  funcionarioDecorator = {}
   return sequelize.transaction(function(t) {
-    return db.prestadores.Get(t, req.param('id')).then(function(prestador) {
-      prestadorDecorator.model = prestador
-      prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(servicos) {
-        prestadorDecorator.servicos = servicos;
-      });
-      return prestador.getServicos({attributes: ['id']}, { transaction: t }).then(function(especialidades) {
-        prestadorDecorator.especialidades = especialidades;
-        return prestadorDecorator
+    return db.funcionarios.Get(t, req.param('id')).then(function(funcionario) {
+      funcionarioDecorator.model = funcionario
+      return funcionario.getServicos({attributes: ['id']}, { transaction: t }).then(function(servicos) {
+        funcionarioDecorator.servicos = servicos;
+        return funcionario.getEspecialidades({attributes: ['id']}, { transaction: t }).then(function(especialidades) {
+          funcionarioDecorator.especialidades = especialidades;
+          return funcionarioDecorator
+        });
       });
     });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ prestador: entity });
+    res.json({ funcionario: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -66,7 +79,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.prestadores.Destroy(t, req.param('id'));
+    return db.funcionarios.Destroy(t, req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -77,16 +90,16 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.prestadores.Create(t, req).then(function(prestador) {
-      prestador.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
-      return prestador.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
-        return prestador;
+    return db.funcionarios.Create(t, req).then(function(funcionario) {
+      funcionario.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
+      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
+        return funcionario;
       });
     });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ prestador: entity });
+    res.json({ funcionario: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -94,16 +107,16 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.prestadores.Update(t, req).then(function(prestador) {
-      prestador.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
-      return prestador.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
-        return prestador;
+    return db.funcionarios.Update(t, req).then(function(funcionario) {
+      funcionario.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
+      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
+        return funcionario;
       });
     });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ prestador: entity });
+    res.json({ funcionario: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

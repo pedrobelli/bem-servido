@@ -6,8 +6,8 @@ var express                = require('express'),
   morgan                   = require('morgan'),
   db                       = require('./models'),
   clientesController       = require('./controller/clientes/clientesController'),
-  prestadoresController    = require('./controller/prestadores/prestadoresController'),
-  especialidadesController = require('./controller/prestadores/especialidadesController'),
+  funcionariosController    = require('./controller/funcionarios/funcionariosController'),
+  especialidadesController = require('./controller/funcionarios/especialidadesController'),
   servicosController       = require('./controller/servicos/servicosController');
 
 var path = require('path');
@@ -40,7 +40,7 @@ function loadRoutes(){
 
   clientesController.loadRoutes("/clientes", apiRoutes);
 
-  prestadoresController.loadRoutes("/prestadores", apiRoutes);
+  funcionariosController.loadRoutes("/funcionarios", apiRoutes);
   especialidadesController.loadRoutes("/especialidades", apiRoutes);
 
   servicosController.loadRoutes("/servicos", apiRoutes);
