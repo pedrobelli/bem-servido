@@ -16,6 +16,11 @@ module.exports = function(sequelize, DataTypes) {
 			All: function(t){
 				return this.findAll({transaction: t});
 			},
+			Search: function(t, query){
+				return this.findAll({ where: { descricao: {
+					$like: '%'+query+'%'
+				} }, transaction: t});
+			},
 			Get: function(t, id){
 				return this.find({ where: { id: id }, transaction: t });
 			},
