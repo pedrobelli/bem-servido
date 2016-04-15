@@ -1,15 +1,6 @@
 define(['jquery', 'ko', 'underscore', 'sammy', 'text!routes.json', './viewmodel'],
 function ($, ko, _, sammyFramework, routesText, appViewModel) {
 
-  // require(['../lib/domReady!'], function (doc) {
-  //   // $(function () {
-  //   //   if ($('.hidden:first').is(':visible') === true) {}
-  //   //   console.log('Hooray 1!');
-  //   // });
-  //
-	//   console.log('Hooray 2!');
-  // });
-
   var routes = JSON.parse(routesText);
   var sammy = sammyFramework();
   sammy.raise_errors = true;
@@ -43,10 +34,6 @@ function ($, ko, _, sammyFramework, routesText, appViewModel) {
   };
 
   var configureRoutes = function(pagesByModuleName) {
-    sammy.get('#/', function() {
-      window.location.hash = '#clientes';
-    });
-
     routes.forEach(function(route) {
       var pageModuleName = route.page;
       var page = pagesByModuleName[pageModuleName];
@@ -66,7 +53,7 @@ function ($, ko, _, sammyFramework, routesText, appViewModel) {
       .done(registerPageComponents)
       .done(configureRoutes)
       .done(function() {
-        sammy.run("#/");
+        sammy.run("#clientes");
         ko.applyBindings(appViewModel);
         window.ko = ko;
       });

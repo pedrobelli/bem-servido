@@ -9,6 +9,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.index(req, res);
   });
 
+  apiRoutes.get(endpoint + '/query/:query', function(req, res) {
+    return self.index(req, res);
+  });
+
   apiRoutes.get(endpoint + '/get/:id', function(req, res) {
     return self.get(req, res);
   });
@@ -32,11 +36,20 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.servicos.All(t);
+    query = req.param('query');
+
+    if (!!query) {
+      return db.servicos.Search(t, query);
+    } else {
+      return db.servicos.All(t);
+    }
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ servicos: entities });
+    res.json({
+      servicos: entities,
+      placeholderOptions: ["Descrição"],
+    });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
