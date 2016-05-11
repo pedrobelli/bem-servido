@@ -17,10 +17,10 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll({transaction: t});
 			},
 			Get: function(t, id){
-				return this.find({ where: { id: id } }, {transaction: t});
+				return this.find({ where: { id: id }, transaction: t});
 			},
 			Destroy: function(t, id){
-				return this.find({ where: { id: id } }, {transaction: t}).then(function(entity) {
+				return this.find({ where: { id: id }, transaction: t}).then(function(entity) {
 		      return entity.destroy({transaction: t});
 		    });
 			},
@@ -28,14 +28,14 @@ module.exports = function(sequelize, DataTypes) {
 				return this.create(req.body, {transaction: t});
 			},
 			Update: function(t, req){
-				return this.find({ where: { id: req.param('id') } }, {transaction: t}).then(function(entity) {
+				return this.find({ where: { id: req.param('id') }, transaction: t}).then(function(entity) {
 		      return entity.updateAttributes(req.body, {transaction: t});
 		    });
 			},
-			FindByServicos: function(t, servico, servicoIds){
-				return this.findAll({ include: [ { model: servico, where: {
-           id: JSON.parse(servicoIds)
-        } } ], transaction: t })
+			FindByServicos: function(t, models, servicoIds){
+				return this.findAll({ include: [
+          { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
+        ], transaction: t })
 			}
 		}
   });

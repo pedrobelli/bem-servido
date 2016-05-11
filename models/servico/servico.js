@@ -17,15 +17,13 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll({transaction: t});
 			},
 			Search: function(t, query){
-				return this.findAll({ where: { descricao: {
-					$like: '%'+query+'%'
-				} }, transaction: t});
+				return this.findAll({ where: { descricao: { $like: '%'+query+'%' } }, transaction: t});
 			},
-			Get: function(t, id){
+			Get: function(t, id, models){
 				return this.find({ where: { id: id }, transaction: t });
 			},
 			Destroy: function(t, id){
-				return this.find({ where: { id: id } }, { transaction: t }).then(function(entity) {
+				return this.find({ where: { id: id }, transaction: t }).then(function(entity) {
 		      return entity.destroy({transaction: t});
 		    });
 			},
@@ -33,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.create(req.body, {transaction: t});
 			},
 			Update: function(t, req){
-				return this.find({ where: { id: req.param('id') } }, { transaction: t }).then(function(entity) {
+				return this.find({ where: { id: req.param('id') }, transaction: t }).then(function(entity) {
 		      return entity.updateAttributes(req.body, {transaction: t});
 		    });
 			}

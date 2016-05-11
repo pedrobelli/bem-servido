@@ -16,9 +16,10 @@ function(ko, template, bridge) {
       if(!atendimentos) return self.atendimento([]);
       var atendimentos = atendimentos.map(function(atendimento) {
         return {
-          id: atendimento.id,
-          data: atendimento.data,
-          duracao: atendimento.duracao
+          id      : atendimento.id,
+          cliente : atendimento.clienteId,
+          data    : atendimento.data,
+          duracao : atendimento.duracao
         };
       });
       self.atendimentos(atendimentos);

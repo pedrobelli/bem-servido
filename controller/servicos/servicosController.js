@@ -1,4 +1,4 @@
-var db               = require('../../models'),
+var models               = require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
@@ -39,9 +39,9 @@ self.index = function(req, res) {
     query = req.param('query');
 
     if (!!query) {
-      return db.servicos.Search(t, query);
+      return models.servicos.Search(t, query);
     } else {
-      return db.servicos.All(t);
+      return models.servicos.All(t);
     }
 
   }).then(function(entities) {
@@ -57,7 +57,7 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.servicos.Get(t, req.param('id'));
+    return models.servicos.Get(t, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -69,7 +69,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.servicos.Destroy(t, req.param('id'));
+    return models.servicos.Destroy(t, req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -80,7 +80,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.servicos.Create(t, req);
+    return models.servicos.Create(t, req);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -92,10 +92,9 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.servicos.Update(t, req);
+    return models.servicos.Update(t, req);
 
   }).then(function(entity) {
-    console.log(entity);
     res.statusCode = 200;
     res.json({ servico: entity });
   }).catch(function(errors) {
@@ -106,7 +105,7 @@ self.update = function(req, res) {
 self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-    return db.especialidades.All(t).then(function(entities) {
+    return models.especialidades.All(t).then(function(entities) {
       options.especialidades = entities;
     });
 

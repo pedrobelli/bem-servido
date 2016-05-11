@@ -26,14 +26,27 @@ Object.keys(db).forEach(function (modelName) {
   }
 });
 
-db['servicos'].belongsTo(db['especialidades'], { foreignKey: { allowNull: false } });
+//atendimentos
+db['atendimentos'].belongsTo(db['funcionarios'], { foreignKey: { allowNull: false } });
+db['atendimentos'].belongsTo(db['servicos'], { foreignKey: { allowNull: false } });
+db['atendimentos'].belongsTo(db['clientes'], { foreignKey: { allowNull: false } });
+
+//clientes
+db['clientes'].hasMany(db['atendimentos'], { foreignKey: { allowNull: false } });
+
+//especialidades
 db['especialidades'].hasMany(db['servicos'], { foreignKey: { allowNull: false } });
-
-db['servicos'].belongsToMany(db['funcionarios'], { through: 'funcionario_servicos' });
-db['funcionarios'].belongsToMany(db['servicos'], { through: 'funcionario_servicos' });
-
 db['especialidades'].belongsToMany(db['funcionarios'], { through: 'funcionario_especialidades' });
+
+//funcionarios
+db['funcionarios'].hasMany(db['atendimentos'], { foreignKey: { allowNull: false } });
+db['funcionarios'].belongsToMany(db['servicos'], { through: 'funcionario_servicos' });
 db['funcionarios'].belongsToMany(db['especialidades'], { through: 'funcionario_especialidades' });
+
+//servicos
+db['servicos'].hasMany(db['atendimentos'], { foreignKey: { allowNull: false } });
+db['servicos'].belongsTo(db['especialidades'], { foreignKey: { allowNull: false } });
+db['servicos'].belongsToMany(db['funcionarios'], { through: 'funcionario_servicos' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

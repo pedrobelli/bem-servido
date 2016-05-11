@@ -60,8 +60,7 @@ function(ko, template, bridge, $, materialize) {
 
     var init = function(){
       if (isEditMode()) {
-        bridge.get("/api/clientes/get/"+params.id)
-        .then(function(response){
+        bridge.get("/api/clientes/get/"+params.id).then(function(response){
           if (!response)
             return;
 

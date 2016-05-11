@@ -1,5 +1,20 @@
 [
   {
+    "path"   : "#atendimentos",
+    "page"   : "pages/atendimentos/atendimentosComponent",
+    "params" : { "name" : "index" }
+  },
+  {
+    "path"   : "#atendimentos/new",
+    "page"   : "pages/atendimentos/form/atendimentosFormComponent",
+    "params" : { "name" : "new" }
+  },
+  {
+    "path"   : "#atendimentos/edit/:id",
+    "page"   : "pages/atendimentos/form/atendimentosFormComponent",
+    "params" : { "name" : "edit" }
+  },
+  {
     "path"   : "#clientes",
     "page"   : "pages/clientes/clientesComponent",
     "params" : { "name" : "index" }

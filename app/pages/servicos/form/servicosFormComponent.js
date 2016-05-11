@@ -62,8 +62,7 @@ function(ko, template, bridge, $, materialize) {
       })
       .then(function(){
         if (isEditMode()) {
-          return bridge.get("/api/servicos/get/"+params.id)
-          .then(function(response){
+          return bridge.get("/api/servicos/get/"+params.id).then(function(response){
             if (!response)
               return;
 
