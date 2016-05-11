@@ -1,9 +1,12 @@
-var fs = require('fs'),
-  path = require('path'),
-  Sequelize = require('sequelize'),
-  config = require('../config/config'),
-  db = {};
+var fs        = require('fs'),
+    path      = require('path'),
+    Sequelize = require('sequelize'),
+    config    = require('../config/config'),
+    cls       = require('continuation-local-storage'),
+    namespace = cls.createNamespace('bemservido'),
+    db        = {};
 
+Sequelize.cls = namespace
 var sequelize = new Sequelize(config.db);
 
 var directories = fs.readdirSync(__dirname).filter(function (file) {

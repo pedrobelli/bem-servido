@@ -32,7 +32,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.All(t);
+    return models.especialidades.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -44,7 +44,7 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Get(t, req.param('id'));
+    return models.especialidades.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -56,7 +56,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Destroy(t, req.param('id'));
+    return models.especialidades.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -67,7 +67,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Create(t, req);
+    return models.especialidades.Create(req);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -79,7 +79,7 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Update(t, req);
+    return models.especialidades.Update(req);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -91,7 +91,7 @@ self.update = function(req, res) {
 
 self.getByServicos = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.FindByServicos(t, models, req.param('servicos'))
+    return models.especialidades.FindByServicos(models, req.param('servicos'))
 
   }).then(function(entities) {
     res.statusCode = 200;

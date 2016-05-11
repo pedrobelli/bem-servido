@@ -32,7 +32,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.All(t);
+    return models.atendimentos.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -44,7 +44,7 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Get(t, req.param('id'));
+    return models.atendimentos.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -56,7 +56,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Destroy(t, req.param('id'));
+    return models.atendimentos.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -67,7 +67,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Create(t, req);
+    return models.atendimentos.Create(req);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -79,7 +79,7 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Update(t, req);
+    return models.atendimentos.Update(req);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -92,11 +92,11 @@ self.update = function(req, res) {
 self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-    return models.servicos.All(t).then(function(entities) {
+    return models.servicos.All().then(function(entities) {
       options.servicos = entities;
-      return models.clientes.All(t).then(function(entities) {
+      return models.clientes.All().then(function(entities) {
         options.clientes = entities;
-        return models.funcionarios.All(t).then(function(entities) {
+        return models.funcionarios.All().then(function(entities) {
           options.funcionarios = entities;
         });
       });
