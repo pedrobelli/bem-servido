@@ -5,7 +5,7 @@ exports.writeErrors = function(res, errors) {
   res.statusCode = 400;
   console.log("===== ERROR =====");
   console.log(errors);
-  res.json({errors: errors});
+  res.json({errors});
 }
 
 exports.createSequelizeInstance = function() {

@@ -1,10 +1,9 @@
-define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
+function(ko, template, bridge, $, materialize, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var pageHeaderText = params.name == 'new' ? 'Novo Cliente' : 'Editar Cliente';
     var CREATE_PATH = "/api/clientes/new";
     var UPDATE_PATH = "/api/clientes/edit/"+params.id;
 
@@ -14,7 +13,7 @@ function(ko, template, bridge, $, materialize) {
     self.telefone = ko.observable();
     self.senha = ko.observable();
     self.confirmSenha = ko.observable();
-    self.pageMode = ko.observable(pageHeaderText);
+    self.pageMode = params.name == 'new' ? 'Novo Cliente' : 'Editar Cliente';
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.nome();
@@ -24,6 +23,7 @@ function(ko, template, bridge, $, materialize) {
         valid = valid && !!self.senha();
       } else {
         valid = valid && (!!self.senha() && !!self.confirmSenha());
+        valid = valid && (self.senha() == self.confirmSenha());
       }
       return valid;
     });
@@ -31,14 +31,10 @@ function(ko, template, bridge, $, materialize) {
     self.save = function(){
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
-      if (!isEditMode() && (self.senha() != self.confirmSenha())) {
-        console.log("Erro: Os campos de senha estão diferentes!");
-        return;
-      }
-
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError){
-        console.log("Erros: ", context.errors);
+        var errorTitle = params.name == 'new' ? 'Não foi possível criar cliente' : 'Não foi possível alterar cliente';
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
       })
       .done(function(){
         window.location.hash = "clientes"

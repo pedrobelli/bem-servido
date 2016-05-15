@@ -1,13 +1,14 @@
-define(['ko', 'text!./atendimentosTemplate.html', 'bridge', '../shared/moment/momentComponent'],
-function(ko, template, bridge, momentComponent) {
+define(['ko', 'text!./atendimentosTemplate.html', 'bridge', '../shared/moment/momentComponent', '../shared/swal/swalComponent'],
+function(ko, template, bridge, momentComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
     self.atendimentos = ko.observableArray([]);
 
-    self.exclude = function(atendimentos) {
-      bridge.del("/api/atendimentos" + atendimentos.id).then(function(response) {
+    self.exclude = function(atendimento) {
+      var errorTitle = 'Não foi possível excluir atendimento';
+      swalComponent.removeInstanceWarning("/api/atendimentos/" + atendimento.id, errorTitle, function(){
         init();
       });
     };

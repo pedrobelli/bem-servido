@@ -1,17 +1,16 @@
-define(['ko', 'text!./especialidadesFormTemplate.html', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!./especialidadesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
+function(ko, template, bridge, $, materialize, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var pageHeaderText = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
     var CREATE_PATH = "/api/especialidades/new";
     var UPDATE_PATH = "/api/especialidades/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
     self.descricao = ko.observable();
-    self.pageMode = ko.observable(pageHeaderText);
+    self.pageMode = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
 
     self.validForm = ko.pureComputed(function(){
       valid = !!self.nome();
@@ -23,8 +22,10 @@ function(ko, template, bridge, $, materialize) {
     self.save = function() {
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
-      bridge.post(path, generatePayload()).fail(function(context, errorMessage, serverError) {
-        console.log("Errors: ", context.errors);
+      bridge.post(path, generatePayload())
+      .fail(function(context, errorMessage, serverError) {
+        var errorTitle = params.name == 'new' ? 'Não foi possível criar especialidade' : 'Não foi possível alterar especialidade';
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
       })
       .done(function() {
         window.location.hash = "especialidades"

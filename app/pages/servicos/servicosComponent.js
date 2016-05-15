@@ -1,5 +1,5 @@
-define(['ko', 'text!./servicosTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/search/searchComponent'],
-function(ko, template, bridge, $, materialize, searchComponent) {
+define(['ko', 'text!./servicosTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/search/searchComponent', '../shared/swal/swalComponent'],
+function(ko, template, bridge, $, materialize, searchComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -11,8 +11,8 @@ function(ko, template, bridge, $, materialize, searchComponent) {
     });
 
     self.exclude = function(servico){
-      bridge.del("/api/servicos/"+servico.id)
-      .then(function(response){
+      var errorTitle = 'Não foi possível excluir serviço';
+      swalComponent.removeInstanceWarning("/api/servicos/" + servico.id, errorTitle, function(){
         init();
       });
     };

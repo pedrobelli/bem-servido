@@ -1,10 +1,9 @@
-define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent'],
-function(ko, template, bridge, momentComponent) {
+define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent', '../../shared/swal/swalComponent'],
+function(ko, template, bridge, momentComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var pageHeaderText = params.name == 'new' ? 'Novo Atendimento' : 'Editar Atendimento'
     var CREATE_PATH = "/api/atendimentos/new";
     var UPDATE_PATH = "/api/atendimentos/edit/" + params.id;
 
@@ -16,7 +15,7 @@ function(ko, template, bridge, momentComponent) {
     self.prestador = ko.observable();
     self.servico = ko.observable();
     self.cliente = ko.observable();
-    self.pageMode = ko.observable(pageHeaderText);
+    self.pageMode = params.name == 'new' ? 'Novo Atendimento' : 'Editar Atendimento';
 
     self.prestadores = ko.observableArray([]);
     self.servicos = ko.observableArray([]);
@@ -29,8 +28,10 @@ function(ko, template, bridge, momentComponent) {
     self.save = function() {
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
-      bridge.post(path, generatePayload()).fail(function(context, errorMessage, serverError) {
-        console.log("Errors: ", context.errors);
+      bridge.post(path, generatePayload())
+      .fail(function(context, errorMessage, serverError) {
+        var errorTitle = params.name == 'new' ? 'Não foi possível criar atendimento' : 'Não foi possível alterar atendimento';
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
       }).done(function() {
         window.location.hash = "atendimentos"
       });

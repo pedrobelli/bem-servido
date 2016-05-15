@@ -1,5 +1,5 @@
-define(['ko', 'text!./especialidadesTemplate.html', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!./especialidadesTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/swal/swalComponent'],
+function(ko, template, bridge, $, materialize, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -7,7 +7,8 @@ function(ko, template, bridge, $, materialize) {
     self.especialidades = ko.observableArray([]);
 
     self.exclude = function(especialidades) {
-      bridge.del("/api/especialidades/" + especialidades.id).then(function(response) {
+      var errorTitle = 'Não foi possível excluir especialidade';
+      swalComponent.removeInstanceWarning("/api/especialidades/" + especialidades.id, errorTitle, function(){
         init();
       });
     };

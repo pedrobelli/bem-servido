@@ -8,6 +8,7 @@ requirejs.config({
     jquery     : "components/jquery/dist/jquery.min",
 		ko         : "components/knockout/dist/knockout",
 		underscore : "components/underscore/underscore-min",
+    sweetAlert : "components/sweetalert/lib/sweet-alert.min",
 		hammerjs   : "components/hammerjs/hammer.min",
 		velocity   : "components/velocity/velocity.min",
 		sammy      : "components/sammy/lib/sammy",
