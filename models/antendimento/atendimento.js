@@ -5,7 +5,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       type: DataTypes.DOUBLE
     },
-    data: {
+    dataInicio: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    dataFim: {
       allowNull: false,
       type: DataTypes.DATE
     },

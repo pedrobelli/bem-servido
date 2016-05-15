@@ -7,7 +7,8 @@
         <th>#</th>
         <th>Cliente</th>
         <th>Data</th>
-        <th>Duração</th>
+        <th>Inicio</th>
+        <th>Fim</th>
       </tr>
     </thread>
 
@@ -16,7 +17,8 @@
         <th scope="row" data-bind="text: id"></th>
         <th data-bind="text: cliente"></th>
         <th data-bind="text: data"></th>
-        <th data-bind="text: duracao"></th>
+        <th data-bind="text: inicio"></th>
+        <th data-bind="text: fim"></th>
         <td>
           <a data-bind="attr: {href: '#atendimentos/edit/'+id}" class="btn btn-link">EDITAR</a>
           <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>

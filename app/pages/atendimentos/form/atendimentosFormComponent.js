@@ -1,5 +1,5 @@
-define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent'],
+function(ko, template, bridge, momentComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -10,7 +10,7 @@ function(ko, template, bridge) {
 
     self.id = ko.observable(params.id);
     self.data = ko.observable();
-    self.initTime = ko.observable();
+    self.iniTime = ko.observable();
     self.valorTotal = ko.observable();
     self.duracao = ko.observable();
     self.prestador = ko.observable();
@@ -37,18 +37,11 @@ function(ko, template, bridge) {
     };
 
     var generatePayload = function() {
-      var dia = parseInt(self.data().substring(0, 2));
-      var mes = parseInt(self.data().substring(3, 5)) - 1;
-      var ano = parseInt(self.data().substring(6, 10));
-      var hora = parseInt(self.initTime().substring(0, 2));
-      var minuto = parseInt(self.initTime().substring(3, 5));
-
-      var data = new Date(ano, mes, dia, hora, minuto, 0, 0);
-
       var payload = {
-        data          : data,
-        valorTotal         : self.valorTotal(),
+        dataInicio    : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
+        dataFim       : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
         duracao       : self.duracao(),
+        valorTotal    : self.valorTotal(),
         funcionarioId : self.prestador(),
         servicoId     : self.servico(),
         clienteId     : self.cliente()

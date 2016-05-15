@@ -1,5 +1,5 @@
-define(['ko', 'text!./atendimentosTemplate.html', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!./atendimentosTemplate.html', 'bridge', '../shared/moment/momentComponent'],
+function(ko, template, bridge, momentComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -18,8 +18,9 @@ function(ko, template, bridge) {
         return {
           id      : atendimento.id,
           cliente : atendimento.clienteId,
-          data    : atendimento.data,
-          duracao : atendimento.duracao
+          data    : momentComponent.convertDateToString(atendimento.dataInicio),
+          inicio  : momentComponent.convertTimeToString(atendimento.dataInicio),
+          fim     : momentComponent.convertTimeToString(atendimento.dataFim)
         };
       });
       self.atendimentos(atendimentos);

@@ -7,7 +7,7 @@ var fs        = require('fs'),
     db        = {};
 
 Sequelize.cls = namespace
-var sequelize = new Sequelize(config.db);
+var sequelize = new Sequelize(config.db, { timezone : "-03:00"});
 
 var directories = fs.readdirSync(__dirname).filter(function (file) {
   return (file.indexOf('.') !== 0) && (file !== 'index.js');
