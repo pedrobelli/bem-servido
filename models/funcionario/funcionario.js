@@ -4,12 +4,22 @@ module.exports = function(sequelize, DataTypes) {
 		nome: {
 			allowNull: false,
 			type: DataTypes.STRING,
-			validate: {len: [3, 100]}
+			validate: {
+        len: {
+          args: [3, 50],
+          msg: "Nome deve conter pelo menos 3 caracteres"
+        }
+      }
 		},
 		email: {
 			allowNull: false,
 			type: DataTypes.STRING,
-			validate: {isEmail: true}
+			validate: {
+				isEmail: {
+					args: true,
+					msg: "Email inválido"
+				}
+			}
 		}
 	}, {
 		classMethods: {
