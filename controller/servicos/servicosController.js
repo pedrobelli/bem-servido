@@ -1,4 +1,4 @@
-var models               = require('../../models'),
+var models           = require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();

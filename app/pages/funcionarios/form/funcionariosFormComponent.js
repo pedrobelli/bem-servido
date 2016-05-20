@@ -38,7 +38,7 @@ function(ko, template, bridge, $, materialize, swalComponent) {
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError){
         var errorTitle = params.name == 'new' ? 'Não foi possível criar funcionário' : 'Não foi possível alterar funcionário';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       })
       .done(function(){
         window.location.hash = "funcionarios"

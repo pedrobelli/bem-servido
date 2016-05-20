@@ -3,8 +3,8 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
   function errorAlertWithTitle(errorTitle, errors) {
     var errorBody = $("<div class='swal-body'></div>").css({textAlign: "left"});
 
-    if (!!errors.length) {
-      errors.forEach(function(error){
+    if (!!errors.errors) {
+      errors.errors.forEach(function(error){
         errorBody.append($('<h5></h5>').html(" - " + error.message));
       });
     } else {

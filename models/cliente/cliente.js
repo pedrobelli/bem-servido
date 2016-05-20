@@ -36,7 +36,13 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		senha: {
 			allowNull: false,
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			validate: {
+				len: {
+					args: [6, 50],
+					msg: "Senha deve conter pelo menos 6 caracteres"
+				}
+			}
 		}
 	}, {
 		classMethods: {
