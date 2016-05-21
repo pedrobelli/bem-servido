@@ -48,67 +48,9 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
     });
   }
 
-  // function successAlert(title, callback) {
-  //   sweetAlert({
-  //     title:title,
-  //     type: "success",
-  //     html: true,
-  //     text: "",
-  //     closeOnCancel: false,
-  //     animation: false
-  //   },
-  //   callback);
-  // }
-
-  // function confirmActionWarning(url, callback, payload) {
-  //   sweetAlert({
-  //     title: "Tem certeza?",
-  //     text: "Esta operação não pode ser desfeita!",
-  //     type: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#DD6B55",
-  //     confirmButtonText: "Sim!",
-  //     closeOnConfirm: true,
-  //     animation: false
-  //   },
-  //   function(answer) {
-  //     if (!answer)
-  //       return;
-  //
-  //     bridge.post(url, payload)
-  //     .fail(function(context, errorMessage, serverError) {
-  //       setTimeout(function(){
-  //         errorAlert(context.errors);
-  //       }, 500)
-  //     })
-  //     .done(function() {
-  //       callback();
-  //     });
-  //   });
-  // }
-  //
-  // function customWarningAction(title, message, callback) {
-  //   sweetAlert({
-  //     title: title,
-  //     text: message,
-  //     type: "warning",
-  //     showCancelButton: false,
-  //     confirmButtonColor: "#DD6B55",
-  //     confirmButtonText: "OK",
-  //     closeOnConfirm: true,
-  //     animation: false
-  //   },
-  //   function(answer) {
-  //     callback();
-  //   });
-  // }
-
   return {
     errorAlertWithTitle:errorAlertWithTitle,
     removeInstanceWarning:removeInstanceWarning
-    // successAlert:successAlert,
-    // confirmActionWarning:confirmActionWarning,
-    // customWarningAction
   }
 
 });

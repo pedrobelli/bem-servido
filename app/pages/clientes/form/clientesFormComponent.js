@@ -1,5 +1,6 @@
-define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, swalComponent) {
+define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
+'../../shared/mask/maskComponent'],
+function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -55,6 +56,9 @@ function(ko, template, bridge, $, materialize, swalComponent) {
     };
 
     var init = function(){
+      maskComponent.applyEmailMask();
+      maskComponent.applyCelphoneMask();
+
       if (isEditMode()) {
         bridge.get("/api/clientes/get/"+params.id).then(function(response){
           if (!response)

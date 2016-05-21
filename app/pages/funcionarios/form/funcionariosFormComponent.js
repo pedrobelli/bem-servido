@@ -1,5 +1,6 @@
-define(['ko', 'text!./funcionariosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, swalComponent) {
+define(['ko', 'text!./funcionariosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
+'../../shared/mask/maskComponent'],
+function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -83,6 +84,8 @@ function(ko, template, bridge, $, materialize, swalComponent) {
     };
 
     var init = function(){
+      maskComponent.applyEmailMask();
+      
       bridge.get("/api/funcionarios/form_options")
       .then(function(response){
         var servicos = response.servicos.map(function(servico){

@@ -1,5 +1,6 @@
-define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, swalComponent) {
+define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
+'../../shared/mask/maskComponent'],
+function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -49,6 +50,8 @@ function(ko, template, bridge, $, materialize, swalComponent) {
     };
 
     var init = function(){
+      maskComponent.applyCurrencyMask();
+      
       bridge.get("/api/servicos/form_options")
       .then(function(response){
         var especialidades = response.especialidades.map(function(especialidade){

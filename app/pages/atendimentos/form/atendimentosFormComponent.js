@@ -10,6 +10,7 @@ function(ko, template, bridge, momentComponent, swalComponent) {
     self.id = ko.observable(params.id);
     self.data = ko.observable();
     self.iniTime = ko.observable();
+    self.finTime = ko.observable();
     self.valorTotal = ko.observable();
     self.duracao = ko.observable();
     self.prestador = ko.observable();
@@ -63,13 +64,6 @@ function(ko, template, bridge, momentComponent, swalComponent) {
           }
         });
 
-        var servicos = response.servicos.map(function(servico){
-          return {
-            id   : servico.id,
-            nome : servico.descricao
-          }
-        });
-
         var clientes = response.clientes.map(function(cliente){
           return {
             id   : cliente.id,
@@ -78,7 +72,6 @@ function(ko, template, bridge, momentComponent, swalComponent) {
         });
 
         self.prestadores(prestadores);
-        self.servicos(servicos);
         self.clientes(clientes);
       })
       .then(function(){

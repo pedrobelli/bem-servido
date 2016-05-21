@@ -1,5 +1,6 @@
-define(['ko', 'text!./servicosTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/search/searchComponent', '../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, searchComponent, swalComponent) {
+define(['ko', 'text!./servicosTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/search/searchComponent', '../shared/swal/swalComponent',
+'../shared/mask/maskComponent'],
+function(ko, template, bridge, $, materialize, searchComponent, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -23,7 +24,7 @@ function(ko, template, bridge, $, materialize, searchComponent, swalComponent) {
         return {
           id        : servico.id,
           descricao : servico.descricao,
-          valor     : servico.valor
+          valor     : maskComponent.accountingFormat(servico.valor)
         };
       });
 
