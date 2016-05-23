@@ -1,5 +1,5 @@
-define(['ko', 'text!./clientesTemplate.html', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!./clientesTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/swal/swalComponent'],
+function(ko, template, bridge, $, materialize, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -7,8 +7,8 @@ function(ko, template, bridge, $, materialize) {
     self.clientes = ko.observableArray([]);
 
     self.exclude = function(cliente){
-      bridge.del("/api/clientes/"+cliente.id)
-      .then(function(response){
+      var errorTitle = 'Não foi possível excluir cliente';
+      swalComponent.removeInstanceWarning("/api/clientes/" + cliente.id, errorTitle, function(){
         init();
       });
     };

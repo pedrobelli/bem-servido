@@ -1,15 +1,21 @@
 module.exports = function(sequelize, DataTypes) {
 
-  var Especialidade = sequelize.define('especialidades', {
-    nome: {
+  var Atendimento = sequelize.define('atendimentos', {
+    valorTotal: {
       allowNull: false,
-      type: DataTypes.STRING,
-      validate: {len: [3, 50]}
+      type: DataTypes.DOUBLE
     },
-    descricao: {
+    dataInicio: {
       allowNull: false,
-      type: DataTypes.STRING,
-      validate: {len: [5, 500]}
+      type: DataTypes.DATE
+    },
+    dataFim: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    duracao: {
+      allowNull: true,
+      type: DataTypes.DOUBLE
     }
   }, {
 		classMethods: {
@@ -31,14 +37,9 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
 		      return entity.updateAttributes(req.body);
 		    });
-			},
-			FindByServicos: function(models, servicoIds){
-				return this.findAll({ include: [
-          { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
-        ] })
 			}
 		}
-  });
+	});
 
-  return Especialidade
+  return Atendimento
 };

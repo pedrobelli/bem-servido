@@ -1,10 +1,9 @@
-define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
+function(ko, template, bridge, $, materialize, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var pageHeaderText = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
     var CREATE_PATH = "/api/servicos/new";
     var UPDATE_PATH = "/api/servicos/edit/"+params.id;
 
@@ -12,7 +11,7 @@ function(ko, template, bridge, $, materialize) {
     self.descricao = ko.observable();
     self.valor = ko.observable();
     self.especialidade = ko.observable();
-    self.pageMode = ko.observable(pageHeaderText);
+    self.pageMode = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
 
     self.especialidades = ko.observableArray([]);
 
@@ -29,7 +28,8 @@ function(ko, template, bridge, $, materialize) {
 
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError){
-        console.log("Erros: ", context.errors);
+        var errorTitle = params.name == 'new' ? 'Não foi possível criar seriço' : 'Não foi possível alterar seriço';
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
       })
       .done(function(){
         window.location.hash = "servicos"
@@ -62,8 +62,7 @@ function(ko, template, bridge, $, materialize) {
       })
       .then(function(){
         if (isEditMode()) {
-          return bridge.get("/api/servicos/get/"+params.id)
-          .then(function(response){
+          return bridge.get("/api/servicos/get/"+params.id).then(function(response){
             if (!response)
               return;
 

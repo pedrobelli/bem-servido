@@ -1,4 +1,4 @@
-var db               = require('../../models'),
+var models           = require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
@@ -39,9 +39,9 @@ self.index = function(req, res) {
     query = req.param('query');
 
     if (!!query) {
-      return db.funcionarios.Search(t, query);
+      return models.funcionarios.Search(query);
     } else {
-      return db.funcionarios.All(t);
+      return models.funcionarios.All();
     }
 
   }).then(function(entities) {
@@ -56,18 +56,8 @@ self.index = function(req, res) {
 }
 
 self.get = function(req, res) {
-  funcionarioDecorator = {}
   return sequelize.transaction(function(t) {
-    return db.funcionarios.Get(t, req.param('id')).then(function(funcionario) {
-      funcionarioDecorator.model = funcionario
-      return funcionario.getServicos({attributes: ['id']}, { transaction: t }).then(function(servicos) {
-        funcionarioDecorator.servicos = servicos;
-        return funcionario.getEspecialidades({attributes: ['id']}, { transaction: t }).then(function(especialidades) {
-          funcionarioDecorator.especialidades = especialidades;
-          return funcionarioDecorator
-        });
-      });
-    });
+    return models.funcionarios.Get(models, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -79,7 +69,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.funcionarios.Destroy(t, req.param('id'));
+    return models.funcionarios.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -90,9 +80,9 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.funcionarios.Create(t, req).then(function(funcionario) {
-      funcionario.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
-      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
+    return models.funcionarios.Create(req).then(function(funcionario) {
+      funcionario.setServicos(JSON.parse(req.param('servicos')));
+      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
         return funcionario;
       });
     });
@@ -107,9 +97,9 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.funcionarios.Update(t, req).then(function(funcionario) {
-      funcionario.setServicos(JSON.parse(req.param('servicos')), { transaction: t });
-      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades')), { transaction: t }).then(function() {
+    return models.funcionarios.Update(req).then(function(funcionario) {
+      funcionario.setServicos(JSON.parse(req.param('servicos')));
+      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
         return funcionario;
       });
     });
@@ -125,7 +115,7 @@ self.update = function(req, res) {
 self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-    return db.servicos.All(t).then(function(entities) {
+    return models.servicos.All().then(function(entities) {
       options.servicos = entities;
     });
 

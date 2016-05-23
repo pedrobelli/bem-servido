@@ -21,23 +21,23 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	}, {
 		classMethods: {
-			All: function(t){
-				return this.findAll({transaction: t});
+			All: function(){
+				return this.findAll();
 			},
-			Get: function(t, id){
-				return this.find({ where: { id: id } }, {transaction: t});
+			Get: function(id){
+				return this.find({ where: { id: id } });
 			},
-			Destroy: function(t, id){
-				return this.find({ where: { id: id } }, {transaction: t}).then(function(entity) {
-		      return entity.destroy({transaction: t});
+			Destroy: function(id){
+				return this.find({ where: { id: id } }).then(function(entity) {
+		      return entity.destroy();
 		    });
 			},
-			Create: function(t, req){
-				return this.create(req.body, {transaction: t});
+			Create: function(req){
+				return this.create(req.body);
 			},
-			Update: function(t, req){
-				return this.find({ where: { id: req.param('id') } }, {transaction: t}).then(function(entity) {
-		      return entity.updateAttributes(req.body, {transaction: t});
+			Update: function(req){
+				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
+		      return entity.updateAttributes(req.body);
 		    });
 			}
 		}

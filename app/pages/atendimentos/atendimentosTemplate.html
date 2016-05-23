@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <p class="center login-form-text">Atendimentos</p>
+
+  <table class="table">
+    <thread>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Inicio</th>
+        <th>Fim</th>
+      </tr>
+    </thread>
+
+    <tbody data-bind="foreach: atendimentos">
+      <tr>
+        <th scope="row" data-bind="text: id"></th>
+        <th data-bind="text: cliente"></th>
+        <th data-bind="text: data"></th>
+        <th data-bind="text: inicio"></th>
+        <th data-bind="text: fim"></th>
+        <td>
+          <a data-bind="attr: {href: '#atendimentos/edit/'+id}" class="btn btn-link">EDITAR</a>
+          <a data-bind="click: $component.exclude" class="btn btn-link">EXCLUIR</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<a class="btn btn-default" href="#atendimentos/new">Novo</a>

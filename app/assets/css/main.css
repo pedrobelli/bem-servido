@@ -44,3 +44,15 @@ body {
   margin-top: -6px;
   margin-left: -6px !important;
 }
+
+.swal-header {
+  font-size: 22px;
+}
+
+.swal-body {
+  text-align: left;
+}
+
+.swal-body > h5 {
+  font-size: 18px !important;
+}

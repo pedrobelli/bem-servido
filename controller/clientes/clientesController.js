@@ -1,4 +1,4 @@
-var db               = require('../../models'),
+var models           = require('../../models'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
@@ -28,7 +28,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.All(t);
+    return models.clientes.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -40,7 +40,7 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Get(t, req.param('id'));
+    return models.clientes.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -52,7 +52,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Destroy(t, req.param('id'));
+    return models.clientes.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -63,7 +63,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Create(t, req);
+    return models.clientes.Create(req);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -75,10 +75,9 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return db.clientes.Update(t, req);
+    return models.clientes.Update(req);
 
   }).then(function(entity) {
-    console.log(entity);
     res.statusCode = 200;
     res.json({ cliente: entity });
   }).catch(function(errors) {

@@ -3,7 +3,9 @@ var Sequelize = require('sequelize'),
 
 exports.writeErrors = function(res, errors) {
   res.statusCode = 400;
-  res.json({errors: errors});
+  console.log("===== ERROR =====");
+  console.log(errors);
+  res.json({errors});
 }
 
 exports.createSequelizeInstance = function() {
