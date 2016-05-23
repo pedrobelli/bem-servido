@@ -1,12 +1,14 @@
 requirejs.config({
 	shim : {
-		"ko"              : { deps: ['jquery'] },
-		"materialize"     : { deps: ['jquery'] },
-    "jqueryInputmask" : { deps :['jquery'] },
+		"ko"              : { deps : ['jquery'] },
+		"materialize"     : { deps : ['jquery'] },
+    "jqueryInputmask" : { deps : ['jquery'] },
+    "jquery-ui"       : { deps : ['jquery'] },
   },
   paths: {
 		//core dependencies
     jquery          : "components/jquery/dist/jquery.min",
+		"jquery-ui"     : "components/jquery-ui/",
     jqueryInputmask : "components/jquery.inputmask/dist/jquery.inputmask.bundle",
 		ko              : "components/knockout/dist/knockout",
 		underscore      : "components/underscore/underscore-min",

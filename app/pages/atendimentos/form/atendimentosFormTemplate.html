@@ -41,7 +41,7 @@
 
         <div class="col s6">
           <label>Preço:</label>
-          <input data-bind="value: valorTotal" type="text" id="valorTotal" placeholder="Preço" disabled>
+          <input class="currency" data-bind="value: valorTotal" type="text" id="valorTotal" placeholder="Preço" disabled>
         </div>
       </div>
 
@@ -49,12 +49,12 @@
         <div class="col s12">
           <div class="col s6">
             <label>Data:</label>
-            <input data-bind="value: data" type="text" id="data" placeholder="Data">
+            <input class="datepicker" data-bind="value: data" type="text" id="data" placeholder="Data">
           </div>
 
           <div class="col s6">
             <label>Duração:</label>
-            <input data-bind="value: duracao" type="text" id="duracao" placeholder="Duração">
+            <input class="number" data-bind="value: duracao" type="text" id="duracao" placeholder="Duração">
           </div>
         </div>
       </div>
@@ -63,12 +63,12 @@
         <div class="col s12">
           <div class="col s6">
             <label>Hora Início:</label>
-            <input data-bind="value: iniTime" type="text" id="iniTime" placeholder="Hora Início">
+            <input class="time" data-bind="value: iniTime" type="text" id="iniTime" placeholder="Hora Início">
           </div>
 
           <div class="col s6">
             <label>Hora Final:</label>
-            <input data-bind="value: finTime" type="text" id="finTime" placeholder="Hora Final" disabled>
+            <input class="time" data-bind="value: finTime" type="text" id="finTime" placeholder="Hora Final" disabled>
           </div>
         </div>
       </div>

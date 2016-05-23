@@ -14,7 +14,7 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
   };
 
   var applyNumberMask = function(){
-    $('.number').inputmask({alias: 'numeric'});
+    $('.number').inputmask({alias: 'numeric', rightAlign: false});
   };
 
   var applyFederalIdMask = function(){

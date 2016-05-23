@@ -1,5 +1,6 @@
-define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, momentComponent, swalComponent) {
+define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent', '../../shared/swal/swalComponent',
+'../../shared/mask/maskComponent', '../../shared/datepicker/datepickerComponent'],
+function(ko, template, bridge, momentComponent, swalComponent, maskComponent, datepickerComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -55,6 +56,12 @@ function(ko, template, bridge, momentComponent, swalComponent) {
     };
 
     var init = function() {
+      maskComponent.applyDatepickerMask();
+      maskComponent.applyTimeMask();
+      maskComponent.applyNumberMask();
+      maskComponent.applyCurrencyMask();
+      datepickerComponent.applyDatepicker();
+
       bridge.get("/api/atendimentos/form_options")
       .then(function(response){
         var prestadores = response.funcionarios.map(function(funcionario){
