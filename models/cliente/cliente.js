@@ -4,20 +4,45 @@ module.exports = function(sequelize, DataTypes) {
 		nome: {
 			allowNull: false,
 			type: DataTypes.STRING,
-			validate: {len: [3, 100]}
+			validate: {
+				len: {
+					args: [3, 50],
+					msg: "Nome deve conter pelo menos 3 caracteres"
+				}
+			}
 		},
 		email: {
 			allowNull: false,
 			type: DataTypes.STRING,
-			validate: {isEmail: true}
+			validate: {
+				isEmail: {
+					args: true,
+					msg: "Email inválido"
+				}
+			}
 		},
 		telefone: {
 			type: DataTypes.STRING,
-			validate: {len: [11, 12]}
+			validate: {
+				len: {
+					args: [10, 11],
+					msg: "Número de telefone deve conter 8 ou 9 dígitos"
+				},
+				is: {
+					args: /^[0-9]*$/,
+					msg: "Número de telefone deve conter apenas números"
+				}
+			}
 		},
 		senha: {
 			allowNull: false,
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			validate: {
+				len: {
+					args: [6, 50],
+					msg: "Senha deve conter pelo menos 6 caracteres"
+				}
+			}
 		}
 	}, {
 		classMethods: {

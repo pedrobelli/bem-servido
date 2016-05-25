@@ -1,5 +1,6 @@
-define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, momentComponent, swalComponent) {
+define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent', '../../shared/swal/swalComponent',
+'../../shared/mask/maskComponent', '../../shared/datepicker/datepickerComponent'],
+function(ko, template, bridge, momentComponent, swalComponent, maskComponent, datepickerComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -10,6 +11,7 @@ function(ko, template, bridge, momentComponent, swalComponent) {
     self.id = ko.observable(params.id);
     self.data = ko.observable();
     self.iniTime = ko.observable();
+    self.finTime = ko.observable();
     self.valorTotal = ko.observable();
     self.duracao = ko.observable();
     self.prestador = ko.observable();
@@ -54,19 +56,18 @@ function(ko, template, bridge, momentComponent, swalComponent) {
     };
 
     var init = function() {
+      maskComponent.applyDatepickerMask();
+      maskComponent.applyTimeMask();
+      maskComponent.applyNumberMask();
+      maskComponent.applyCurrencyMask();
+      datepickerComponent.applyDatepicker();
+
       bridge.get("/api/atendimentos/form_options")
       .then(function(response){
         var prestadores = response.funcionarios.map(function(funcionario){
           return {
             id   : funcionario.id,
             nome : funcionario.nome
-          }
-        });
-
-        var servicos = response.servicos.map(function(servico){
-          return {
-            id   : servico.id,
-            nome : servico.descricao
           }
         });
 
@@ -78,7 +79,6 @@ function(ko, template, bridge, momentComponent, swalComponent) {
         });
 
         self.prestadores(prestadores);
-        self.servicos(servicos);
         self.clientes(clientes);
       })
       .then(function(){

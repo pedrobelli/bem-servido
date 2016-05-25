@@ -2,33 +2,17 @@
 
 <form id="new-appointment-form" method="post">
   <div class="row">
-    <div class="col-12">
-
-      <div class="row">
-        <div class="col s6">
-          <label>Data:</label>
-          <input data-bind="value: data" type="text" id="data" placeholder="Data">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <label>Hora Início:</label>
-          <input data-bind="value: iniTime" type="text" id="iniTime" placeholder="Hora Início">
-        </div>
-      </div>
+    <div class="col s12">
 
       <div class="row">
         <div class="col s12">
-          <label>Duração:</label>
-          <input data-bind="value: duracao" type="text" id="duracao" placeholder="Duração">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Preço:</label>
-          <input data-bind="value: valorTotal" type="text" id="valorTotal" placeholder="Preço">
+          <label>Cliente:</label>
+          <select data-bind="value: cliente" id="cliente">
+            <option value="" disabled>Clientes</option>
+            <!-- ko foreach: $data.clientes -->
+            <option data-bind="value: $data.id, text: $data.nome"></option>
+            <!-- /ko -->
+          </select>
         </div>
       </div>
 
@@ -45,7 +29,7 @@
       </div>
 
       <div class="row">
-        <div class="col s12">
+        <div class="col s6">
           <label>Serviço:</label>
           <select data-bind="value: servico" id="servico">
             <option value="" disabled>Serviços</option>
@@ -54,17 +38,38 @@
             <!-- /ko -->
           </select>
         </div>
+
+        <div class="col s6">
+          <label>Preço:</label>
+          <input class="currency" data-bind="value: valorTotal" type="text" id="valorTotal" placeholder="Preço" disabled>
+        </div>
       </div>
 
       <div class="row">
         <div class="col s12">
-          <label>Cliente:</label>
-          <select data-bind="value: cliente" id="cliente">
-            <option value="" disabled>Clientes</option>
-            <!-- ko foreach: $data.clientes -->
-            <option data-bind="value: $data.id, text: $data.nome"></option>
-            <!-- /ko -->
-          </select>
+          <div class="col s6">
+            <label>Data:</label>
+            <input class="datepicker" data-bind="value: data" type="text" id="data" placeholder="Data">
+          </div>
+
+          <div class="col s6">
+            <label>Duração:</label>
+            <input class="number" data-bind="value: duracao" type="text" id="duracao" placeholder="Duração">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="col s6">
+            <label>Hora Início:</label>
+            <input class="time" data-bind="value: iniTime" type="text" id="iniTime" placeholder="Hora Início">
+          </div>
+
+          <div class="col s6">
+            <label>Hora Final:</label>
+            <input class="time" data-bind="value: finTime" type="text" id="finTime" placeholder="Hora Final" disabled>
+          </div>
         </div>
       </div>
 

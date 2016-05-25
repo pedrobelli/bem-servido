@@ -92,13 +92,10 @@ self.update = function(req, res) {
 self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-    return models.servicos.All().then(function(entities) {
-      options.servicos = entities;
-      return models.clientes.All().then(function(entities) {
-        options.clientes = entities;
-        return models.funcionarios.All().then(function(entities) {
-          options.funcionarios = entities;
-        });
+    return models.clientes.All().then(function(entities) {
+      options.clientes = entities;
+      return models.funcionarios.All().then(function(entities) {
+        options.funcionarios = entities;
       });
     });
 

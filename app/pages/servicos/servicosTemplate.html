@@ -16,7 +16,7 @@
   <tr>
     <th scope="row" data-bind="text: id"></th>
     <td data-bind="text: descricao"></td>
-    <td data-bind="text: valor"></td>
+    <td data-bind="text: 'R$'+valor"></td>
     <td>
       <a data-bind="attr: {href: '#servicos/edit/'+id}" class="btn">EDITAR</a>
       <a data-bind="click: $component.exclude" class="btn">EXCLUIR</a>

@@ -1,5 +1,6 @@
-define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, swalComponent) {
+define(['ko', 'text!./clientesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
+'../../shared/mask/maskComponent'],
+function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -34,7 +35,7 @@ function(ko, template, bridge, $, materialize, swalComponent) {
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError){
         var errorTitle = params.name == 'new' ? 'Não foi possível criar cliente' : 'Não foi possível alterar cliente';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       })
       .done(function(){
         window.location.hash = "clientes"
@@ -55,6 +56,9 @@ function(ko, template, bridge, $, materialize, swalComponent) {
     };
 
     var init = function(){
+      maskComponent.applyEmailMask();
+      maskComponent.applyCelphoneMask();
+
       if (isEditMode()) {
         bridge.get("/api/clientes/get/"+params.id).then(function(response){
           if (!response)

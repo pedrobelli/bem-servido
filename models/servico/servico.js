@@ -4,12 +4,22 @@ module.exports = function(sequelize, DataTypes) {
 		descricao: {
 			allowNull: false,
 			type: DataTypes.STRING,
-			validate: {len: [5, 100]}
+			validate: {
+        len: {
+          args: [5, 100],
+          msg: "Descrição deve conter pelo menos 5 caracters"
+        }
+      }
 		},
 		valor: {
 			allowNull: false,
 			type: DataTypes.DOUBLE,
-			validate: {isFloat: true}
+			validate: {
+        isFloat: {
+          args: true,
+          msg: "Valor deve ser monetário"
+        }
+      }
 		}
 	}, {
 		classMethods: {
