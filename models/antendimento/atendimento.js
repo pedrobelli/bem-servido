@@ -19,8 +19,12 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
 		classMethods: {
-			All: function(){
-				return this.findAll();
+			All: function(models){
+				return this.findAll({ include: [
+						 { model: models.clientes },
+						 { model: models.funcionarios }
+					 ]
+				});
 			},
 			Get: function(id){
 				return this.find({ where: { id: id } });
