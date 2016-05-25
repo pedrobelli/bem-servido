@@ -3,7 +3,13 @@ module.exports = function(sequelize, DataTypes) {
   var Atendimento = sequelize.define('atendimentos', {
     valorTotal: {
       allowNull: false,
-      type: DataTypes.DOUBLE
+      type: DataTypes.DOUBLE,
+			validate: {
+        isFloat: {
+          args: true,
+          msg: "Valor deve ser monetário"
+        }
+      }
     },
     dataInicio: {
       allowNull: false,
@@ -15,7 +21,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     duracao: {
       allowNull: true,
-      type: DataTypes.DOUBLE
+      type: DataTypes.DOUBLE,
+			validate: {
+        min: {
+          args: 1,
+          msg: "Duração deve ser maior ou igual 1 minuto"
+        }
+      }
     }
   }, {
 		classMethods: {

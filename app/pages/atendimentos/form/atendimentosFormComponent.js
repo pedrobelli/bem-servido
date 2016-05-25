@@ -14,9 +14,9 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
     self.finTime = ko.observable("00:00");
     self.valorTotal = ko.observable();
     self.duracao = ko.observable();
+    self.cliente = ko.observable();
     self.prestador = ko.observable();
     self.servico = ko.observable();
-    self.cliente = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Atendimento' : 'Editar Atendimento';
     self.editSemaphore = false;
 
@@ -25,7 +25,15 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
     self.clientes = ko.observableArray([]);
 
     self.validForm = ko.pureComputed(function() {
-      return !!self.data();
+      var valid = !!self.cliente();
+      valid = valid && !!self.prestador();
+      valid = valid && !!self.servico();
+      valid = valid && !!self.valorTotal();
+      valid = valid && !!self.data();
+      valid = valid && !!self.iniTime();
+      valid = valid && !!self.duracao();
+
+      return valid;
     });
 
     self.loadServicos = ko.computed(function(){
@@ -55,7 +63,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError) {
         var errorTitle = params.name == 'new' ? 'Não foi possível criar atendimento' : 'Não foi possível alterar atendimento';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       }).done(function() {
         window.location.hash = "atendimentos"
       });
@@ -154,7 +162,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
             self.iniTime(momentComponent.convertTimeToString(response.atendimento.dataInicio));
             return loadServicos().then(function(){
               self.servico(response.atendimento.servicoId);
-              self.valorTotal(maskComponent.accountingFormat(response.atendimento.valorTotal));
+              self.valorTotal(response.atendimento.valorTotal);
             });
           });
         }
