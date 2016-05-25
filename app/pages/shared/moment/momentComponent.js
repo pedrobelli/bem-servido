@@ -6,11 +6,11 @@ define(['moment'], function(moment) {
   }
 
   function convertDateToString(data) {
-    return moment(data).utcOffset(-3).format("DD/MM/YYYY");
+    return moment(data).utcOffset(0).format("DD/MM/YYYY");
   }
 
   function convertTimeToString(time) {
-    return moment(time).utcOffset(-3).format("HH:mm");
+    return moment(time).utcOffset(0).format("HH:mm");
   }
 
   function calculateFinTime(data, horario, duracao) {
@@ -18,7 +18,7 @@ define(['moment'], function(moment) {
 
     if (momentDate.isValid()) {
       momentDate.add(duracao, 'minutes');
-      return momentDate.utcOffset(-3).format("HH:mm");
+      return momentDate.format("HH:mm");
     }
   }
 
