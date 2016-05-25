@@ -32,7 +32,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.All();
+    return models.atendimentos.All(models);
 
   }).then(function(entities) {
     res.statusCode = 200;

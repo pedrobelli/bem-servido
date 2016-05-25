@@ -11,13 +11,14 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
     self.id = ko.observable(params.id);
     self.data = ko.observable();
     self.iniTime = ko.observable();
-    self.finTime = ko.observable();
+    self.finTime = ko.observable("00:00");
     self.valorTotal = ko.observable();
     self.duracao = ko.observable();
     self.prestador = ko.observable();
     self.servico = ko.observable();
     self.cliente = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Atendimento' : 'Editar Atendimento';
+    self.editSemaphore = false;
 
     self.prestadores = ko.observableArray([]);
     self.servicos = ko.observableArray([]);
@@ -25,6 +26,27 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
 
     self.validForm = ko.pureComputed(function() {
       return !!self.data();
+    });
+
+    self.loadServicos = ko.computed(function(){
+      if (!!self.prestador() && !self.editSemaphore) {
+        loadServicos();
+      }
+    });
+
+    self.loadValor = ko.computed(function(){
+      if (!!self.servico() && !self.editSemaphore) {
+        loadValor();
+      }
+    });
+
+    self.loadFinTime = ko.computed(function(){
+      var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;
+      if (!!self.data() && reg.test(self.iniTime()) && !!self.duracao()) {
+        self.finTime(momentComponent.calculateFinTime(self.data(), self.iniTime(), self.duracao()));
+      } else {
+        self.finTime("00:00");
+      }
     });
 
     self.save = function() {
@@ -42,7 +64,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
     var generatePayload = function() {
       var payload = {
         dataInicio    : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
-        dataFim       : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
+        dataFim       : momentComponent.convertStringToDateTime(self.data(), self.finTime()),
         duracao       : self.duracao(),
         valorTotal    : self.valorTotal(),
         funcionarioId : self.prestador(),
@@ -53,6 +75,43 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       if (isEditMode()) payload.id = params.id;
 
       return payload;
+    };
+
+    var mapResponseToServicos = function(servicos){
+      if(!servicos) return self.servicos([]);
+
+      self.servicosDecorator = servicos;
+      var servicos = servicos.map(function(servicos){
+        return {
+          id    : servicos.id,
+          nome  : servicos.descricao,
+          valor : servicos.valor
+        }
+      });
+
+      self.servicos(servicos);
+      $('select').material_select();
+    };
+
+    var loadServicos = function(){
+      self.servico(undefined);
+      self.valorTotal(undefined);
+      self.servicos([]);
+
+      return bridge.get("/api/funcionarios/get/" + self.prestador())
+      .then(function(response){
+        mapResponseToServicos(response.funcionario.servicos);
+      });
+    };
+
+    var loadValor = function(){
+      self.valorTotal(undefined);
+
+      var servico = self.servicos().filter(function ( servico ) {
+          return servico.id === self.servico();
+      })[0];
+
+      self.valorTotal(servico.valor);
     };
 
     var init = function() {
@@ -83,18 +142,28 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       })
       .then(function(){
         if(isEditMode()) {
-          bridge.get("/api/atendimentos/" + params.id).then(function(response) {
+          return bridge.get("/api/atendimentos/get/" + params.id).then(function(response) {
             if(!response)
               return;
 
-            self.data(response.atendimento.data);
-            self.valorTotal(response.atendimento.valorTotal);
+            self.editSemaphore = true;
+            self.cliente(response.atendimento.clienteId);
+            self.prestador(response.atendimento.funcionarioId);
+            self.data(momentComponent.convertDateToString(response.atendimento.data));
             self.duracao(response.atendimento.duracao);
+            self.iniTime(momentComponent.convertTimeToString(response.atendimento.dataInicio));
+            return loadServicos().then(function(){
+              self.servico(response.atendimento.servicoId);
+              self.valorTotal(maskComponent.accountingFormat(response.atendimento.valorTotal));
+            });
           });
         }
       })
       .then(function(){
         $('select').material_select();
+      })
+      .always(function(){
+        self.editSemaphore = false;
       });
     };
 

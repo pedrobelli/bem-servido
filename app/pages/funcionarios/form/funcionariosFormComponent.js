@@ -62,9 +62,6 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     var selectEspecialidades = function(servicos){
       if (!!servicos && servicos.length > 0) {
         bridge.post('/api/especialidades/by_servicos', { servicos : JSON.stringify(servicos) })
-        .fail(function(context, errorMessage, serverError){
-          console.log("Erros: ", context.errors);
-        })
         .done(function(response){
           var especialidades = ""
           var especialidadesSelecionadas = []
@@ -85,7 +82,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
     var init = function(){
       maskComponent.applyEmailMask();
-      
+
       bridge.get("/api/funcionarios/form_options")
       .then(function(response){
         var servicos = response.servicos.map(function(servico){
