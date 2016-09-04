@@ -94,8 +94,8 @@ self.formOptions = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.clientes.All().then(function(entities) {
       options.clientes = entities;
-      return models.funcionarios.All().then(function(entities) {
-        options.funcionarios = entities;
+      return models.profissionais.All().then(function(entities) {
+        options.profissionais = entities;
       });
     });
 
