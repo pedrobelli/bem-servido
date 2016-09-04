@@ -19,7 +19,7 @@ function(ko, template, bridge, momentComponent, swalComponent) {
         return {
           id        : atendimento.id,
           cliente   : atendimento.cliente.nome,
-          prestador : atendimento.funcionario.nome,
+          prestador : atendimento.profissional.nome,
           data      : momentComponent.convertDateToString(atendimento.dataInicio),
           inicio    : momentComponent.convertTimeToString(atendimento.dataInicio),
           fim       : momentComponent.convertTimeToString(atendimento.dataFim)

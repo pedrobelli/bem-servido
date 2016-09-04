@@ -39,15 +39,15 @@ self.index = function(req, res) {
     query = req.param('query');
 
     if (!!query) {
-      return models.funcionarios.Search(query);
+      return models.profissionais.Search(query);
     } else {
-      return models.funcionarios.All();
+      return models.profissionais.All();
     }
 
   }).then(function(entities) {
     res.statusCode = 200;
     res.json({
-      funcionarios: entities,
+      profissionais: entities,
       placeholderOptions: ["Nome"],
     });
   }).catch(function(errors) {
@@ -57,11 +57,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Get(models, req.param('id'));
+    return models.profissionais.Get(models, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ funcionario: entity });
+    res.json({ profissional: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -69,7 +69,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Destroy(req.param('id'));
+    return models.profissionais.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -80,16 +80,16 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Create(req).then(function(funcionario) {
-      funcionario.setServicos(JSON.parse(req.param('servicos')));
-      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
-        return funcionario;
+    return models.profissionais.Create(req).then(function(profissional) {
+      profissional.setServicos(JSON.parse(req.param('servicos')));
+      return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
+        return profissional;
       });
     });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ funcionario: entity });
+    res.json({ profissional: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -97,16 +97,16 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Update(req).then(function(funcionario) {
-      funcionario.setServicos(JSON.parse(req.param('servicos')));
-      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
-        return funcionario;
+    return models.profissionais.Update(req).then(function(profissional) {
+      profissional.setServicos(JSON.parse(req.param('servicos')));
+      return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
+        return profissional;
       });
     });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ funcionario: entity });
+    res.json({ profissional: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

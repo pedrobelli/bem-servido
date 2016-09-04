@@ -75,7 +75,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
         dataFim       : momentComponent.convertStringToDateTime(self.data(), self.finTime()),
         duracao       : self.duracao(),
         valorTotal    : self.valorTotal(),
-        funcionarioId : self.prestador(),
+        profissionalId : self.prestador(),
         servicoId     : self.servico(),
         clienteId     : self.cliente()
       };
@@ -106,9 +106,9 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       self.valorTotal(undefined);
       self.servicos([]);
 
-      return bridge.get("/api/funcionarios/get/" + self.prestador())
+      return bridge.get("/api/profissionals/get/" + self.prestador())
       .then(function(response){
-        mapResponseToServicos(response.funcionario.servicos);
+        mapResponseToServicos(response.profissional.servicos);
       });
     };
 
@@ -131,10 +131,10 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
 
       bridge.get("/api/atendimentos/form_options")
       .then(function(response){
-        var prestadores = response.funcionarios.map(function(funcionario){
+        var prestadores = response.profissionals.map(function(profissional){
           return {
-            id   : funcionario.id,
-            nome : funcionario.nome
+            id   : profissional.id,
+            nome : profissional.nome
           }
         });
 
@@ -156,7 +156,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
 
             self.editSemaphore = true;
             self.cliente(response.atendimento.clienteId);
-            self.prestador(response.atendimento.funcionarioId);
+            self.prestador(response.atendimento.profissionalId);
             self.data(momentComponent.convertDateToString(response.atendimento.data));
             self.duracao(response.atendimento.duracao);
             self.iniTime(momentComponent.convertTimeToString(response.atendimento.dataInicio));

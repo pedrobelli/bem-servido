@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
 			All: function(models){
 				return this.findAll({ include: [
 						 { model: models.clientes },
-						 { model: models.funcionarios }
+						 { model: models.profissionais }
 					 ]
 				});
 			},
