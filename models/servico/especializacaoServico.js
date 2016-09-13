@@ -1,13 +1,33 @@
 module.exports = function(sequelize, DataTypes) {
 
-	var Servico = sequelize.define('servicos', {
-		nome: {
+	var EspecializacaoServico = sequelize.define('especializacoes_servico', {
+		descricao: {
 			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
         len: {
-          args: [3, 100],
-          msg: "Nome deve conter pelo menos 3 caracters"
+          args: [5, 100],
+          msg: "Descrição deve conter pelo menos 5 caracters"
+        }
+      }
+		},
+		valor: {
+			allowNull: false,
+			type: DataTypes.DOUBLE,
+			validate: {
+        isFloat: {
+          args: true,
+          msg: "Valor deve ser monetário"
+        }
+      }
+		},
+		duracao: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			validate: {
+        isFloat: {
+          args: true,
+          msg: "Valor deve ser inteiro"
         }
       }
 		}
@@ -15,9 +35,6 @@ module.exports = function(sequelize, DataTypes) {
 		classMethods: {
 			All: function(){
 				return this.findAll();
-			},
-			Search: function(query){
-				return this.findAll({ where: { descricao: { $like: '%'+query+'%' } } });
 			},
 			Get: function(id){
 				return this.find({ where: { id: id } });
@@ -38,5 +55,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	});
 
-	return Servico;
+	return EspecializacaoServico;
 };
