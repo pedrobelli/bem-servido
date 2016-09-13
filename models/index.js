@@ -43,17 +43,17 @@ db['especialidades'].belongsToMany(db['profissionais'], { through: 'profissional
 
 //profissionais
 db['profissionais'].hasMany(db['atendimentos'], { foreignKey: { allowNull: false } });
-db['profissionais'].belongsToMany(db['especializacoes_servico'], { through: 'profissional_especializacoes_servico' });
+db['profissionais'].belongsToMany(db['detalhe_servicos'], { through: 'profissional_detalhe_servicos' });
 db['profissionais'].belongsToMany(db['especialidades'], { through: 'profissional_especialidades' });
 
 //servicos
 db['servicos'].hasMany(db['atendimentos'], { foreignKey: { allowNull: false } });
-db['servicos'].hasMany(db['especializacoes_servico'], { foreignKey: { allowNull: false } });
+db['servicos'].hasMany(db['detalhe_servicos'], { foreignKey: { allowNull: false } });
 db['servicos'].belongsTo(db['especialidades'], { foreignKey: { allowNull: false } });
 
-//especializacaoServicos
-db['especializacoes_servico'].belongsTo(db['servicos'], { foreignKey: { allowNull: false } });
-db['especializacoes_servico'].belongsToMany(db['profissionais'], { through: 'profissional_especializacoes_servico' });
+//detalheServicos
+db['detalhe_servicos'].belongsTo(db['servicos'], { foreignKey: { allowNull: false } });
+db['detalhe_servicos'].belongsToMany(db['profissionais'], { through: 'profissional_detalhe_servicos' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

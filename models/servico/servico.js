@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll();
 			},
 			Search: function(query){
-				return this.findAll({ where: { descricao: { $like: '%'+query+'%' } } });
+				return this.findAll({ where: { nome: { $like: '%'+query+'%' } } });
 			},
 			Get: function(id){
 				return this.find({ where: { id: id } });
@@ -34,6 +34,22 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: id } }).then(function(entity) {
 		      return entity.updateAttributes(servico);
 		    });
+			},
+			FindOrCreate: function(servico){
+				return this.FindByNomeAndEspecialidade(servico).then(function(response) {
+					if (response.length == 0) {
+						return this.Create(servico).then(function(response) {
+							return response
+						});
+					}
+					return response[0];
+				});
+			},
+			FindByNomeAndEspecialidade: function(servico){
+				return this.findAll({ where: {
+					nome: { $like: '%'+servico.nome+'%' },
+					especialidadeId: servico.especialidadeId
+				 } });
 			}
 		}
 	});

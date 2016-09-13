@@ -9,7 +9,8 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     var UPDATE_PATH = "/api/servicos/edit/"+params.id;
 
     self.id = ko.observable(params.id);
-    self.descricao = ko.observable();
+    self.nome = ko.observable();
+    self.duracao = ko.observable();
     self.valor = ko.observable();
     self.especialidade = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
@@ -17,7 +18,8 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     self.especialidades = ko.observableArray([]);
 
     self.validForm = ko.pureComputed(function(){
-      valid = !!self.descricao();
+      valid = !!self.nome();
+      valid = valid && !!self.duracao();
       valid = valid && !!self.valor();
       valid = valid && !!self.especialidade();
 
@@ -29,7 +31,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError){
-        var errorTitle = params.name == 'new' ? 'Não foi possível criar seriço' : 'Não foi possível alterar seriço';
+        var errorTitle = params.name == 'new' ? 'Não foi possível criar serviço' : 'Não foi possível alterar serviço';
         swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       })
       .done(function(){
@@ -39,8 +41,9 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
     var generatePayload = function(){
       var payload = {
-        descricao     : self.descricao(),
-        valor         : self.valor(),
+        nome            : self.nome(),
+        duracao         : self.duracao(),
+        valor           : self.valor(),
         especialidadeId : self.especialidade()
       };
 
@@ -51,7 +54,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
     var init = function(){
       maskComponent.applyCurrencyMask();
-      
+
       bridge.get("/api/servicos/form_options")
       .then(function(response){
         var especialidades = response.especialidades.map(function(especialidade){
@@ -69,7 +72,8 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
             if (!response)
               return;
 
-            self.descricao(response.servico.descricao);
+            self.nome(response.servico.nome);
+            self.duracao(response.servico.duracao);
             self.valor(response.servico.valor);
             self.especialidade(response.servico.especialidadeId);
           });

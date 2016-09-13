@@ -80,7 +80,10 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.servicos.Create(req.body);
+    return models.servicos.FindOrCreate(req.body).then(function(response) {
+      req.body.servicoId = response.id;
+      return models.detalhe_servicos.FindOrCreate(req.body);
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
