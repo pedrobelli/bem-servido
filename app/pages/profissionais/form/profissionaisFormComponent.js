@@ -1,12 +1,12 @@
-define(['ko', 'text!./funcionariosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
+define(['ko', 'text!./profissionaisFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
 '../../shared/mask/maskComponent'],
 function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var CREATE_PATH = "/api/funcionarios/new";
-    var UPDATE_PATH = "/api/funcionarios/edit/"+params.id;
+    var CREATE_PATH = "/api/profissionais/new";
+    var UPDATE_PATH = "/api/profissionais/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -14,7 +14,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     self.especialidades = ko.observable();
     self.servicosSelecionados = ko.observable();
     self.especialidadesSelecionadas = ko.observable();
-    self.pageMode = params.name == 'new' ? 'Novo Funcionario' : 'Editar Funcionario';
+    self.pageMode = params.name == 'new' ? 'Novo Profissional' : 'Editar Profissional';
 
     self.servicos = ko.observableArray([]);
 
@@ -42,7 +42,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
         swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       })
       .done(function(){
-        window.location.hash = "funcionarios"
+        window.location.hash = "profissionais"
       });
     };
 
@@ -62,9 +62,6 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     var selectEspecialidades = function(servicos){
       if (!!servicos && servicos.length > 0) {
         bridge.post('/api/especialidades/by_servicos', { servicos : JSON.stringify(servicos) })
-        .fail(function(context, errorMessage, serverError){
-          console.log("Erros: ", context.errors);
-        })
         .done(function(response){
           var especialidades = ""
           var especialidadesSelecionadas = []
@@ -85,8 +82,8 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
     var init = function(){
       maskComponent.applyEmailMask();
-      
-      bridge.get("/api/funcionarios/form_options")
+
+      bridge.get("/api/profissionais/form_options")
       .then(function(response){
         var servicos = response.servicos.map(function(servico){
           return {
@@ -99,17 +96,17 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
       })
       .then(function(){
         if (isEditMode()) {
-          return bridge.get("/api/funcionarios/get/"+params.id).then(function(response){
+          return bridge.get("/api/profissionais/get/"+params.id).then(function(response){
             if (!response)
               return;
 
             servicosSelecionados = [];
-            response.funcionario.servicos.forEach(function(servico) {
+            response.profissional.servicos.forEach(function(servico) {
               servicosSelecionados.push(servico.id);
             });
 
-            self.nome(response.funcionario.nome);
-            self.email(response.funcionario.email);
+            self.nome(response.profissional.nome);
+            self.email(response.profissional.email);
             self.servicosSelecionados(servicosSelecionados);
           });
         }
@@ -131,7 +128,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Funcionarios form"
+      return "Profissionals form"
     }
   };
 });

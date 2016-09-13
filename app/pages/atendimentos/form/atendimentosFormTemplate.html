@@ -54,7 +54,7 @@
 
           <div class="col s6">
             <label>Duração:</label>
-            <input class="number" data-bind="value: duracao" type="text" id="duracao" placeholder="Duração">
+            <input class="number" data-bind="textInput: duracao" type="text" id="duracao" placeholder="Duração">
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
         <div class="col s12">
           <div class="col s6">
             <label>Hora Início:</label>
-            <input class="time" data-bind="value: iniTime" type="text" id="iniTime" placeholder="Hora Início">
+            <input class="time" data-bind="textInput: iniTime" type="text" id="iniTime" placeholder="Hora Início">
           </div>
 
           <div class="col s6">
@@ -76,7 +76,7 @@
     </div>
   </div>
 
-  <input  class="btn" type="submit" data-bind="attr: { disabled: !validForm() }, click:save" value="SALVAR">
+  <input  class="btn" type="submit" data-bind="attr: { disabled: !validForm() }, css: { disabled: !validForm() }, click:save" value="SALVAR">
 </form>
 
 <p></p>

@@ -3,7 +3,13 @@ module.exports = function(sequelize, DataTypes) {
   var Atendimento = sequelize.define('atendimentos', {
     valorTotal: {
       allowNull: false,
-      type: DataTypes.DOUBLE
+      type: DataTypes.DOUBLE,
+			validate: {
+        isFloat: {
+          args: true,
+          msg: "Valor deve ser monetário"
+        }
+      }
     },
     dataInicio: {
       allowNull: false,
@@ -15,12 +21,22 @@ module.exports = function(sequelize, DataTypes) {
     },
     duracao: {
       allowNull: true,
-      type: DataTypes.DOUBLE
+      type: DataTypes.DOUBLE,
+			validate: {
+        min: {
+          args: 1,
+          msg: "Duração deve ser maior ou igual 1 minuto"
+        }
+      }
     }
   }, {
 		classMethods: {
-			All: function(){
-				return this.findAll();
+			All: function(models){
+				return this.findAll({ include: [
+						 { model: models.clientes },
+						 { model: models.profissionais }
+					 ]
+				});
 			},
 			Get: function(id){
 				return this.find({ where: { id: id } });
@@ -30,12 +46,12 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(req){
-				return this.create(req.body);
+			Create: function(atendimento){
+				return this.create(atendimento);
 			},
-			Update: function(req){
-				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
-		      return entity.updateAttributes(req.body);
+			Update: function(id, atendimento){
+				return this.find({ where: { id: id } }).then(function(entity) {
+		      return entity.updateAttributes(atendimento);
 		    });
 			}
 		}

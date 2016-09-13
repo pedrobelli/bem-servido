@@ -17,11 +17,12 @@ function(ko, template, bridge, momentComponent, swalComponent) {
       if(!atendimentos) return self.atendimento([]);
       var atendimentos = atendimentos.map(function(atendimento) {
         return {
-          id      : atendimento.id,
-          cliente : atendimento.clienteId,
-          data    : momentComponent.convertDateToString(atendimento.dataInicio),
-          inicio  : momentComponent.convertTimeToString(atendimento.dataInicio),
-          fim     : momentComponent.convertTimeToString(atendimento.dataFim)
+          id        : atendimento.id,
+          cliente   : atendimento.cliente.nome,
+          prestador : atendimento.profissional.nome,
+          data      : momentComponent.convertDateToString(atendimento.dataInicio),
+          inicio    : momentComponent.convertTimeToString(atendimento.dataInicio),
+          fim       : momentComponent.convertTimeToString(atendimento.dataFim)
         };
       });
       self.atendimentos(atendimentos);

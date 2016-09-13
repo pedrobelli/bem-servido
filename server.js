@@ -3,16 +3,20 @@
 var express                = require('express'),
   config                   = require('./config/config'),
   bodyParser               = require('body-parser'),
-  morgan                   = require('morgan'),
-  db                       = require('./models'),
+  models                   = require('./models'),
+  systemSeed               = require('./system/seed'),
   atendimentosController   = require('./controller/atendimentos/atendimentosController'),
   clientesController       = require('./controller/clientes/clientesController'),
-  funcionariosController   = require('./controller/funcionarios/funcionariosController'),
-  especialidadesController = require('./controller/funcionarios/especialidadesController'),
+  profissionaisController  = require('./controller/profissionais/profissionaisController'),
+  especialidadesController = require('./controller/profissionais/especialidadesController'),
   servicosController       = require('./controller/servicos/servicosController');
 
 var path = require('path');
 var app = express();
+var args = process.argv;
+
+var drop = args[3] == 'drop' ? true : false;
+var seed = args[4] == 'seed' ? true : false;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,26 +28,33 @@ app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
 
-db.sequelize
-  .sync()
-  .then(function () {
-  app.listen(config.port, function () {
+models.sequelize
+.sync({ force: drop })
+.then(function() {
+  if (!seed)
+    return Promise.resolve("");
+
+  return systemSeed.runSeed();
+})
+.then(function() {
+  app.listen(config.port, function() {
     loadRoutes();
 
     console.log('Listening on http://localhost:%s', config.port);
   });
-  }).catch(function (e) {
-      throw new Error(e);
-  });
+})
+.catch(function(e) {
+    throw new Error(e);
+});
 
-function loadRoutes(){
+function loadRoutes() {
   var apiRoutes = express.Router();
 
   atendimentosController.loadRoutes("/atendimentos", apiRoutes);
 
   clientesController.loadRoutes("/clientes", apiRoutes);
 
-  funcionariosController.loadRoutes("/funcionarios", apiRoutes);
+  profissionaisController.loadRoutes("/profissionais", apiRoutes);
   especialidadesController.loadRoutes("/especialidades", apiRoutes);
 
   servicosController.loadRoutes("/servicos", apiRoutes);

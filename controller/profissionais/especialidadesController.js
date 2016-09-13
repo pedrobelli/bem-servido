@@ -9,10 +9,6 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.index(req, res);
   });
 
-  apiRoutes.get(endpoint + '/query/:query', function(req, res) {
-    return self.index(req, res);
-  });
-
   apiRoutes.get(endpoint + '/get/:id', function(req, res) {
     return self.get(req, res);
   });
@@ -29,27 +25,18 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.update(req, res);
   });
 
-  apiRoutes.get(endpoint + '/form_options', function(req, res) {
-    return self.formOptions(req, res);
+  apiRoutes.post(endpoint + '/by_servicos', function(req, res) {
+    return self.getByServicos(req, res);
   });
 }
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    query = req.param('query');
-
-    if (!!query) {
-      return models.funcionarios.Search(query);
-    } else {
-      return models.funcionarios.All();
-    }
+    return models.especialidades.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({
-      funcionarios: entities,
-      placeholderOptions: ["Nome"],
-    });
+    res.json({ especialidades: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -57,11 +44,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Get(models, req.param('id'));
+    return models.especialidades.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ funcionario: entity });
+    res.json({ especialidade: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -69,7 +56,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Destroy(req.param('id'));
+    return models.especialidades.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -80,16 +67,11 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Create(req).then(function(funcionario) {
-      funcionario.setServicos(JSON.parse(req.param('servicos')));
-      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
-        return funcionario;
-      });
-    });
+    return models.especialidades.Create(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ funcionario: entity });
+    res.json({ especialidade: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -97,31 +79,23 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.funcionarios.Update(req).then(function(funcionario) {
-      funcionario.setServicos(JSON.parse(req.param('servicos')));
-      return funcionario.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
-        return funcionario;
-      });
-    });
+    return models.especialidades.Update(req.param('id'), req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ funcionario: entity });
+    res.json({ especialidade: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
 }
 
-self.formOptions = function(req, res) {
-  var options = {}
+self.getByServicos = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.servicos.All().then(function(entities) {
-      options.servicos = entities;
-    });
+    return models.especialidades.FindByServicos(models, req.param('servicos'))
 
-  }).then(function() {
+  }).then(function(entities) {
     res.statusCode = 200;
-    res.json(options);
+    res.json({ especialidades: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

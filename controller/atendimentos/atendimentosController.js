@@ -32,7 +32,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.All();
+    return models.atendimentos.All(models);
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -67,7 +67,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Create(req);
+    return models.atendimentos.Create(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -79,7 +79,7 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Update(req);
+    return models.atendimentos.Update(req.param('id'), req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -94,8 +94,8 @@ self.formOptions = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.clientes.All().then(function(entities) {
       options.clientes = entities;
-      return models.funcionarios.All().then(function(entities) {
-        options.funcionarios = entities;
+      return models.profissionais.All().then(function(entities) {
+        options.profissionais = entities;
       });
     });
 

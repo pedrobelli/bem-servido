@@ -30,33 +30,33 @@
     "params" : { "name" : "edit" }
   },
   {
-    "path"   : "#funcionarios",
-    "page"   : "pages/funcionarios/funcionariosComponent",
+    "path"   : "#profissionais",
+    "page"   : "pages/profissionais/profissionaisComponent",
     "params" : { "name" : "index" }
   },
   {
-    "path"   : "#funcionarios/new",
-    "page"   : "pages/funcionarios/form/funcionariosFormComponent",
+    "path"   : "#profissionais/new",
+    "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : { "name" : "new" }
   },
   {
-    "path"   : "#funcionarios/edit/:id",
-    "page"   : "pages/funcionarios/form/funcionariosFormComponent",
+    "path"   : "#profissionais/edit/:id",
+    "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : { "name" : "edit" }
   },
   {
     "path"   : "#especialidades",
-    "page"   : "pages/funcionarios/especialidadesComponent",
+    "page"   : "pages/profissionais/especialidadesComponent",
     "params" : { "name" : "index" }
   },
   {
     "path"   : "#especialidades/new",
-    "page"   : "pages/funcionarios/form/especialidadesFormComponent",
+    "page"   : "pages/profissionais/form/especialidadesFormComponent",
     "params" : { "name" : "new" }
   },
   {
     "path"   : "#especialidades/edit/:id",
-    "page"   : "pages/funcionarios/form/especialidadesFormComponent",
+    "page"   : "pages/profissionais/form/especialidadesFormComponent",
     "params" : { "name" : "edit" }
   },
   {

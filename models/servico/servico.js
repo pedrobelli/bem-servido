@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING,
 			validate: {
         len: {
-          args: [5, 100],
+          args: [3, 100],
           msg: "Descrição deve conter pelo menos 5 caracters"
         }
       }
@@ -37,12 +37,12 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(req){
-				return this.create(req.body);
+			Create: function(servico){
+				return this.create(servico);
 			},
-			Update: function(req){
-				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
-		      return entity.updateAttributes(req.body);
+			Update: function(id, servico){
+				return this.find({ where: { id: id } }).then(function(entity) {
+		      return entity.updateAttributes(servico);
 		    });
 			}
 		}

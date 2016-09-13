@@ -11,20 +11,50 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
     self.id = ko.observable(params.id);
     self.data = ko.observable();
     self.iniTime = ko.observable();
-    self.finTime = ko.observable();
+    self.finTime = ko.observable("00:00");
     self.valorTotal = ko.observable();
     self.duracao = ko.observable();
+    self.cliente = ko.observable();
     self.prestador = ko.observable();
     self.servico = ko.observable();
-    self.cliente = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Atendimento' : 'Editar Atendimento';
+    self.editSemaphore = false;
 
     self.prestadores = ko.observableArray([]);
     self.servicos = ko.observableArray([]);
     self.clientes = ko.observableArray([]);
 
     self.validForm = ko.pureComputed(function() {
-      return !!self.data();
+      var valid = !!self.cliente();
+      valid = valid && !!self.prestador();
+      valid = valid && !!self.servico();
+      valid = valid && !!self.valorTotal();
+      valid = valid && !!self.data();
+      valid = valid && !!self.iniTime();
+      valid = valid && !!self.duracao();
+
+      return valid;
+    });
+
+    self.loadServicos = ko.computed(function(){
+      if (!!self.prestador() && !self.editSemaphore) {
+        loadServicos();
+      }
+    });
+
+    self.loadValor = ko.computed(function(){
+      if (!!self.servico() && !self.editSemaphore) {
+        loadValor();
+      }
+    });
+
+    self.loadFinTime = ko.computed(function(){
+      var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;
+      if (!!self.data() && reg.test(self.iniTime()) && !!self.duracao()) {
+        self.finTime(momentComponent.calculateFinTime(self.data(), self.iniTime(), self.duracao()));
+      } else {
+        self.finTime("00:00");
+      }
     });
 
     self.save = function() {
@@ -33,7 +63,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError) {
         var errorTitle = params.name == 'new' ? 'Não foi possível criar atendimento' : 'Não foi possível alterar atendimento';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors.errors);
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       }).done(function() {
         window.location.hash = "atendimentos"
       });
@@ -42,10 +72,10 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
     var generatePayload = function() {
       var payload = {
         dataInicio    : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
-        dataFim       : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
+        dataFim       : momentComponent.convertStringToDateTime(self.data(), self.finTime()),
         duracao       : self.duracao(),
         valorTotal    : self.valorTotal(),
-        funcionarioId : self.prestador(),
+        profissionalId : self.prestador(),
         servicoId     : self.servico(),
         clienteId     : self.cliente()
       };
@@ -53,6 +83,43 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       if (isEditMode()) payload.id = params.id;
 
       return payload;
+    };
+
+    var mapResponseToServicos = function(servicos){
+      if(!servicos) return self.servicos([]);
+
+      self.servicosDecorator = servicos;
+      var servicos = servicos.map(function(servicos){
+        return {
+          id    : servicos.id,
+          nome  : servicos.descricao,
+          valor : servicos.valor
+        }
+      });
+
+      self.servicos(servicos);
+      $('select').material_select();
+    };
+
+    var loadServicos = function(){
+      self.servico(undefined);
+      self.valorTotal(undefined);
+      self.servicos([]);
+
+      return bridge.get("/api/profissionais/get/" + self.prestador())
+      .then(function(response){
+        mapResponseToServicos(response.profissional.servicos);
+      });
+    };
+
+    var loadValor = function(){
+      self.valorTotal(undefined);
+
+      var servico = self.servicos().filter(function ( servico ) {
+          return servico.id === self.servico();
+      })[0];
+
+      self.valorTotal(servico.valor);
     };
 
     var init = function() {
@@ -64,10 +131,10 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
 
       bridge.get("/api/atendimentos/form_options")
       .then(function(response){
-        var prestadores = response.funcionarios.map(function(funcionario){
+        var prestadores = response.profissionais.map(function(profissional){
           return {
-            id   : funcionario.id,
-            nome : funcionario.nome
+            id   : profissional.id,
+            nome : profissional.nome
           }
         });
 
@@ -83,18 +150,28 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       })
       .then(function(){
         if(isEditMode()) {
-          bridge.get("/api/atendimentos/" + params.id).then(function(response) {
+          return bridge.get("/api/atendimentos/get/" + params.id).then(function(response) {
             if(!response)
               return;
 
-            self.data(response.atendimento.data);
-            self.valorTotal(response.atendimento.valorTotal);
+            self.editSemaphore = true;
+            self.cliente(response.atendimento.clienteId);
+            self.prestador(response.atendimento.profissionalId);
+            self.data(momentComponent.convertDateToString(response.atendimento.data));
             self.duracao(response.atendimento.duracao);
+            self.iniTime(momentComponent.convertTimeToString(response.atendimento.dataInicio));
+            return loadServicos().then(function(){
+              self.servico(response.atendimento.servicoId);
+              self.valorTotal(response.atendimento.valorTotal);
+            });
           });
         }
       })
       .then(function(){
         $('select').material_select();
+      })
+      .always(function(){
+        self.editSemaphore = false;
       });
     };
 
