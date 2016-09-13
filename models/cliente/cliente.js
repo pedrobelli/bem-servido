@@ -57,12 +57,12 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(req){
-				return this.create(req.body);
+			Create: function(cliente){
+				return this.create(cliente);
 			},
-			Update: function(req){
-				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
-		      return entity.updateAttributes(req.body);
+			Update: function(cliente){
+				return this.find({ where: { id: id } }).then(function(entity) {
+		      return entity.updateAttributes(cliente);
 		    });
 			}
 		}

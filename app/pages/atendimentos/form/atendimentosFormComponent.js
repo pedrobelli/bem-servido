@@ -106,7 +106,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
       self.valorTotal(undefined);
       self.servicos([]);
 
-      return bridge.get("/api/profissionals/get/" + self.prestador())
+      return bridge.get("/api/profissionais/get/" + self.prestador())
       .then(function(response){
         mapResponseToServicos(response.profissional.servicos);
       });
@@ -131,7 +131,7 @@ function(ko, template, bridge, momentComponent, swalComponent, maskComponent, da
 
       bridge.get("/api/atendimentos/form_options")
       .then(function(response){
-        var prestadores = response.profissionals.map(function(profissional){
+        var prestadores = response.profissionais.map(function(profissional){
           return {
             id   : profissional.id,
             nome : profissional.nome

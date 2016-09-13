@@ -1,12 +1,12 @@
-define(['ko', 'text!./profissionalsFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
+define(['ko', 'text!./profissionaisFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
 '../../shared/mask/maskComponent'],
 function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var CREATE_PATH = "/api/profissionals/new";
-    var UPDATE_PATH = "/api/profissionals/edit/"+params.id;
+    var CREATE_PATH = "/api/profissionais/new";
+    var UPDATE_PATH = "/api/profissionais/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -42,7 +42,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
         swalComponent.errorAlertWithTitle(errorTitle, context.errors);
       })
       .done(function(){
-        window.location.hash = "profissionals"
+        window.location.hash = "profissionais"
       });
     };
 
@@ -83,7 +83,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     var init = function(){
       maskComponent.applyEmailMask();
 
-      bridge.get("/api/profissionals/form_options")
+      bridge.get("/api/profissionais/form_options")
       .then(function(response){
         var servicos = response.servicos.map(function(servico){
           return {
@@ -96,7 +96,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
       })
       .then(function(){
         if (isEditMode()) {
-          return bridge.get("/api/profissionals/get/"+params.id).then(function(response){
+          return bridge.get("/api/profissionais/get/"+params.id).then(function(response){
             if (!response)
               return;
 

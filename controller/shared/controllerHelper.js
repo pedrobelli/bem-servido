@@ -3,8 +3,6 @@ var Sequelize = require('sequelize'),
 
 exports.writeErrors = function(res, errors) {
   res.statusCode = 400;
-  console.log("===== ERROR =====");
-  console.log(errors);
   res.json({errors});
 }
 

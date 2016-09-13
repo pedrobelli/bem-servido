@@ -3,8 +3,8 @@
 var express                = require('express'),
   config                   = require('./config/config'),
   bodyParser               = require('body-parser'),
-  db                       = require('./models'),
-  // systemSetup              = require('./system/setup'),
+  models                   = require('./models'),
+  systemSeed               = require('./system/seed'),
   atendimentosController   = require('./controller/atendimentos/atendimentosController'),
   clientesController       = require('./controller/clientes/clientesController'),
   profissionaisController  = require('./controller/profissionais/profissionaisController'),
@@ -13,12 +13,10 @@ var express                = require('express'),
 
 var path = require('path');
 var app = express();
-// var args = process.argv;
-//
-// var drop = args[3] == 'drop' ? true : false;
-// var seed = args[4] == 'seed' ? true : false;
+var args = process.argv;
 
-// systemSetup.dropTables();
+var drop = args[3] == 'drop' ? true : false;
+var seed = args[4] == 'seed' ? true : false;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,20 +28,26 @@ app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
 
-db.sequelize
-  .sync()
-  // .sync({ force: drop })
-  .then(function () {
-    app.listen(config.port, function () {
-      loadRoutes();
+models.sequelize
+.sync({ force: drop })
+.then(function() {
+  if (!seed)
+    return Promise.resolve("");
 
-      console.log('Listening on http://localhost:%s', config.port);
-    });
-  }).catch(function (e) {
-      throw new Error(e);
+  return systemSeed.runSeed();
+})
+.then(function() {
+  app.listen(config.port, function() {
+    loadRoutes();
+
+    console.log('Listening on http://localhost:%s', config.port);
   });
+})
+.catch(function(e) {
+    throw new Error(e);
+});
 
-function loadRoutes(){
+function loadRoutes() {
   var apiRoutes = express.Router();
 
   atendimentosController.loadRoutes("/atendimentos", apiRoutes);

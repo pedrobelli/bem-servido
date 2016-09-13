@@ -13,10 +13,7 @@ function(ko, template, bridge, $, materialize, swalComponent) {
     self.pageMode = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
 
     self.validForm = ko.pureComputed(function(){
-      valid = !!self.nome();
-      valid = valid && !!self.descricao();
-
-      return valid;
+      return !!self.nome();
     });
 
     self.save = function() {

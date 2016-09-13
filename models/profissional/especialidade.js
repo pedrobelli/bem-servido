@@ -12,7 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     descricao: {
-      allowNull: false,
       type: DataTypes.STRING,
       validate: {
         len: {
@@ -26,6 +25,9 @@ module.exports = function(sequelize, DataTypes) {
 			All: function(){
 				return this.findAll();
 			},
+			Search: function(query){
+				return this.findAll({ where: { nome: { $like: '%'+query+'%' } } });
+			},
 			Get: function(id){
 				return this.find({ where: { id: id } });
 			},
@@ -34,12 +36,12 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(req){
-				return this.create(req.body);
+			Create: function(especialidade){
+				return this.create(especialidade);
 			},
-			Update: function(req){
-				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
-		      return entity.updateAttributes(req.body);
+			Update: function(id, especialidade){
+				return this.find({ where: { id: id } }).then(function(entity) {
+		      return entity.updateAttributes(especialidade);
 		    });
 			},
 			FindByServicos: function(models, servicoIds){

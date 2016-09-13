@@ -80,7 +80,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.profissionais.Create(req).then(function(profissional) {
+    return models.profissionais.Create(req.body).then(function(profissional) {
       profissional.setServicos(JSON.parse(req.param('servicos')));
       return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
         return profissional;
@@ -97,7 +97,7 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.profissionais.Update(req).then(function(profissional) {
+    return models.profissionais.Update(req.param('id'), req.body).then(function(profissional) {
       profissional.setServicos(JSON.parse(req.param('servicos')));
       return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
         return profissional;

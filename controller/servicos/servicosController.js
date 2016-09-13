@@ -80,7 +80,7 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.servicos.Create(req);
+    return models.servicos.Create(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -92,7 +92,7 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.servicos.Update(req);
+    return models.servicos.Update(req.param('id'), req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;

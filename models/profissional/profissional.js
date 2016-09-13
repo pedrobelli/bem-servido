@@ -42,12 +42,12 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(req){
-				return this.create(req.body);
+			Create: function(profissional){
+				return this.create(profissional);
 			},
-			Update: function(req){
-				return this.find({ where: { id: req.param('id') } }).then(function(entity) {
-		      return entity.updateAttributes(req.body);
+			Update: function(id, profissional){
+				return this.find({ where: { id: id } }).then(function(entity) {
+		      return entity.updateAttributes(profissional);
 		    });
 			}
 		}
