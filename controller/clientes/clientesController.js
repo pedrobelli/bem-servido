@@ -75,7 +75,7 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.clientes.Update(req.param('id'), req.body);
+    return models.clientes.Update(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;

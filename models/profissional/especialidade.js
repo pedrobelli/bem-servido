@@ -39,15 +39,15 @@ module.exports = function(sequelize, DataTypes) {
 			Create: function(especialidade){
 				return this.create(especialidade);
 			},
-			Update: function(id, especialidade){
-				return this.find({ where: { id: id } }).then(function(entity) {
+			Update: function(especialidade){
+				return this.find({ where: { id: especialidade.id } }).then(function(entity) {
 		      return entity.updateAttributes(especialidade);
 		    });
 			},
 			FindByServicos: function(models, servicoIds){
 				return this.findAll({ include: [
           { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
-        ] })
+        ] });
 			}
 		}
   });

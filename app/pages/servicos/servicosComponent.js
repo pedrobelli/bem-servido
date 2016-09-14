@@ -5,36 +5,36 @@ function(ko, template, bridge, $, materialize, searchComponent, swalComponent, m
   var viewModel = function(params) {
     var self = this;
 
-    self.servicos = ko.observableArray([]);
+    self.detalheServicos = ko.observableArray([]);
 
-    searchComponent.subscribe("/api/servicos/query", function(response){
-      mapResponseToServicos(response.servicos);
+    searchComponent.subscribe("/api/detalhe_servicos/query", function(response){
+      mapResponseToServicos(response.detalheServicos);
     });
 
-    self.exclude = function(servico){
+    self.exclude = function(detalheServico){
       var errorTitle = 'Não foi possível excluir serviço';
-      swalComponent.removeInstanceWarning("/api/servicos/" + servico.id, errorTitle, function(){
+      swalComponent.removeInstanceWarning("/api/detalhe_servicos/" + detalheServico.id, errorTitle, function(){
         init();
       });
     };
 
-    var mapResponseToServicos = function(servicos){
-      if(!servicos) return self.servicos([]);
-      var servicos = servicos.map(function(servico){
+    var mapResponseToServicos = function(detalheServicos){
+      if(!detalheServicos) return self.detalheServicos([]);
+      var detalheServicos = detalheServicos.map(function(detalheServico){
         return {
-          id        : servico.id,
-          descricao : servico.descricao,
-          valor     : maskComponent.accountingFormat(servico.valor)
+          id     : detalheServico.id,
+          nome   : detalheServico.servico.nome,
+          valor  : maskComponent.accountingFormat(detalheServico.valor)
         };
       });
 
-      self.servicos(servicos);
+      self.detalheServicos(detalheServicos);
     };
 
     var init = function(){
-      bridge.get("/api/servicos")
+      bridge.get("/api/detalhe_servicos")
       .then(function(response){
-        mapResponseToServicos(response.servicos);
+        mapResponseToServicos(response.detalheServicos);
         searchComponent.setPlaceholderText(response.placeholderOptions);
       });
     };

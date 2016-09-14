@@ -23,11 +23,19 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	}, {
 		classMethods: {
-			All: function(){
-				return this.findAll();
+			All: function(models){
+				return this.findAll({ include: [ { model: models.servicos } ] });
 			},
-			Get: function(id){
-				return this.find({ where: { id: id } });
+			Search: function(models, query){
+				return this.findAll({ include: [
+          { model: models.servicos, where: { nome: { $like: '%'+query+'%' } } }
+        ] });
+			},
+			Get: function(models, id){
+				return this.find({
+					include: [ { model: models.servicos } ],
+					where: { id: id },
+			  });
 			},
 			Destroy: function(id){
 				return this.find({ where: { id: id } }).then(function(entity) {
@@ -37,8 +45,8 @@ module.exports = function(sequelize, DataTypes) {
 			Create: function(detalheServico){
 				return this.create(detalheServico);
 			},
-			Update: function(id, detalheServico){
-				return this.find({ where: { id: id } }).then(function(entity) {
+			Update: function(detalheServico){
+				return this.find({ where: { id: detalheServico.id } }).then(function(entity) {
 		      return entity.updateAttributes(detalheServico);
 		    });
 			},

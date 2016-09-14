@@ -6,16 +6,16 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Descrição</th>
+      <th>Nome</th>
       <th>Valor</th>
       <th>Ações</th>
     </tr>
   </thead>
 
-  <tbody data-bind="foreach: servicos">
+  <tbody data-bind="foreach: detalheServicos">
   <tr>
     <th scope="row" data-bind="text: id"></th>
-    <td data-bind="text: descricao"></td>
+    <td data-bind="text: nome"></td>
     <td data-bind="text: 'R$'+valor"></td>
     <td>
       <a data-bind="attr: {href: '#servicos/edit/'+id}" class="btn">EDITAR</a>

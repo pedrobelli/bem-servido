@@ -1,15 +1,16 @@
 'use strict';
 
-var express                = require('express'),
-  config                   = require('./config/config'),
-  bodyParser               = require('body-parser'),
-  models                   = require('./models'),
-  systemSeed               = require('./system/seed'),
-  atendimentosController   = require('./controller/atendimentos/atendimentosController'),
-  clientesController       = require('./controller/clientes/clientesController'),
-  profissionaisController  = require('./controller/profissionais/profissionaisController'),
-  especialidadesController = require('./controller/profissionais/especialidadesController'),
-  servicosController       = require('./controller/servicos/servicosController');
+var express                 = require('express'),
+  config                    = require('./config/config'),
+  bodyParser                = require('body-parser'),
+  models                    = require('./models'),
+  systemSeed                = require('./system/seed'),
+  atendimentosController    = require('./controller/atendimentos/atendimentosController'),
+  clientesController        = require('./controller/clientes/clientesController'),
+  profissionaisController   = require('./controller/profissionais/profissionaisController'),
+  especialidadesController  = require('./controller/profissionais/especialidadesController'),
+  servicosController        = require('./controller/servicos/servicosController'),
+  detalheServicosController = require('./controller/servicos/detalheServicosController');
 
 var path = require('path');
 var app = express();
@@ -58,6 +59,7 @@ function loadRoutes() {
   especialidadesController.loadRoutes("/especialidades", apiRoutes);
 
   servicosController.loadRoutes("/servicos", apiRoutes);
+  detalheServicosController.loadRoutes("/detalhe_servicos", apiRoutes);
 
   app.use('/api', apiRoutes);
 

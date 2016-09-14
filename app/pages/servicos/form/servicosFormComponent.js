@@ -5,8 +5,8 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
   var viewModel = function(params) {
     var self = this;
 
-    var CREATE_PATH = "/api/servicos/new";
-    var UPDATE_PATH = "/api/servicos/edit/"+params.id;
+    var CREATE_PATH = "/api/detalhe_servicos/new";
+    var UPDATE_PATH = "/api/detalhe_servicos/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
@@ -55,7 +55,7 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
     var init = function(){
       maskComponent.applyCurrencyMask();
 
-      bridge.get("/api/servicos/form_options")
+      bridge.get("/api/detalhe_servicos/form_options")
       .then(function(response){
         var especialidades = response.especialidades.map(function(especialidade){
           return {
@@ -68,14 +68,15 @@ function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
       })
       .then(function(){
         if (isEditMode()) {
-          return bridge.get("/api/servicos/get/"+params.id).then(function(response){
+          return bridge.get("/api/detalhe_servicos/get/"+params.id).then(function(response){
+            console.log(response);
             if (!response)
               return;
 
-            self.nome(response.servico.nome);
-            self.duracao(response.servico.duracao);
-            self.valor(response.servico.valor);
-            self.especialidade(response.servico.especialidadeId);
+            self.nome(response.detalheServico.servico.nome);
+            self.duracao(response.detalheServico.duracao);
+            self.valor(response.detalheServico.valor);
+            self.especialidade(response.detalheServico.servico.especialidadeId);
           });
         }
 
