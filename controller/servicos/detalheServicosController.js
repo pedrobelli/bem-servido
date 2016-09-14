@@ -81,7 +81,7 @@ self.destroy = function(req, res) {
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.servicos.FindOrCreate(req.body).then(function(entity) {
-      
+
       req.body.servicoId = entity.id;
       return models.detalhe_servicos.FindOrCreate(req.body);
     });
@@ -96,11 +96,11 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    var payload = {
-      nome            : 'Caramba',
-      especialidadeId : '1',
+    var servicoPayload = {
+      nome            : req.body.nome,
+      especialidadeId : req.body.especialidadeId,
     }
-    return models.servicos.FindOrCreate(payload).then(function(entity) {
+    return models.servicos.FindOrCreate(servicoPayload).then(function(entity) {
 
       req.body.servicoId = entity.id;
       return models.detalhe_servicos.Update(req.body);
