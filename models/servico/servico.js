@@ -28,9 +28,11 @@ module.exports = function(sequelize, DataTypes) {
 		    });
 			},
 			Create: function(servico){
+				servico.nome = servico.nome.charAt(0).toUpperCase() + servico.nome.slice(1).toLowerCase();
 				return this.create(servico);
 			},
 			Update: function(servico){
+				servico.nome = servico.nome.charAt(0).toUpperCase() + servico.nome.slice(1).toLowerCase();
 				return this.find({ where: { id: servico.id } }).then(function(entity) {
 		      return entity.updateAttributes(servico);
 		    });
