@@ -61,7 +61,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.create(cliente);
 			},
 			Update: function(cliente){
-				return this.find({ where: { id: id } }).then(function(entity) {
+				return this.find({ where: { id: cliente.id } }).then(function(entity) {
 		      return entity.updateAttributes(cliente);
 		    });
 			}

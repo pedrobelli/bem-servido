@@ -30,11 +30,12 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll({ where: { nome: { $like: '%'+query+'%' } } });
 			},
 			Get: function(models, id){
-				return this.find({ where: { id: id },
+				return this.find({
 					 include: [
 						 { model: models.especialidades },
 						 { model: models.servicos }
-					 ]
+					 ],
+					 where: { id: id }
 				});
 			},
 			Destroy: function(id){
@@ -45,8 +46,8 @@ module.exports = function(sequelize, DataTypes) {
 			Create: function(profissional){
 				return this.create(profissional);
 			},
-			Update: function(id, profissional){
-				return this.find({ where: { id: id } }).then(function(entity) {
+			Update: function(profissional){
+				return this.find({ where: { id: profissional.id } }).then(function(entity) {
 		      return entity.updateAttributes(profissional);
 		    });
 			}

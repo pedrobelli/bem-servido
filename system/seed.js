@@ -1,16 +1,16 @@
-var controllerHelper        = require('../controller/shared/controllerHelper'),
-    especialidadesScenarios = require('../controller/profissionais/especialidadesScenarios'),
-    profissionaisScenarios  = require('../controller/profissionais/profissionaisScenarios'),
-    servicosScenarios       = require('../controller/servicos/servicosScenarios'),
-    clientesScenarios       = require('../controller/clientes/clientesScenarios');
+var controllerHelper         = require('../controller/shared/controllerHelper'),
+    especialidadesScenarios  = require('../controller/profissionais/especialidadesScenarios'),
+    profissionaisScenarios   = require('../controller/profissionais/profissionaisScenarios'),
+    detalheServicosScenarios = require('../controller/servicos/detalheServicosScenarios'),
+    clientesScenarios        = require('../controller/clientes/clientesScenarios');
 
 exports.runSeed = function() {
   var sequelize = controllerHelper.createSequelizeInstance();
   console.log('Seed Started');
   return sequelize.transaction(function(t) {
     return especialidadesScenarios.createEspecialidades().then(function() {
-      return servicosScenarios.createServicos().then(function() {
-        return profissionaisScenarios.createProfissionais();
+      return detalheServicosScenarios.createServicos().then(function() {
+        // return profissionaisScenarios.createProfissionais();
       });
     })
     .then(function() {
