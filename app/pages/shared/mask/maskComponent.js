@@ -1,4 +1,3 @@
-
 define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
 
   var applyDatepickerMask = function(){
@@ -86,5 +85,6 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     applyCurrencyMask:applyCurrencyMask,
     applyNumberMask:applyNumberMask,
     accountingFormat:accountingFormat
-  };
+  }
+  
 });

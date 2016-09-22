@@ -27,6 +27,5 @@ define(['moment'], function(moment) {
     convertDateToString:convertDateToString,
     convertTimeToString:convertTimeToString,
     calculateFinTime:calculateFinTime
-  }
-
+  };
 });

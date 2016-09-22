@@ -1,4 +1,4 @@
-define(['ko', 'text!./atendimentosTemplate.html', 'bridge', '../shared/moment/momentComponent', '../shared/swal/swalComponent'],
+define(['ko', 'text!atendimentosTemplate', 'bridge', 'momentComponent', 'swalComponent'],
 function(ko, template, bridge, momentComponent, swalComponent) {
 
   var viewModel = function(params) {

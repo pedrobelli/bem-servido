@@ -1,5 +1,5 @@
-define(['ko', 'text!./profissionaisTemplate.html', 'bridge', 'jquery', 'materialize', '../shared/search/searchComponent', '../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, searchComponent, swalComponent) {
+define(['ko', 'text!profissionaisTemplate', 'bridge', 'jquery', 'materialize', 'swalComponent', '../shared/search/searchComponent'],
+function(ko, template, bridge, $, materialize, swalComponent, searchComponent) {
 
   var viewModel = function(params) {
     var self = this;

@@ -1,5 +1,4 @@
-define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent',
-'../../shared/mask/maskComponent'],
+define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize', 'swalComponentForm', 'maskComponentForm'],
 function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
 
   var viewModel = function(params) {

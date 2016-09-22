@@ -52,5 +52,4 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
     errorAlertWithTitle:errorAlertWithTitle,
     removeInstanceWarning:removeInstanceWarning
   }
-
 });

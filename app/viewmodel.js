@@ -1,4 +1,4 @@
-define (['jquery', 'ko', 'bridge', 'text!../pages/shared/footer.html', 'text!../pages/shared/header.html'],
+define (['jquery', 'ko', 'bridge', 'text!footerTemplate', 'text!headerTemplate'],
 function ($, ko, bridge, footer, header) {
 
 	var ViewModel = function() {

@@ -1,5 +1,5 @@
-define(['ko', 'text!./profissionaisFormTemplate.html', 'bridge', 'jquery', 'materialize',
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!profissionaisFormTemplate', 'bridge', 'jquery', 'materialize', 'swalComponentForm'],
+function(ko, template, bridge, $, materialize, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;

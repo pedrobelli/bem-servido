@@ -1,4 +1,4 @@
-define(['jquery', 'jquery-ui/ui/datepicker', 'jquery-ui/ui/i18n/datepicker-pt-BR'], function($, datepicker, _) {
+define(['jquery', 'jqueryUi/ui/datepicker', 'jqueryUi/ui/i18n/datepicker-pt-BR'], function($, datepicker, _) {
 
   var applyDatepicker = function(){
     $( ".datepicker" ).datepicker({
@@ -9,6 +9,5 @@ define(['jquery', 'jquery-ui/ui/datepicker', 'jquery-ui/ui/i18n/datepicker-pt-BR
 
   return {
     applyDatepicker:applyDatepicker
-  };
-
+  }
 });

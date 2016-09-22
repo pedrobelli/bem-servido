@@ -33,10 +33,11 @@ requirejs.config({
 		servicosComponent           : 'pages/servicos/servicosComponent',
 		servicosFormComponent       : 'pages/servicos/form/servicosFormComponent',
 		datepickerComponent         : 'pages/shared/datepicker/datepickerComponent',
-		maskComponent               : 'pages/shared/mask/maskComponent',
 		momentComponent             : 'pages/shared/moment/momentComponent',
-		searchComponent             : 'pages/shared/search/searchComponent',
-		swalComponent               : 'pages/shared/swal/swalComponent',
+		maskComponent               : '../pages/shared/mask/maskComponent',
+		swalComponent               : '../pages/shared/swal/swalComponent',
+		maskComponentForm           : '../../pages/shared/mask/maskComponent',
+		swalComponentForm           : '../../pages/shared/swal/swalComponent',
 
     // Templates
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
@@ -51,6 +52,8 @@ requirejs.config({
 		servicosTemplate           : 'pages/servicos/servicosTemplate.html',
 		servicosFormTemplate       : 'pages/servicos/form/servicosFormTemplate.html',
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
+		footerTemplate             : 'pages/shared/footer.html',
+		headerTemplate             : 'pages/shared/header.html',
 
     // Styles
 
