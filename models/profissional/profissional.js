@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
 				}
 			}
 		},
-    dataAniversario: {
+    dataNascimento: {
       allowNull: false,
       type: DataTypes.DATE
     },

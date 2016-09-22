@@ -81,10 +81,10 @@ self.destroy = function(req, res) {
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.profissionais.Create(req.body).then(function(profissional) {
-      profissional.setServicos(JSON.parse(req.param('servicos')));
-      return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
-        return profissional;
-      });
+      // profissional.setServicos(JSON.parse(req.param('servicos')));
+      // return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
+      //   return profissional;
+      // });
     });
 
   }).then(function(entity) {

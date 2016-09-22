@@ -1,47 +1,4 @@
 <p class="center login-form-text" data-bind="text: pageMode"></p>
 
-<form id="new-user-form" method="post">
-  <div class="row">
-    <div class="col s12">
-
-      <div class="row">
-        <div class="col s12">
-          <label>Nome:</label>
-          <input data-bind="value: nome" type="text" id="nome" placeholder="Nome">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Email:</label>
-          <input class="email" data-bind="value: email" type="text" id="email" placeholder="Email">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Especialidades:</label>
-          <input data-bind="value: especialidades" type="text" id="especialidades" placeholder="Especialidades" disabled >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Serviços:</label>
-          <select data-bind="selectedOptions: servicosSelecionados" id="servicos" multiple>
-            <option value="" disabled>Serviços</option>
-            <!-- ko foreach: $data.servicos -->
-            <option data-bind="value: $data.id, text: $data.nome"></option>
-            <!-- /ko -->
-          </select>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <input class="btn" type="submit" data-bind="attr: { disabled : !validForm() }, css: { disabled: !validForm() }, click: save" value="SALVAR">
-</form>
-
 <p></p>
 <a class="btn" href="/#profissionais">VOLTAR</a>
