@@ -1,5 +1,13 @@
 [
   {
+    "path"   : "#home",
+    "page"   : "pages/home/homeComponent",
+    "params" : {
+      "name"   : "home",
+      "header" : "home"
+    }
+  },
+  {
     "path"   : "#atendimentos",
     "page"   : "pages/atendimentos/atendimentosComponent",
     "params" : { "name" : "index" }
@@ -17,7 +25,10 @@
   {
     "path"   : "#clientes",
     "page"   : "pages/clientes/clientesComponent",
-    "params" : { "name" : "index" }
+    "params" : {
+      "name"  : "index",
+      "header" : "orange"
+    }
   },
   {
     "path"   : "#clientes/new",

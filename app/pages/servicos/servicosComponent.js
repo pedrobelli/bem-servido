@@ -1,5 +1,5 @@
-define(['ko', 'text!servicosTemplate', 'bridge', 'jquery', 'materialize', 'swalComponent', 'maskComponent', '../shared/search/searchComponent'],
-function(ko, template, bridge, $, materialize, swalComponent, maskComponent, searchComponent) {
+define(['ko', 'text!servicosTemplate', 'bridge', 'jquery', 'swalComponent', 'maskComponent', '../shared/search/searchComponent'],
+function(ko, template, bridge, $, swalComponent, maskComponent, searchComponent) {
 
   var viewModel = function(params) {
     var self = this;

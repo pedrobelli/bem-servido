@@ -1,5 +1,5 @@
-define(['ko', 'text!./especialidadesFormTemplate.html', 'bridge', 'jquery', 'materialize', '../../shared/swal/swalComponent'],
-function(ko, template, bridge, $, materialize, swalComponent) {
+define(['ko', 'text!./especialidadesFormTemplate.html', 'bridge', 'jquery', '../../shared/swal/swalComponent'],
+function(ko, template, bridge, $, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;

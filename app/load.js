@@ -1,7 +1,9 @@
 requirejs.config({
 	shim : {
 		"ko"              : { deps : ['jquery'] },
-		"materialize"     : { deps : ['jquery'] },
+		"hammerjs"        : { deps : ['jquery'] },
+		"jqueryHammerjs"  : { deps : ['jquery', 'hammerjs', 'waves'] },
+		"materialize"     : { deps : ['jquery', 'hammerjs', 'jqueryHammerjs', 'velocity'] },
     "jqueryInputmask" : { deps : ['jquery'] },
     "jqueryUi"        : { deps : ['jquery'] },
   },
@@ -12,15 +14,21 @@ requirejs.config({
     jqueryInputmask : "components/jquery.inputmask/dist/jquery.inputmask.bundle",
 		ko              : "components/knockout/dist/knockout",
 		underscore      : "components/underscore/underscore-min",
-    sweetAlert      : "components/sweetalert/lib/sweet-alert.min",
-		hammerjs        : "components/hammerjs/hammer.min",
-		velocity        : "components/velocity/velocity.min",
 		sammy           : "components/sammy/lib/sammy",
+		sweetAlert      : "components/sweetalert/lib/sweet-alert.min",
 		moment          : "components/moment/moment",
+
+		hammerjs        : "components/hammerjs/hammer.min",
+		waves           : "components/Waves/dist/waves.min",
+		jqueryHammerjs  : "lib/jquery.hammer",
+		velocity        : "components/velocity/velocity.min",
 		text            : "lib/text",
-		mainPath        : "./",
+
+		//theme dependecies
+		materialize : "lib/materialize.amd",
 
 		// Components
+    homeComponent               : 'pages/home/homeComponent',
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
     atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
     clientesComponent           : 'pages/clientes/clientesComponent',
@@ -40,6 +48,7 @@ requirejs.config({
 		swalComponentForm           : '../../pages/shared/swal/swalComponent',
 
     // Templates
+    homeTemplate               : 'pages/home/homeTemplate.html',
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
     atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
     clientesTemplate           : 'pages/clientes/clientesTemplate.html',
@@ -52,15 +61,13 @@ requirejs.config({
 		servicosTemplate           : 'pages/servicos/servicosTemplate.html',
 		servicosFormTemplate       : 'pages/servicos/form/servicosFormTemplate.html',
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
+		orangeHeaderTemplate       : 'pages/shared/orangeHeader.html',
+		homeHeaderTemplate         : 'pages/shared/homeHeader.html',
 		footerTemplate             : 'pages/shared/footer.html',
-		headerTemplate             : 'pages/shared/header.html',
-
-    // Styles
-
-
-		//theme dependecies
-		materialize : "lib/materialize.amd.min",
   }
+
+	// Styles
+
 });
 
 require(["app"], function(app) {

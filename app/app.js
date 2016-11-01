@@ -1,5 +1,5 @@
-define(['jquery', 'ko', 'underscore', 'sammy', 'text!routes.json', './viewmodel'],
-function ($, ko, _, sammyFramework, routesText, appViewModel) {
+define(['jquery', 'hammerjs', 'jqueryHammerjs', 'ko', 'underscore', 'sammy', 'text!routes.json', './viewmodel'],
+function ($, hammerjs, jqueryHammerjs, ko, _, sammyFramework, routesText, appViewModel) {
 
   var routes = JSON.parse(routesText);
   var sammy = sammyFramework();
@@ -53,7 +53,7 @@ function ($, ko, _, sammyFramework, routesText, appViewModel) {
       .done(registerPageComponents)
       .done(configureRoutes)
       .done(function() {
-        sammy.run("#clientes");
+        sammy.run("#home");
         ko.applyBindings(appViewModel);
         window.ko = ko;
       });

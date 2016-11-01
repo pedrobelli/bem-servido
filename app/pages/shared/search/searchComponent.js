@@ -1,5 +1,5 @@
-define(['ko', 'text!searchTemplate', 'bridge', 'jquery', 'materialize'],
-function(ko, template, bridge, $, materialize) {
+define(['ko', 'text!searchTemplate', 'bridge', 'jquery'],
+function(ko, template, bridge, $) {
 
   var viewModel = function(params) {
     var self = this;

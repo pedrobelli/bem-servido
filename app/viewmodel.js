@@ -1,5 +1,5 @@
-define (['jquery', 'ko', 'bridge', 'text!footerTemplate', 'text!headerTemplate'],
-function ($, ko, bridge, footer, header) {
+define (['jquery', 'ko', 'bridge', "materialize", 'text!footerTemplate', 'text!homeHeaderTemplate', 'text!orangeHeaderTemplate'],
+function ($, ko, bridge, materialize, footer, homeHeader, orangeHeader) {
 
 	var ViewModel = function() {
 		var self = this;
@@ -15,12 +15,18 @@ function ($, ko, bridge, footer, header) {
 		self.showPage = function(pageComponentName, pageTitle, params) {
       document.title = self.appName() + ' - ' + pageTitle;
 
-				self.footerComponent(footer);
-				self.headerComponent(header);
+			if (params.header == "home") {
+				self.headerComponent(homeHeader);
+			} else if (params.header == "orange") {
+				self.headerComponent(orangeHeader);
+			}
+			self.footerComponent(footer);
 
-      	self.pageParams(params);
-      	self.pageComponent(pageComponentName);
+    	self.pageParams(params);
+    	self.pageComponent(pageComponentName);
 
+		// 	$(".button-collapse").sideNav();
+    //  $('select').material_select();
 	  };
 	};
 

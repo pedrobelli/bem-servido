@@ -1,5 +1,5 @@
-define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'materialize', 'swalComponentForm', 'maskComponentForm'],
-function(ko, template, bridge, $, materialize, swalComponent, maskComponent) {
+define(['ko', 'text!./servicosFormTemplate.html', 'bridge', 'jquery', 'swalComponentForm', 'maskComponentForm'],
+function(ko, template, bridge, $, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
