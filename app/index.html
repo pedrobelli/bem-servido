@@ -17,9 +17,9 @@
   </head>
 <body>
 
-  <div data-bind="html: headerComponent"></div>
+  <div data-bind="component: { name: headerComponent, params: headerParams }"></div>
 
-  <div data-bind="component: {name: pageComponent, params: pageParams}"></div>
+  <div data-bind="component: { name: pageComponent, params: pageParams }"></div>
 
   <div data-bind="html: footerComponent"></div>
 

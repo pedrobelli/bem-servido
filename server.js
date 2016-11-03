@@ -1,10 +1,10 @@
 'use strict';
 
 var express                 = require('express'),
-  config                    = require('./config/config'),
   bodyParser                = require('body-parser'),
   models                    = require('./models'),
   systemSeed                = require('./system/seed'),
+  config                    = require('./config/config'),
   atendimentosController    = require('./controller/atendimentos/atendimentosController'),
   clientesController        = require('./controller/clientes/clientesController'),
   profissionaisController   = require('./controller/profissionais/profissionaisController'),

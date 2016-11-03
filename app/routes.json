@@ -1,5 +1,10 @@
 [
   {
+    "path"   : "#header",
+    "page"   : "pages/header/headerComponent",
+    "params" : { "name"   : "header" }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {

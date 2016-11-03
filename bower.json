@@ -18,7 +18,6 @@
     "sammy": "0.7.6",
     "requirejs": "2.1.20",
     "requirejs-text": "2.0.14",
-    "materialize": "^0.97.7",
     "Waves": "waves#^0.7.5"
   }
 }

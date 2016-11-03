@@ -1,9 +1,7 @@
 requirejs.config({
 	shim : {
 		"ko"              : { deps : ['jquery'] },
-		"hammerjs"        : { deps : ['jquery'] },
-		"jqueryHammerjs"  : { deps : ['jquery', 'hammerjs', 'waves'] },
-		"materialize"     : { deps : ['jquery', 'hammerjs', 'jqueryHammerjs', 'velocity'] },
+		"materialize"     : { deps : ['jquery'] },
     "jqueryInputmask" : { deps : ['jquery'] },
     "jqueryUi"        : { deps : ['jquery'] },
   },
@@ -20,14 +18,14 @@ requirejs.config({
 
 		hammerjs        : "components/hammerjs/hammer.min",
 		waves           : "components/Waves/dist/waves.min",
-		jqueryHammerjs  : "lib/jquery.hammer",
 		velocity        : "components/velocity/velocity.min",
 		text            : "lib/text",
 
 		//theme dependecies
-		materialize : "lib/materialize.amd",
+		materialize : "lib/materialize",
 
 		// Components
+		headerComponent             : 'pages/header/headerComponent',
     homeComponent               : 'pages/home/homeComponent',
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
     atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
@@ -48,6 +46,8 @@ requirejs.config({
 		swalComponentForm           : '../../pages/shared/swal/swalComponent',
 
     // Templates
+		orangeHeaderTemplate       : 'pages/header/orangeHeader.html',
+		homeHeaderTemplate         : 'pages/header/homeHeader.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
     atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
@@ -61,8 +61,6 @@ requirejs.config({
 		servicosTemplate           : 'pages/servicos/servicosTemplate.html',
 		servicosFormTemplate       : 'pages/servicos/form/servicosFormTemplate.html',
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
-		orangeHeaderTemplate       : 'pages/shared/orangeHeader.html',
-		homeHeaderTemplate         : 'pages/shared/homeHeader.html',
 		footerTemplate             : 'pages/shared/footer.html',
   }
 

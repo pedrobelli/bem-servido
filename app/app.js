@@ -1,5 +1,5 @@
-define(['jquery', 'hammerjs', 'jqueryHammerjs', 'ko', 'underscore', 'sammy', 'text!routes.json', './viewmodel'],
-function ($, hammerjs, jqueryHammerjs, ko, _, sammyFramework, routesText, appViewModel) {
+define(['jquery', 'ko', 'underscore', 'sammy', 'text!routes.json', './viewmodel'],
+function ($, ko, _, sammyFramework, routesText, appViewModel) {
 
   var routes = JSON.parse(routesText);
   var sammy = sammyFramework();
