@@ -1,5 +1,5 @@
-define (['jquery', 'ko', 'bridge', 'text!footerTemplate'],
-function ($, ko, bridge, footer) {
+define (['jquery', 'ko', 'text!footerTemplate'],
+function ($, ko, footer) {
 
 	var ViewModel = function() {
 		var self = this;
@@ -16,18 +16,12 @@ function ($, ko, bridge, footer) {
 		self.showPage = function(pageComponentName, pageTitle, params) {
       document.title = self.appName() + ' - ' + pageTitle;
 
-			// self.headerParams(params);
-			// self.headerComponent("pages/header/headerComponent");
-			// if (params.header == "home") {
-			// 	self.headerComponent(homeHeader);
-			// } else if (params.header == "orange") {
-			// 	self.headerComponent(orangeHeader);
-			// }
+			self.headerParams(params);
+			self.headerComponent("pages/header/headerComponent");
 			self.footerComponent(footer);
 
     	self.pageParams(params);
     	self.pageComponent(pageComponentName);
-			console.log('BUNDA');
 	  };
 	};
 

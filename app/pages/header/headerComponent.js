@@ -1,16 +1,18 @@
-define(['ko', 'text!homeHeaderTemplate', 'text!orangeHeaderTemplate', 'bridge', "materialize", "waves"],
-function(ko, homeHeader, orangeHeader, bridge, materialize, waves) {
-
-  var template = {}
+define(['ko', 'text!headerTemplate', 'materialize', 'waves'],
+function(ko, template, materialize, waves) {
 
   var viewModel = function(params) {
-    console.log(params);
     var self = this;
 
+    self.home = ko.observable(false);
+
     if (params.header == "home") {
-    	template = "home";
+      self.home(true);
+      $("#site-header").addClass("top-header");
+      $("#site-nav").removeClass("orange");
     } else if (params.header == "orange") {
-    	template = "orange";
+      $("#site-header").removeClass("top-header");
+      $("#site-nav").addClass("orange");
     }
 
     init = function() {
@@ -23,6 +25,6 @@ function(ko, homeHeader, orangeHeader, bridge, materialize, waves) {
 
   return {
     viewModel: viewModel,
-    template: homeHeader,
+    template: template,
   };
 });

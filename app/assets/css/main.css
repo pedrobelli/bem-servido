@@ -60,8 +60,10 @@ header > .header-search{
   border-bottom: 1px solid orange;
 }
 .input-field.search-field > label{
-  color: orange;
+  webkit-transform: translateY(-140%);
+  transform: translateY(-140%);
   text-shadow: 1px 1px rgba(0,0,0,0.5);
+  color: orange;
   font-size: 14px;
   font-weight: 500;
   top: 0;

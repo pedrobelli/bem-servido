@@ -46,8 +46,7 @@ requirejs.config({
 		swalComponentForm           : '../../pages/shared/swal/swalComponent',
 
     // Templates
-		orangeHeaderTemplate       : 'pages/header/orangeHeader.html',
-		homeHeaderTemplate         : 'pages/header/homeHeader.html',
+		headerTemplate             : 'pages/header/headerTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
     atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
