@@ -1,0 +1,87 @@
+<form id="dados-profissional" action="" class="col s12 form" hidden>
+  <div class="input-field col s12">
+    <input data-bind="value: nomeCompleto" id="nomeCompleto" type="text">
+    <label for="nomeCompleto" class="fixed-label">Nome Completo</label>
+  </div>
+
+  <div class="input-field col s12">
+    <input data-bind="value: email" id="email" type="text" class="email">
+    <label for="email" class="fixed-label">E-mail</label>
+  </div>
+
+  <div class="input-field col s6">
+    <input data-bind="value: dataNascimento" id="dataNascimento" type="text" class="datepicker">
+    <label for="dataNascimento" class="fixed-label">Data Nascimento</label>
+  </div>
+
+  <div class="input-field col s6">
+    <select data-bind="value: sexo">
+      <option value="" disabled selected>Selecione uma opção</option>
+      <!-- ko foreach: $data.sexos -->
+      <option  data-bind="value: $data.id, text: $data.text"></option>
+      <!-- /ko -->
+    </select>
+    <label for="sexo">Sexo</label>
+  </div>
+
+  <div class="input-field col s6">
+    <input data-bind="value: cpf" id="cpf" type="text" class="federal-id">
+    <label for="cpf" class="fixed-label">CPF</label>
+  </div>
+
+  <div class="input-field col s6">
+    <input data-bind="value: cnpj" id="cnpj" type="text" class="cnpj">
+    <label for="cnpj" class="fixed-label">CNPJ</label>
+  </div>
+
+  <div class="input-field col s6">
+    <input data-bind="value: telefone" id="telefone" type="text" class="cellphones">
+    <label for="telefone" class="fixed-label">Telefone</label>
+  </div>
+
+  <div class="input-field col s6">
+    <input data-bind="value: celular" id="celular" type="text" class="cellphones">
+    <label for="celular" class="fixed-label">Celular</label>
+  </div>
+
+  <div class="input-field col s8">
+    <input data-bind="value: endereco_rua" id="endereco_rua" type="text">
+    <label for="endereco_rua" class="fixed-label">Endereço</label>
+  </div>
+
+  <div class="input-field col s4">
+    <input data-bind="value: endereco_num" id="endereco_num" type="text" class="number">
+    <label for="endereco_num" class="fixed-label">Numero</label>
+  </div>
+
+  <div class="input-field col s4">
+    <input data-bind="value: endereco_comp" id="endereco_comp" type="text">
+    <label for="endereco_comp" class="fixed-label">Complemento</label>
+  </div>
+
+  <div class="input-field col s4">
+    <input data-bind="value: endereco_bairro" id="endereco_bairro" type="text">
+    <label for="endereco_bairro" class="fixed-label">Bairro</label>
+  </div>
+
+  <div class="input-field col s4">
+    <input data-bind="value: endereco_cep" id="endereco_cep" type="text" class="zip-code">
+    <label for="endereco_cep" class="fixed-label">CEP</label>
+  </div>
+
+  <div class="input-field col s6">
+    <input data-bind="value: endereco_cidade" id="endereco_cidade" type="text">
+    <label for="endereco_cidade" class="fixed-label">Cidade</label>
+  </div>
+
+  <div class="input-field col s6">
+    <select data-bind="value: endereco_estado">
+      <option value="" disabled selected>Selecione uma opção</option>
+      <!-- ko foreach: $data.estados -->
+      <option  data-bind="value: $data.id, text: $data.text"></option>
+      <!-- /ko -->
+    </select>
+    <label for="endereco_estado">Estado</label>
+  </div>
+
+</form>

@@ -13,6 +13,16 @@
     }
   },
   {
+    "path"   : "#profissionais/new",
+    "page"   : "pages/profissionais/form/profissionaisFormComponent",
+    "params" : {
+      "name" : "new",
+      "header" : "orange"
+    }
+  },
+
+
+  {
     "path"   : "#atendimentos",
     "page"   : "pages/atendimentos/atendimentosComponent",
     "params" : { "name" : "index" }
@@ -49,11 +59,6 @@
     "path"   : "#profissionais",
     "page"   : "pages/profissionais/profissionaisComponent",
     "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#profissionais/new",
-    "page"   : "pages/profissionais/form/profissionaisFormComponent",
-    "params" : { "name" : "new" }
   },
   {
     "path"   : "#profissionais/edit/:id",

@@ -1,4 +1,84 @@
-<p class="center login-form-text" data-bind="text: pageMode"></p>
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Cadastro Profissional</h2>
+      <hr>
+    </div>
+    <div class="cadastro">
+      <div class="row form-cadastro">
+        <!-- dados profissional -->
+        <div data-bind="component: { name: 'dados-profissional-component' }"></div>
+
+        <!-- dados serviço -->
+        <div data-bind="component: { name: 'dados-servico-component' }"></div>
+
+        <!-- cadastro horario -->
+        <form action="" class="col s12 form" hidden>
+          <div class="day">
+            <div class="input-field switch col s4">
+              <label>
+                Segunda
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+            </div>
+            <div class="input-field col s4">
+              <input id="horario_inicio" type="text" class="validate">
+              <label for="horario_inicio">Horario Inicio</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="horario_fim" type="text" class="validate">
+              <label for="horario_fim">Horario Fim</label>
+            </div>
+          </div>
+          <div class="day">
+            <div class="input-field switch col s4">
+              <label>
+                Terça
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+            </div>
+            <div class="input-field col s4">
+              <input id="horario_inicio" type="text" class="validate">
+              <label for="horario_inicio">Horario Inicio</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="horario_fim" type="text" class="validate">
+              <label for="horario_fim">Horario Fim</label>
+            </div>
+          </div>
+          <div class="day">
+            <div class="input-field switch col s4">
+              <label>
+                Quarta
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+            </div>
+            <div class="input-field col s4">
+              <input id="horario_inicio" type="text" class="validate">
+              <label for="horario_inicio">Horario Inicio</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="horario_fim" type="text" class="validate">
+              <label for="horario_fim">Horario Fim</label>
+            </div>
+          </div>
+
+        </form>
+
+        <button class="btn waves-effect waves-light right orange" type="submit" name="action">Próximo
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+<!-- <p class="center login-form-text" data-bind="text: pageMode"></p>
 
 <p></p>
-<a class="btn" href="/#profissionais">VOLTAR</a>
+<a class="btn" href="/#home">VOLTAR</a> -->

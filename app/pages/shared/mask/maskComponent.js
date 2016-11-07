@@ -37,7 +37,7 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
   Inputmask.extendAliases({
     "currency": {
       prefix: "R$ ",
-      placeHolder: '0,00',
+      // placeHolder: '0,00',
       radixPoint: ",",
       groupSeparator: '.',
       autoUnmask: true,
@@ -86,5 +86,5 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     applyNumberMask:applyNumberMask,
     accountingFormat:accountingFormat
   }
-  
+
 });

@@ -1,5 +1,4 @@
 
-
 .top-header{
   background-image: url(../images/header-banner.jpg);
   background-size: cover;
@@ -59,9 +58,7 @@ header > .header-search{
   box-shadow: 0 1px 0 0 orange;
   border-bottom: 1px solid orange;
 }
-.input-field.search-field > label{
-  webkit-transform: translateY(-140%);
-  transform: translateY(-140%);
+.input-field.search-field > label.fixed-label{
   text-shadow: 1px 1px rgba(0,0,0,0.5);
   color: orange;
   font-size: 14px;
@@ -105,6 +102,20 @@ header > .header-search{
   margin: 0 auto;
   max-width: 80%;
 }
+.cadastro > .form-cadastro .collapsible .option{
+  display: block;
+  min-height: 100px;
+}
+.login_usuario > .form-login_usuario{
+  border: 1px solid orange;
+  padding: 10px;
+  margin: 80px auto;
+  max-width: 50%;
+}
+.form-login_usuario .form-link{
+  font-size: 11px;
+}
+
 @media screen and (max-width: 600px) {
   .header-search > .search > .input-field.search-field{
     display: block;
@@ -120,5 +131,11 @@ header > .header-search{
   }
   .cadastro > .form-cadastro{
     max-width: 95%
+  }
+  .cadastro > .form-cadastro .collapsible .option{
+    min-height: 150px;
+  }
+  .login_usuario > .form-login_usuario{
+    max-width: 90%;
   }
 }

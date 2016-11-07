@@ -1,17 +1,17 @@
-define(['ko', 'text!profissionaisFormTemplate', 'bridge', 'jquery', 'swalComponentForm'],
-function(ko, template, bridge, $, swalComponent) {
+define(['ko', 'text!profissionaisFormTemplate', 'bridge', 'swalComponentForm', "dadosProfissionalComponent",
+"dadosServicoComponent"],
+function(ko, template, bridge, swalComponent, dadosProfissionalComponent, dadosServicoComponent) {
 
   var viewModel = function(params) {
     var self = this;
-
-    var CREATE_PATH = "/api/profissionais/new";
-    var UPDATE_PATH = "/api/profissionais/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.pageMode = params.name == 'new' ? 'Novo Profissional' : 'Editar Profissional';
 
     var init = function(){
-
+      setTimeout(function(){
+        // dadosProfissionalComponent.subscribe();
+      }, 500);
     };
 
     var isEditMode = function(){

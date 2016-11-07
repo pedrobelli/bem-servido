@@ -1,12 +1,14 @@
 exports.sexo = {
-  MASCULINO : {
-    value : 0,
-    text  : "Masculino"
-  },
-  FEMININO  : {
-    value : 1,
-    text  : "Feminino"
-  }
+  0: "Masculino",
+  1: "Feminino"
+}
+
+exports.ramos = {
+  0: "Animais",
+  1: "Beleza, Saúde e Estética",
+  2: "Saúde",
+  3: "Serviços de Manutenção",
+  4: "Veículos e Transportes"
 }
 
 exports.estados = {
