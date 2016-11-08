@@ -10,6 +10,10 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
 
     self.components = [dadosProfissionalComponent, dadosServicoComponent, dadosHorarioComponent];
 
+    self.components.forEach(function(component){
+      component.cleanFields();
+    });
+
     self.validForm = ko.pureComputed(function(){
 
       return true;
@@ -48,11 +52,17 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
     };
 
     var init = function(){
-      setTimeout(function(){
-        dadosProfissionalComponent.subscribe();
-        dadosServicoComponent.subscribe();
-        dadosHorarioComponent.subscribe();
-      }, 500);
+      bridge.get("/api/profissionais/form_options")
+      .then(function(response){
+        self.components.forEach(function(component){
+          component.mapResponse(response);
+        });
+      })
+      .then(function(){
+        self.components.forEach(function(component){
+          component.subscribe();
+        });
+      });
     };
 
     init();

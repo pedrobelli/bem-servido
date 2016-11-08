@@ -7,8 +7,8 @@ function(ko, template, $, maskComponent) {
     self.diasSemana = ko.observableArray([]);
 
     self.validForm = ko.pureComputed(function(){
-      valid = !!self.nome();
-      valid = valid && !!self.email();
+      // valid = !!self.nome();
+      // valid = valid && !!self.email();
 
       // return valid;
     });
@@ -22,7 +22,24 @@ function(ko, template, $, maskComponent) {
     };
 
     self.subscribe = function() {
-         maskComponent.applyTimeMask();
+      maskComponent.applyTimeMask();
+    };
+
+    self.cleanFields = function() {
+      self.diasSemana([])
+    };
+
+    self.mapResponse = function(response) {
+      var diasSemana = response.diasSemana.map(function(diaSemana){
+        return {
+          id            : diaSemana.id,
+          text          : diaSemana.text,
+          horarioInicio : "",
+          horarioFim    : ""
+        }
+      });
+
+      self.diasSemana(diasSemana);
     };
 
     var generatePayload = function(){

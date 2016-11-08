@@ -1,4 +1,5 @@
 var models           = require('../../models'),
+    enums            = require('../shared/enums'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
@@ -114,15 +115,11 @@ self.update = function(req, res) {
 
 self.formOptions = function(req, res) {
   var options = {}
-  return sequelize.transaction(function(t) {
-    return models.servicos.All().then(function(entities) {
-      options.servicos = entities;
-    });
+  options.sexos = enums.sexos;
+  options.ramos = enums.ramos;
+  options.estados = enums.estados;
+  options.diasSemana = enums.diasSemana;
 
-  }).then(function() {
-    res.statusCode = 200;
-    res.json(options);
-  }).catch(function(errors) {
-    return controllerHelper.writeErrors(res, errors);
-  });
+  res.statusCode = 200;
+  res.json(options);
 }

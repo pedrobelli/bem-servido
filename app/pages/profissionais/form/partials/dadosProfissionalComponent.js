@@ -56,6 +56,48 @@ function(ko, template, $, maskComponent, datepickerComponent) {
          maskComponent.applyNumberMask();
     };
 
+    self.cleanFields = function() {
+      self.nomeCompleto(undefined);
+      self.email(undefined);
+      self.dataNascimento(undefined);
+      self.sexo(undefined);
+      self.cpf(undefined);
+      self.cnpj(undefined);
+      // telefones
+      self.telefone(undefined);
+      self.celular(undefined);
+      // endereco
+      self.endereco_rua(undefined);
+      self.endereco_num(undefined);
+      self.endereco_comp(undefined);
+      self.endereco_bairro(undefined);
+      self.endereco_cep(undefined);
+      self.endereco_cidade(undefined);
+      self.endereco_estado(undefined);
+      self.sexos([]);
+      self.estados([]);
+    };
+
+    self.mapResponse = function(response) {
+      var sexos = response.sexos.map(function(sexo){
+        return {
+          id   : sexo.id,
+          text : sexo.text
+        }
+      });
+
+      self.sexos(sexos);
+
+      var estados = response.estados.map(function(estado){
+        return {
+          id   : estado.id,
+          text : estado.text
+        }
+      });
+
+      self.estados(estados);
+    };
+
     var generatePayload = function(){
       // var payload = {
       //   nome           : self.nome(),

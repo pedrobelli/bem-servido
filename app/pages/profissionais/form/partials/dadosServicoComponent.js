@@ -34,6 +34,25 @@ function(ko, template, $, maskComponent) {
          maskComponent.applyCurrencyMask();
     };
 
+    self.cleanFields = function() {
+      self.ramo(undefined);
+      self.ramos([]);
+      self.habilidades([])
+      self.habilidadesSelecionadas([])
+      self.servicosSelecionadas([])
+    };
+
+    self.mapResponse = function(response) {
+      var ramos = response.ramos.map(function(ramo){
+        return {
+          id   : ramo.id,
+          text : ramo.text
+        }
+      });
+
+      self.ramos(ramos);
+    };
+
     var generatePayload = function(){
       // var payload = {
       //   nome           : self.nome(),
