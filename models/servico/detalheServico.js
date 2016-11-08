@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			type: DataTypes.INTEGER,
 			validate: {
-        isFloat: {
+        isInt: {
           args: true,
           msg: "Duração deve ser inteiro"
         }

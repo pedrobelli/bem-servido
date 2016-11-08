@@ -1,52 +1,171 @@
 exports.sexo = {
-  0: "Masculino",
-  1: "Feminino"
+  masculino : {
+    id   : 0,
+    text : "Masculino"
+  },
+  feminino  : {
+    id   : 1,
+    text : "Feminino"
+  }
 }
 
 exports.ramos = {
-  0: "Animais",
-  1: "Beleza, Saúde e Estética",
-  2: "Saúde",
-  3: "Serviços de Manutenção",
-  4: "Veículos e Transportes"
+  animais : {
+    id   : 0,
+    text : "Animais"
+  },
+  beleza : {
+    id   : 1,
+    text : "Beleza, Saúde e Estética"
+  },
+  saude : {
+    id   : 2,
+    text : "Saúde"
+  },
+  manutencao : {
+    id   : 3,
+    text : "Serviços de Manutenção"
+  }
 }
 
 exports.diasSemana = {
-  0: "Domingo",
-  1: "Segunda",
-  2: "Terça",
-  3: "Quarta",
-  4: "Quinta",
-  5: "Sexta",
-  6: "Sábado"
+  domingo : {
+    id   : 0,
+    text : "Domingo"
+  },
+  segunda : {
+    id   : 1,
+    text : "Segunda"
+  },
+  terca : {
+    id   : 2,
+    text : "Terça"
+  },
+  quarta : {
+    id   : 3,
+    text : "Quarta"
+  },
+  quinta : {
+    id   : 4,
+    text : "Quinta"
+  },
+  sexta : {
+    id   : 5,
+    text : "Sexta"
+  },
+  sabado : {
+    id   : 6,
+    text : "Sábado"
+  }
 }
 
 exports.estados = {
-	1:  "Acre",
-	2:  "Alagoas",
-	3:  "Amapá",
-	4:  "Amazonas",
-	5:  "Bahia",
-	6:  "Ceará",
-	7:  "Distrito Federal",
-	8:  "Espírito Santo",
-	9:  "Goiás",
-	10: "Maranhão",
-	11: "Mato Grosso",
-	12: "Mato Grosso do Sul",
-	13: "Minas Gerais",
-	14: "Pará",
-	15: "Paraíba",
-	16: "Paraná",
-	17: "Pernambuco",
-	18: "Piauí",
-	19: "Rio de Janeiro",
-	20: "Rio Grande do Norte",
-	21: "Rio Grande do Sul",
-	22: "Rondônia",
-	23: "Roraima",
-	24: "Santa Catarina",
-	25: "São Paulo",
-	26: "Sergipe",
-	27: "Tocantins"
+  domingo : {
+    id   : 0,
+    text : "Acre"
+  },
+  alagoas : {
+    id   : 1,
+    text : "Alagoas"
+  },
+  amapa : {
+    id   : 2,
+    text : "Amapá"
+  },
+  amazonas : {
+    id   : 3,
+    text : "Amazonas"
+  },
+  bahia : {
+    id   : 4,
+    text : "Bahia"
+  },
+  ceara : {
+    id   : 5,
+    text : "Ceará"
+  },
+  distritoFederal : {
+    id   : 6,
+    text : "Distrito Federal"
+  },
+  espiritoSanto : {
+    id   : 7,
+    text : "Espírito Santo"
+  },
+  goias : {
+    id   : 8,
+    text : "Goiás"
+  },
+  maranhao : {
+    id   : 9,
+    text : "Maranhão"
+  },
+  matoGrosso : {
+    id   : 10,
+    text : "Mato Grosso"
+  },
+  matoGrossoSul : {
+    id   : 11,
+    text : "Mato Grosso do Sul"
+  },
+  minasGerais : {
+    id   : 12,
+    text : "Minas Gerais"
+  },
+  para : {
+    id   : 13,
+    text : "Pará"
+  },
+  paraiba : {
+    id   : 14,
+    text : "Paraíba"
+  },
+  parana : {
+    id   : 15,
+    text : "Paraná"
+  },
+  pernambuco : {
+    id   : 16,
+    text : "Pernambuco"
+  },
+  piaui : {
+    id   : 17,
+    text : "Piauí"
+  },
+  rioJaneiro : {
+    id   : 18,
+    text : "Rio de Janeiro"
+  },
+  rioGrandeNorte : {
+    id   : 19,
+    text : "Rio Grande do Norte"
+  },
+  rioGrandeSul : {
+    id   : 20,
+    text : "Rio Grande do Sul"
+  },
+  rondonia : {
+    id   : 21,
+    text : "Rondônia"
+  },
+  roraima : {
+    id   : 22,
+    text : "Roraima"
+  },
+  santaCatarina : {
+    id   : 23,
+    text : "Santa Catarina"
+  },
+  saoPaulo : {
+    id   : 24,
+    text : "São Paulo"
+  },
+  sergipe : {
+    id   : 25,
+    text : "Sergipe"
+  },
+  tocantins : {
+    id   : 26,
+    text : "Tocantins"
+  }
 }

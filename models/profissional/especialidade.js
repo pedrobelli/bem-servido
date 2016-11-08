@@ -19,6 +19,20 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Descrição deve conter pelo menos 5 caracteres"
         }
       }
+    },
+    ramo: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			validate: {
+        isInt: {
+          args: true,
+          msg: "Ramo deve ser preenchido"
+        }
+      }
+    },
+    seed: {
+      allowNull: true,
+      type: DataTypes.BOOLEAN
     }
   }, {
 		classMethods: {

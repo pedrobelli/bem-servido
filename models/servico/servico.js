@@ -10,7 +10,11 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Nome deve conter pelo menos 3 caracters"
         }
       }
-		}
+		},
+    seed: {
+      allowNull: true,
+      type: DataTypes.BOOLEAN
+    }
 	}, {
 		classMethods: {
 			All: function(){
