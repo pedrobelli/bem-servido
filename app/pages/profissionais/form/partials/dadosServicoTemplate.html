@@ -20,11 +20,11 @@
                   <label data-bind="text: servico.text, attr: { 'for' : servico.id }"></label>
               </div>
               <div class="input-field col s6 m4">
-                <input data-bind="text: servico.valor, attr: { 'id' : 'valor' + servico.id }"type="text" class="currency" disabled>
+                <input data-bind="value: servico.valor, attr: { 'id' : 'valor' + servico.id }" type="text" class="currency" disabled>
                 <label data-bind="attr: { 'for' : 'valor' + servico.id }" class="fixed-label">Valor</label>
               </div>
               <div class="input-field col s6 m4">
-                <input data-bind="text: servico.duracao, attr: { 'id' : 'duracao' + servico.id }" type="text" class="number" disabled>
+                <input data-bind="value: servico.duracao, attr: { 'id' : 'duracao' + servico.id }" type="text" class="number" disabled>
                 <label data-bind="attr: { 'for' : 'duracao' + servico.id }" class="fixed-label">Duração</label>
               </div>
             </div>

@@ -1,6 +1,6 @@
 define(['ko', 'text!profissionaisFormTemplate', 'bridge', 'swalComponentForm', "dadosProfissionalComponent",
-"dadosServicoComponent"],
-function(ko, template, bridge, swalComponent, dadosProfissionalComponent, dadosServicoComponent) {
+"dadosServicoComponent", "dadosHorarioComponent"],
+function(ko, template, bridge, swalComponent, dadosProfissionalComponent, dadosServicoComponent, dadosHorarioComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -10,7 +10,7 @@ function(ko, template, bridge, swalComponent, dadosProfissionalComponent, dadosS
 
     var init = function(){
       setTimeout(function(){
-        // dadosProfissionalComponent.subscribe();
+        dadosProfissionalComponent.subscribe();
       }, 500);
     };
 

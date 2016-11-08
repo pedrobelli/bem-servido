@@ -13,62 +13,12 @@
         <div data-bind="component: { name: 'dados-servico-component' }"></div>
 
         <!-- cadastro horario -->
-        <form action="" class="col s12 form" hidden>
-          <div class="day">
-            <div class="input-field switch col s4">
-              <label>
-                Segunda
-                <input type="checkbox">
-                <span class="lever"></span>
-              </label>
-            </div>
-            <div class="input-field col s4">
-              <input id="horario_inicio" type="text" class="validate">
-              <label for="horario_inicio">Horario Inicio</label>
-            </div>
-            <div class="input-field col s4">
-              <input id="horario_fim" type="text" class="validate">
-              <label for="horario_fim">Horario Fim</label>
-            </div>
-          </div>
-          <div class="day">
-            <div class="input-field switch col s4">
-              <label>
-                Terça
-                <input type="checkbox">
-                <span class="lever"></span>
-              </label>
-            </div>
-            <div class="input-field col s4">
-              <input id="horario_inicio" type="text" class="validate">
-              <label for="horario_inicio">Horario Inicio</label>
-            </div>
-            <div class="input-field col s4">
-              <input id="horario_fim" type="text" class="validate">
-              <label for="horario_fim">Horario Fim</label>
-            </div>
-          </div>
-          <div class="day">
-            <div class="input-field switch col s4">
-              <label>
-                Quarta
-                <input type="checkbox">
-                <span class="lever"></span>
-              </label>
-            </div>
-            <div class="input-field col s4">
-              <input id="horario_inicio" type="text" class="validate">
-              <label for="horario_inicio">Horario Inicio</label>
-            </div>
-            <div class="input-field col s4">
-              <input id="horario_fim" type="text" class="validate">
-              <label for="horario_fim">Horario Fim</label>
-            </div>
-          </div>
+        <div data-bind="component: { name: 'dados-horario-component' }"></div>
 
-        </form>
-
-        <button class="btn waves-effect waves-light right orange" type="submit" name="action">Próximo
+        <button class="btn waves-effect waves-light left orange" type="button">Anterior
+          <i class="material-icons left">send</i>
+        </button>
+        <button class="btn waves-effect waves-light right orange" type="button">Próximo
           <i class="material-icons right">send</i>
         </button>
       </div>

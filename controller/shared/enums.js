@@ -11,6 +11,16 @@ exports.ramos = {
   4: "Veículos e Transportes"
 }
 
+exports.diasSemana = {
+  0: "Domingo",
+  1: "Segunda",
+  2: "Terça",
+  3: "Quarta",
+  4: "Quinta",
+  5: "Sexta",
+  6: "Sábado"
+}
+
 exports.estados = {
 	1:  "Acre",
 	2:  "Alagoas",
