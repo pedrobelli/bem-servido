@@ -18,6 +18,14 @@ function(ko, template, $, maskComponent) {
       // return valid;
     });
 
+    self.show = function() {
+      $('#dados-servico').fadeIn();
+    };
+
+    self.hide = function() {
+      $('#dados-servico').fadeOut();
+    };
+
     self.subscribe = function() {
          $('select').material_select();
          $('.collapsible').collapsible();

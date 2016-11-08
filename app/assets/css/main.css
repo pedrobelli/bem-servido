@@ -110,6 +110,9 @@ header > .header-search{
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+.cadastro > .form-cadastro button.left{
+  display: none;
+}
 .login_usuario > .form-login_usuario{
   border: 1px solid orange;
   padding: 10px;

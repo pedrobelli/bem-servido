@@ -13,6 +13,14 @@ function(ko, template, $, maskComponent) {
       // return valid;
     });
 
+    self.show = function() {
+      $('#dados-horario').fadeIn();
+    };
+
+    self.hide = function() {
+      $('#dados-horario').fadeOut();
+    };
+
     self.subscribe = function() {
          maskComponent.applyTimeMask();
     };

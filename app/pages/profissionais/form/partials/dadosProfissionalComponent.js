@@ -34,6 +34,14 @@ function(ko, template, $, maskComponent, datepickerComponent) {
       return valid;
     });
 
+    self.show = function() {
+      $('#dados-profissional').fadeIn();
+    };
+
+    self.hide = function() {
+      $('#dados-profissional').fadeOut();
+    };
+
     self.subscribe = function() {
          $('select').material_select();
 
