@@ -9,11 +9,11 @@
         </label>
       </div>
       <div class="input-field col s4">
-        <input data-bind="value: horarioInicio, attr: { 'id' : 'horario_inicio' + id }" type="text" class="time" disabled>
+        <input data-bind="textInput: horarioInicio, attr: { 'id' : 'horario_inicio' + id }" type="text" class="time" disabled>
         <label data-bind="attr: { 'for' : 'horario_inicio' + id }" class="fixed-label">Horario Inicio</label>
       </div>
       <div class="input-field col s4">
-        <input data-bind="value: horarioFim, attr: { 'id' : 'horario_fim' + id }" type="text" class="time" disabled>
+        <input data-bind="textInput: horarioFim, attr: { 'id' : 'horario_fim' + id }" type="text" class="time" disabled>
         <label data-bind="attr: { 'for' : 'horario_fim' + id }" class="fixed-label">Horario Fim</label>
       </div>
     </div>

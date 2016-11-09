@@ -6,7 +6,7 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
     var self = this;
 
     self.textoProximo = ko.observable('PRÓXIMO');
-    self.posicao = ko.observable(0);
+    self.posicao = 0;
 
     self.components = [dadosProfissionalComponent, dadosServicoComponent, dadosHorarioComponent];
 
@@ -15,12 +15,11 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
     });
 
     self.validForm = ko.pureComputed(function(){
-
-      return true;
+      // TODO colocar validação no click e mostrar swal com erro
     });
 
     self.anterior = function(){
-      var posicaoAtual = self.posicao();
+      var posicaoAtual = self.posicao;
       if (posicaoAtual == 0) {
         return;
       } else if (posicaoAtual == 1) {
@@ -29,14 +28,14 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
         self.textoProximo('PRÓXIMO');
       }
 
-      self.posicao(posicaoAtual - 1);
+      self.posicao = posicaoAtual - 1;
 
       self.components[posicaoAtual].hide();
-      self.components[self.posicao()].show();
+      self.components[self.posicao].show();
     };
 
     self.proximo = function(){
-      var posicaoAtual = self.posicao();
+      var posicaoAtual = self.posicao;
       if (posicaoAtual == 2) {
         return;
       } else if (posicaoAtual == 0) {
@@ -45,10 +44,10 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
         self.textoProximo('CONCLUIR');
       }
 
-      self.posicao(posicaoAtual + 1);
+      self.posicao = posicaoAtual + 1;
 
       self.components[posicaoAtual].hide();
-      self.components[self.posicao()].show();
+      self.components[self.posicao].show();
     };
 
     var init = function(){

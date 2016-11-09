@@ -62,6 +62,12 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll({ include: [
           { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
         ] });
+			},
+			FindSeededByRamo: function(models, ramoId){
+				return this.findAll({
+					include: [ { model: models.servicos, where: { seed: true } } ],
+					where: { ramo: ramoId, seed: true }
+        });
 			}
 		}
   });

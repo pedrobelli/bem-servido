@@ -9,22 +9,22 @@
     <label for="ramo">Ramo de Serviço</label>
   </div>
 
-  <div class="col s12" hidden="">
+  <div id="dados-habilidades" class="col s12" hidden="">
     <ul data-bind="foreach: { data: habilidades, as: 'habilidade' }" class="collapsible" data-collapsible="expandable">
       <li>
         <div data-bind="text: habilidade.text" class="collapsible-header"></div>
         <div data-bind="foreach: { data: servicos, as: 'servico' }" class="collapsible-body">
             <div class="option">
               <div class="input-field col s12 m4">
-                  <input data-bind="attr: { 'id' : servico.id }" type="checkbox" />
+                  <input data-bind="attr: { 'id' : servico.id }, click: $component.check" type="checkbox" />
                   <label data-bind="text: servico.text, attr: { 'for' : servico.id }"></label>
               </div>
               <div class="input-field col s6 m4">
-                <input data-bind="value: servico.valor, attr: { 'id' : 'valor' + servico.id }" type="text" class="currency" disabled>
+                <input data-bind="textInput: servico.valor, attr: { 'id' : 'valor' + servico.id, 'disabled' : !checked() }" type="text" class="currency">
                 <label data-bind="attr: { 'for' : 'valor' + servico.id }" class="fixed-label">Valor</label>
               </div>
               <div class="input-field col s6 m4">
-                <input data-bind="value: servico.duracao, attr: { 'id' : 'duracao' + servico.id }" type="text" class="number" disabled>
+                <input data-bind="textInput: servico.duracao, attr: { 'id' : 'duracao' + servico.id, 'disabled' : !checked() }" type="text" class="number">
                 <label data-bind="attr: { 'for' : 'duracao' + servico.id }" class="fixed-label">Duração</label>
               </div>
             </div>
@@ -32,5 +32,11 @@
       </li>
     </ul>
   </div>
+
+
+  <button data-bind="click: mostra" class="btn waves-effect waves-light right orange" type="button">
+    <span>MOSTRA</span>
+  </button>
+</div>
 
 </form>

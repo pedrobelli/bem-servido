@@ -1,5 +1,5 @@
-define(['ko', 'text!dadosServicoTemplate', 'jquery', 'maskComponentForm'],
-function(ko, template, $, maskComponent) {
+define(['ko', 'text!dadosServicoTemplate', 'jquery', 'bridge', 'maskComponentForm'],
+function(ko, template, $, bridge, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -7,16 +7,15 @@ function(ko, template, $, maskComponent) {
     self.ramo = ko.observable();
 
     self.ramos = ko.observableArray([]);
-    self.habilidades = ko.observableArray([])
-    self.habilidadesSelecionadas = ko.observableArray([])
-    self.servicosSelecionadas = ko.observableArray([])
+    self.habilidades = ko.observableArray([]);
+    self.habilidadesSelecionadas = ko.observableArray([]);
+    self.servicosSelecionadas = ko.observableArray([]);
 
-    self.validForm = ko.pureComputed(function(){
-      valid = !!self.nome();
-      valid = valid && !!self.email();
+    self.validForm = function(){
+      valid = !!self.ramo();
 
-      // return valid;
-    });
+      return valid;
+    };
 
     self.show = function() {
       $('#dados-servico').fadeIn();
@@ -53,6 +52,36 @@ function(ko, template, $, maskComponent) {
       self.ramos(ramos);
     };
 
+    self.check = function(servico){
+      if (servico.checked()) {
+        servico.checked(false);
+        servico.valor(undefined);
+        servico.duracao(undefined);
+        $('#' + servico.id).removeClass('material-checkbox');
+
+      } else {
+        servico.checked(true);
+        $('#' + servico.id).addClass('material-checkbox');
+
+      }
+    };
+
+    self.mostra = function(){
+      console.log(self.habilidadesSelecionadas());
+      console.log(self.servicosSelecionadas());
+    };
+
+    self.loadHabilidades = ko.computed(function(){
+      if (!!self.ramo()) {
+        self.habilidadesSelecionadas([]);
+        self.servicosSelecionadas([]);
+        bridge.get("/api/especialidades/seeded_by_ramo/"+self.ramo())
+        .then(function(response){
+          mapResponseToHabilidades(response.especialidades);
+        })
+      }
+    });
+
     var generatePayload = function(){
       // var payload = {
       //   nome           : self.nome(),
@@ -60,6 +89,38 @@ function(ko, template, $, maskComponent) {
       // };
       //
       // return payload;
+    };
+
+    var mapResponseToHabilidades = function(habilidades){
+      if(!habilidades.length) {
+        self.habilidades([]);
+        $('.collapsible').collapsible();
+        $('#dados-habilidades').fadeOut();
+
+        return;
+      }
+
+      var habilidades = habilidades.map(function(habilidade){
+        var servicos = habilidade.servicos.map(function(servico){
+          return {
+            id      : servico.id,
+            text    : servico.nome,
+            valor   : ko.observable(undefined),
+            duracao : ko.observable(undefined),
+            checked : ko.observable(false)
+          }
+        });
+
+        return {
+          id       : habilidade.id,
+          text     : habilidade.nome,
+          servicos : servicos
+        }
+      });
+
+      self.habilidades(habilidades);
+      self.subscribe();
+      $('#dados-habilidades').fadeIn();
     };
 
   }

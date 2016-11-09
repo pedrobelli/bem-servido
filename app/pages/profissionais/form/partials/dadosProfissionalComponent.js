@@ -27,12 +27,12 @@ function(ko, template, $, maskComponent, datepickerComponent) {
     self.sexos = ko.observableArray([]);
     self.estados = ko.observableArray([]);
 
-    self.validForm = ko.pureComputed(function(){
-      valid = !!self.nome();
-      valid = valid && !!self.email();
+    self.validForm = function(){
+      valid = !!self.nomeCompleto();
+      // valid = valid && !!self.email();
 
       return valid;
-    });
+    };
 
     self.show = function() {
       $('#dados-profissional').fadeIn();
