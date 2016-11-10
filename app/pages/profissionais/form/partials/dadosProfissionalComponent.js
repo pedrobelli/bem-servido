@@ -43,17 +43,16 @@ function(ko, template, $, maskComponent, datepickerComponent) {
     };
 
     self.subscribe = function() {
-         $('select').material_select();
+      $('select').material_select();
 
-         datepickerComponent.applyDatepicker();
+      datepickerComponent.applyDatepicker();
 
-         maskComponent.applyDatepickerMask();
-         maskComponent.applyEmailMask();
-         maskComponent.applyFederalIdMask();
-         maskComponent.applyCNPJMask();
-         maskComponent.applyCelphoneMask();
-         maskComponent.applyZipCodeMask();
-         maskComponent.applyNumberMask();
+      maskComponent.applyEmailMask();
+      maskComponent.applyFederalIdMask();
+      maskComponent.applyCNPJMask();
+      maskComponent.applyCelphoneMask();
+      maskComponent.applyZipCodeMask();
+      maskComponent.applyNumberMask();
     };
 
     self.cleanFields = function() {

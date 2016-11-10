@@ -1,5 +1,5 @@
-define(['ko', 'text!dadosServicoTemplate', 'jquery', 'bridge', 'maskComponentForm'],
-function(ko, template, $, bridge, maskComponent) {
+define(['ko', 'text!dadosServicoTemplate', 'jquery', 'underscore', 'bridge', 'maskComponentForm'],
+function(ko, template, $, _, bridge, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -8,8 +8,8 @@ function(ko, template, $, bridge, maskComponent) {
 
     self.ramos = ko.observableArray([]);
     self.habilidades = ko.observableArray([]);
-    self.habilidadesSelecionadas = ko.observableArray([]);
-    self.servicosSelecionadas = ko.observableArray([]);
+    self.habilidadesSelecionadas = [];
+    self.servicosSelecionados = [];
 
     self.validForm = function(){
       valid = !!self.ramo();
@@ -26,19 +26,19 @@ function(ko, template, $, bridge, maskComponent) {
     };
 
     self.subscribe = function() {
-         $('select').material_select();
-         $('.collapsible').collapsible();
+      $('select').material_select();
+      $('.collapsible').collapsible();
 
-         maskComponent.applyNumberMask();
-         maskComponent.applyCurrencyMask();
+      maskComponent.applyNumberMask();
+      maskComponent.applyCurrencyMask();
     };
 
     self.cleanFields = function() {
       self.ramo(undefined);
       self.ramos([]);
-      self.habilidades([])
-      self.habilidadesSelecionadas([])
-      self.servicosSelecionadas([])
+      self.habilidades([]);
+      self.habilidadesSelecionadas = [];
+      self.servicosSelecionados = [];
     };
 
     self.mapResponse = function(response) {
@@ -59,22 +59,32 @@ function(ko, template, $, bridge, maskComponent) {
         servico.duracao(undefined);
         $('#' + servico.id).removeClass('material-checkbox');
 
+        self.servicosSelecionados = _.without(self.servicosSelecionados, servico.id);
+
+        var habilidade = _.find(self.habilidades(), function(habilidade){
+          return habilidade.id == servico.habilidadeId;
+        });
+        var servico = _.find(habilidade.servicos, function(servicoTemp){
+          return _.contains(self.servicosSelecionados, servicoTemp.id);
+        });
+
+        if (!servico) self.habilidadesSelecionadas = _.without(self.habilidadesSelecionadas, habilidade.id);
+
       } else {
         servico.checked(true);
         $('#' + servico.id).addClass('material-checkbox');
 
-      }
-    };
+        self.servicosSelecionados.push(servico.id);
 
-    self.mostra = function(){
-      console.log(self.habilidadesSelecionadas());
-      console.log(self.servicosSelecionadas());
+        self.habilidadesSelecionadas.push(servico.habilidadeId);
+        self.habilidadesSelecionadas = _.uniq(self.habilidadesSelecionadas);
+      }
     };
 
     self.loadHabilidades = ko.computed(function(){
       if (!!self.ramo()) {
-        self.habilidadesSelecionadas([]);
-        self.servicosSelecionadas([]);
+        self.habilidadesSelecionadas = [];
+        self.servicosSelecionados = [];
         bridge.get("/api/especialidades/seeded_by_ramo/"+self.ramo())
         .then(function(response){
           mapResponseToHabilidades(response.especialidades);
@@ -103,11 +113,12 @@ function(ko, template, $, bridge, maskComponent) {
       var habilidades = habilidades.map(function(habilidade){
         var servicos = habilidade.servicos.map(function(servico){
           return {
-            id      : servico.id,
-            text    : servico.nome,
-            valor   : ko.observable(undefined),
-            duracao : ko.observable(undefined),
-            checked : ko.observable(false)
+            habilidadeId : habilidade.id,
+            id           : servico.id,
+            text         : servico.nome,
+            valor        : ko.observable(undefined),
+            duracao      : ko.observable(undefined),
+            checked      : ko.observable(false)
           }
         });
 
