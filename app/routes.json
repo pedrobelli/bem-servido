@@ -13,6 +13,14 @@
     }
   },
   {
+    "path"   : "#frontend",
+    "page"   : "pages/frontend/frontendComponent",
+    "params" : {
+      "name"   : "frontend",
+      "header" : "default"
+    }
+  },
+  {
     "path"   : "#profissionais/new",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : {

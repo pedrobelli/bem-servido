@@ -1,14 +1,11 @@
-/* label color */
- .input-field label.fixed-label {
-   webkit-transform: translateY(-140%);
-   transform: translateY(-140%);
-   color: #979797;
-   font-size: 0.8rem;
- }
 
  /* label focus color */
  .input-field input[type=text]:focus + label {
    color: #979797;
+ }
+ .input-field input[type=text]{
+   height: 25px;
+   padding: 5px;
  }
  .input-field input[type=email]:focus + label {
    color: #979797;
@@ -44,7 +41,7 @@
  .input-field .prefix.active {
    color: #979797;
  }
- .dropdown-content li>span{
+ .dropdown-content li > span{
    color: orange;
  }
  .material-checkbox+label:before {
@@ -63,3 +60,47 @@
      -webkit-transform-origin: 100% 100%;
      transform-origin: 100% 100%;
  }
+
+
+/* search-field */
+.input-field[class*="search-field"]{
+  z-index: 1;
+}
+.input-field[class*="search-field"] > input[type=text]{
+  background-color: white;
+  border: 1px solid orange;
+  height: 25px;
+  padding: 5px;
+}
+.input-field[class*="search-field"] > input[type=text]:focus{
+  border-bottom: 1px solid orange;
+  box-shadow: none;
+}
+.input-field[class*="search-field"] > input[type=text]:valid{
+  border-bottom: 1px solid orange;
+  box-shadow: none;
+}
+.input-field.search-field__home > input[type=text]:focus + label{
+  color: orange;
+}
+.search > .input-field.search-field__home > label{
+  color: orange;
+  font-size: 14px;
+  font-weight: 500;
+}
+.input-field > label{
+  font-size: 12px;
+  font-weight: 500;
+  top: 0;
+  webkit-transform: translateY(-110%);
+  transform: translateY(-110%);
+}
+.input-field[class*="search-field"] > .select-wrapper > input.select-dropdown{
+  background-color: white;
+  border: 1px solid orange;
+  height: 25px;
+  padding: 5px;
+}
+.input-field[class*="search-field"] > .select-wrapper > span.caret{
+  z-index: 1
+}
