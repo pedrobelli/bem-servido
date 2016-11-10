@@ -1,10 +1,11 @@
-define(['ko', 'text!dadosHorarioTemplate', 'jquery', 'maskComponentForm'],
-function(ko, template, $, maskComponent) {
+define(['ko', 'text!dadosHorarioTemplate', 'jquery', 'underscore', 'maskComponentForm'],
+function(ko, template, $, _, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
     self.diasSemana = ko.observableArray([]);
+    self.diasSemanaSelecionados = [];
 
     self.validForm = ko.pureComputed(function(){
       // valid = !!self.nome();
@@ -26,7 +27,8 @@ function(ko, template, $, maskComponent) {
     };
 
     self.cleanFields = function() {
-      self.diasSemana([])
+      self.diasSemana([]);
+      self.diasSemanaSelecionados = [];
     };
 
     self.mapResponse = function(response) {
@@ -34,12 +36,29 @@ function(ko, template, $, maskComponent) {
         return {
           id            : diaSemana.id,
           text          : diaSemana.text,
-          horarioInicio : "",
-          horarioFim    : ""
+          horarioInicio : ko.observable(undefined),
+          horarioFim    : ko.observable(undefined),
+          checked       : ko.observable(false)
         }
       });
 
       self.diasSemana(diasSemana);
+    };
+
+    self.check = function(horario){
+      if (horario.checked()) {
+        horario.checked(false);
+        horario.horarioInicio(undefined);
+        horario.horarioFim(undefined);
+        $('#horario' + horario.id).removeClass('material-checkbox');
+
+        self.diasSemanaSelecionados = _.without(self.diasSemanaSelecionados, horario.id);
+      } else {
+        horario.checked(true);
+        $('#horario' + horario.id).addClass('material-checkbox');
+
+        self.diasSemanaSelecionados.push(horario.id);
+      }
     };
 
     var generatePayload = function(){

@@ -16,8 +16,8 @@
         <div data-bind="foreach: { data: servicos, as: 'servico' }" class="collapsible-body">
             <div class="option">
               <div class="input-field col s12 m4">
-                  <input data-bind="attr: { 'id' : servico.id }, click: $component.check" type="checkbox" />
-                  <label data-bind="text: servico.text, attr: { 'for' : servico.id }"></label>
+                  <input data-bind="attr: { 'id' : 'servico' + servico.id }, click: $component.check" type="checkbox" />
+                  <label data-bind="text: servico.text, attr: { 'for' : 'servico' + servico.id }"></label>
               </div>
               <div class="input-field col s6 m4">
                 <input data-bind="textInput: servico.valor, attr: { 'id' : 'valor' + servico.id, 'disabled' : !checked() }" type="text" class="currency">

@@ -3,17 +3,16 @@
     <div class="day">
       <div class="input-field switch col s4">
         <label>
-          <span data-bind="text: $data.text"></span>
-          <input type="checkbox">
-          <span class="lever"></span>
+          <input data-bind="attr: { 'id' : 'horario' + id }, click: $component.check" type="checkbox" />
+          <label data-bind="text: text, attr: { 'for' : 'horario' + id }"></label>
         </label>
       </div>
       <div class="input-field col s4">
-        <input data-bind="textInput: horarioInicio, attr: { 'id' : 'horario_inicio' + id }" type="text" class="time" disabled>
+        <input data-bind="textInput: horarioInicio, attr: { 'id' : 'horario_inicio' + id, 'disabled' : !checked() }" type="text" class="time">
         <label data-bind="attr: { 'for' : 'horario_inicio' + id }" class="fixed-label">Horario Inicio</label>
       </div>
       <div class="input-field col s4">
-        <input data-bind="textInput: horarioFim, attr: { 'id' : 'horario_fim' + id }" type="text" class="time" disabled>
+        <input data-bind="textInput: horarioFim, attr: { 'id' : 'horario_fim' + id, 'disabled' : !checked() }" type="text" class="time">
         <label data-bind="attr: { 'for' : 'horario_fim' + id }" class="fixed-label">Horario Fim</label>
       </div>
     </div>

@@ -57,7 +57,7 @@ function(ko, template, $, _, bridge, maskComponent) {
         servico.checked(false);
         servico.valor(undefined);
         servico.duracao(undefined);
-        $('#' + servico.id).removeClass('material-checkbox');
+        $('#servico' + servico.id).removeClass('material-checkbox');
 
         self.servicosSelecionados = _.without(self.servicosSelecionados, servico.id);
 
@@ -69,10 +69,9 @@ function(ko, template, $, _, bridge, maskComponent) {
         });
 
         if (!servico) self.habilidadesSelecionadas = _.without(self.habilidadesSelecionadas, habilidade.id);
-
       } else {
         servico.checked(true);
-        $('#' + servico.id).addClass('material-checkbox');
+        $('#servico' + servico.id).addClass('material-checkbox');
 
         self.servicosSelecionados.push(servico.id);
 
