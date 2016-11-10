@@ -2,6 +2,7 @@ module.exports = function(sequelize, DataTypes) {
 
 	var Endereco = sequelize.define('enderecos', {
 		cep: {
+			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
 				len: {
@@ -12,6 +13,9 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		rua: {
 			type: DataTypes.STRING
+		},
+		num: {
+			type: DataTypes.INTEGER
 		},
 		complemento: {
 			type: DataTypes.STRING

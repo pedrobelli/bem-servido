@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 
 	var Telefone = sequelize.define('telefones', {
-		residencial: {
+		telefone: {
 			type: DataTypes.STRING,
 			validate: {
 				len: {

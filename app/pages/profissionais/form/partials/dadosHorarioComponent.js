@@ -7,12 +7,23 @@ function(ko, template, $, _, maskComponent) {
     self.diasSemana = ko.observableArray([]);
     self.diasSemanaSelecionados = [];
 
-    self.validForm = ko.pureComputed(function(){
-      // valid = !!self.nome();
-      // valid = valid && !!self.email();
+    self.validate = function() {
+      var errors = []
+      valid = self.diasSemanaSelecionados.length > 0;
+      if (!valid) {
+        errors.push("É necessário selecionar pelo menos um dia para montar sua agenda de trabalho.")
+      }
 
-      // return valid;
-    });
+      self.diasSemana().forEach(function(diaSemana){
+        if (diaSemana.checked()) {
+          if (!diaSemana.horarioInicio() || !diaSemana.horarioFim()) {
+            errors.push("É necessário preencher os campos de horario inicial e final dos dias selecionados")
+          }
+        }
+      });
+
+      return errors;
+    };
 
     self.show = function() {
       $('#dados-horario').fadeIn();
@@ -61,13 +72,20 @@ function(ko, template, $, _, maskComponent) {
       }
     };
 
-    var generatePayload = function(){
-      // var payload = {
-      //   nome           : self.nome(),
-      //   email          : self.email(),
-      // };
-      //
-      // return payload;
+    self.generatePayload = function(payload){
+      var diasSemana = [];
+      self.diasSemana().forEach(function(diaSemana){
+        if (diaSemana.checked()) {
+          diasSemana.push({
+            id            : diaSemana.id,
+            horarioInicio : diaSemana.horarioInicio(),
+            horarioFim    : diaSemana.horarioFim()
+          });
+        }
+      });
+      payload.diasSemana = JSON.stringify(diasSemana);
+
+      return payload;
     };
 
   }

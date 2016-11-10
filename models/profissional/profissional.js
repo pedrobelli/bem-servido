@@ -26,10 +26,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     },
 		sexo: {
-			allowNull: false,
 			type: DataTypes.INTEGER,
 		},
 		cpf: {
+			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
 				len: {

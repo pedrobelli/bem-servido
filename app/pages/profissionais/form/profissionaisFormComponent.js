@@ -14,10 +14,6 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
       component.cleanFields();
     });
 
-    self.validForm = ko.pureComputed(function(){
-      // TODO colocar validação no click e mostrar swal com erro
-    });
-
     self.anterior = function(){
       var posicaoAtual = self.posicao;
       if (posicaoAtual == 0) {
@@ -35,8 +31,27 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
     };
 
     self.proximo = function(){
+      var errors = [];
+      for (var i = self.posicao; i >= 0; i--) {
+        errors = errors.concat(self.components[i].validate());
+      }
+
+      if (errors.length > 0) {
+        var errorTitle = "Corrija os erros em seu cadastro!";
+        errors = _.uniq(errors);
+        swalComponent.simpleErrorAlertWithTitle(errorTitle, errors);
+        return;
+      }
+
       var posicaoAtual = self.posicao;
       if (posicaoAtual == 2) {
+        var payload = {};
+        self.components.forEach(function(component){
+          payload = component.generatePayload(payload);
+        });
+
+        console.log(payload);
+
         return;
       } else if (posicaoAtual == 0) {
         $('#anterior').fadeIn();

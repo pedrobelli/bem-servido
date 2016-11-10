@@ -146,3 +146,10 @@ header > .header-search{
     max-width: 90%;
   }
 }
+
+.swal-header {
+  font-size: 22px;
+}
+.swal-content {
+  font-size: 16px;
+}

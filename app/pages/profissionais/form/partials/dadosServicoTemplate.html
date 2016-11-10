@@ -6,7 +6,7 @@
       <option  data-bind="value: $data.id, text: $data.text"></option>
       <!-- /ko -->
     </select>
-    <label for="ramo">Ramo de Serviço</label>
+    <label for="ramo">Ramo de Serviço*</label>
   </div>
 
   <div id="dados-habilidades" class="col s12" hidden="">
@@ -21,11 +21,11 @@
               </div>
               <div class="input-field col s6 m4">
                 <input data-bind="textInput: servico.valor, attr: { 'id' : 'valor' + servico.id, 'disabled' : !checked() }" type="text" class="currency">
-                <label data-bind="attr: { 'for' : 'valor' + servico.id }" class="fixed-label">Valor</label>
+                <label data-bind="attr: { 'for' : 'valor' + servico.id }" class="fixed-label">Valor*</label>
               </div>
               <div class="input-field col s6 m4">
                 <input data-bind="textInput: servico.duracao, attr: { 'id' : 'duracao' + servico.id, 'disabled' : !checked() }" type="text" class="number">
-                <label data-bind="attr: { 'for' : 'duracao' + servico.id }" class="fixed-label">Duração</label>
+                <label data-bind="attr: { 'for' : 'duracao' + servico.id }" class="fixed-label">Duração (min)*</label>
               </div>
             </div>
         </div>

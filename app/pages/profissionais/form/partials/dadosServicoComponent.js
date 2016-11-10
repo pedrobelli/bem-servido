@@ -11,10 +11,24 @@ function(ko, template, $, _, bridge, maskComponent) {
     self.habilidadesSelecionadas = [];
     self.servicosSelecionados = [];
 
-    self.validForm = function(){
+    self.validate = function() {
+      var errors = []
       valid = !!self.ramo();
+      if (!valid) {
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+      }
 
-      return valid;
+      self.habilidades().forEach(function(habilidade){
+        habilidade.servicos.forEach(function(servico){
+          if (servico.checked()) {
+            if (!servico.valor() || !servico.duracao()) {
+              errors.push("É necessário preencher os campos valor e duração dos serviços selecionados")
+            }
+          }
+        });
+      });
+
+      return errors;
     };
 
     self.show = function() {
@@ -91,13 +105,24 @@ function(ko, template, $, _, bridge, maskComponent) {
       }
     });
 
-    var generatePayload = function(){
-      // var payload = {
-      //   nome           : self.nome(),
-      //   email          : self.email(),
-      // };
-      //
-      // return payload;
+    self.generatePayload = function(payload){
+      payload.especialidades = JSON.stringify(self.habilidadesSelecionadas);
+
+      var servicos = [];
+      self.habilidades().forEach(function(habilidade){
+        habilidade.servicos.forEach(function(servico){
+          if (servico.checked()) {
+            servicos.push({
+              id      : servico.id,
+              valor   : servico.valor(),
+              duracao : servico.duracao()
+            });
+          }
+        });
+      });
+      payload.servicos = JSON.stringify(servicos);
+
+      return payload;
     };
 
     var mapResponseToHabilidades = function(habilidades){
