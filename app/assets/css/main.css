@@ -1,58 +1,155 @@
-/*----------------------------------------
-  General Layout Style
-------------------------------------------*/
 
-html,
-body {
-  height: 100%;
+.top-header{
+  background-image: url(../images/header-banner.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  min-height: 500px;
+  background-color: #979797;
+  background-blend-mode: soft-light;
+  position: relative;
+}
+header.top-header .navbar{
+  background-color: rgba(74,74,74, 0.5);
+}
+.navbar .navbar-list{
+  line-height: 34px;
+  margin: 15px auto;
+}
+.navbar .cad-profissional{
+  border: 1px solid white;
+  border-radius: 2px;
+}
+.navbar .cad-profissional:hover{
+  border: 1px solid orange;
+  color: orange;
 }
 
-.white-bg{
-    background: #FFFFFF;
+header > .header-search{
+  max-width: 80%;
+  margin: 10px auto;
+}
+.header-search > .search{
+  max-width: 80%;
+  margin: 10px auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  text-align: center;
+}
+.header-search > .search > .input-field.search-field{
+  display: inline-block;
+  width: 30%;
+  margin: 15px 20px;
+  text-align: left;
+}
+.input-field.search-field > input[type=text]{
+  background-color: white;
+  border: 1px solid orange;
+  height: 25px;
+  padding: 5px;
+}
+.input-field.search-field > input[type=text]:focus{
+  box-shadow: 0 1px 0 0 orange;
+  border-bottom: 1px solid orange;
+}
+.input-field.search-field > input[type=text]:valid{
+  box-shadow: 0 1px 0 0 orange;
+  border-bottom: 1px solid orange;
+}
+.input-field.search-field > label.fixed-label{
+  text-shadow: 1px 1px rgba(0,0,0,0.5);
+  color: orange;
+  font-size: 14px;
+  font-weight: 500;
+  top: 0;
+}
+.input-field.search-field > input[type=text]:focus + label{
+  color: orange;
+}
+
+.page-title{
+  margin: 30px auto;
+  margin-left: -40px;
 }
 
 
-/*----------------------------------------
-    Login Page
-------------------------------------------*/
-
-.html-login {
-  height: 100%;
-  display: table;
-  margin: auto;
-}
-.body-login {
-  height: 100%;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.login-form {
-  width: 280px;
-}
-.login-form-text{
+.page-title > h2{
+  font-size: 28px;
+  font-weight: 200;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.8rem;
+  margin: 0;
 }
-.profile-image-login{
-  width: 100px;
-  height: 100px !important;
+.page-title > hr{
+  width: 160px;
+  margin-left: 44px;
+  margin-top: 4px;
+  border-color: orange;
+  background-color: orange;
 }
 
-.login-text {
-  margin-top: -6px;
-  margin-left: -6px !important;
+.destaques > .card.destaque{
+  width: 40%;
+  display: inline-block;
+  border: 1px solid #979797;
+  margin: 10px 30px;
+  text-align: left;
+}
+.cadastro > .form-cadastro{
+  border: 1px solid orange;
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 80%;
+}
+.cadastro > .form-cadastro .collapsible .option{
+  display: block;
+  min-height: 100px;
+}
+.cadastro > .form-cadastro button > .material-icons.left{
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.cadastro > .form-cadastro button.left{
+  display: none;
+}
+.login_usuario > .form-login_usuario{
+  border: 1px solid orange;
+  padding: 10px;
+  margin: 80px auto;
+  max-width: 50%;
+}
+.form-login_usuario .form-link{
+  font-size: 11px;
+}
+
+@media screen and (max-width: 600px) {
+  .header-search > .search > .input-field.search-field{
+    display: block;
+    width: auto;
+  }
+
+  .page-title{
+    margin-left: 0px;
+  }
+  .destaques > .card.destaque{
+    width: 90%;
+    display: block;
+  }
+  .cadastro > .form-cadastro{
+    max-width: 95%
+  }
+  .cadastro > .form-cadastro .collapsible .option{
+    min-height: 150px;
+  }
+  .login_usuario > .form-login_usuario{
+    max-width: 90%;
+  }
 }
 
 .swal-header {
   font-size: 22px;
 }
-
-.swal-body {
-  text-align: left;
-}
-
-.swal-body > h5 {
-  font-size: 18px !important;
+.swal-content {
+  font-size: 16px;
 }

@@ -1,0 +1,36 @@
+<form id="dados-servico" action="" class="col s12 form" hidden>
+  <div class="input-field col s12">
+    <select data-bind="value: ramo">
+      <option value="" disabled selected>Selecione uma opção</option>
+      <!-- ko foreach: $data.ramos -->
+      <option  data-bind="value: $data.id, text: $data.text"></option>
+      <!-- /ko -->
+    </select>
+    <label for="ramo">Ramo de Serviço*</label>
+  </div>
+
+  <div id="dados-habilidades" class="col s12" hidden="">
+    <ul data-bind="foreach: { data: habilidades, as: 'habilidade' }" class="collapsible" data-collapsible="expandable">
+      <li>
+        <div data-bind="text: habilidade.text" class="collapsible-header"></div>
+        <div data-bind="foreach: { data: servicos, as: 'servico' }" class="collapsible-body">
+            <div class="option">
+              <div class="input-field col s12 m4">
+                  <input data-bind="attr: { 'id' : 'servico' + servico.id }, click: $component.check" type="checkbox" />
+                  <label data-bind="text: servico.text, attr: { 'for' : 'servico' + servico.id }"></label>
+              </div>
+              <div class="input-field col s6 m4">
+                <input data-bind="textInput: servico.valor, attr: { 'id' : 'valor' + servico.id, 'disabled' : !checked() }" type="text" class="currency">
+                <label data-bind="attr: { 'for' : 'valor' + servico.id }" class="fixed-label">Valor*</label>
+              </div>
+              <div class="input-field col s6 m4">
+                <input data-bind="textInput: servico.duracao, attr: { 'id' : 'duracao' + servico.id, 'disabled' : !checked() }" type="text" class="number">
+                <label data-bind="attr: { 'for' : 'duracao' + servico.id }" class="fixed-label">Duração (min)*</label>
+              </div>
+            </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</form>

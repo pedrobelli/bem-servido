@@ -1,6 +1,5 @@
-define(['ko', 'text!./atendimentosFormTemplate.html', 'bridge', '../../shared/moment/momentComponent', '../../shared/swal/swalComponent',
-'../../shared/mask/maskComponent', '../../shared/datepicker/datepickerComponent'],
-function(ko, template, bridge, momentComponent, swalComponent, maskComponent, datepickerComponent) {
+define(['ko', 'text!atendimentosFormTemplate', 'bridge', 'momentComponent', 'datepickerComponent', 'maskComponentForm', 'swalComponentForm'],
+function(ko, template, bridge, momentComponent, datepickerComponent, maskComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;

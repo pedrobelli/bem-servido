@@ -20,7 +20,52 @@ module.exports = function(sequelize, DataTypes) {
 					msg: "Email inválido"
 				}
 			}
-		}
+		},
+    dataNascimento: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+		sexo: {
+			allowNull: true,
+			type: DataTypes.INTEGER,
+		},
+		cpf: {
+			allowNull: false,
+			type: DataTypes.STRING,
+			validate: {
+				len: {
+					args: [11],
+					msg: "CPF deve conter 11 dígitos"
+				},
+				is: {
+					args: /^[0-9]*$/,
+					msg: "CPF deve conter apenas números"
+				}
+			}
+		},
+		cnpj: {
+			type: DataTypes.STRING,
+			validate: {
+				len: {
+					args: [14],
+					msg: "CNPJ deve conter 14 dígitos"
+				},
+				is: {
+					args: /^[0-9]*$/,
+					msg: "CNPJ deve conter apenas números"
+				}
+			}
+		},
+    ramo: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			validate: {
+        isInt: {
+          args: true,
+          msg: "Ramo deve ser preenchido"
+        }
+      }
+    }
 	}, {
 		classMethods: {
 			All: function(){

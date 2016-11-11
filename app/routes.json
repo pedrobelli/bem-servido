@@ -1,5 +1,28 @@
 [
   {
+    "path"   : "#header",
+    "page"   : "pages/header/headerComponent",
+    "params" : { "name"   : "header" }
+  },
+  {
+    "path"   : "#home",
+    "page"   : "pages/home/homeComponent",
+    "params" : {
+      "name"   : "home",
+      "header" : "home"
+    }
+  },
+  {
+    "path"   : "#profissionais/new",
+    "page"   : "pages/profissionais/form/profissionaisFormComponent",
+    "params" : {
+      "name" : "new",
+      "header" : "orange"
+    }
+  },
+
+
+  {
     "path"   : "#atendimentos",
     "page"   : "pages/atendimentos/atendimentosComponent",
     "params" : { "name" : "index" }
@@ -17,7 +40,10 @@
   {
     "path"   : "#clientes",
     "page"   : "pages/clientes/clientesComponent",
-    "params" : { "name" : "index" }
+    "params" : {
+      "name"  : "index",
+      "header" : "orange"
+    }
   },
   {
     "path"   : "#clientes/new",
@@ -33,11 +59,6 @@
     "path"   : "#profissionais",
     "page"   : "pages/profissionais/profissionaisComponent",
     "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#profissionais/new",
-    "page"   : "pages/profissionais/form/profissionaisFormComponent",
-    "params" : { "name" : "new" }
   },
   {
     "path"   : "#profissionais/edit/:id",

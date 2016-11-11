@@ -53,7 +53,7 @@ function ($, ko, _, sammyFramework, routesText, appViewModel) {
       .done(registerPageComponents)
       .done(configureRoutes)
       .done(function() {
-        sammy.run("#clientes");
+        sammy.run("#home");
         ko.applyBindings(appViewModel);
         window.ko = ko;
       });

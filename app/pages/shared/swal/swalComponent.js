@@ -5,15 +5,33 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
 
     if (!!errors.errors) {
       errors.errors.forEach(function(error){
-        errorBody.append($('<h5></h5>').html(" - " + error.message));
+        errorBody.append($('<h5 class="swal-content"></h5>').html(" - " + error.message));
       });
     } else {
-      errorBody.append($('<h5></h5>').html(" - " + errors.message));
+      errorBody.append($('<h5 class="swal-content"></h5>').html(" - " + errors.message));
     }
 
     sweetAlert({
       title:"<div class='swal-header'>" + errorTitle + "</div>",
       text: errorBody[0].outerHTML,
+      confirmButtonColor: "orange",
+      type: "error",
+      html: true,
+      animation: false
+    });
+  }
+
+  function simpleErrorAlertWithTitle(errorTitle, errors) {
+    var errorBody = $("<div class='swal-body'></div>").css({textAlign: "left"});
+
+    errors.forEach(function(error){
+      errorBody.append($('<h5 class="swal-content"></h5>').html(" - " + error));
+    });
+
+    sweetAlert({
+      title:"<div class='swal-header'>" + errorTitle + "</div>",
+      text: errorBody[0].outerHTML,
+      confirmButtonColor: "orange",
       type: "error",
       html: true,
       animation: false
@@ -50,7 +68,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
 
   return {
     errorAlertWithTitle:errorAlertWithTitle,
+    simpleErrorAlertWithTitle:simpleErrorAlertWithTitle,
     removeInstanceWarning:removeInstanceWarning
   }
-
 });

@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			type: DataTypes.INTEGER,
 			validate: {
-        isFloat: {
+        isInt: {
           args: true,
           msg: "Duração deve ser inteiro"
         }
@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
 		    });
 			},
 			FindOrCreate: function(detalheServico){
-				return this.FindByValorDuracaoEspecialidadeAndServico(detalheServico).then(function(response) {
+				return this.FindByValorDuracaoEspecialidadeServicoAndProfissional(detalheServico).then(function(response) {
 					if (response.length == 0) {
 						return this.Create(detalheServico).then(function(response) {
 							return response
@@ -60,11 +60,12 @@ module.exports = function(sequelize, DataTypes) {
 					return response[0];
 				});
 			},
-			FindByValorDuracaoEspecialidadeAndServico: function(detalheServico){
+			FindByValorDuracaoEspecialidadeServicoAndProfissional: function(detalheServico){
 				return this.findAll({ where: {
 					valor: detalheServico.valor ,
 					duracao: detalheServico.duracao,
-					servicoId: detalheServico.servicoId
+					servicoId: detalheServico.servicoId,
+					profissionalId: detalheServico.profissionalId
 				 } });
 			}
 		}

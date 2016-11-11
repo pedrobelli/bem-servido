@@ -28,6 +28,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.post(endpoint + '/by_servicos', function(req, res) {
     return self.getByServicos(req, res);
   });
+
+  apiRoutes.get(endpoint + '/seeded_by_ramo/:id', function(req, res) {
+    return self.getSeededByRamo(req, res);
+  });
 }
 
 self.index = function(req, res) {
@@ -92,6 +96,18 @@ self.update = function(req, res) {
 self.getByServicos = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.especialidades.FindByServicos(models, req.param('servicos'))
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ especialidades: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getSeededByRamo = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.especialidades.FindSeededByRamo(models, req.param('id'))
 
   }).then(function(entities) {
     res.statusCode = 200;

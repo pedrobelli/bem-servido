@@ -1,5 +1,5 @@
-define (['jquery', 'ko', 'bridge', 'text!../pages/shared/footer.html', 'text!../pages/shared/header.html'],
-function ($, ko, bridge, footer, header) {
+define (['jquery', 'ko', 'text!footerTemplate'],
+function ($, ko, footer) {
 
 	var ViewModel = function() {
 		var self = this;
@@ -7,20 +7,21 @@ function ($, ko, bridge, footer, header) {
 		self.pageParams = ko.observable({});
   	self.pageComponent = ko.observable();
 
-		self.footerComponent = ko.observable();
+		self.headerParams = ko.observable();
 		self.headerComponent = ko.observable();
+		self.footerComponent = ko.observable();
 
 		self.appName = ko.observable('BemServido');
 
 		self.showPage = function(pageComponentName, pageTitle, params) {
       document.title = self.appName() + ' - ' + pageTitle;
 
-				self.footerComponent(footer);
-				self.headerComponent(header);
+			self.headerParams(params);
+			self.headerComponent("pages/header/headerComponent");
+			self.footerComponent(footer);
 
-      	self.pageParams(params);
-      	self.pageComponent(pageComponentName);
-
+    	self.pageParams(params);
+    	self.pageComponent(pageComponentName);
 	  };
 	};
 

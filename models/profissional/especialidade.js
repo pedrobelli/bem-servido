@@ -19,6 +19,19 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Descrição deve conter pelo menos 5 caracteres"
         }
       }
+    },
+    ramo: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			validate: {
+        isInt: {
+          args: true,
+          msg: "Ramo deve ser preenchido"
+        }
+      }
+    },
+    seed: {
+      type: DataTypes.BOOLEAN
     }
   }, {
 		classMethods: {
@@ -48,6 +61,12 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll({ include: [
           { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
         ] });
+			},
+			FindSeededByRamo: function(models, ramoId){
+				return this.findAll({
+					include: [ { model: models.servicos, where: { seed: true } } ],
+					where: { ramo: ramoId, seed: true }
+        });
 			}
 		}
   });

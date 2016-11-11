@@ -1,47 +1,30 @@
-<p class="center login-form-text" data-bind="text: pageMode"></p>
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Cadastro Profissional</h2>
+      <hr>
+    </div>
+    <div class="cadastro">
+      <div class="row form-cadastro">
+        <!-- dados profissional -->
+        <div data-bind="component: { name: 'dados-profissional-component' }"></div>
 
-<form id="new-user-form" method="post">
-  <div class="row">
-    <div class="col s12">
+        <!-- dados serviço -->
+        <div data-bind="component: { name: 'dados-servico-component' }"></div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Nome:</label>
-          <input data-bind="value: nome" type="text" id="nome" placeholder="Nome">
-        </div>
+        <!-- cadastro horario -->
+        <div data-bind="component: { name: 'dados-horario-component' }"></div>
+
+        <button data-bind="click: anterior" id="anterior" class="btn waves-effect waves-light left orange" type="button">
+          <span>ANTERIOR</span>
+          <i class="material-icons left">send</i>
+        </button>
+
+        <button data-bind="click: proximo" id="proximo" class="btn waves-effect waves-light right orange" type="button">
+          <span data-bind="text: textoProximo"></span>
+          <i class="material-icons right">send</i>
+        </button>
       </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Email:</label>
-          <input class="email" data-bind="value: email" type="text" id="email" placeholder="Email">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Especialidades:</label>
-          <input data-bind="value: especialidades" type="text" id="especialidades" placeholder="Especialidades" disabled >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Serviços:</label>
-          <select data-bind="selectedOptions: servicosSelecionados" id="servicos" multiple>
-            <option value="" disabled>Serviços</option>
-            <!-- ko foreach: $data.servicos -->
-            <option data-bind="value: $data.id, text: $data.nome"></option>
-            <!-- /ko -->
-          </select>
-        </div>
-      </div>
-
     </div>
   </div>
-
-  <input class="btn" type="submit" data-bind="attr: { disabled : !validForm() }, css: { disabled: !validForm() }, click: save" value="SALVAR">
-</form>
-
-<p></p>
-<a class="btn" href="/#profissionais">VOLTAR</a>
+</main>
