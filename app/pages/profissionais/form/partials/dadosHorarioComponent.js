@@ -16,8 +16,15 @@ function(ko, template, $, _, maskComponent, momentComponent) {
 
       self.horasTrabalho().forEach(function(horaTrabalho){
         if (horaTrabalho.checked()) {
+          var horarioInicio = momentComponent.convertStringToMomentTime(horaTrabalho.horarioInicio());
+          var horarioFim = momentComponent.convertStringToMomentTime(horaTrabalho.horarioFim());
+
           if (!horaTrabalho.horarioInicio() || !horaTrabalho.horarioFim()) {
             errors.push("É necessário preencher os campos de horario inicial e final dos dias selecionados")
+          }
+
+          if (!horarioInicio.isBefore(horarioFim)) {
+            errors.push("O horario final de trabalho não pode ser anterior ao inicial")
           }
         }
       });

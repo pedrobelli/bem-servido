@@ -58,7 +58,7 @@ db['profissionais'].hasMany(db['atendimentos'], { foreignKey: { name: 'profissio
 db['profissionais'].hasMany(db['horas_trabalho'], {foreignKey : 'profissionalId', allowNull: false });
 db['profissionais'].hasMany(db['detalhe_servicos'], {foreignKey : 'profissionalId', allowNull: false });
 db['profissionais'].hasMany(db['forma_pagamentos'], {foreignKey : 'profissionalId'});
-db['profissionais'].belongsToMany(db['especialidades'], { through: 'profissional_especialidades' });
+db['profissionais'].belongsToMany(db['especialidades'], { foreignKey : 'profissionalId', through: 'profissional_especialidades' });
 
 //horasTrabalho
 db['horas_trabalho'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId', allowNull: false });

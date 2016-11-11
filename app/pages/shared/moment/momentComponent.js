@@ -11,8 +11,12 @@ define(['moment'], function(moment) {
   }
 
   function convertStringToTime(time) {
-    var momentDate = moment(time, "HH:mm");
+    var momentDate = moment("10/10/1900 " + time, "DD/MM/YYYY HH:mm");
     return momentDate.toDate();
+  }
+
+  function convertStringToMomentTime(time) {
+    return momentDate = moment(time, "HH:mm");
   }
 
   function convertDateToString(data) {
@@ -36,6 +40,7 @@ define(['moment'], function(moment) {
     convertStringToDateTime:convertStringToDateTime,
     convertStringToDate:convertStringToDate,
     convertStringToTime:convertStringToTime,
+    convertStringToMomentTime:convertStringToMomentTime,
     convertDateToString:convertDateToString,
     convertTimeToString:convertTimeToString,
     calculateFinTime:calculateFinTime

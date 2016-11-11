@@ -31,7 +31,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     seed: {
-      allowNull: true,
       type: DataTypes.BOOLEAN
     }
   }, {
