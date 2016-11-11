@@ -65,7 +65,8 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(cliente);
 		    });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return Cliente;

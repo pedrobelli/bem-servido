@@ -54,7 +54,8 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(atendimento);
 		    });
 			}
-		}
+		},
+		paranoid: true
 	});
 
   return Atendimento

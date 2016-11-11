@@ -68,7 +68,8 @@ module.exports = function(sequelize, DataTypes) {
 					profissionalId: detalheServico.profissionalId
 				 } });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return DetalheServico;

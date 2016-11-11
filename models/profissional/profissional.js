@@ -96,7 +96,8 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(profissional);
 		    });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return Profissional;

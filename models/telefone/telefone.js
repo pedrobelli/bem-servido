@@ -48,7 +48,8 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(telefone);
 		    });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return Telefone;

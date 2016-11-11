@@ -57,7 +57,8 @@ module.exports = function(sequelize, DataTypes) {
 					especialidadeId: servico.especialidadeId
 				 } });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return Servico;
