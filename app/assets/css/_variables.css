@@ -104,3 +104,19 @@
 .input-field[class*="search-field"] > .select-wrapper > span.caret{
   z-index: 1
 }
+
+
+/*CARD */
+.card{
+  margin: 10px;
+}
+
+.card .card-content{
+  padding: 10px 5px;
+}
+.card .card-content .card-title{
+  line-height: 24px;
+}
+.card .card-action{
+  text-align: right;
+}

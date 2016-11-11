@@ -65,7 +65,6 @@ header > .header-search{
   margin-left: -40px;
 }
 
-
 .page-title > h2{
   font-size: 28px;
   font-weight: 200;
@@ -80,13 +79,19 @@ header > .header-search{
   background-color: orange;
 }
 
-.destaques > .card.destaque{
-  width: 40%;
-  display: inline-block;
-  border: 1px solid #979797;
-  margin: 10px 30px;
-  text-align: left;
+.card .card-content > .profissional-ramo{
+  color: #979797;
 }
+
+/* CARDS HOME */
+.destaques {
+  display: flex;
+}
+.destaques > .card.destaque{
+  border: 1px solid #979797;
+}
+
+/* CADATRO */
 .cadastro > .form-cadastro{
   border: 1px solid orange;
   padding: 10px;
@@ -114,6 +119,93 @@ header > .header-search{
   font-size: 11px;
 }
 
+/* PESQUISA */
+/* tela de resultado de pesquisa */
+.pesquisa{
+  display: flex;
+  align-items: flex-start;
+}
+
+.resultado-item  .item-info{
+  margin-top: 10px;
+}
+.resultado-item  .item-info > *{
+  display: inline-block;
+  vertical-align: middle;
+}
+.resultado-item  .item-info > .info-date{
+  /*width: 25%;*/
+}
+
+.resultado-item  .item-info > .info-date > .date{
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.resultado-item .item-info > .info-date > .day{
+  display: inline-block;
+  font-size: 11px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  text-transform: uppercase;
+  color: #000;
+}
+.resultado-item .item-info > .info-available{
+  max-width: 70%;
+  border-left: 2px solid orange;
+}
+.info-available ul.available-list + p{
+  font-size: 11px;
+  color: #979797;
+  margin-left: 5px;
+}
+.resultado-item .item-info > .info-available > ul.available-list {
+  display: inline-block;
+  margin: 0;
+}
+.resultado-item .item-info > .info-available > ul.available-list > li.available-time{
+  display: inline-block;
+  margin: 0;
+}
+.info-available > ul.available-list > li.available-time > label{
+  font-size: 12px;
+  color: orange;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 2px 5px;
+}
+.info-available > ul.available-list > li.available-time > input[type=radio]{
+  display: none;
+}
+.info-available > ul.available-list > li.available-time > input[type=radio]:checked+label{
+  background-color: orange;
+  color: #fff;
+}
+
+.info-available > ul.available-list > li.available-time > label.label-disabled{
+  color: #9b9b9b;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.li.available-time > [type="radio"]+label::after, [type="radio"]+label::before{
+  content: none;
+}
+.li.available-time > [type="radio"]:checked+label::after, [type="radio"].with-gap:checked+label::after{
+  content: none;
+}
+.li.available-time > [type="radio"]:not(:checked)+label:before,
+                     [type="radio"]:not(:checked)+label:after,
+                     [type="radio"]:checked+label:before,
+                     [type="radio"]:checked+label:after,
+                     [type="radio"].with-gap:checked+label:before,
+                     [type="radio"].with-gap:checked+label:after{
+                         content: none;
+                     }
+
+
+/* RESPONSIVO */
+
 @media screen and (max-width: 600px) {
   .header-search > .search > .input-field.search-field__home{
     display: block;
@@ -139,4 +231,23 @@ header > .header-search{
   .login_usuario > .form-login_usuario{
     max-width: 90%;
   }
+
+  .pesquisa{
+    display: block;
+  }
+
+}
+@media screen and (max-width: 840px){
+  .resultado-item  .item-info > .info-date > .date{
+    font-size: 20px;
+  }
+  .resultado-item  .item-info > .info-date{
+    /*width: 33%*/
+  }
+}
+@media screen and (max-width: 1024px){
+  .resultado-item .item-info > .info-available{
+    max-width: 60%;
+  }
+
 }
