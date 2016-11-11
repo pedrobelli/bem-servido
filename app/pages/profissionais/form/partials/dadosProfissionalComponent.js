@@ -1,5 +1,5 @@
-define(['ko', 'text!dadosProfissionalTemplate', 'jquery', 'maskComponentForm', 'datepickerComponent'],
-function(ko, template, $, maskComponent, datepickerComponent) {
+define(['ko', 'text!dadosProfissionalTemplate', 'jquery', 'maskComponentForm', 'datepickerComponent', 'momentComponent'],
+function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -105,8 +105,8 @@ function(ko, template, $, maskComponent, datepickerComponent) {
     self.generatePayload = function(payload){
       payload.nome = self.nomeCompleto();
       payload.email = self.email();
-      payload.dataNascimento = self.dataNascimento();
-      payload.sexo = self.sexo();
+      payload.dataNascimento = momentComponent.convertStringToDate(self.dataNascimento());
+      payload.sexo = !!self.sexo() ? self.sexo() : 0;
       payload.cpf = self.cpf();
 
       // telefones
@@ -116,11 +116,11 @@ function(ko, template, $, maskComponent, datepickerComponent) {
       // endereco
       payload.cep = self.endereco_cep();
       payload.rua = self.endereco_rua();
-      payload.num = self.endereco_num  ();
+      payload.num = self.endereco_num();
       payload.complemento = self.endereco_comp();
       payload.bairro = self.endereco_bairro();
       payload.cidade = self.endereco_cidade();
-      payload.estado = self.endereco_estado();
+      payload.estado = !!self.endereco_estado() ? self.endereco_estado() : 0;
 
       return payload;
     };

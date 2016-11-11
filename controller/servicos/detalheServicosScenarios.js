@@ -10,13 +10,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 14.5,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-      models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 14.5,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      // models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
 
     servico = models.servicos.build({
@@ -25,13 +25,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 14.5,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-      models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 14.5,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      // models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
 
     servico = models.servicos.build({
@@ -40,13 +40,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 20,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-      models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 20,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      // models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
   });
 
@@ -59,13 +59,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 15,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-      models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 15,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      // models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
 
     servico = models.servicos.build({
@@ -74,13 +74,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 20,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-      models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 20,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      // models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
   });
 
@@ -93,13 +93,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 50,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-       models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 50,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      //  models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
 
     servico = models.servicos.build({
@@ -108,13 +108,13 @@ exports.createServicos = function() {
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 40,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-       models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 40,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      //  models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
 
     servico = models.servicos.build({
@@ -123,13 +123,13 @@ exports.createServicos = function() {
       seed: true
     });
     return models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
-      var detalheServico = models.detalhe_servicos.build({
-        valor: 35,
-        duracao: 30,
-        servicoId: entity.id
-      });
-
-       return models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
+      // var detalheServico = models.detalhe_servicos.build({
+      //   valor: 35,
+      //   duracao: 30,
+      //   servicoId: entity.id
+      // });
+      //
+      //  return models.detalhe_servicos.FindOrCreate(detalheServico.dataValues);
     });
   });
 }

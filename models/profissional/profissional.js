@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     },
 		sexo: {
+			allowNull: true,
 			type: DataTypes.INTEGER,
 		},
 		cpf: {
@@ -54,7 +55,17 @@ module.exports = function(sequelize, DataTypes) {
 					msg: "CNPJ deve conter apenas números"
 				}
 			}
-		}
+		},
+    ramo: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			validate: {
+        isInt: {
+          args: true,
+          msg: "Ramo deve ser preenchido"
+        }
+      }
+    }
 	}, {
 		classMethods: {
 			All: function(){

@@ -51,6 +51,15 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
         });
 
         console.log(payload);
+        bridge.post("/api/profissionais/new", payload)
+        .fail(function(context, errorMessage, serverError){
+          var errorTitle = 'Não foi possível concluir o cadastro';
+          swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+        })
+        .done(function(){
+          // TODO mudar issaki
+          window.location.hash = "home"
+        });
 
         return;
       } else if (posicaoAtual == 0) {

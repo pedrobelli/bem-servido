@@ -106,6 +106,7 @@ function(ko, template, $, _, bridge, maskComponent) {
     });
 
     self.generatePayload = function(payload){
+      payload.ramo = self.ramo();
       payload.especialidades = JSON.stringify(self.habilidadesSelecionadas);
 
       var servicos = [];
@@ -113,9 +114,9 @@ function(ko, template, $, _, bridge, maskComponent) {
         habilidade.servicos.forEach(function(servico){
           if (servico.checked()) {
             servicos.push({
-              id      : servico.id,
-              valor   : servico.valor(),
-              duracao : servico.duracao()
+              valor           : servico.valor(),
+              duracao         : servico.duracao(),
+              servicoId       : servico.id
             });
           }
         });

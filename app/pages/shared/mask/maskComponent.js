@@ -9,7 +9,7 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
   };
 
   var applyZipCodeMask = function(){
-    $('.zip-code').inputmask('99999-999');
+    $('.zip-code').inputmask({mask: '99999-999', autoUnmask: true});
   };
 
   var applyNumberMask = function(){
@@ -17,11 +17,11 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
   };
 
   var applyFederalIdMask = function(){
-    $('.federal-id').inputmask('999.999.999-99');
+    $('.federal-id').inputmask({mask: '999.999.999-99', autoUnmask: true});
   };
 
   var applyCNPJMask = function(){
-    $('.cnpj').inputmask('99.999.999/9999-99');
+    $('.cnpj').inputmask({mask: '99.999.999/9999-99', autoUnmask: true});
   };
 
   var applyCelphoneMask = function(){

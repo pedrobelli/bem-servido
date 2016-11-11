@@ -1,22 +1,22 @@
-define(['ko', 'text!dadosHorarioTemplate', 'jquery', 'underscore', 'maskComponentForm'],
-function(ko, template, $, _, maskComponent) {
+define(['ko', 'text!dadosHorarioTemplate', 'jquery', 'underscore', 'maskComponentForm', 'momentComponent'],
+function(ko, template, $, _, maskComponent, momentComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    self.diasSemana = ko.observableArray([]);
-    self.diasSemanaSelecionados = [];
+    self.horasTrabalho = ko.observableArray([]);
+    self.horasTrabalhoSelecionados = [];
 
     self.validate = function() {
       var errors = []
-      valid = self.diasSemanaSelecionados.length > 0;
+      valid = self.horasTrabalhoSelecionados.length > 0;
       if (!valid) {
         errors.push("É necessário selecionar pelo menos um dia para montar sua agenda de trabalho.")
       }
 
-      self.diasSemana().forEach(function(diaSemana){
-        if (diaSemana.checked()) {
-          if (!diaSemana.horarioInicio() || !diaSemana.horarioFim()) {
+      self.horasTrabalho().forEach(function(horaTrabalho){
+        if (horaTrabalho.checked()) {
+          if (!horaTrabalho.horarioInicio() || !horaTrabalho.horarioFim()) {
             errors.push("É necessário preencher os campos de horario inicial e final dos dias selecionados")
           }
         }
@@ -38,22 +38,22 @@ function(ko, template, $, _, maskComponent) {
     };
 
     self.cleanFields = function() {
-      self.diasSemana([]);
-      self.diasSemanaSelecionados = [];
+      self.horasTrabalho([]);
+      self.horasTrabalhoSelecionados = [];
     };
 
     self.mapResponse = function(response) {
-      var diasSemana = response.diasSemana.map(function(diaSemana){
+      var horasTrabalho = response.horasTrabalho.map(function(horaTrabalho){
         return {
-          id            : diaSemana.id,
-          text          : diaSemana.text,
+          id            : horaTrabalho.id,
+          text          : horaTrabalho.text,
           horarioInicio : ko.observable(undefined),
           horarioFim    : ko.observable(undefined),
           checked       : ko.observable(false)
         }
       });
 
-      self.diasSemana(diasSemana);
+      self.horasTrabalho(horasTrabalho);
     };
 
     self.check = function(horario){
@@ -63,27 +63,27 @@ function(ko, template, $, _, maskComponent) {
         horario.horarioFim(undefined);
         $('#horario' + horario.id).removeClass('material-checkbox');
 
-        self.diasSemanaSelecionados = _.without(self.diasSemanaSelecionados, horario.id);
+        self.horasTrabalhoSelecionados = _.without(self.horasTrabalhoSelecionados, horario.id);
       } else {
         horario.checked(true);
         $('#horario' + horario.id).addClass('material-checkbox');
 
-        self.diasSemanaSelecionados.push(horario.id);
+        self.horasTrabalhoSelecionados.push(horario.id);
       }
     };
 
     self.generatePayload = function(payload){
-      var diasSemana = [];
-      self.diasSemana().forEach(function(diaSemana){
-        if (diaSemana.checked()) {
-          diasSemana.push({
-            id            : diaSemana.id,
-            horarioInicio : diaSemana.horarioInicio(),
-            horarioFim    : diaSemana.horarioFim()
+      var horasTrabalho = [];
+      self.horasTrabalho().forEach(function(horaTrabalho){
+        if (horaTrabalho.checked()) {
+          horasTrabalho.push({
+            diaSemana  : horaTrabalho.id,
+            horaInicio : momentComponent.convertStringToTime(horaTrabalho.horarioInicio()),
+            horaFim    : momentComponent.convertStringToTime(horaTrabalho.horarioFim())
           });
         }
       });
-      payload.diasSemana = JSON.stringify(diasSemana);
+      payload.horasTrabalho = JSON.stringify(horasTrabalho);
 
       return payload;
     };

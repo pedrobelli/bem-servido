@@ -81,11 +81,51 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.profissionais.Create(req.body).then(function(profissional) {
-      // profissional.setServicos(JSON.parse(req.param('servicos')));
-      // return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
-      //   return profissional;
-      // });
+    var newProfissional = {
+      nome           : req.body.nome,
+      email          : req.body.email,
+      dataNascimento : req.body.dataNascimento,
+      sexo           : req.body.sexo,
+      cpf            : req.body.cpf,
+      ramo           : req.body.ramo
+    };
+    return models.profissionais.Create(newProfissional).then(function(profissional) {
+      var newTelefone = {
+        telefone       : req.body.telefone,
+        celular        : req.body.celular,
+        profissionalId : profissional.id
+      };
+      return models.telefones.Create(newTelefone).then(function() {
+        var newEndereco = {
+          telefone       : req.body.telefone,
+          celular        : req.body.celular,
+          cep            : req.body.cep,
+          rua            : req.body.rua,
+          num            : req.body.num,
+          complemento    : req.body.complemento,
+          bairro         : req.body.bairro,
+          cidade         : req.body.cidade,
+          estado         : req.body.estado,
+          profissionalId : profissional.id
+        };
+        return models.enderecos.Create(newEndereco).then(function() {
+          var servicos = JSON.parse(req.body.servicos);
+          servicos.forEach(function(servico) {
+            servico.profissionalId = profissional.id;
+            models.detalhe_servicos.Create(servico);
+          });
+
+          var horasTrabalho = JSON.parse(req.body.horasTrabalho);
+          horasTrabalho.forEach(function(horaTrabalho) {
+            horaTrabalho.profissionalId = profissional.id;
+            models.horas_trabalho.Create(horaTrabalho);
+          });
+
+          profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
+            return profissional;
+          });
+        });
+      });
     });
 
   }).then(function(entity) {
@@ -118,7 +158,7 @@ self.formOptions = function(req, res) {
   options.sexos = enums.sexos;
   options.ramos = enums.ramos;
   options.estados = enums.estados;
-  options.diasSemana = enums.diasSemana;
+  options.horasTrabalho = enums.diasSemana;
 
   res.statusCode = 200;
   res.json(options);
