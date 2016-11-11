@@ -42,7 +42,8 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(detalheServico);
 		    });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return HoraTrabalho;

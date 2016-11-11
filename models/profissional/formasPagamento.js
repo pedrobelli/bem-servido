@@ -25,7 +25,8 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(formaPagamento);
 		    });
 			}
-		}
+		},
+		paranoid: true
 	});
 
 	return FormaPagamento;

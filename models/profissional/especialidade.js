@@ -68,7 +68,8 @@ module.exports = function(sequelize, DataTypes) {
 					where: { ramo: ramoId, seed: true }
         });
 			}
-		}
+		},
+		paranoid: true
   });
 
   return Especialidade
