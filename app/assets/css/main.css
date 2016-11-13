@@ -79,7 +79,7 @@ header > .header-search{
   background-color: orange;
 }
 
-.card .card-content > .profissional-ramo{
+.profissional-ramo{
   color: #979797;
 }
 
@@ -89,7 +89,7 @@ header > .header-search{
 }
 .destaques > .card.destaque{
   border: 1px solid #979797;
-}
+}``
 
 /* CADATRO */
 .cadastro > .form-cadastro{
@@ -164,26 +164,30 @@ header > .header-search{
   display: inline-block;
   margin: 0;
 }
-.resultado-item .item-info > .info-available > ul.available-list > li.available-time{
+ul.available-list > li.available-time{
   display: inline-block;
   margin: 0;
 }
-.info-available > ul.available-list > li.available-time > label{
+ul.available-list > li.available-time > label{
   font-size: 12px;
   color: orange;
   cursor: pointer;
   background-color: transparent;
   padding: 2px 5px;
 }
-.info-available > ul.available-list > li.available-time > input[type=radio]{
+ul.available-list > li.available-time > input[type=radio]{
   display: none;
 }
-.info-available > ul.available-list > li.available-time > input[type=radio]:checked+label{
+ul.available-list > li.available-time > input[type=radio]:checked+label{
+  background-color: orange;
+  color: #fff;
+}
+ul.available-list > li.available-time > input[type=radio]+label:hover{
   background-color: orange;
   color: #fff;
 }
 
-.info-available > ul.available-list > li.available-time > label.label-disabled{
+ul.available-list > li.available-time > label.label-disabled{
   color: #9b9b9b;
   cursor: not-allowed;
   text-decoration: line-through;
@@ -202,6 +206,44 @@ header > .header-search{
                      [type="radio"].with-gap:checked+label:after{
                          content: none;
                      }
+
+/* AGENDA */
+/* tela de resultado de perfil-agendamento */
+.agenda > .profissional-info{
+  text-align: center;
+}
+.agenda > .profissional-info > *{
+  margin: auto 10px;
+}
+.agenda > div.date{
+  /*background-color: #f2f2f2;*/
+  height: 100px;
+  padding: 20px;
+  margin-top: 20px;
+}
+/*cada 10min = 20px*/
+.card-agenda .schedule-list{
+  position: relative;
+}
+.card-agenda .schedule-list > .collection-item{
+  height: 60px;
+  padding: 0 20px;
+  border-bottom: none;
+}
+.card-agenda .schedule-list > .collection-item > span.hour{
+  display: block;
+  border-top: 1px dashed #e0e0e0;
+}
+.card-agenda .schedule-list > .collection-item:nth-of-type(1) > span.hour {
+  border: none;
+}
+.card-agenda .schedule-list .unvailable{
+  background-color: #ceb9a7;
+  position: absolute;
+  width: 80%;
+  left: 20%;
+  border-radius: 2px;
+}
 
 
 /* RESPONSIVO */

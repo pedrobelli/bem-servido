@@ -7,6 +7,8 @@ function(ko, template, bridge) {
     var init = function(){
       $('select').material_select();
       $('.datepicker').pickadate({});
+      $('.collapsible').collapsible();
+     $('.modal-trigger').leanModal();
     }
 
     init();
