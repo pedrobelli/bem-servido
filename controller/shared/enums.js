@@ -1,3 +1,14 @@
+exports.perfis = [
+  {
+    id   : 1,
+    text : "Cliente"
+  },
+  {
+    id   : 2,
+    text : "Profissional"
+  }
+]
+
 exports.sexos = [
   {
     id   : 1,

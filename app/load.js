@@ -15,6 +15,8 @@ requirejs.config({
 		sammy           : "components/sammy/lib/sammy",
 		sweetAlert      : "components/sweetalert/lib/sweet-alert.min",
 		moment          : "components/moment/moment",
+		auth0Lock       : "components/auth0-lock/build/lock.min",
+		auth0           : "components/auth0.js/build/auth0.min",
 
 		hammerjs        : "components/hammerjs/hammer.min",
 		waves           : "components/Waves/dist/waves.min",
@@ -25,8 +27,10 @@ requirejs.config({
 		materialize : "lib/materialize",
 
 		// Components
+		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
 		headerComponent             : 'pages/header/headerComponent',
     homeComponent               : 'pages/home/homeComponent',
+    loginComponent              : 'pages/login/loginComponent',
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
     atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
     clientesComponent           : 'pages/clientes/clientesComponent',
@@ -48,8 +52,10 @@ requirejs.config({
 		swalComponentForm           : '../../pages/shared/swal/swalComponent',
 
     // Templates
+		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
 		headerTemplate             : 'pages/header/headerTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
+    loginTemplate              : 'pages/login/loginTemplate.html',
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
     atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
     clientesTemplate           : 'pages/clientes/clientesTemplate.html',

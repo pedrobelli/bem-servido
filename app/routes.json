@@ -1,5 +1,13 @@
 [
   {
+    "path"   : "#access_token=:token",
+    "page"   : "pages/socialAuth/socialAuthComponent",
+    "params" : {
+      "name"   : "socialAuth",
+      "header" : "orange"
+    }
+  },
+  {
     "path"   : "#header",
     "page"   : "pages/header/headerComponent",
     "params" : { "name"   : "header" }
@@ -13,10 +21,18 @@
     }
   },
   {
+    "path"   : "#login",
+    "page"   : "pages/login/loginComponent",
+    "params" : {
+      "name"   : "login",
+      "header" : "orange"
+    }
+  },
+  {
     "path"   : "#profissionais/new",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : {
-      "name" : "new",
+      "name"   : "new",
       "header" : "orange"
     }
   },

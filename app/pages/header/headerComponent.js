@@ -15,6 +15,12 @@ function(ko, template, materialize, waves) {
       $("#site-nav").addClass("orange");
     }
 
+    self.logout = function(){
+      localStorage.setItem('old_id_token', localStorage.getItem('id_token'));
+      localStorage.removeItem('id_token');
+      window.location.hash = "#home";
+    };
+
     init = function() {
       Waves.displayEffect();
       $(".button-collapse").sideNav();
