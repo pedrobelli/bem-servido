@@ -120,3 +120,26 @@
 .card .card-action{
   text-align: right;
 }
+
+/*DATEPICKER*/
+.picker__weekday-display{
+  background-color: #dc9617;
+}
+.picker__date-display{
+  background-color: orange;
+}
+.picker__nav--prev:hover, .picker__nav--next:hover{
+  background: #ffe3b1;
+}
+.picker__day.picker__day--today{
+  color: orange;
+}
+.picker__close, .picker__today{
+  color: orange;
+}
+button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus{
+  background: #ffe3b1;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+  background-color: orange;
+}

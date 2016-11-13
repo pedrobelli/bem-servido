@@ -207,7 +207,7 @@ ul.available-list > li.available-time > label.label-disabled{
                          content: none;
                      }
 
-/* AGENDA */
+/* AGENDA PERFIL */
 /* tela de resultado de perfil-agendamento */
 .agenda > .profissional-info{
   text-align: center;
@@ -235,6 +235,10 @@ ul.available-list > li.available-time > label.label-disabled{
   color: orange;
   text-transform: uppercase;
   font-weight: 200;
+}
+.services-available .card{
+  max-height: 550px;
+  overflow: auto;
 }
 .card-agenda .card-title > .color-legenda{
   font-size: 10px;
@@ -327,6 +331,9 @@ ul.available-list > li.available-time > label.label-disabled{
 
   .pesquisa{
     display: block;
+  }
+  .services-available .card{
+    max-height: 350px;
   }
 
 }
