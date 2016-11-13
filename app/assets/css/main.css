@@ -220,6 +220,34 @@ ul.available-list > li.available-time > label.label-disabled{
   height: 100px;
   padding: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
+}
+.agenda-action {
+  text-align: right;
+  height: 72px;
+  padding-top: 10px;
+}
+.agenda > .services-available{
+  border: 1px solid orange;
+  padding: 20px 10px;
+}
+.agenda .card-title{
+  color: orange;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+.card-agenda .card-title > .color-legenda{
+  font-size: 10px;
+  font-weight: normal;
+  color: #979797;
+  width: 130px;
+}
+.card-agenda .card-title > .color-legenda > span{
+  background-color: #ceb9a7;
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  vertical-align: middle;
 }
 /*cada 10min = 20px*/
 .card-agenda .schedule-list{
@@ -244,6 +272,29 @@ ul.available-list > li.available-time > label.label-disabled{
   left: 20%;
   border-radius: 2px;
 }
+
+.modal-agendamento{
+  width: 35%;
+  border: 2px solid orange;
+}
+.modal-agendamento h4{
+  color: orange;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.modal-agendamento .agendamento-info{
+  margin-top: 20px;
+}
+.modal-agendamento .agendamento-info > span{
+  font-size: 12px;
+  color: #979797;
+}
+.modal-agendamento .agendamento-info > span > span{
+  font-size: 14px;
+  color: orange;
+}
+
 
 
 /* RESPONSIVO */
