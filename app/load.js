@@ -67,7 +67,7 @@ requirejs.config({
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
 		footerTemplate             : 'pages/shared/footer.html',
 
-		pesquisaTemplate           : 'pages/frontend/agendaTemplate.html',
+		agendaProfissionalTemplate           : 'pages/frontend/agendaProfissionalTemplate.html',
   }
 
 	// Styles

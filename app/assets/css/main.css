@@ -236,10 +236,7 @@ ul.available-list > li.available-time > label.label-disabled{
   text-transform: uppercase;
   font-weight: 200;
 }
-.services-available .card{
-  max-height: 550px;
-  overflow: auto;
-}
+
 .card-agenda .card-title > .color-legenda{
   font-size: 10px;
   font-weight: normal;
@@ -253,9 +250,12 @@ ul.available-list > li.available-time > label.label-disabled{
   display: inline-block;
   vertical-align: middle;
 }
+
 /*cada 10min = 20px*/
 .card-agenda .schedule-list{
   position: relative;
+  max-height: 550px;
+  overflow: auto;
 }
 .card-agenda .schedule-list > .collection-item{
   height: 60px;
@@ -264,6 +264,8 @@ ul.available-list > li.available-time > label.label-disabled{
 }
 .card-agenda .schedule-list > .collection-item > span.hour{
   display: block;
+  /*display: inline-block;
+  vertical-align: top;*/
   border-top: 1px dashed #e0e0e0;
 }
 .card-agenda .schedule-list > .collection-item:nth-of-type(1) > span.hour {
@@ -274,7 +276,24 @@ ul.available-list > li.available-time > label.label-disabled{
   position: absolute;
   width: 80%;
   left: 20%;
+  padding: 2px 5px;
   border-radius: 2px;
+}
+.card-agenda .schedule-list .unvailable > p{
+  display: inline-block;
+  font-size: 14px;
+  color: white;
+  width: 32%;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.card-agenda .schedule-list .unvailable > p.desc-horario{
+  width: 25%;
+}
+.card-agenda .schedule-list .unvailable > p.desc-servico{
+  width: 40%;
 }
 
 .modal-agendamento{
@@ -299,9 +318,43 @@ ul.available-list > li.available-time > label.label-disabled{
   color: orange;
 }
 
+/*AGENDA PROFISSIONAL VIEW*/
+.agenda > .agenda-timetable{
+  border: 1px solid orange;
+  padding: 20px 10px;
+}
+.agenda > .agenda-timetable .desc{
+  font-size: 12px;
+  color: #979797
+}
+.agenda > .agenda-timetable .desc > p{
+  display: inline-block;
+}
 
 
 /* RESPONSIVO */
+
+@media screen and (max-width: 1024px){
+  .resultado-item .item-info > .info-available{
+    max-width: 60%;
+  }
+
+}
+
+@media screen and (max-width: 840px){
+  .resultado-item  .item-info > .info-date > .date{
+    font-size: 20px;
+  }
+  .resultado-item  .item-info > .info-date{
+    /*width: 33%*/
+  }
+  .card-agenda .schedule-list .unvailable > p.desc-horario{
+    width: 24%;
+  }
+  .card-agenda .schedule-list .unvailable > p.desc-servico{
+    width: 42%;
+  }
+}
 
 @media screen and (max-width: 600px) {
   .header-search > .search > .input-field.search-field__home{
@@ -335,19 +388,10 @@ ul.available-list > li.available-time > label.label-disabled{
   .services-available .card{
     max-height: 350px;
   }
-
-}
-@media screen and (max-width: 840px){
-  .resultado-item  .item-info > .info-date > .date{
-    font-size: 20px;
+  .card-agenda .schedule-list .unvailable > p.desc-horario{
+    display: none;
   }
-  .resultado-item  .item-info > .info-date{
-    /*width: 33%*/
+  .card-agenda .schedule-list .unvailable > p.desc-servico{
+    width: 60%;
   }
-}
-@media screen and (max-width: 1024px){
-  .resultado-item .item-info > .info-available{
-    max-width: 60%;
-  }
-
 }

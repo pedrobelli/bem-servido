@@ -1,4 +1,4 @@
-define(['ko', 'text!pesquisaTemplate', 'bridge'],
+define(['ko', 'text!agendaProfissionalTemplate', 'bridge'],
 function(ko, template, bridge) {
 
   var viewModel = function(params) {
@@ -18,7 +18,7 @@ function(ko, template, bridge) {
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Pesquisa"
+      return "agendaProfissional"
     }
   };
 });
