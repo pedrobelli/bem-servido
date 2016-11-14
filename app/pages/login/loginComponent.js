@@ -49,7 +49,8 @@ function(ko, template, bridge, auth0, swalComponent) {
 
     var showError = function(errorMessage) {
       if (!!errorMessage) {
-        swalComponent.simpleErrorAlertWithTitle(errorMessage, [])
+        var errorTitle = "Ocorreu um erro no login!";
+        swalComponent.simpleErrorAlertWithTitle(errorTitle, [errorMessage])
       }
     }
 
@@ -61,21 +62,6 @@ function(ko, template, bridge, auth0, swalComponent) {
 
       }
     }
-
-    self.signup = function(){
-      self.auth0.signup({
-        connection: 'Username-Password-Authentication',
-        email: self.email(),
-        password: self.password(),
-        "user_metadata": {
-          "role": 1
-        },
-        auto_login: false
-      }, function (err) {
-        console.log("AQUI");
-        console.log(err);
-      });
-    };
 
   };
 

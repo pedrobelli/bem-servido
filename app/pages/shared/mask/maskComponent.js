@@ -16,12 +16,8 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     $('.number').inputmask({alias: 'numeric', rightAlign: false});
   };
 
-  var applyFederalIdMask = function(){
-    $('.federal-id').inputmask({mask: '999.999.999-99', autoUnmask: true});
-  };
-
-  var applyCNPJMask = function(){
-    $('.cnpj').inputmask({mask: '99.999.999/9999-99', autoUnmask: true});
+  var applyCPF_CNPJMask = function(){
+    $('.cpf-cnpj').inputmask({mask: ['999.999.999-99', '99.999.999/9999-99'], autoUnmask: true});
   };
 
   var applyCelphoneMask = function(){
@@ -78,8 +74,7 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     applyDatepickerMask:applyDatepickerMask,
     applyTimeMask:applyTimeMask,
     applyZipCodeMask:applyZipCodeMask,
-    applyFederalIdMask:applyFederalIdMask,
-    applyCNPJMask:applyCNPJMask,
+    applyCPF_CNPJMask:applyCPF_CNPJMask,
     applyCelphoneMask:applyCelphoneMask,
     applyEmailMask:applyEmailMask,
     applyCurrencyMask:applyCurrencyMask,

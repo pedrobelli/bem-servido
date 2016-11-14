@@ -11,15 +11,9 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
 		},
-		email: {
+		uuid: {
 			allowNull: false,
-			type: DataTypes.STRING,
-			validate: {
-				isEmail: {
-					args: true,
-					msg: "Email inválido"
-				}
-			}
+			type: DataTypes.STRING
 		},
     dataNascimento: {
       allowNull: false,
@@ -29,30 +23,17 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			type: DataTypes.INTEGER,
 		},
-		cpf: {
+		cpf_cnpj: {
 			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
 				len: {
-					args: [11],
-					msg: "CPF deve conter 11 dígitos"
+					args: [11, 14],
+					msg: "CPF deve conter 11 dígitos/CNPJ deve conter 14 dígitos"
 				},
 				is: {
 					args: /^[0-9]*$/,
-					msg: "CPF deve conter apenas números"
-				}
-			}
-		},
-		cnpj: {
-			type: DataTypes.STRING,
-			validate: {
-				len: {
-					args: [14],
-					msg: "CNPJ deve conter 14 dígitos"
-				},
-				is: {
-					args: /^[0-9]*$/,
-					msg: "CNPJ deve conter apenas números"
+					msg: "CPF/CNPJ deve conter apenas números"
 				}
 			}
 		},

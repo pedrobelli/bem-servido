@@ -83,10 +83,10 @@ self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     var newProfissional = {
       nome           : req.body.nome,
-      email          : req.body.email,
+      uuid           : req.body.uuid,
       dataNascimento : req.body.dataNascimento,
       sexo           : req.body.sexo,
-      cpf            : req.body.cpf,
+      cpf_cnpj       : req.body.cpf_cnpj,
       ramo           : req.body.ramo
     };
     return models.profissionais.Create(newProfissional).then(function(profissional) {
@@ -121,7 +121,7 @@ self.create = function(req, res) {
             models.horas_trabalho.Create(horaTrabalho);
           });
 
-          profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
+          return profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
             return profissional;
           });
         });

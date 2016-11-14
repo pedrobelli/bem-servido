@@ -72,111 +72,111 @@ exports.diasSemana = [
 
 exports.estados = [
   {
-    id   : 1,
+    id   : 12,
     text : "Acre"
   },
   {
-    id   : 2,
+    id   : 27,
     text : "Alagoas"
   },
   {
-    id   : 3,
+    id   : 16,
     text : "Amapá"
   },
   {
-    id   : 4,
+    id   : 13,
     text : "Amazonas"
   },
   {
-    id   : 5,
+    id   : 29,
     text : "Bahia"
   },
   {
-    id   : 6,
+    id   : 23,
     text : "Ceará"
   },
   {
-    id   : 7,
+    id   : 53,
     text : "Distrito Federal"
   },
   {
-    id   : 8,
+    id   : 32,
     text : "Espírito Santo"
   },
   {
-    id   : 9,
+    id   : 52,
     text : "Goiás"
   },
   {
-    id   : 10,
+    id   : 21,
     text : "Maranhão"
   },
   {
-    id   : 11,
+    id   : 51,
     text : "Mato Grosso"
   },
   {
-    id   : 12,
+    id   : 50,
     text : "Mato Grosso do Sul"
   },
   {
-    id   : 13,
+    id   : 31,
     text : "Minas Gerais"
   },
   {
-    id   : 14,
+    id   : 15,
     text : "Pará"
   },
   {
-    id   : 15,
+    id   : 25,
     text : "Paraíba"
   },
   {
-    id   : 16,
+    id   : 41,
     text : "Paraná"
   },
   {
-    id   : 17,
+    id   : 26,
     text : "Pernambuco"
   },
   {
-    id   : 18,
+    id   : 22,
     text : "Piauí"
   },
   {
-    id   : 19,
+    id   : 33,
     text : "Rio de Janeiro"
   },
   {
-    id   : 20,
+    id   : 24,
     text : "Rio Grande do Norte"
   },
   {
-    id   : 21,
+    id   : 43,
     text : "Rio Grande do Sul"
   },
   {
-    id   : 22,
+    id   : 23,
     text : "Rondônia"
   },
   {
-    id   : 23,
+    id   : 14,
     text : "Roraima"
   },
   {
-    id   : 24,
+    id   : 42,
     text : "Santa Catarina"
   },
   {
-    id   : 25,
+    id   : 35,
     text : "São Paulo"
   },
   {
-    id   : 26,
+    id   : 28,
     text : "Sergipe"
   },
   {
-    id   : 27,
+    id   : 17,
     text : "Tocantins"
   }
 ]

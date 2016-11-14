@@ -1,6 +1,6 @@
 define(['jquery'], function ($) {
 
-  var executeRequest = function(url, method, data){
+  var executeRequest = function(url, method, headers, data){
     var result = $.Deferred();
 
     var request = {};
@@ -8,6 +8,7 @@ define(['jquery'], function ($) {
     request.type = method;
 
     if(data) request.data = data;
+    if(headers) request.headers = headers;
 
     $.ajax(request).done(function (data, textStatus, jqXHR) {
       result.resolve(data);
@@ -27,14 +28,18 @@ define(['jquery'], function ($) {
   };
 
   return {
-    get : function (url) {
-      return executeRequest(url, "GET");
+    get : function (url, headers) {
+      return executeRequest(url, "GET", headers);
     },
-    post : function (url, data) {
-      return executeRequest(url, "POST", data);
+    post : function (url, data, headers) {
+      if (headers) {
+        return executeRequest(url, "POST", headers, data);
+      } else {
+        return executeRequest(url, "POST", undefined, data);
+      }
     },
-    del : function (url) {
-      return executeRequest(url, "DELETE");
+    del : function (url, headers) {
+      return executeRequest(url, "DELETE", headers);
     }
   }
 });

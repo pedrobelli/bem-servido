@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
 				}
 			}
 		},
+		uuid: {
+			allowNull: false,
+			type: DataTypes.STRING
+		},
 		email: {
 			allowNull: false,
 			type: DataTypes.STRING,

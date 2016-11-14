@@ -1,25 +1,20 @@
-<form id="dados-profissional" action="" class="col s12 form">
+<form id="dados-profissional" action="" class="col s12 form" hidden>
   <div class="input-field col s12">
     <input data-bind="value: nomeCompleto" id="nomeCompleto" type="text">
     <label for="nomeCompleto" class="fixed-label">Nome Completo*</label>
   </div>
 
-  <div class="input-field col s8">
-    <input data-bind="value: email" id="email" type="text" class="email">
-    <label for="email" class="fixed-label">E-mail*</label>
+  <div class="input-field col s4">
+    <input data-bind="value: cpfCnpj" id="cpfCnpj" type="text" class="cpf-cnpj">
+    <label for="cpfCnpj" class="fixed-label">CPF/CNPJ*</label>
   </div>
 
   <div class="input-field col s4">
-    <input data-bind="value: cpf" id="cpf" type="text" class="federal-id">
-    <label for="cpf" class="fixed-label">CPF*</label>
-  </div>
-
-  <div class="input-field col s6">
     <input data-bind="value: dataNascimento" id="dataNascimento" type="date" class="datepicker">
     <label for="dataNascimento" class="fixed-label">Data Nascimento*</label>
   </div>
 
-  <div class="input-field col s6">
+  <div class="input-field col s4">
     <select data-bind="value: sexo">
       <option value="" disabled selected>Selecione uma opção</option>
       <!-- ko foreach: $data.sexos -->
@@ -50,6 +45,11 @@
   </div>
 
   <div class="input-field col s4">
+    <input data-bind="value: endereco_bairro" id="endereco_bairro" type="text">
+    <label for="endereco_bairro" class="fixed-label">Bairro</label>
+  </div>
+
+  <div class="input-field col s4">
     <input data-bind="value: endereco_num" id="endereco_num" type="text" class="number">
     <label for="endereco_num" class="fixed-label">Numero</label>
   </div>
@@ -57,11 +57,6 @@
   <div class="input-field col s4">
     <input data-bind="value: endereco_comp" id="endereco_comp" type="text">
     <label for="endereco_comp" class="fixed-label">Complemento</label>
-  </div>
-
-  <div class="input-field col s4">
-    <input data-bind="value: endereco_bairro" id="endereco_bairro" type="text">
-    <label for="endereco_bairro" class="fixed-label">Bairro</label>
   </div>
 
   <div class="input-field col s6">

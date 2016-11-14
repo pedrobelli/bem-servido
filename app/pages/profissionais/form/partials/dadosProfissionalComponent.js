@@ -1,14 +1,13 @@
-define(['ko', 'text!dadosProfissionalTemplate', 'jquery', 'maskComponentForm', 'datepickerComponent', 'momentComponent'],
-function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
+define(['ko', 'text!dadosProfissionalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'datepickerComponent', 'momentComponent'],
+function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
     self.nomeCompleto = ko.observable();
-    self.email = ko.observable();
     self.dataNascimento = ko.observable();
     self.sexo = ko.observable();
-    self.cpf = ko.observable();
+    self.cpfCnpj = ko.observable();
 
     // telefones
     self.telefone = ko.observable();
@@ -26,11 +25,26 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
     self.sexos = ko.observableArray([]);
     self.estados = ko.observableArray([]);
 
+    self.loadEndereco = ko.computed(function(){
+      if (!!self.endereco_cep() && self.endereco_cep().length == 8) {
+        bridge.get("http://api.postmon.com.br/v1/cep/"+self.endereco_cep())
+        .then(function(response){
+          self.endereco_rua(response.logradouro);
+          self.endereco_bairro(response.bairro);
+          self.endereco_cidade(response.cidade);
+          self.endereco_estado(response.estado_info.codigo_ibge);
+        })
+        .then(function(){
+          $('select').material_select();
+        });
+      }
+
+    });
+
     self.validate = function() {
       var errors = []
       valid = !!self.nomeCompleto();
-      valid = valid && !!self.email();
-      valid = valid && !!self.cpf();
+      valid = valid && !!self.cpfCnpj();
       valid = valid && !!self.dataNascimento();
       valid = valid && !!self.endereco_cep();
 
@@ -53,9 +67,7 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
 
       datepickerComponent.applyDatepicker();
 
-      maskComponent.applyEmailMask();
-      maskComponent.applyFederalIdMask();
-      maskComponent.applyCNPJMask();
+      maskComponent.applyCPF_CNPJMask();
       maskComponent.applyCelphoneMask();
       maskComponent.applyZipCodeMask();
       maskComponent.applyNumberMask();
@@ -63,10 +75,9 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
 
     self.cleanFields = function() {
       self.nomeCompleto(undefined);
-      self.email(undefined);
       self.dataNascimento(undefined);
       self.sexo(undefined);
-      self.cpf(undefined);
+      self.cpfCnpj(undefined);
       // telefones
       self.telefone(undefined);
       self.celular(undefined);
@@ -104,10 +115,9 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
 
     self.generatePayload = function(payload){
       payload.nome = self.nomeCompleto();
-      payload.email = self.email();
       payload.dataNascimento = momentComponent.convertStringToDate(self.dataNascimento());
       payload.sexo = !!self.sexo() ? self.sexo() : 0;
-      payload.cpf = self.cpf();
+      payload.cpf_cnpj = self.cpfCnpj();
 
       // telefones
       payload.telefone = self.telefone();

@@ -11,7 +11,7 @@ define(['moment'], function(moment) {
   }
 
   function convertStringToTime(time) {
-    var momentDate = moment("10/10/1900 " + time, "DD/MM/YYYY HH:mm");
+    var momentDate = moment("11/11/1900 " + time, "DD/MM/YYYY HH:mm");
     return momentDate.toDate();
   }
 
