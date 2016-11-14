@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       type: DataTypes.DATE
     },
-		sexo: {
-			allowNull: true,
-			type: DataTypes.INTEGER,
-		},
 		cpf_cnpj: {
 			allowNull: false,
 			type: DataTypes.STRING,
@@ -46,7 +42,11 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Ramo deve ser preenchido"
         }
       }
-    }
+    },
+		sexo: {
+			allowNull: true,
+			type: DataTypes.INTEGER,
+		}
 	}, {
 		classMethods: {
 			All: function(){

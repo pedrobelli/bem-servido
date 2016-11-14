@@ -22,6 +22,10 @@ function(ko, template, $, maskComponent) {
         errors.push("Verifique se as senhas são as mesmas.")
       }
 
+      if (!!self.email() && !maskComponent.validateEmailFormat(self.email())) {
+        errors.push("Este não é um email válido.");
+      }
+
       return errors;
     };
 
@@ -34,7 +38,6 @@ function(ko, template, $, maskComponent) {
     };
 
     self.subscribe = function() {
-      maskComponent.applyEmailMask();
     };
 
     self.cleanFields = function() {

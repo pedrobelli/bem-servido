@@ -1,50 +1,110 @@
-<p class="center login-form-text" data-bind="text: pageMode"></p>
+<main>
+   <div class="container">
+    <div class="page-title">
+      <h2>Clientes</h2>
+      <hr>
+    </div>
+    <div class="cadastro">
+      <!-- dados cliente -->
+      <div class="row form-cadastro">
+        <form action="" class="col s12 form">
+          <div class="input-field col s12">
+            <input data-bind="value: nomeCompleto" id="nomeCompleto" type="text">
+            <label for="nomeCompleto" class="fixed-label">Nome Completo*</label>
+          </div>
 
-<form id="new-customer-form" method="post">
-  <div class="row">
-    <div class="col s12">
+          <div class="input-field col s4">
+            <input data-bind="value: cpf" id="cpf" type="text" class="cpf">
+            <label for="cpf" class="fixed-label">CPF*</label>
+          </div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Nome:</label>
-          <input data-bind="value: nome" type="text" id="nome" placeholder="Nome">
-        </div>
-      </div>
+          <div class="input-field col s4">
+            <input data-bind="value: dataNascimento" id="dataNascimento" type="date" class="datepicker">
+            <label for="dataNascimento" class="fixed-label">Data Nascimento*</label>
+          </div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Email:</label>
-          <input class="email" data-bind="value: email" type="text" id="email" placeholder="Email">
-        </div>
-      </div>
+          <div class="input-field col s4">
+            <select data-bind="value: sexo">
+              <option value="" disabled selected>Selecione uma opção</option>
+              <!-- ko foreach: $data.sexos -->
+              <option  data-bind="value: $data.id, text: $data.text"></option>
+              <!-- /ko -->
+            </select>
+            <label for="sexo">Sexo</label>
+          </div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Telefone:</label>
-          <input class="cellphones" data-bind="value: telefone" type="text" id="telefone" placeholder="Telefone">
-        </div>
-      </div>
+          <div class="input-field col s6">
+            <input data-bind="value: telefone" id="telefone" type="text" class="cellphones">
+            <label for="telefone" class="fixed-label">Telefone</label>
+          </div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Senha:</label>
-          <input data-bind="value: senha" type="password" id="senha">
-        </div>
-      </div>
+          <div class="input-field col s6">
+            <input data-bind="value: celular" id="celular" type="text" class="cellphones">
+            <label for="celular" class="fixed-label">Celular</label>
+          </div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Confirmar Senha:</label>
-          <input data-bind="value: confirmSenha" type="password" id="confirmSenha">
-        </div>
+          <div class="input-field col s4">
+            <input data-bind="value: endereco_cep" id="endereco_cep" type="text" class="zip-code">
+            <label for="endereco_cep" class="fixed-label">CEP*</label>
+          </div>
+
+          <div class="input-field col s8">
+            <input data-bind="value: endereco_rua" id="endereco_rua" type="text">
+            <label for="endereco_rua" class="fixed-label">Endereço</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input data-bind="value: endereco_bairro" id="endereco_bairro" type="text">
+            <label for="endereco_bairro" class="fixed-label">Bairro</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input data-bind="value: endereco_num" id="endereco_num" type="text" class="number">
+            <label for="endereco_num" class="fixed-label">Numero</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input data-bind="value: endereco_comp" id="endereco_comp" type="text">
+            <label for="endereco_comp" class="fixed-label">Complemento</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input data-bind="value: endereco_cidade" id="endereco_cidade" type="text">
+            <label for="endereco_cidade" class="fixed-label">Cidade</label>
+          </div>
+
+          <div class="input-field col s6">
+            <select data-bind="value: endereco_estado">
+              <option value="" disabled selected>Selecione uma opção</option>
+              <!-- ko foreach: $data.estados -->
+              <option  data-bind="value: $data.id, text: $data.text"></option>
+              <!-- /ko -->
+            </select>
+            <label for="endereco_estado">Estado</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input data-bind="value: email" id="email" type="text" class="email">
+            <label for="email" class="fixed-label">E-mail*</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input data-bind="value: password" id="password" type="password">
+            <label for="password" class="fixed-label">Senha*</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input data-bind="value: confirmPassword" id="confirmPassword" type="password">
+            <label for="confirmPassword" class="fixed-label">Confirmar Senha*</label>
+          </div>
+
+          <button data-bind="click: salvar" id="salvar" class="btn waves-effect waves-light right orange" type="button">
+            CONCLUIR
+          </button>
+          <a href="/#login" class="form-link">Já é cadastrado | <span>Login</span></a>
+        </form>
       </div>
 
     </div>
-
-  </div>
-
-  <input class="btn" type="submit" data-bind="attr: { disabled : !validForm() }, css: { disabled: !validForm() }, click: save" value="SALVAR">
-</form>
-
-<p></p>
-<a class="btn" href="/#clientes">VOLTAR</a>
+   </div>
+ </main>

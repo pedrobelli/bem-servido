@@ -36,6 +36,14 @@
       "header" : "orange"
     }
   },
+  {
+    "path"   : "#clientes/new",
+    "page"   : "pages/clientes/form/clientesFormComponent",
+    "params" : {
+      "name"   : "new",
+      "header" : "orange"
+    }
+  },
 
 
   {
@@ -60,11 +68,6 @@
       "name"  : "index",
       "header" : "orange"
     }
-  },
-  {
-    "path"   : "#clientes/new",
-    "page"   : "pages/clientes/form/clientesFormComponent",
-    "params" : { "name" : "new" }
   },
   {
     "path"   : "#clientes/edit/:id",

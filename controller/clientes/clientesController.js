@@ -1,4 +1,5 @@
 var models           = require('../../models'),
+    enums            = require('../shared/enums'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
@@ -23,6 +24,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
   apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
     return self.update(req, res);
+  });
+
+  apiRoutes.get(endpoint + '/form_options', function(req, res) {
+    return self.formOptions(req, res);
   });
 }
 
@@ -63,7 +68,38 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.clientes.Create(req.body);
+    var newCliente = {
+      nome           : req.body.nome,
+      uuid           : req.body.uuid,
+      dataNascimento : req.body.dataNascimento,
+      sexo           : req.body.sexo,
+      cpf            : req.body.cpf,
+      ramo           : req.body.ramo
+    };
+    return models.clientes.Create(newCliente).then(function(cliente) {
+      var newTelefone = {
+        telefone       : req.body.telefone,
+        celular        : req.body.celular,
+        clienteId      : cliente.id
+      };
+      return models.telefones.Create(newTelefone).then(function() {
+        var newEndereco = {
+          telefone       : req.body.telefone,
+          celular        : req.body.celular,
+          cep            : req.body.cep,
+          rua            : req.body.rua,
+          num            : req.body.num,
+          complemento    : req.body.complemento,
+          bairro         : req.body.bairro,
+          cidade         : req.body.cidade,
+          estado         : req.body.estado,
+          clienteId      : cliente.id
+        };
+        return models.enderecos.Create(newEndereco).then(function() {
+          return cliente;
+        });
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -83,4 +119,13 @@ self.update = function(req, res) {
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
+}
+
+self.formOptions = function(req, res) {
+  var options = {}
+  options.sexos = enums.sexos;
+  options.estados = enums.estados;
+
+  res.statusCode = 200;
+  res.json(options);
 }

@@ -113,8 +113,7 @@ dadosHorarioComponent) {
     var createProfissional = function(payload, result) {
       bridge.post("/api/profissionais/new", payload)
       .fail(function(context, errorMessage, serverError){
-        var errorTitle = 'Não foi possível concluir o cadastro';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
         deleteUser(payload);
       })
       .done(function(response){

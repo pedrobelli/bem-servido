@@ -15,38 +15,27 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			type: DataTypes.STRING
 		},
-		email: {
+    dataNascimento: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+		cpf: {
 			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
-				isEmail: {
-					args: true,
-					msg: "Email inválido"
-				}
-			}
-		},
-		telefone: {
-			type: DataTypes.STRING,
-			validate: {
 				len: {
-					args: [10, 11],
-					msg: "Número de telefone deve conter 8 ou 9 dígitos"
+					args: [11],
+					msg: "CPF deve conter 11 dígitos"
 				},
 				is: {
 					args: /^[0-9]*$/,
-					msg: "Número de telefone deve conter apenas números"
+					msg: "CPF deve conter apenas números"
 				}
 			}
 		},
-		senha: {
-			allowNull: false,
-			type: DataTypes.STRING,
-			validate: {
-				len: {
-					args: [6, 50],
-					msg: "Senha deve conter pelo menos 6 caracteres"
-				}
-			}
+		sexo: {
+			allowNull: true,
+			type: DataTypes.INTEGER,
 		}
 	}, {
 		classMethods: {

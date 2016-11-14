@@ -35,6 +35,8 @@ db['atendimentos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profiss
 db['atendimentos'].belongsTo(db['servicos'], { foreignKey: { name: 'servicoId', allowNull: false } });
 
 //clientes
+db['clientes'].hasOne(db['telefones'], {foreignKey : 'clienteId'});
+db['clientes'].hasOne(db['enderecos'], {foreignKey : 'clienteId'});
 db['clientes'].hasMany(db['atendimentos'], { foreignKey: { name: 'clienteId', allowNull: false } });
 
 //detalheServicos
@@ -42,6 +44,7 @@ db['detalhe_servicos'].belongsTo(db['profissionais'], { foreignKey: { name: 'pro
 db['detalhe_servicos'].belongsTo(db['servicos'], { foreignKey: { name: 'servicoId', allowNull: false } });
 
 //enderecos
+db['enderecos'].belongsTo(db['clientes'], {foreignKey : 'clienteId'});
 db['enderecos'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId'});
 
 //formaPagamentos
