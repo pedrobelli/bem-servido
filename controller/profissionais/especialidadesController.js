@@ -29,7 +29,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getByServicos(req, res);
   });
 
-  apiRoutes.get(endpoint + '/seeded_by_ramo/:id', function(req, res) {
+  apiRoutes.get(endpoint + '/seeded_by_ramo/:ramo_id', function(req, res) {
     return self.getSeededByRamo(req, res);
   });
 }
@@ -107,7 +107,7 @@ self.getByServicos = function(req, res) {
 
 self.getSeededByRamo = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.FindSeededByRamo(models, req.param('id'))
+    return models.especialidades.FindSeededByRamo(models, req.body.ramo_id)
 
   }).then(function(entities) {
     res.statusCode = 200;

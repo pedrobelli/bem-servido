@@ -117,11 +117,11 @@ dadosHorarioComponent) {
         swalComponent.errorAlertWithTitle(errorTitle, context.errors);
         deleteUser(payload);
       })
-      .done(function(payload){
+      .done(function(response){
         localStorage.setItem('id_token', result.idToken);
-        localStorage.setItem('current_user_id', payload.profissional.id);
-        localStorage.setItem('current_user_auth_id', payload.profissional.uuid);
-        localStorage.setItem('current_user_name', payload.profissional.nome);
+        localStorage.setItem('current_user_id', response.profissional.id);
+        localStorage.setItem('current_user_auth_id', response.profissional.uuid);
+        localStorage.setItem('current_user_name', response.profissional.nome);
         localStorage.setItem('current_user_role', 2);
         localStorage.setItem('exp', result.idTokenPayload.exp);
         // TODO arrumar esse redirecionamento bosta

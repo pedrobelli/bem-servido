@@ -76,6 +76,9 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: profissional.id } }).then(function(entity) {
 		      return entity.updateAttributes(profissional);
 		    });
+			},
+			FindByUuid: function(uuids){
+				return this.find({ where: { uuid: JSON.parse(uuids) }});
 			}
 		},
 		paranoid: true

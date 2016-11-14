@@ -12,12 +12,16 @@ function(ko, template, bridge, auth0, swalComponent) {
       clientID: 'hneM83CMnlnsW0K7qjVHZJ88qkD4ULSM'
     });
 
+    self.errorTitle = "Ocorreu um erro no login!"
+
     self.facebookLogin = function(){
       self.auth0.login({
         connection: 'facebook',
         responseType: 'token'
       }, function(err) {
-        showError("Não foi possível realizar login com o Facebook.");
+        if (!!err) {
+          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Não foi possível realizar login com o Facebook."])
+        }
       });
     };
 
@@ -26,7 +30,9 @@ function(ko, template, bridge, auth0, swalComponent) {
         connection: 'google-oauth2',
         responseType: 'token'
       }, function(err) {
-        showError("Não foi possível realizar login com sua conta Google.");
+        if (!!err) {
+          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Não foi possível realizar login com sua conta Google."])
+        }
       });
     };
 
@@ -37,30 +43,43 @@ function(ko, template, bridge, auth0, swalComponent) {
         password: self.password(),
         sso: false
       }, function(err, result) {
-        if (!err) {
+        if (!!err) {
+          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Não foi possível realizar login usuário ou senha incorretos."])
+        } else {
           self.auth0.getProfile(result.idToken, function (err, profile) {
             setLocalStorageAndRedirect(result, profile);
           });
-        } else {
-          showError("Não foi possível realizar login usuário ou senha incorretos.");
         }
       });
     };
 
-    var showError = function(errorMessage) {
-      if (!!errorMessage) {
-        var errorTitle = "Ocorreu um erro no login!";
-        swalComponent.simpleErrorAlertWithTitle(errorTitle, [errorMessage])
-      }
-    }
-
     var setLocalStorageAndRedirect = function(result, profile) {
-      if (result && result.idToken) {
-        console.log(profile);
-        // localStorage.setItem('id_token', result.idToken);
+      console.log(profile);
+      var payload = {};
+      var uuids = [];
+
+      profile.identities.forEach(function(identity) {
+        uuids.push(identity.user_id);
+      });
+      payload.uuids = JSON.stringify(uuids);
+
+      bridge.post("/api/profissionais/by_uuid", payload).done(function(response){
+        console.log(response);
+        // TODO arrumar esse redirecionamento bosta
+        // window.location.hash = "#home"
+      });
 
 
-      }
+
+
+      // localStorage.setItem('id_token', result.idToken);
+      // localStorage.setItem('current_user_id', payload.profissional.id);
+      // localStorage.setItem('current_user_auth_id', payload.profissional.uuid);
+      // localStorage.setItem('current_user_name', payload.profissional.nome);
+      // localStorage.setItem('current_user_role', 2);
+      // localStorage.setItem('exp', result.idTokenPayload.exp);
+
+
     }
 
   };

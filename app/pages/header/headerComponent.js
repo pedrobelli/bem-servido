@@ -16,14 +16,16 @@ function(ko, template, materialize, waves) {
     }
 
     self.logout = function(){
-      localStorage.setItem('old_id_token', localStorage.getItem('id_token'));
-      localStorage.removeItem('id_token');
-      localStorage.removeItem('current_user_id');
-      localStorage.removeItem('current_user_auth_id');
-      localStorage.removeItem('current_user_name');
-      localStorage.removeItem('current_user_role');
-      localStorage.removeItem('exp');
-      window.location.hash = "#home";
+      if (localStorage.getItem('id_token')) {
+        localStorage.setItem('old_id_token', localStorage.getItem('id_token'));
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('current_user_id');
+        localStorage.removeItem('current_user_auth_id');
+        localStorage.removeItem('current_user_name');
+        localStorage.removeItem('current_user_role');
+        localStorage.removeItem('exp');
+        window.location.hash = "#home";
+      }
     };
 
     init = function() {

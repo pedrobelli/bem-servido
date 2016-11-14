@@ -30,6 +30,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.update(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_uuid', function(req, res) {
+    return self.getByUuid(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -144,6 +148,18 @@ self.update = function(req, res) {
         return profissional;
       });
     });
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ profissional: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByUuid = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.profissionais.FindByUuid(req.body.uuids);
 
   }).then(function(entity) {
     res.statusCode = 200;
