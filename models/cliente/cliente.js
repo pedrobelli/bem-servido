@@ -30,7 +30,16 @@ module.exports = function(sequelize, DataTypes) {
 				is: {
 					args: /^[0-9]*$/,
 					msg: "CPF deve conter apenas números"
-				}
+				},
+        isUnique: function(value, callback) {
+					Cliente.find({ where: {cpf: value} })
+          .then(function(response) {
+            if (response)
+							return callback(new Error('Já existe um cliente cadastrado com este CPF!'));
+
+						return callback();
+          });
+        }
 			}
 		},
 		sexo: {
