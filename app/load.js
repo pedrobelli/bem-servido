@@ -78,8 +78,11 @@ requirejs.config({
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
 		footerTemplate             : 'pages/shared/footer.html',
 
-		frontendComponent           : 'pages/frontend/frontendComponent',
-		agendaProfissionalTemplate           : 'pages/frontend/agendaProfissionalTemplate.html',
+		// frontendComponent           : 'pages/frontend/frontendComponent',
+		// agendaTemplate : 'pages/frontend/agendaTemplate.html',
+		// agendaProfissionalTemplate : 'pages/frontend/agendaProfissionalTemplate.html',
+		agendaClienteTemplate      : 'pages/frontend/agendaClienteTemplate.html',
+		// pesquisaTemplate           : 'pages/frontend/pesquisaTemplate.html',
   }
 
 	// Styles

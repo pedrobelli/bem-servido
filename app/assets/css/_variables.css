@@ -56,9 +56,6 @@
 
 
 /* search-field */
-.input-field[class*="search-field"]{
-  z-index: 1;
-}
 .input-field[class*="search-field"] > input[type=text]{
   background-color: white;
   border: 1px solid orange;
@@ -93,9 +90,6 @@
   border: 1px solid orange;
   height: 25px;
   padding: 5px;
-}
-.input-field[class*="search-field"] > .select-wrapper > span.caret{
-  z-index: 1
 }
 
 

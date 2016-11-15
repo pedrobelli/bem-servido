@@ -355,7 +355,35 @@ ul.available-list > li.available-time > label.label-disabled{
   display: inline-block;
 }
 
-
+/*AGENDA CLIENTE VIEW*/
+.agenda .agenda-timetable .agendamento-header{
+  color: white;
+  background-color: #ceb9a7;
+}
+.agenda .agenda-timetable .agendamento-detalhes{
+  font-size: 12px;
+  padding: 10px;
+}
+.agenda .agenda-timetable .agendamento-detalhes p{
+  padding: 0;
+}
+.agendamento-detalhes > .profissional-detalhes{
+  margin-bottom: 20px;
+}
+.agendamento-detalhes > .profissional-detalhes > .profissional-nome{
+  font-size: 20px;
+  color: orange;
+}
+.agendamento-detalhes > .profissional-detalhes > .profissional-ramo{
+  color: #979797;
+}
+.agendamento-detalhes > .servico-detalhes > p{
+  color: #979797;
+}
+.agendamento-detalhes > .servico-detalhes > p > span{
+  color: orange;
+  font-size: 14px;
+}
 /* RESPONSIVO */
 
 @media screen and (max-width: 1024px){
