@@ -25,6 +25,7 @@ requirejs.config({
 		materialize : "lib/materialize",
 
 		// Components
+		frontendComponent           : 'pages/frontend/frontendComponent',
 		headerComponent             : 'pages/header/headerComponent',
     homeComponent               : 'pages/home/homeComponent',
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
@@ -65,6 +66,8 @@ requirejs.config({
 		servicosFormTemplate       : 'pages/servicos/form/servicosFormTemplate.html',
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
 		footerTemplate             : 'pages/shared/footer.html',
+
+		agendaProfissionalTemplate           : 'pages/frontend/agendaProfissionalTemplate.html',
   }
 
 	// Styles

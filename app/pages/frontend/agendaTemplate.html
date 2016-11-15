@@ -1,0 +1,156 @@
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Agenda</h2>
+      <hr>
+    </div>
+    <div class="agenda row">
+      <div class="profissional-info">
+        <h3 class="profissional-nome">Joana da Silva</h3>
+        <p class="profissional-ramo">Beleza, Saúde e Estética</p>
+      </div>
+      <div class="date row">
+        <form action="" class="col s12 m6">
+          <div class="input-field col s12 m8 search-field">
+            <input type="date" placeholder="Escolha uma Data" class="datepicker" id="date">
+            <label for="date">Data</label>
+          </div>
+        </form>
+        <div class="agenda-action col s12 m6 right">
+          <a href="#modal-agendamento" class="modal-trigger btn orange">Agendar Serviço</a>
+        </div>
+      </div>
+
+      <div class="col s12 services-available">
+        <div class="col s12 m6">
+          <div class="card card-servicos">
+            <div class="card-content">
+              <span class="card-title">Serviços</span>
+              <div class="services">
+                <ul class="collection">
+                  <li class="collection-item">
+                    <span class="service-name">Corte de Cabelo Masculino</span>
+                    <span class="service-price right">R$ 40,00</span>
+                  </li>
+                  <li class="collection-item">
+                    <span class="service-name">Corte de Cabelo Masculino</span>
+                    <span class="service-price right">R$ 40,00</span>
+                  </li>
+                  <li class="collection-item">
+                    <span class="service-name">Corte de Cabelo Masculino</span>
+                    <span class="service-price right">R$ 40,00</span>
+                  </li>
+                  <li class="collection-item">
+                    <span class="service-name">Corte de Cabelo Masculino</span>
+                    <span class="service-price right">R$ 40,00</span>
+                  </li>
+                  <li class="collection-item">
+                    <span class="service-name">Corte de Cabelo Masculino</span>
+                    <span class="service-price right">R$ 40,00</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="card card-agenda">
+            <div class="card-content">
+              <span class="card-title">Horários <span class="color-legenda right"><span></span> horário indisponível</span></span>
+              <ul class="collection schedule-list">
+                <li class="collection-item">
+                  <span class="hour">9:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">09:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">10:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">10:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">11:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">11:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:30</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:00</span>
+                </li>
+                <li class="collection-item">
+                  <span class="hour">12:30</span>
+                </li>
+
+                <span class="unvailable" style="top: 120px; height: 60px;"></span>
+                <span class="unvailable" style="top: 300px; height: 30px;"></span>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+<div id="modal-agendamento" class="modal modal-fixed-footer modal-agendamento">
+    <div class="modal-content">
+      <h4>Agendamento</h4>
+      <div class="agendamento-info">
+        <form class="agendamento-form row">
+          <div class="input-field col s12">
+            <input type="date" class="datepicker" id="date">
+            <label for="date">Data</label>
+          </div>
+          <div class="input-field col s12">
+            <select>
+              <option value="" disabled selected>Escolha um Serviço</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            <label>Serviço</label>
+          </div>
+          <div class="input-field col s12">
+            <select>
+              <option value="" disabled selected>Escolha um Horario</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            <label>Horario</label>
+          </div>
+        </form>
+        <span class="info-valor">Valor: <span>R$ 40,00</span></span>
+        <span class="info-duracao right">Duração estimada: <span>60 minutos</span></span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
+    </div>
+  </div>
