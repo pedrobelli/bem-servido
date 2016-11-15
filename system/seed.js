@@ -7,8 +7,7 @@ var request                  = require('request'),
     clientesScenarios        = require('../controller/clientes/clientesScenarios');
 
 exports.runSeed = function() {
-  deleteUsers()
-  .then(function() {
+  deleteUsers().then(function() {
     var sequelize = controllerHelper.createSequelizeInstance();
     console.log('Seed Started');
     return sequelize.transaction(function(t) {
@@ -26,6 +25,7 @@ exports.runSeed = function() {
     }).catch(function(errors) {
       console.log('Seed Error');
       console.log(errors);
+      deleteUsers();
     });
 
   })
@@ -48,7 +48,7 @@ var deleteUsers = function() {
 
   request(options, function (error, response, body) {
     if (error)
-      def.reject(new Error(error));
+      return result.reject(new Error(error));
 
     var users = JSON.parse(body);
     users.forEach(function(user) {
@@ -56,7 +56,7 @@ var deleteUsers = function() {
       options.method = 'DELETE'
       request(options, function (error, response, body) {
         if (error)
-          def.reject(new Error(error));
+          return result.reject(new Error(error));
       });
     });
 

@@ -102,7 +102,7 @@ dadosHorarioComponent) {
           swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Um usuário com esse email já existe ou seu email não é válido, por favor verifique seus dados e tente novamente."]);
         } else {
           self.auth0.getProfile(result.idToken, function (err, profile) {
-            payload.uuid = profile.identities[0].user_id;
+            payload.uuid = profile.user_id;
             createProfissional(payload, result, profile);
           });
         }
