@@ -101,7 +101,8 @@ header > .header-search{
 
 .cadastro > .form-cadastro .collapsible .option{
   display: block;
-  min-height: 100px;
+  min-height: 70px;
+  margin-top: 15px;
 }
 .cadastro > .form-cadastro button > .material-icons.left{
   -webkit-transform: rotate(180deg);
@@ -110,6 +111,7 @@ header > .header-search{
 .cadastro > .form-cadastro button.left{
   display: none;
 }
+
 
 /* LOGIN */
 .login_usuario > .form-login_usuario{

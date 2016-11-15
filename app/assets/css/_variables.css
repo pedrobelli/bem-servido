@@ -85,6 +85,19 @@
   webkit-transform: translateY(-110%);
   transform: translateY(-110%);
 }
+.input-field > label.active{
+  font-size: 12px;
+  font-weight: bold;
+  top: 0;
+  webkit-transform: translateY(-110%);
+  transform: translateY(-110%);
+}
+.input-field > [type="checkbox"]+label{
+  font-size: 12px;
+  font-weight: bold;
+  top: initial;
+  transform: none;
+}
 .input-field[class*="search-field"] > .select-wrapper > input.select-dropdown{
   background-color: white;
   border: 1px solid orange;
