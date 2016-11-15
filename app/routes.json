@@ -9,8 +9,7 @@
     "page"   : "pages/socialAuth/socialAuthComponent",
     "params" : {
       "name"   : "socialAuth",
-      "header" : "orange",
-      "dontAccessWhenLogged" : true
+      "header" : "orange"
     }
   },
   {
@@ -48,6 +47,21 @@
       "dontAccessWhenLogged" : true
     }
   },
+
+
+
+
+  {
+    "path"   : "#frontend",
+    "page"   : "pages/frontend/frontendComponent",
+    "params" : {
+      "name"   : "frontend",
+      "header" : "default"
+    }
+  },
+
+
+
 
 
   {

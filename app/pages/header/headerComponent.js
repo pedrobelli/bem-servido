@@ -8,11 +8,17 @@ function(ko, template, materialize, waves) {
 
     if (params.header == "home") {
       self.home(true);
-      $("#site-header").addClass("top-header");
+      $("#site-header").addClass("topheader-home");
+      $("#site-nav").removeClass("topheader-default");
       $("#site-nav").removeClass("orange");
     } else if (params.header == "orange") {
-      $("#site-header").removeClass("top-header");
+      $("#site-header").removeClass("topheader-home");
+      $("#site-header").removeClass("topheader-default");
       $("#site-nav").addClass("orange");
+    } else if (params.header == "default") {
+      $("#site-header").removeClass("topheader-home");
+      $("#site-header").addClass("topheader-default");
+      $("#site-nav").removeClass("orange");
     }
 
     self.logout = function(){

@@ -1,15 +1,20 @@
 
-.top-header{
-  background-image: url(../images/header-banner.jpg);
+[class*="topheader-"]{
+  background-image: url(../images/header-banner2.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
-  min-height: 500px;
-  background-color: #979797;
-  background-blend-mode: soft-light;
+  background-color: #333;
   position: relative;
 }
-header.top-header .navbar{
+
+.topheader-home{
+  min-height: 500px;
+}
+.topheader-default{
+  min-height: 300px;
+}
+header[class*="topheader-"] .navbar{
   background-color: rgba(74,74,74, 0.5);
 }
 .navbar .navbar-list{
@@ -26,6 +31,7 @@ header.top-header .navbar{
 }
 
 header > .header-search{
+  opacity: 1;
   max-width: 80%;
   margin: 10px auto;
 }
@@ -38,42 +44,26 @@ header > .header-search{
   bottom: 10%;
   text-align: center;
 }
-.header-search > .search > .input-field.search-field{
+.search > .input-field.search-field__home{
   display: inline-block;
   width: 30%;
   margin: 15px 20px;
   text-align: left;
 }
-.input-field.search-field > input[type=text]{
-  background-color: white;
-  border: 1px solid orange;
-  height: 25px;
-  padding: 5px;
+
+.search-section{
+  position: absolute;
+  top: 100px;
 }
-.input-field.search-field > input[type=text]:focus{
-  box-shadow: 0 1px 0 0 orange;
-  border-bottom: 1px solid orange;
-}
-.input-field.search-field > input[type=text]:valid{
-  box-shadow: 0 1px 0 0 orange;
-  border-bottom: 1px solid orange;
-}
-.input-field.search-field > label.fixed-label{
-  text-shadow: 1px 1px rgba(0,0,0,0.5);
-  color: orange;
-  font-size: 14px;
-  font-weight: 500;
-  top: 0;
-}
-.input-field.search-field > input[type=text]:focus + label{
-  color: orange;
+
+.search-section > .search{
+  margin: 10px auto;
 }
 
 .page-title{
   margin: 30px auto;
   margin-left: -40px;
 }
-
 
 .page-title > h2{
   font-size: 28px;
@@ -89,13 +79,19 @@ header > .header-search{
   background-color: orange;
 }
 
-.destaques > .card.destaque{
-  width: 40%;
-  display: inline-block;
-  border: 1px solid #979797;
-  margin: 10px 30px;
-  text-align: left;
+.profissional-ramo{
+  color: #979797;
 }
+
+/* CARDS HOME */
+.destaques {
+  display: flex;
+}
+.destaques > .card.destaque{
+  border: 1px solid #979797;
+}``
+
+/* CADATRO */
 .cadastro > .form-cadastro{
   border: 1px solid orange;
   padding: 10px;
@@ -123,10 +119,250 @@ header > .header-search{
   font-size: 11px;
 }
 
+/* PESQUISA */
+/* tela de resultado de pesquisa */
+.pesquisa{
+  display: flex;
+  align-items: flex-start;
+}
+
+.resultado-item  .item-info{
+  margin-top: 10px;
+}
+.resultado-item  .item-info > *{
+  display: inline-block;
+  vertical-align: middle;
+}
+.resultado-item  .item-info > .info-date{
+  /*width: 25%;*/
+}
+
+.resultado-item  .item-info > .info-date > .date{
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.resultado-item .item-info > .info-date > .day{
+  display: inline-block;
+  font-size: 11px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  text-transform: uppercase;
+  color: #000;
+}
+.resultado-item .item-info > .info-available{
+  max-width: 70%;
+  border-left: 2px solid orange;
+}
+.info-available ul.available-list + p{
+  font-size: 11px;
+  color: #979797;
+  margin-left: 5px;
+}
+.resultado-item .item-info > .info-available > ul.available-list {
+  display: inline-block;
+  margin: 0;
+}
+ul.available-list > li.available-time{
+  display: inline-block;
+  margin: 0;
+}
+ul.available-list > li.available-time > label{
+  font-size: 12px;
+  color: orange;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 2px 5px;
+}
+ul.available-list > li.available-time > input[type=radio]{
+  display: none;
+}
+ul.available-list > li.available-time > input[type=radio]:checked+label{
+  background-color: orange;
+  color: #fff;
+}
+ul.available-list > li.available-time > input[type=radio]+label:hover{
+  background-color: orange;
+  color: #fff;
+}
+
+ul.available-list > li.available-time > label.label-disabled{
+  color: #9b9b9b;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.li.available-time > [type="radio"]+label::after, [type="radio"]+label::before{
+  content: none;
+}
+.li.available-time > [type="radio"]:checked+label::after, [type="radio"].with-gap:checked+label::after{
+  content: none;
+}
+.li.available-time > [type="radio"]:not(:checked)+label:before,
+                     [type="radio"]:not(:checked)+label:after,
+                     [type="radio"]:checked+label:before,
+                     [type="radio"]:checked+label:after,
+                     [type="radio"].with-gap:checked+label:before,
+                     [type="radio"].with-gap:checked+label:after{
+                         content: none;
+                     }
+
+/* AGENDA PERFIL */
+/* tela de resultado de perfil-agendamento */
+.agenda > .profissional-info{
+  text-align: center;
+}
+.agenda > .profissional-info > *{
+  margin: auto 10px;
+}
+.agenda > div.date{
+  /*background-color: #f2f2f2;*/
+  height: 100px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.agenda-action {
+  text-align: right;
+  height: 72px;
+  padding-top: 10px;
+}
+.agenda > .services-available{
+  border: 1px solid orange;
+  padding: 20px 10px;
+}
+.agenda .card-title{
+  color: orange;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.card-agenda .card-title > .color-legenda{
+  font-size: 10px;
+  font-weight: normal;
+  color: #979797;
+  width: 130px;
+}
+.card-agenda .card-title > .color-legenda > span{
+  background-color: #ceb9a7;
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/*cada 10min = 20px*/
+.card-agenda .schedule-list{
+  position: relative;
+  max-height: 550px;
+  overflow: auto;
+}
+.card-agenda .schedule-list > .collection-item{
+  height: 60px;
+  padding: 0 20px;
+  border-bottom: none;
+}
+.card-agenda .schedule-list > .collection-item > span.hour{
+  display: block;
+  /*display: inline-block;
+  vertical-align: top;*/
+  border-top: 1px dashed #e0e0e0;
+}
+.card-agenda .schedule-list > .collection-item:nth-of-type(1) > span.hour {
+  border: none;
+}
+.card-agenda .schedule-list .unvailable{
+  background-color: #ceb9a7;
+  position: absolute;
+  width: 80%;
+  left: 20%;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+.card-agenda .schedule-list .unvailable > p{
+  display: inline-block;
+  font-size: 14px;
+  color: white;
+  width: 32%;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.card-agenda .schedule-list .unvailable > p.desc-horario{
+  width: 25%;
+}
+.card-agenda .schedule-list .unvailable > p.desc-servico{
+  width: 40%;
+}
+
+.modal-agendamento{
+  width: 35%;
+  border: 2px solid orange;
+}
+.modal-agendamento h4{
+  color: orange;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.modal-agendamento .agendamento-info{
+  margin-top: 20px;
+}
+.modal-agendamento .agendamento-info > span{
+  font-size: 12px;
+  color: #979797;
+}
+.modal-agendamento .agendamento-info > span > span{
+  font-size: 14px;
+  color: orange;
+}
+
+/*AGENDA PROFISSIONAL VIEW*/
+.agenda > .agenda-timetable{
+  border: 1px solid orange;
+  padding: 20px 10px;
+}
+.agenda > .agenda-timetable .desc{
+  font-size: 12px;
+  color: #979797
+}
+.agenda > .agenda-timetable .desc > p{
+  display: inline-block;
+}
+
+
+/* RESPONSIVO */
+
+@media screen and (max-width: 1024px){
+  .resultado-item .item-info > .info-available{
+    max-width: 60%;
+  }
+
+}
+
+@media screen and (max-width: 840px){
+  .resultado-item  .item-info > .info-date > .date{
+    font-size: 20px;
+  }
+  .resultado-item  .item-info > .info-date{
+    /*width: 33%*/
+  }
+  .card-agenda .schedule-list .unvailable > p.desc-horario{
+    width: 24%;
+  }
+  .card-agenda .schedule-list .unvailable > p.desc-servico{
+    width: 42%;
+  }
+}
+
 @media screen and (max-width: 600px) {
-  .header-search > .search > .input-field.search-field{
+  .header-search > .search > .input-field.search-field__home{
     display: block;
     width: auto;
+  }
+  .topheader-default{
+    min-height: 540px;
   }
 
   .page-title{
@@ -144,6 +380,19 @@ header > .header-search{
   }
   .login_usuario > .form-login_usuario{
     max-width: 90%;
+  }
+
+  .pesquisa{
+    display: block;
+  }
+  .services-available .card{
+    max-height: 350px;
+  }
+  .card-agenda .schedule-list .unvailable > p.desc-horario{
+    display: none;
+  }
+  .card-agenda .schedule-list .unvailable > p.desc-servico{
+    width: 60%;
   }
 }
 

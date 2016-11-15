@@ -27,16 +27,18 @@ requirejs.config({
 		materialize : "lib/materialize",
 
 		// Components
-		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
 		headerComponent             : 'pages/header/headerComponent',
+		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
     homeComponent               : 'pages/home/homeComponent',
     loginComponent              : 'pages/login/loginComponent',
+		clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
+		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
+
+
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
     atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
     clientesComponent           : 'pages/clientes/clientesComponent',
-    clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
     profissionaisComponent      : 'pages/profissionais/profissionaisComponent',
-    profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
     especialidadesComponent     : 'pages/profissionais/especialidadesComponent',
     especialidadesFormComponent : 'pages/profissionais/form/especialidadesFormComponent',
     dadosHorarioComponent       : 'pages/profissionais/form/partials/dadosHorarioComponent',
@@ -53,16 +55,18 @@ requirejs.config({
 		swalComponentForm           : '../../pages/shared/swal/swalComponent',
 
     // Templates
-		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
 		headerTemplate             : 'pages/header/headerTemplate.html',
+		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
     loginTemplate              : 'pages/login/loginTemplate.html',
+		clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
+		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
+
+
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
     atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
     clientesTemplate           : 'pages/clientes/clientesTemplate.html',
-    clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
     profissionaisTemplate      : 'pages/profissionais/profissionaisTemplate.html',
-    profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
     especialidadesTemplate     : 'pages/profissionais/especialidadesTemplate.html',
     especialidadesFormTemplate : 'pages/profissionais/form/especialidadesFormTemplate.html',
 		dadosHorarioTemplate       : 'pages/profissionais/form/partials/dadosHorarioTemplate.html',
@@ -73,6 +77,9 @@ requirejs.config({
 		servicosFormTemplate       : 'pages/servicos/form/servicosFormTemplate.html',
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
 		footerTemplate             : 'pages/shared/footer.html',
+
+		frontendComponent           : 'pages/frontend/frontendComponent',
+		agendaProfissionalTemplate           : 'pages/frontend/agendaProfissionalTemplate.html',
   }
 
 	// Styles
