@@ -38,6 +38,22 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
     });
   }
 
+  function customWarningAction(title, message, callback) {
+    sweetAlert({
+      title: title,
+      text: message,
+      type: "warning",
+      showCancelButton: false,
+      confirmButtonColor: "orange",
+      confirmButtonText: "OK",
+      closeOnConfirm: true,
+      animation: false
+    },
+    function(answer) {
+      callback();
+    });
+  }
+
   function removeInstanceWarning(url, errorTitle, callback) {
     sweetAlert({
       title: "Tem certeza?",
@@ -69,6 +85,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
   return {
     errorAlertWithTitle:errorAlertWithTitle,
     simpleErrorAlertWithTitle:simpleErrorAlertWithTitle,
+    customWarningAction:customWarningAction,
     removeInstanceWarning:removeInstanceWarning
   }
 });

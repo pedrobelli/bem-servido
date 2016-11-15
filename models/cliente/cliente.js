@@ -11,38 +11,31 @@ module.exports = function(sequelize, DataTypes) {
 				}
 			}
 		},
-		email: {
+		uuid: {
+			allowNull: false,
+			type: DataTypes.STRING
+		},
+    dataNascimento: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+		cpf: {
 			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
-				isEmail: {
-					args: true,
-					msg: "Email inválido"
-				}
-			}
-		},
-		telefone: {
-			type: DataTypes.STRING,
-			validate: {
 				len: {
-					args: [10, 11],
-					msg: "Número de telefone deve conter 8 ou 9 dígitos"
+					args: [11],
+					msg: "CPF deve conter 11 dígitos"
 				},
 				is: {
 					args: /^[0-9]*$/,
-					msg: "Número de telefone deve conter apenas números"
+					msg: "CPF deve conter apenas números"
 				}
 			}
 		},
-		senha: {
-			allowNull: false,
-			type: DataTypes.STRING,
-			validate: {
-				len: {
-					args: [6, 50],
-					msg: "Senha deve conter pelo menos 6 caracteres"
-				}
-			}
+		sexo: {
+			allowNull: true,
+			type: DataTypes.INTEGER,
 		}
 	}, {
 		classMethods: {
@@ -64,6 +57,9 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: cliente.id } }).then(function(entity) {
 		      return entity.updateAttributes(cliente);
 		    });
+			},
+			FindByUuid: function(uuids){
+				return this.find({ where: { uuid: JSON.parse(uuids) }});
 			}
 		},
 		paranoid: true

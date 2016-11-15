@@ -21,6 +21,19 @@ function(ko, template, materialize, waves) {
       $("#site-nav").removeClass("orange");
     }
 
+    self.logout = function(){
+      if (localStorage.getItem('id_token')) {
+        localStorage.setItem('old_id_token', localStorage.getItem('id_token'));
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('current_user_id');
+        localStorage.removeItem('current_user_auth_id');
+        localStorage.removeItem('current_user_name');
+        localStorage.removeItem('current_user_role');
+        localStorage.removeItem('exp');
+        return window.location = '/#home';
+      }
+    };
+
     init = function() {
       Waves.displayEffect();
       $(".button-collapse").sideNav();

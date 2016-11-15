@@ -1,14 +1,21 @@
-define(['ko', 'text!profissionaisFormTemplate', 'jquery', 'bridge', 'swalComponentForm', 'dadosProfissionalComponent',
-'dadosServicoComponent', 'dadosHorarioComponent'],
-function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dadosServicoComponent, dadosHorarioComponent) {
+define(['ko', 'text!profissionaisFormTemplate', 'jquery', 'bridge', 'auth0', 'swalComponentForm', "dadosUsuarioComponent",
+'dadosProfissionalComponent', 'dadosServicoComponent', 'dadosHorarioComponent'],
+function(ko, template, $, bridge, auth0, swalComponent, dadosUsuarioComponent, dadosProfissionalComponent, dadosServicoComponent,
+dadosHorarioComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
+    self.auth0 = new auth0({
+      domain: 'pedrobelli.auth0.com',
+      clientID: 'hneM83CMnlnsW0K7qjVHZJ88qkD4ULSM'
+    });
+
     self.textoProximo = ko.observable('PRÓXIMO');
+    self.errorTitle = "Ocorreu um erro em seu cadastro!";
     self.posicao = 0;
 
-    self.components = [dadosProfissionalComponent, dadosServicoComponent, dadosHorarioComponent];
+    self.components = [dadosUsuarioComponent, dadosProfissionalComponent, dadosServicoComponent, dadosHorarioComponent];
 
     self.components.forEach(function(component){
       component.cleanFields();
@@ -20,7 +27,7 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
         return;
       } else if (posicaoAtual == 1) {
         $('#anterior').fadeOut();
-      } else if (posicaoAtual == 2) {
+      } else if (posicaoAtual == 3) {
         self.textoProximo('PRÓXIMO');
       }
 
@@ -37,34 +44,22 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
       }
 
       if (errors.length > 0) {
-        var errorTitle = "Corrija os erros em seu cadastro!";
         errors = _.uniq(errors);
-        swalComponent.simpleErrorAlertWithTitle(errorTitle, errors);
-        return;
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
 
       var posicaoAtual = self.posicao;
-      if (posicaoAtual == 2) {
+      if (posicaoAtual == 3) {
         var payload = {};
         self.components.forEach(function(component){
           payload = component.generatePayload(payload);
         });
 
-        console.log(payload);
-        bridge.post("/api/profissionais/new", payload)
-        .fail(function(context, errorMessage, serverError){
-          var errorTitle = 'Não foi possível concluir o cadastro';
-          swalComponent.errorAlertWithTitle(errorTitle, context.errors);
-        })
-        .done(function(){
-          // TODO mudar issaki
-          window.location.hash = "home"
-        });
-
+        signupProfissional(payload);
         return;
       } else if (posicaoAtual == 0) {
         $('#anterior').fadeIn();
-      } else if (posicaoAtual == 1) {
+      } else if (posicaoAtual == 2) {
         self.textoProximo('CONCLUIR');
       }
 
@@ -77,8 +72,12 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
     var init = function(){
       bridge.get("/api/profissionais/form_options")
       .then(function(response){
+        var position = 0;
         self.components.forEach(function(component){
-          component.mapResponse(response);
+          if (position != 0) {
+            component.mapResponse(response);
+          }
+          position++;
         });
       })
       .then(function(){
@@ -87,6 +86,58 @@ function(ko, template, $, bridge, swalComponent, dadosProfissionalComponent, dad
         });
       });
     };
+
+    var signupProfissional = function(payload) {
+      self.auth0.signup({
+        connection: 'Username-Password-Authentication',
+        email: payload.email,
+        password: payload.password,
+        "user_metadata": {
+          "role": 2
+        },
+        auto_login: true,
+        sso: false
+      }, function (err, result) {
+        if (!!err) {
+          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Um usuário com esse email já existe ou seu email não é válido, por favor verifique seus dados e tente novamente."]);
+        } else {
+          self.auth0.getProfile(result.idToken, function (err, profile) {
+            payload.uuid = profile.identities[0].user_id;
+            createProfissional(payload, result, profile);
+          });
+        }
+      });
+    }
+
+    var createProfissional = function(payload, result, profile) {
+      bridge.post("/api/profissionais/new", payload)
+      .fail(function(context, errorMessage, serverError){
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
+        deleteUser(payload);
+      })
+      .done(function(response){
+        localStorage.setItem('id_token', result.idToken);
+        localStorage.setItem('current_user_id', response.profissional.id);
+        localStorage.setItem('current_user_auth_id', response.profissional.uuid);
+        localStorage.setItem('current_user_name', response.profissional.nome);
+        localStorage.setItem('current_user_role', profile.user_metadata.role);
+        localStorage.setItem('exp', result.idTokenPayload.exp);
+        // TODO arrumar esse redirecionamento bosta
+        window.location.hash = "#home";
+      });
+    }
+
+    var deleteUser = function(payload) {
+      var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTA5NTkzNywianRpIjoiZmY2YjM3OTIxZjA4NjA3NjA4ODZjYWQ4ZDQwYWQ2NjMifQ.0la4o_3aO3LnZaMycy4N6ujQgVOEXAQKMbYLBU30NLo'};
+
+      bridge.del("https://pedrobelli.auth0.com/api/v2/connections/con_qpfJ1QFVlkD3q1aa/users?email=" + payload.email, headers)
+      .fail(function(context, errorMessage, serverError){
+        console.log(context);
+      })
+      .done(function(){
+        console.log("Usuário deletado do auth0");
+      });
+    }
 
     init();
   }

@@ -1,0 +1,28 @@
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Login</h2>
+      <hr>
+    </div>
+    <div class="login_usuario">
+      <div class="row form-login_usuario">
+        <form action="" class="col s12 form">
+          <button data-bind="click: facebookLogin" id="facebook-login" class="btn waves-effect waves-light left orange" type="button">Login Facebook</button>
+          <button data-bind="click: gmailLogin" id="facebook-gmail" class="btn waves-effect waves-light right orange" type="button">Login Gmail</button>
+
+          <div class="input-field col s12">
+            <input data-bind="value: email" id="email" type="email">
+            <label for="email" class="fixed-label">E-mail</label>
+          </div>
+          <div class="input-field col s12">
+            <input data-bind="value: password" id="password" type="password">
+            <label for="password" class="fixed-label">Senha</label>
+          </div>
+
+          <button data-bind="click: login" id="login" class="btn waves-effect waves-light right orange" type="button">Login</button>
+          <!-- <a href="#" class="form-link">Esqueci minha senha</a> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

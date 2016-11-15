@@ -16,12 +16,12 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     $('.number').inputmask({alias: 'numeric', rightAlign: false});
   };
 
-  var applyFederalIdMask = function(){
-    $('.federal-id').inputmask({mask: '999.999.999-99', autoUnmask: true});
+  var applyCPF_CNPJMask = function(){
+    $('.cpf-cnpj').inputmask({mask: ['999.999.999-99', '99.999.999/9999-99'], autoUnmask: true});
   };
 
-  var applyCNPJMask = function(){
-    $('.cnpj').inputmask({mask: '99.999.999/9999-99', autoUnmask: true});
+  var applyCPFMask = function(){
+    $('.cpf').inputmask({mask: '999.999.999-99', autoUnmask: true});
   };
 
   var applyCelphoneMask = function(){
@@ -74,17 +74,23 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     return formatedValue;
   }
 
+  var validateEmailFormat = function(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
   return {
     applyDatepickerMask:applyDatepickerMask,
     applyTimeMask:applyTimeMask,
     applyZipCodeMask:applyZipCodeMask,
-    applyFederalIdMask:applyFederalIdMask,
-    applyCNPJMask:applyCNPJMask,
+    applyCPF_CNPJMask:applyCPF_CNPJMask,
+    applyCPFMask:applyCPFMask,
     applyCelphoneMask:applyCelphoneMask,
     applyEmailMask:applyEmailMask,
     applyCurrencyMask:applyCurrencyMask,
     applyNumberMask:applyNumberMask,
-    accountingFormat:accountingFormat
+    accountingFormat:accountingFormat,
+    validateEmailFormat:validateEmailFormat
   }
 
 });

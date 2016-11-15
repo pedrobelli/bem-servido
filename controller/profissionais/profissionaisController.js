@@ -30,6 +30,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.update(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_uuid', function(req, res) {
+    return self.getByUuid(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -83,10 +87,10 @@ self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     var newProfissional = {
       nome           : req.body.nome,
-      email          : req.body.email,
+      uuid           : req.body.uuid,
       dataNascimento : req.body.dataNascimento,
       sexo           : req.body.sexo,
-      cpf            : req.body.cpf,
+      cpf_cnpj       : req.body.cpf_cnpj,
       ramo           : req.body.ramo
     };
     return models.profissionais.Create(newProfissional).then(function(profissional) {
@@ -121,7 +125,7 @@ self.create = function(req, res) {
             models.horas_trabalho.Create(horaTrabalho);
           });
 
-          profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
+          return profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
             return profissional;
           });
         });
@@ -144,6 +148,18 @@ self.update = function(req, res) {
         return profissional;
       });
     });
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ profissional: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByUuid = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.profissionais.FindByUuid(req.body.uuids);
 
   }).then(function(entity) {
     res.statusCode = 200;

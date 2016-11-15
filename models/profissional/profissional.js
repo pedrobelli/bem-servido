@@ -11,48 +11,25 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
 		},
-		email: {
+		uuid: {
 			allowNull: false,
-			type: DataTypes.STRING,
-			validate: {
-				isEmail: {
-					args: true,
-					msg: "Email inválido"
-				}
-			}
+			type: DataTypes.STRING
 		},
     dataNascimento: {
       allowNull: false,
       type: DataTypes.DATE
     },
-		sexo: {
-			allowNull: true,
-			type: DataTypes.INTEGER,
-		},
-		cpf: {
+		cpf_cnpj: {
 			allowNull: false,
 			type: DataTypes.STRING,
 			validate: {
 				len: {
-					args: [11],
-					msg: "CPF deve conter 11 dígitos"
+					args: [11, 14],
+					msg: "CPF deve conter 11 dígitos/CNPJ deve conter 14 dígitos"
 				},
 				is: {
 					args: /^[0-9]*$/,
-					msg: "CPF deve conter apenas números"
-				}
-			}
-		},
-		cnpj: {
-			type: DataTypes.STRING,
-			validate: {
-				len: {
-					args: [14],
-					msg: "CNPJ deve conter 14 dígitos"
-				},
-				is: {
-					args: /^[0-9]*$/,
-					msg: "CNPJ deve conter apenas números"
+					msg: "CPF/CNPJ deve conter apenas números"
 				}
 			}
 		},
@@ -65,7 +42,11 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Ramo deve ser preenchido"
         }
       }
-    }
+    },
+		sexo: {
+			allowNull: true,
+			type: DataTypes.INTEGER,
+		}
 	}, {
 		classMethods: {
 			All: function(){
@@ -95,6 +76,9 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: profissional.id } }).then(function(entity) {
 		      return entity.updateAttributes(profissional);
 		    });
+			},
+			FindByUuid: function(uuids){
+				return this.find({ where: { uuid: JSON.parse(uuids) }});
 			}
 		},
 		paranoid: true

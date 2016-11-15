@@ -15,6 +15,8 @@ requirejs.config({
 		sammy           : "components/sammy/lib/sammy",
 		sweetAlert      : "components/sweetalert/lib/sweet-alert.min",
 		moment          : "components/moment/moment",
+		auth0Lock       : "components/auth0-lock/build/lock.min",
+		auth0           : "components/auth0.js/build/auth0.min",
 
 		hammerjs        : "components/hammerjs/hammer.min",
 		waves           : "components/Waves/dist/waves.min",
@@ -25,20 +27,24 @@ requirejs.config({
 		materialize : "lib/materialize",
 
 		// Components
-		frontendComponent           : 'pages/frontend/frontendComponent',
 		headerComponent             : 'pages/header/headerComponent',
+		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
     homeComponent               : 'pages/home/homeComponent',
+    loginComponent              : 'pages/login/loginComponent',
+		clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
+		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
+
+
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
     atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
     clientesComponent           : 'pages/clientes/clientesComponent',
-    clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
     profissionaisComponent      : 'pages/profissionais/profissionaisComponent',
-    profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
     especialidadesComponent     : 'pages/profissionais/especialidadesComponent',
     especialidadesFormComponent : 'pages/profissionais/form/especialidadesFormComponent',
     dadosHorarioComponent       : 'pages/profissionais/form/partials/dadosHorarioComponent',
     dadosProfissionalComponent  : 'pages/profissionais/form/partials/dadosProfissionalComponent',
     dadosServicoComponent       : 'pages/profissionais/form/partials/dadosServicoComponent',
+    dadosUsuarioComponent       : 'pages/profissionais/form/partials/dadosUsuarioComponent',
 		servicosComponent           : 'pages/servicos/servicosComponent',
 		servicosFormComponent       : 'pages/servicos/form/servicosFormComponent',
 		datepickerComponent         : 'pages/shared/datepicker/datepickerComponent',
@@ -50,23 +56,29 @@ requirejs.config({
 
     // Templates
 		headerTemplate             : 'pages/header/headerTemplate.html',
+		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
+    loginTemplate              : 'pages/login/loginTemplate.html',
+		clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
+		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
+
+
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
     atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
     clientesTemplate           : 'pages/clientes/clientesTemplate.html',
-    clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
     profissionaisTemplate      : 'pages/profissionais/profissionaisTemplate.html',
-    profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
     especialidadesTemplate     : 'pages/profissionais/especialidadesTemplate.html',
     especialidadesFormTemplate : 'pages/profissionais/form/especialidadesFormTemplate.html',
 		dadosHorarioTemplate       : 'pages/profissionais/form/partials/dadosHorarioTemplate.html',
 		dadosProfissionalTemplate  : 'pages/profissionais/form/partials/dadosProfissionalTemplate.html',
 		dadosServicoTemplate       : 'pages/profissionais/form/partials/dadosServicoTemplate.html',
+		dadosUsuarioTemplate       : 'pages/profissionais/form/partials/dadosUsuarioTemplate.html',
 		servicosTemplate           : 'pages/servicos/servicosTemplate.html',
 		servicosFormTemplate       : 'pages/servicos/form/servicosFormTemplate.html',
 		searchTemplate             : 'pages/shared/search/searchTemplate.html',
 		footerTemplate             : 'pages/shared/footer.html',
 
+		frontendComponent           : 'pages/frontend/frontendComponent',
 		agendaProfissionalTemplate           : 'pages/frontend/agendaProfissionalTemplate.html',
   }
 
