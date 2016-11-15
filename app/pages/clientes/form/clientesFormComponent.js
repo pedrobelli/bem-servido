@@ -83,8 +83,7 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       var errors = self.validate();
 
       if (errors.length > 0) {
-        swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
-        return;
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
 
       signupProfissional(generatePayload());
@@ -161,13 +160,13 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
         } else {
           self.auth0.getProfile(result.idToken, function (err, profile) {
             payload.uuid = profile.identities[0].user_id;
-            createCliente(payload, result);
+            createCliente(payload, result, profile);
           });
         }
       });
     }
 
-    var createCliente = function(payload, result) {
+    var createCliente = function(payload, result, profile) {
       bridge.post("/api/clientes/new", payload)
       .fail(function(context, errorMessage, serverError){
         var errorTitle = 'Não foi possível concluir o cadastro';
@@ -179,9 +178,10 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
         localStorage.setItem('current_user_id', response.cliente.id);
         localStorage.setItem('current_user_auth_id', response.cliente.uuid);
         localStorage.setItem('current_user_name', response.cliente.nome);
-        localStorage.setItem('current_user_role', 1);
+        localStorage.setItem('current_user_role', profile.user_metadata.role);
         localStorage.setItem('exp', result.idTokenPayload.exp);
-        window.location.hash = "#home"
+        // TODO arrumar esse redirecionamento bosta
+        window.location.hash = "#home";
       });
     }
 

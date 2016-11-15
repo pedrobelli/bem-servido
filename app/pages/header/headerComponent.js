@@ -24,7 +24,7 @@ function(ko, template, materialize, waves) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
-        window.location.hash = "#home";
+        return window.location = '/#home';
       }
     };
 

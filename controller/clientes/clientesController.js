@@ -26,6 +26,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.update(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_uuid', function(req, res) {
+    return self.getByUuid(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -112,6 +116,18 @@ self.create = function(req, res) {
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.clientes.Update(req.body);
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ cliente: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByUuid = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.clientes.FindByUuid(req.body.uuids);
 
   }).then(function(entity) {
     res.statusCode = 200;

@@ -54,32 +54,44 @@ function(ko, template, bridge, auth0, swalComponent) {
     };
 
     var setLocalStorageAndRedirect = function(result, profile) {
-      console.log(profile);
       var payload = {};
       var uuids = [];
+      var url = profile.user_metadata.role == '1' ? "/api/clientes/by_uuid" : "/api/profissionais/by_uuid";
 
       profile.identities.forEach(function(identity) {
         uuids.push(identity.user_id);
       });
       payload.uuids = JSON.stringify(uuids);
 
-      bridge.post("/api/profissionais/by_uuid", payload).done(function(response){
-        console.log(response);
-        // TODO arrumar esse redirecionamento bosta
-        // window.location.hash = "#home"
+      bridge.post(url, payload).done(function(response){
+        if (profile.user_metadata.role == '1') {
+          mapClienteToLocalStorage(response, result, profile);
+        } else {
+          mapProfissionalToLocalStorage(response, result, profile);
+        }
       });
+    }
 
+    var mapClienteToLocalStorage = function(response, result, profile)  {
+      localStorage.setItem('id_token', result.idToken);
+      localStorage.setItem('current_user_id', response.cliente.id);
+      localStorage.setItem('current_user_auth_id', response.cliente.uuid);
+      localStorage.setItem('current_user_name', response.cliente.nome);
+      localStorage.setItem('current_user_role', profile.user_metadata.role);
+      localStorage.setItem('exp', result.idTokenPayload.exp);
+      // TODO arrumar esse redirecionamento bosta
+      return window.location.hash = "#home";
+    }
 
-
-
-      // localStorage.setItem('id_token', result.idToken);
-      // localStorage.setItem('current_user_id', payload.profissional.id);
-      // localStorage.setItem('current_user_auth_id', payload.profissional.uuid);
-      // localStorage.setItem('current_user_name', payload.profissional.nome);
-      // localStorage.setItem('current_user_role', 2);
-      // localStorage.setItem('exp', result.idTokenPayload.exp);
-
-
+    var mapProfissionalToLocalStorage = function(response, result, profile)  {
+      localStorage.setItem('id_token', result.idToken);
+      localStorage.setItem('current_user_id', response.profissional.id);
+      localStorage.setItem('current_user_auth_id', response.profissional.uuid);
+      localStorage.setItem('current_user_name', response.profissional.nome);
+      localStorage.setItem('current_user_role', profile.user_metadata.role);
+      localStorage.setItem('exp', result.idTokenPayload.exp);
+      // TODO arrumar esse redirecionamento bosta
+      return window.location.hash = "#home";
     }
 
   };

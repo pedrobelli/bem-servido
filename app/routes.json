@@ -1,16 +1,17 @@
 [
   {
+    "path"   : "#header",
+    "page"   : "pages/header/headerComponent",
+    "params" : { "name"   : "header" }
+  },
+  {
     "path"   : "#access_token=:token",
     "page"   : "pages/socialAuth/socialAuthComponent",
     "params" : {
       "name"   : "socialAuth",
-      "header" : "orange"
+      "header" : "orange",
+      "dontAccessWhenLogged" : true
     }
-  },
-  {
-    "path"   : "#header",
-    "page"   : "pages/header/headerComponent",
-    "params" : { "name"   : "header" }
   },
   {
     "path"   : "#home",
@@ -25,7 +26,8 @@
     "page"   : "pages/login/loginComponent",
     "params" : {
       "name"   : "login",
-      "header" : "orange"
+      "header" : "orange",
+      "dontAccessWhenLogged" : true
     }
   },
   {
@@ -33,7 +35,8 @@
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : {
       "name"   : "new",
-      "header" : "orange"
+      "header" : "orange",
+      "dontAccessWhenLogged" : true
     }
   },
   {
@@ -41,7 +44,8 @@
     "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : {
       "name"   : "new",
-      "header" : "orange"
+      "header" : "orange",
+      "dontAccessWhenLogged" : true
     }
   },
 

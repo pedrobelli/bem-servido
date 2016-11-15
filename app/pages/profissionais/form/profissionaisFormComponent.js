@@ -45,8 +45,7 @@ dadosHorarioComponent) {
 
       if (errors.length > 0) {
         errors = _.uniq(errors);
-        swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
-        return;
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
 
       var posicaoAtual = self.posicao;
@@ -104,13 +103,13 @@ dadosHorarioComponent) {
         } else {
           self.auth0.getProfile(result.idToken, function (err, profile) {
             payload.uuid = profile.identities[0].user_id;
-            createProfissional(payload, result);
+            createProfissional(payload, result, profile);
           });
         }
       });
     }
 
-    var createProfissional = function(payload, result) {
+    var createProfissional = function(payload, result, profile) {
       bridge.post("/api/profissionais/new", payload)
       .fail(function(context, errorMessage, serverError){
         swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
@@ -121,10 +120,10 @@ dadosHorarioComponent) {
         localStorage.setItem('current_user_id', response.profissional.id);
         localStorage.setItem('current_user_auth_id', response.profissional.uuid);
         localStorage.setItem('current_user_name', response.profissional.nome);
-        localStorage.setItem('current_user_role', 2);
+        localStorage.setItem('current_user_role', profile.user_metadata.role);
         localStorage.setItem('exp', result.idTokenPayload.exp);
         // TODO arrumar esse redirecionamento bosta
-        window.location.hash = "#home"
+        window.location.hash = "#home";
       });
     }
 
