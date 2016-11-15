@@ -44,7 +44,7 @@ function(ko, template, bridge, auth0, swalComponent) {
         sso: false
       }, function(err, result) {
         if (!!err) {
-          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Não foi possível realizar login usuário ou senha incorretos."])
+          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Não foi possível realizar login, usuário ou senha incorretos."])
         } else {
           self.auth0.getProfile(result.idToken, function (err, profile) {
             setLocalStorageAndRedirect(result, profile);
