@@ -89,7 +89,7 @@ header > .header-search{
 }
 .destaques > .card.destaque{
   border: 1px solid #979797;
-}``
+}
 
 /* CADATRO */
 .cadastro > .form-cadastro{
@@ -98,6 +98,7 @@ header > .header-search{
   margin: 0 auto;
   max-width: 80%;
 }
+
 .cadastro > .form-cadastro .collapsible .option{
   display: block;
   min-height: 100px;
@@ -109,12 +110,35 @@ header > .header-search{
 .cadastro > .form-cadastro button.left{
   display: none;
 }
+
+/* LOGIN */
 .login_usuario > .form-login_usuario{
   border: 1px solid orange;
   padding: 10px;
   margin: 80px auto;
   max-width: 50%;
 }
+.login_usuario > .form-login_usuario > .s2.center{
+  font-size: 11px;
+  margin-top: 20px;
+}
+.login_usuario > .form-login_usuario .login-link{
+  display: inline-block;
+  margin: 0px 20px;
+  text-decoration: none;
+}
+.login_usuario > .form-login_usuario .login-link > p{
+  font-size: 11px;
+  margin: 0;
+  color: #979797;
+}
+.login_usuario > .form-login_usuario #facebook-login > img{
+  max-width: 80px;
+}
+.login_usuario > .form-login_usuario #google-login > img{
+  max-width: 72px;
+}
+
 .form-login_usuario .form-link{
   font-size: 11px;
 }

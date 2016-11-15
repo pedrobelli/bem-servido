@@ -1,39 +1,28 @@
 
  /* label focus color */
- .input-field input[type=text]:focus + label {
+ .input-field > input:focus:not([readonly])+label{
    color: #979797;
  }
- .input-field input[type=text]{
+ .input-field > input{
    height: 25px;
    padding: 5px;
  }
- .input-field input[type=email]:focus + label {
-   color: #979797;
+ .input-field .select-wrapper > input.select-dropdown{
+   height: 25px;
+   padding: 5px;
  }
  /* label underline focus color */
- .input-field input[type=text]:focus {
-   border-bottom: 1px solid #979797;
-   box-shadow: 0 1px 0 0 #979797;
- }
- .input-field input[type=email]:focus {
+ .input-field > input:focus:not([readonly]){
    border-bottom: 1px solid #979797;
    box-shadow: 0 1px 0 0 #979797;
  }
  /* valid color */
- .input-field input[type=text].valid {
-   border-bottom: 1px solid #979797;
-   box-shadow: 0 1px 0 0 #979797;
- }
- .input-field input[type=email].valid {
+ .input-field input.valid {
    border-bottom: 1px solid #979797;
    box-shadow: 0 1px 0 0 #979797;
  }
  /* invalid color */
- .input-field input[type=text].invalid {
-   border-bottom: 1px solid #979797;
-   box-shadow: 0 1px 0 0 #979797;
- }
- .input-field input[type=email].invalid {
+ .input-field input.invalid {
    border-bottom: 1px solid #979797;
    box-shadow: 0 1px 0 0 #979797;
  }
@@ -59,6 +48,10 @@
      backface-visibility: hidden;
      -webkit-transform-origin: 100% 100%;
      transform-origin: 100% 100%;
+ }
+ .input-field .material-checkbox+label:before{
+   border-right: 2px solid orange;
+   border-bottom: 2px solid orange;
  }
 
 
@@ -119,6 +112,11 @@
 }
 .card .card-action{
   text-align: right;
+}
+
+.divider{
+  margin: 30px auto;
+  background-color: orange;
 }
 
 /*DATEPICKER*/
