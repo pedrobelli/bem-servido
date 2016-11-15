@@ -113,7 +113,7 @@ dadosHorarioComponent) {
       bridge.post("/api/profissionais/new", payload)
       .fail(function(context, errorMessage, serverError){
         swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
-        deleteUser(payload);
+        deleteUser(profile);
       })
       .done(function(response){
         localStorage.setItem('id_token', result.idToken);
@@ -127,10 +127,11 @@ dadosHorarioComponent) {
       });
     }
 
-    var deleteUser = function(payload) {
-      var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTA5NTkzNywianRpIjoiZmY2YjM3OTIxZjA4NjA3NjA4ODZjYWQ4ZDQwYWQ2NjMifQ.0la4o_3aO3LnZaMycy4N6ujQgVOEXAQKMbYLBU30NLo'};
+    var deleteUser = function(profile) {
+      var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTIzMTg4NiwianRpIjoiM2I2YWIyMGI1NjllMDc5ZDBkNjg3MjViN2Y2OTc1OWUifQ.fjPTPC0BBV1ibLAD40KXgD28sq7pvW5dAuEQ6_K5pog'};
 
-      bridge.del("https://pedrobelli.auth0.com/api/v2/connections/con_qpfJ1QFVlkD3q1aa/users?email=" + payload.email, headers)
+      console.log(profile);
+      bridge.del('https://pedrobelli.auth0.com/api/v2/users/' + profile.user_id, headers)
       .fail(function(context, errorMessage, serverError){
         console.log(context);
       })
