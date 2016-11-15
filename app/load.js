@@ -29,9 +29,10 @@ requirejs.config({
 		// Components
 		headerComponent             : 'pages/header/headerComponent',
 		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
-    homeComponent               : 'pages/home/homeComponent',
-    loginComponent              : 'pages/login/loginComponent',
 		clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
+    homeComponent               : 'pages/home/homeComponent',
+		pesquisaComponent           : 'pages/home/pesquisaComponentComponent',
+    loginComponent              : 'pages/login/loginComponent',
 		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
 
 
@@ -57,9 +58,10 @@ requirejs.config({
     // Templates
 		headerTemplate             : 'pages/header/headerTemplate.html',
 		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
-    homeTemplate               : 'pages/home/homeTemplate.html',
-    loginTemplate              : 'pages/login/loginTemplate.html',
 		clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
+    homeTemplate               : 'pages/home/homeTemplate.html',
+		pesquisaTemplate           : 'pages/home/pesquisaTemplate.html',
+    loginTemplate              : 'pages/login/loginTemplate.html',
 		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
 
 

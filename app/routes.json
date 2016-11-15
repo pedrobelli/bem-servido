@@ -13,11 +13,28 @@
     }
   },
   {
+    "path"   : "#clientes/new",
+    "page"   : "pages/clientes/form/clientesFormComponent",
+    "params" : {
+      "name"   : "new",
+      "header" : "orange",
+      "dontAccessWhenLogged" : true
+    }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {
       "name"   : "home",
       "header" : "home"
+    }
+  },
+  {
+    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
+    "page"   : "pages/home/pesquisaComponent",
+    "params" : {
+      "name"   : "pesquisa",
+      "header" : "default"
     }
   },
   {
@@ -32,15 +49,6 @@
   {
     "path"   : "#profissionais/new",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
-    "params" : {
-      "name"   : "new",
-      "header" : "orange",
-      "dontAccessWhenLogged" : true
-    }
-  },
-  {
-    "path"   : "#clientes/new",
-    "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : {
       "name"   : "new",
       "header" : "orange",
