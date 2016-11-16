@@ -1,0 +1,79 @@
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Seus Agendamentos</h2>
+      <hr>
+    </div>
+    <div class="agenda cliente-agenda row">
+      <div class="date row">
+        <form action="" class="col s12">
+          <div class="input-field col s12 m4 search-field">
+            <input type="date" placeholder="Escolha uma Data" class="datepicker" id="date">
+            <label for="date">Data</label>
+          </div>
+          <div class="input-field col s12 m4 search-field">
+            <input type="text" placeholder="Escolha um Serviço" id="servico">
+            <label for="servico">Serviço</label>
+          </div>
+          <div class="input-field col s12 m4">
+            <button class="btn waves-effect waves-light orange" type="submit" name="action"><i class="material-icons">search</i></button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col s12 agenda-timetable">
+        <div class="col s12">
+          <div class="card card-agenda">
+            <div class="card-content">
+              <span class="card-title">Agendamentos</span>
+              <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                  <div class="collapsible-header agendamento-header">
+                    <span class="col s6 date">Segunda, 10 de janeiro</span>
+                    <span class="col s6 service">Corte de Cabelo</span>
+                  </div>
+                  <div class="collapsible-body row agendamento-detalhes">
+                    <div class="col s12 m6 profissional-detalhes">
+                      <p class="profissional-nome">Joana da Silva</p>
+                      <p class="profissional-ramo">Beleza, Saúde e Estética</p>
+                      <p class="profissional-endereco">Rua Arlindo Cruz, 666 | Curitiba - PR</p>
+                      <p class="profissional-telefone">(41) 3322-4022</p>
+                    </div>
+                    <div class="col s12 m6 servico-detalhes">
+                      <p class="servico-nome">Serviço: <span>Corte de Cabelo</span></p>
+                      <p class="servico-hora">Horário: <span>10:30</span></p>
+                      <p class="servico-duração">Duração média: <span>60 minutos</span></p>
+                      <p class="servico-valor">Valor: <span>R$ 40,00</span></p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="collapsible-header agendamento-header">
+                    <span class="col s6 date">Quinta, 14 de janeiro</span>
+                    <span class="col s6 service">Manicure</span>
+                  </div>
+                  <div class="collapsible-body row agendamento-detalhes">
+                    <div class="col s12 m6 profissional-detalhes">
+                      <p class="profissional-nome">Maria da Silva</p>
+                      <p class="profissional-ramo">Beleza, Saúde e Estética</p>
+                      <p class="profissional-endereco">Rua Arlindo Cruz, 666 | Curitiba - PR</p>
+                      <p class="profissional-telefone">(41) 3322-4022</p>
+                    </div>
+                    <div class="col s12 m6 servico-detalhes">
+                      <p class="servico-nome">Serviço: <span>Manicure</span></p>
+                      <p class="servico-hora">Horário: <span>10:30</span></p>
+                      <p class="servico-duração">Duração média: <span>30 minutos</span></p>
+                      <p class="servico-valor">Valor: <span>R$ 15,00</span></p>
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
