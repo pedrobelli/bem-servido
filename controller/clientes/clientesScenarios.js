@@ -30,8 +30,6 @@ exports.createClientes = function() {
     estado         : 41
   });
 
-
-
   return createUser(payload).then(function(response) {
     var cliente = models.clientes.build({
       nome: 'Marcelo',
@@ -41,52 +39,55 @@ exports.createClientes = function() {
       sexo: 1
     });
     return models.clientes.Create(cliente.dataValues).then(function(cliente) {
-      return createTelefoneAndEndereco(telefone, endereco, cliente.id).then(function() {
-        payload.email = "teste2@gmail.com"
-        return createUser(payload).then(function(response) {
-          var cliente = models.clientes.build({
-            nome: 'Camila',
-            uuid: response.user_id,
-            dataNascimento: today,
-            cpf: '07593809962',
-            sexo: 2
-          });
-          return models.clientes.Create(cliente.dataValues).then(function(cliente) {
-            return createTelefoneAndEndereco(telefone, endereco, cliente.id).then(function() {
-              payload.email = "teste3@gmail.com"
-              return createUser(payload).then(function(response) {
-                var cliente = models.clientes.build({
-                  nome: 'Leandro',
-                  uuid: response.user_id,
-                  dataNascimento: today,
-                  cpf: '07593809963',
-                  sexo: 1
-                });
-                return models.clientes.Create(cliente.dataValues).then(function(cliente) {
-                  return createTelefoneAndEndereco(telefone, endereco, cliente.id).then(function() {
-                    payload.email = "teste4@gmail.com"
-                    return createUser(payload).then(function(response) {
-                      var cliente = models.clientes.build({
-                        nome: 'Cezar',
-                        uuid: response.user_id,
-                        dataNascimento: today,
-                        cpf: '07593809964',
-                        sexo: 1
-                      });
-                      return models.clientes.Create(cliente.dataValues).then(function(cliente) {
-                        return createTelefoneAndEndereco(telefone, endereco, cliente.id)
-
-                      });
-                    });
-                  });
-                });
-              });
-            });
-          });
-        });
+      return createTelefoneAndEndereco(telefone, endereco, cliente.id);
+    });
+  })
+  .then(function() {
+    payload.email = "teste2@gmail.com"
+    return createUser(payload).then(function(response) {
+      var cliente = models.clientes.build({
+        nome: 'Camila',
+        uuid: response.user_id,
+        dataNascimento: today,
+        cpf: '07593809962',
+        sexo: 2
+      });
+      return models.clientes.Create(cliente.dataValues).then(function(cliente) {
+        return createTelefoneAndEndereco(telefone, endereco, cliente.id);
+      });
+    });
+  })
+  .then(function() {
+    payload.email = "teste3@gmail.com"
+    return createUser(payload).then(function(response) {
+      var cliente = models.clientes.build({
+        nome: 'Leandro',
+        uuid: response.user_id,
+        dataNascimento: today,
+        cpf: '07593809963',
+        sexo: 1
+      });
+      return models.clientes.Create(cliente.dataValues).then(function(cliente) {
+        return createTelefoneAndEndereco(telefone, endereco, cliente.id);
+      });
+    });
+  })
+  .then(function() {
+    payload.email = "teste4@gmail.com"
+    return createUser(payload).then(function(response) {
+      var cliente = models.clientes.build({
+        nome: 'Cezar',
+        uuid: response.user_id,
+        dataNascimento: today,
+        cpf: '07593809964',
+        sexo: 1
+      });
+      return models.clientes.Create(cliente.dataValues).then(function(cliente) {
+        return createTelefoneAndEndereco(telefone, endereco, cliente.id);
       });
     });
   });
+
 }
 
 var createUser = function(payload) {
@@ -112,10 +113,10 @@ var createUser = function(payload) {
   return result.promise();
 }
 
-var createTelefoneAndEndereco = function(telefone, endereco, clientId) {
-  telefone.dataValues.clienteId = clientId;
+var createTelefoneAndEndereco = function(telefone, endereco, clienteId) {
+  telefone.dataValues.clienteId = clienteId;
   return models.telefones.Create(telefone.dataValues).then(function() {
-    endereco.dataValues.clienteId = clientId;
+    endereco.dataValues.clienteId = clienteId;
     return models.enderecos.Create(endereco.dataValues);
   });
 }

@@ -13,7 +13,7 @@ exports.runSeed = function() {
     return sequelize.transaction(function(t) {
       return especialidadesScenarios.createEspecialidades().then(function() {
         return detalheServicosScenarios.createServicos().then(function() {
-          // return profissionaisScenarios.createProfissionais();
+          return profissionaisScenarios.createProfissionais();
         });
       })
       .then(function() {
