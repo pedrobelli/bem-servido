@@ -28,7 +28,7 @@ function(ko, template, bridge, auth0) {
       var url = profile.user_metadata.role == '1' ? "/api/clientes/by_uuid" : "/api/profissionais/by_uuid";
 
       profile.identities.forEach(function(identity) {
-        uuids.push(identity.user_id);
+        uuids.push(identity.provider + '|' + identity.user_id);
       });
       payload.uuids = JSON.stringify(uuids);
 

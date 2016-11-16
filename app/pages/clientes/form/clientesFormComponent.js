@@ -159,7 +159,7 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
           swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Um usuário com esse email já existe ou seu email não é válido, por favor verifique seus dados e tente novamente."]);
         } else {
           self.auth0.getProfile(result.idToken, function (err, profile) {
-            payload.uuid = profile.identities[0].user_id;
+            payload.uuid = profile.user_id;
             createCliente(payload, result, profile);
           });
         }
@@ -171,7 +171,7 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       .fail(function(context, errorMessage, serverError){
         var errorTitle = 'Não foi possível concluir o cadastro';
         swalComponent.errorAlertWithTitle(errorTitle, context.errors);
-        deleteUser(payload);
+        deleteUser(profile);
       })
       .done(function(response){
         localStorage.setItem('id_token', result.idToken);
@@ -185,10 +185,11 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       });
     }
 
-    var deleteUser = function(payload) {
-      var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTA5NTkzNywianRpIjoiZmY2YjM3OTIxZjA4NjA3NjA4ODZjYWQ4ZDQwYWQ2NjMifQ.0la4o_3aO3LnZaMycy4N6ujQgVOEXAQKMbYLBU30NLo'};
+    var deleteUser = function(profile) {
+      var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTIzMTg4NiwianRpIjoiM2I2YWIyMGI1NjllMDc5ZDBkNjg3MjViN2Y2OTc1OWUifQ.fjPTPC0BBV1ibLAD40KXgD28sq7pvW5dAuEQ6_K5pog'};
 
-      bridge.del("https://pedrobelli.auth0.com/api/v2/connections/con_qpfJ1QFVlkD3q1aa/users?email=" + payload.email, headers)
+      console.log(profile);
+      bridge.del('https://pedrobelli.auth0.com/api/v2/users/' + profile.user_id, headers)
       .fail(function(context, errorMessage, serverError){
         console.log(context);
       })
@@ -196,7 +197,6 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
         console.log("Usuário deletado do auth0");
       });
     }
-
 
     init();
   }

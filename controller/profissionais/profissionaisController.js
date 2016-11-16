@@ -85,24 +85,22 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    var newProfissional = {
+    var newProfissional = models.profissionais.build({
       nome           : req.body.nome,
       uuid           : req.body.uuid,
       dataNascimento : req.body.dataNascimento,
       sexo           : req.body.sexo,
       cpf_cnpj       : req.body.cpf_cnpj,
       ramo           : req.body.ramo
-    };
-    return models.profissionais.Create(newProfissional).then(function(profissional) {
-      var newTelefone = {
+    });
+    return models.profissionais.Create(newProfissional.dataValues).then(function(profissional) {
+      var telefone = models.telefones.build({
         telefone       : req.body.telefone,
         celular        : req.body.celular,
         profissionalId : profissional.id
-      };
-      return models.telefones.Create(newTelefone).then(function() {
-        var newEndereco = {
-          telefone       : req.body.telefone,
-          celular        : req.body.celular,
+      });
+      return models.telefones.Create(telefone.dataValues).then(function() {
+        var endereco = models.enderecos.build({
           cep            : req.body.cep,
           rua            : req.body.rua,
           num            : req.body.num,
@@ -111,18 +109,28 @@ self.create = function(req, res) {
           cidade         : req.body.cidade,
           estado         : req.body.estado,
           profissionalId : profissional.id
-        };
-        return models.enderecos.Create(newEndereco).then(function() {
+        });
+        return models.enderecos.Create(endereco.dataValues).then(function() {
           var servicos = JSON.parse(req.body.servicos);
           servicos.forEach(function(servico) {
-            servico.profissionalId = profissional.id;
-            models.detalhe_servicos.Create(servico);
+            var newServico = models.detalhe_servicos.build({
+              valor          : servico.valor,
+              duracao        : servico.duracao,
+              servicoId      : servico.servicoId,
+              profissionalId : profissional.id
+            });
+            models.detalhe_servicos.Create(newServico.dataValues);
           });
 
           var horasTrabalho = JSON.parse(req.body.horasTrabalho);
           horasTrabalho.forEach(function(horaTrabalho) {
-            horaTrabalho.profissionalId = profissional.id;
-            models.horas_trabalho.Create(horaTrabalho);
+            var newHoraTrabalho = models.horas_trabalho.build({
+              diaSemana      : horaTrabalho.diaSemana,
+              horaInicio     : horaTrabalho.horaInicio,
+              horaFim        : horaTrabalho.horaFim,
+              profissionalId : profissional.id
+            });
+            models.horas_trabalho.Create(newHoraTrabalho.dataValues);
           });
 
           return profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
