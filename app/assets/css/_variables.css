@@ -1,39 +1,28 @@
 
  /* label focus color */
- .input-field input[type=text]:focus + label {
+ .input-field > input:focus:not([readonly])+label{
    color: #979797;
  }
- .input-field input[type=text]{
+ .input-field > input{
    height: 25px;
    padding: 5px;
  }
- .input-field input[type=email]:focus + label {
-   color: #979797;
+ .input-field .select-wrapper > input.select-dropdown{
+   height: 25px;
+   padding: 5px;
  }
  /* label underline focus color */
- .input-field input[type=text]:focus {
-   border-bottom: 1px solid #979797;
-   box-shadow: 0 1px 0 0 #979797;
- }
- .input-field input[type=email]:focus {
+ .input-field > input:focus:not([readonly]){
    border-bottom: 1px solid #979797;
    box-shadow: 0 1px 0 0 #979797;
  }
  /* valid color */
- .input-field input[type=text].valid {
-   border-bottom: 1px solid #979797;
-   box-shadow: 0 1px 0 0 #979797;
- }
- .input-field input[type=email].valid {
+ .input-field input.valid {
    border-bottom: 1px solid #979797;
    box-shadow: 0 1px 0 0 #979797;
  }
  /* invalid color */
- .input-field input[type=text].invalid {
-   border-bottom: 1px solid #979797;
-   box-shadow: 0 1px 0 0 #979797;
- }
- .input-field input[type=email].invalid {
+ .input-field input.invalid {
    border-bottom: 1px solid #979797;
    box-shadow: 0 1px 0 0 #979797;
  }
@@ -60,12 +49,13 @@
      -webkit-transform-origin: 100% 100%;
      transform-origin: 100% 100%;
  }
+ .input-field .material-checkbox+label:before{
+   border-right: 2px solid orange;
+   border-bottom: 2px solid orange;
+ }
 
 
 /* search-field */
-.input-field[class*="search-field"]{
-  z-index: 1;
-}
 .input-field[class*="search-field"] > input[type=text]{
   background-color: white;
   border: 1px solid orange;
@@ -95,14 +85,24 @@
   webkit-transform: translateY(-110%);
   transform: translateY(-110%);
 }
+.input-field > label.active{
+  font-size: 12px;
+  font-weight: bold;
+  top: 0;
+  webkit-transform: translateY(-110%);
+  transform: translateY(-110%);
+}
+.input-field > [type="checkbox"]+label{
+  font-size: 12px;
+  font-weight: bold;
+  top: initial;
+  transform: none;
+}
 .input-field[class*="search-field"] > .select-wrapper > input.select-dropdown{
   background-color: white;
   border: 1px solid orange;
   height: 25px;
   padding: 5px;
-}
-.input-field[class*="search-field"] > .select-wrapper > span.caret{
-  z-index: 1
 }
 
 
@@ -119,6 +119,11 @@
 }
 .card .card-action{
   text-align: right;
+}
+
+.divider{
+  margin: 30px auto;
+  background-color: orange;
 }
 
 /*DATEPICKER*/

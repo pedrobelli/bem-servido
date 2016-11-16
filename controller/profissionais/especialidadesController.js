@@ -107,7 +107,6 @@ self.getByServicos = function(req, res) {
 
 self.getSeededByRamo = function(req, res) {
   return sequelize.transaction(function(t) {
-    console.log(req.body.ramo_id);
     return models.especialidades.FindSeededByRamo(models, req.param('ramo_id'))
 
   }).then(function(entities) {

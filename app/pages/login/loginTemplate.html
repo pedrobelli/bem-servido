@@ -6,10 +6,22 @@
     </div>
     <div class="login_usuario">
       <div class="row form-login_usuario">
-        <form action="" class="col s12 form">
-          <button data-bind="click: facebookLogin" id="facebook-login" class="btn waves-effect waves-light left orange" type="button">Login Facebook</button>
-          <button data-bind="click: gmailLogin" id="facebook-gmail" class="btn waves-effect waves-light right orange" type="button">Login Gmail</button>
+        <div class="col s12 center">
+          <a href="#" data-bind="click: facebookLogin" id="facebook-login" class="login-link">
+            <img src="../assets/images/facebook_icon.png" alt="Login com Facebook" />
+            <p>Entrar com Facebook</p>
+          </a>
+          <a href="#" data-bind="click: gmailLogin" id="google-login" class="login-link">
+            <img src="../assets/images/google_icon.png" alt="Login com Google" />
+            <p>Entrar com Google</p>
+          </a>
+        </div>
 
+        <div class="col s5 divider"></div>
+        <div class="col s2 center">ou</div>
+        <div class="col s5 divider"></div>
+
+        <form action="" class="col s12 form">
           <div class="input-field col s12">
             <input data-bind="value: email" id="email" type="email">
             <label for="email">E-mail</label>
