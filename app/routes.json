@@ -30,20 +30,20 @@
     }
   },
   {
-    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
-    "page"   : "pages/home/pesquisaComponent",
-    "params" : {
-      "name"   : "pesquisa",
-      "header" : "default"
-    }
-  },
-  {
     "path"   : "#login",
     "page"   : "pages/login/loginComponent",
     "params" : {
       "name"   : "login",
       "header" : "orange",
       "dontAccessWhenLogged" : true
+    }
+  },
+  {
+    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
+    "page"   : "pages/profissionais/pesquisaComponent",
+    "params" : {
+      "name"   : "pesquisa",
+      "header" : "default"
     }
   },
   {
