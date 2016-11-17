@@ -84,7 +84,7 @@ requirejs.config({
 		// agendaClienteTemplate      : 'pages/frontend/agendaClienteTemplate.html',
 		// pesquisaTemplate           : 'pages/frontend/pesquisaTemplate.html',
 		// perfilTemplate           : 'pages/frontend/perfilTemplate.html',
-		servicosTemplate           : 'pages/frontend/sevicosTemplate.html',
+		servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
   }
 
 	// Styles
