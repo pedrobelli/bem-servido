@@ -21,14 +21,14 @@
     <div class="header-search">
       <form class="search">
         <div class="input-field search-field__home">
-          <input placeholder="Escolha um Serviço" id="servico" type="text">
+          <input data-bind="value: servico" placeholder="Escolha um Serviço" id="servico" type="text">
           <label for="servico">Serviço</label>
         </div>
         <div class="input-field search-field__home">
-          <input placeholder="Escolha um Local" id="cidade" type="text">
-          <label for="cidade">Local</label>
+          <input data-bind="value: cidade" placeholder="Escolha uma Cidade" id="cidade" type="text">
+          <label for="cidade">Cidade</label>
         </div>
-        <button class="btn waves-effect waves-light orange" type="submit" name="action">Bucar</button>
+        <button data-bind="click: pesquisa" class="btn waves-effect waves-light orange" type="button" name="action">Bucar</button>
       </form>
     </div>
   </div>

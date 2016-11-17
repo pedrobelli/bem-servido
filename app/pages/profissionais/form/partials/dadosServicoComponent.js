@@ -114,9 +114,9 @@ function(ko, template, $, _, bridge, maskComponent) {
         habilidade.servicos.forEach(function(servico){
           if (servico.checked()) {
             servicos.push({
-              valor           : servico.valor(),
-              duracao         : servico.duracao(),
-              servicoId       : servico.id
+              valor     : servico.valor(),
+              duracao   : servico.duracao(),
+              servicoId : servico.id
             });
           }
         });

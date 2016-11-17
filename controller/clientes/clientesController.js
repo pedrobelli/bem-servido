@@ -72,24 +72,22 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    var newCliente = {
+    var cliente = models.clientes.build({
       nome           : req.body.nome,
       uuid           : req.body.uuid,
       dataNascimento : req.body.dataNascimento,
       sexo           : req.body.sexo,
       cpf            : req.body.cpf,
       ramo           : req.body.ramo
-    };
-    return models.clientes.Create(newCliente).then(function(cliente) {
-      var newTelefone = {
+    });
+    return models.clientes.Create(cliente.dataValues).then(function(cliente) {
+      var telefone = models.telefones.build({
         telefone       : req.body.telefone,
         celular        : req.body.celular,
         clienteId      : cliente.id
-      };
-      return models.telefones.Create(newTelefone).then(function() {
-        var newEndereco = {
-          telefone       : req.body.telefone,
-          celular        : req.body.celular,
+      });
+      return models.telefones.Create(telefone.dataValues).then(function() {
+        var endereco = models.enderecos.build({
           cep            : req.body.cep,
           rua            : req.body.rua,
           num            : req.body.num,
@@ -98,8 +96,8 @@ self.create = function(req, res) {
           cidade         : req.body.cidade,
           estado         : req.body.estado,
           clienteId      : cliente.id
-        };
-        return models.enderecos.Create(newEndereco).then(function() {
+        });
+        return models.enderecos.Create(endereco.dataValues).then(function() {
           return cliente;
         });
       });

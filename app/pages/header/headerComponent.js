@@ -4,6 +4,8 @@ function(ko, template, materialize, waves) {
   var viewModel = function(params) {
     var self = this;
 
+    self.servico = ko.observable();
+    self.cidade = ko.observable();
     self.home = ko.observable(false);
 
     if (params.header == "home") {
@@ -32,6 +34,10 @@ function(ko, template, materialize, waves) {
         localStorage.removeItem('exp');
         return window.location = '/#home';
       }
+    };
+
+    self.pesquisa = function(){
+      return window.location = '/#pesquisa/servico=' + encodeURIComponent(self.servico()) + '&cidade=' + encodeURIComponent(self.cidade());
     };
 
     init = function() {
