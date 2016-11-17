@@ -30,14 +30,14 @@ Object.keys(db).forEach(function (modelName) {
 });
 
 //atendimentos
-db['atendimentos'].belongsTo(db['clientes'], { foreignKey: { name: 'clienteId', allowNull: false } });
+db['atendimentos'].belongsTo(db['clientes'], { foreignKey: { name: 'clienteId' } });
 db['atendimentos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profissionalId', allowNull: false } });
 db['atendimentos'].belongsTo(db['servicos'], { foreignKey: { name: 'servicoId', allowNull: false } });
 
 //clientes
 db['clientes'].hasOne(db['telefones'], {foreignKey : 'clienteId'});
 db['clientes'].hasOne(db['enderecos'], {foreignKey : 'clienteId'});
-db['clientes'].hasMany(db['atendimentos'], { foreignKey: { name: 'clienteId', allowNull: false } });
+db['clientes'].hasMany(db['atendimentos'], { foreignKey: { name: 'clienteId' } });
 
 //detalheServicos
 db['detalhe_servicos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profissionalId', allowNull: false }  });

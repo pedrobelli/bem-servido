@@ -43,7 +43,8 @@ module.exports = function(sequelize, DataTypes) {
 		    });
 			}
 		},
-		paranoid: true
+		paranoid: true,
+		tableName: 'horas_trabalho'
 	});
 
 	return HoraTrabalho;

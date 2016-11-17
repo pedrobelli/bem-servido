@@ -16,7 +16,11 @@ define(['moment'], function(moment) {
   }
 
   function convertStringToMomentTime(time) {
-    return momentDate = moment(time, "HH:mm");
+    return moment(time, "HH:mm");
+  }
+
+  function convertTimeStringToMoment(time) {
+    return moment("11/11/1900 " + time, "DD/MM/YYYY HH:mm");
   }
 
   function convertDateToString(date) {
@@ -28,6 +32,10 @@ define(['moment'], function(moment) {
   }
 
   function convertTimeToString(time) {
+    return moment(time).utcOffset(0).format("HH:mm");
+  }
+
+  function convertTimeToStringNoOffset(time) {
     return moment(time).format("HH:mm");
   }
 
@@ -40,6 +48,10 @@ define(['moment'], function(moment) {
     }
 
     return weekday + 1;
+  }
+
+  function roundUp(horaAtual) {
+    return moment('11/11/1900 ' + horaAtual).utcOffset(0).add(1, 'hour').startOf('hour');
   }
 
   function calculateFinTime(date, horario, duracao) {
@@ -56,10 +68,13 @@ define(['moment'], function(moment) {
     convertStringToDate:convertStringToDate,
     convertStringToTime:convertStringToTime,
     convertStringToMomentTime:convertStringToMomentTime,
+    convertTimeStringToMoment:convertTimeStringToMoment,
     convertDateToString:convertDateToString,
     convertDayMonthToString:convertDayMonthToString,
     convertTimeToString:convertTimeToString,
+    convertTimeToStringNoOffset:convertTimeToStringNoOffset,
     returnDateWeekday:returnDateWeekday,
+    roundUp:roundUp,
     calculateFinTime:calculateFinTime
   };
 });

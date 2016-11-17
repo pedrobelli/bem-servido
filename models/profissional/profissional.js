@@ -68,7 +68,8 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({
 					 include: [
 						 { model: models.especialidades },
-						 { model: models.servicos }
+						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
+						 { model: models.horas_trabalho }
 					 ],
 					 where: { id: id }
 				});
