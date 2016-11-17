@@ -414,7 +414,18 @@ ul.available-list > li.available-time > label.label-disabled{
   margin: 0;
 }
 
+.infos-detalhes .servicos-list{
+  max-height: 550px;
+  overflow: auto;
+}
 
+/*EDIÇÃO*/
+
+.edit > [class*="form-"]{
+  border: 1px solid orange;
+  padding: 10px;
+  margin: 0 auto;
+}
 
 /* RESPONSIVO */
 
@@ -478,6 +489,10 @@ ul.available-list > li.available-time > label.label-disabled{
   .card-agenda .schedule-list .unvailable > p.desc-servico{
     width: 60%;
   }
+  .infos-detalhes .servicos-list{
+    max-height: 350px;
+  }
+
 }
 
 .swal-header {
