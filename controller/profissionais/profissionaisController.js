@@ -34,20 +34,28 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getByUuid(req, res);
   });
 
+  apiRoutes.post(endpoint + '/search', function(req, res) {
+    return self.search(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
+  });
+
+  apiRoutes.get(endpoint + '/pesquisa/form_options', function(req, res) {
+    return self.pesquisaFormOptions(req, res);
   });
 }
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    query = req.param('query');
-
-    if (!!query) {
-      return models.profissionais.Search(query);
-    } else {
+    // query = req.param('query');
+    //
+    // if (!!query) {
+    //   return models.profissionais.Search(query);
+    // } else {
       return models.profissionais.All();
-    }
+    // }
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -177,12 +185,55 @@ self.getByUuid = function(req, res) {
   });
 }
 
+self.search = function(req, res) {
+  return sequelize.transaction(function(t) {
+    scopes = [];
+
+    if (!!req.body.servico) {
+      scopes.push({ method: ['byServiceName', models, req.body.servico] });
+    }
+
+    if (!!req.body.cidade) {
+      scopes.push({ method: ['byCidade', models, req.body.cidade] });
+    }
+
+    if (!!req.body.diaSemana) {
+      scopes.push({ method: ['byDiaSemana', models, req.body.diaSemana] });
+    }
+    console.log("========== ===========");
+    console.log("========== ===========");
+    console.log(req.body.habilidades);
+    console.log(req.body.ramo);
+    console.log(req.body.data);
+    console.log(req.body.hora);
+    console.log("========== ===========");
+    console.log("========== ===========");
+
+    return models.profissionais.Search(scopes);
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ profissionais: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
 self.formOptions = function(req, res) {
   var options = {}
   options.sexos = enums.sexos;
   options.ramos = enums.ramos;
   options.estados = enums.estados;
   options.horasTrabalho = enums.diasSemana;
+
+  res.statusCode = 200;
+  res.json(options);
+}
+
+self.pesquisaFormOptions = function(req, res) {
+  var options = {}
+  options.ramos = enums.ramos;
+  options.diasSemana = enums.diasSemana;
 
   res.statusCode = 200;
   res.json(options);

@@ -11,6 +11,17 @@ function(ko, template, $, _, bridge, maskComponent) {
     self.habilidadesSelecionadas = [];
     self.servicosSelecionados = [];
 
+    self.loadHabilidades = ko.computed(function(){
+      if (!!self.ramo()) {
+        self.habilidadesSelecionadas = [];
+        self.servicosSelecionados = [];
+        bridge.get("/api/especialidades/seeded_by_ramo/"+self.ramo())
+        .then(function(response){
+          mapResponseToHabilidades(response.especialidades);
+        })
+      }
+    });
+
     self.validate = function() {
       var errors = []
       valid = !!self.ramo();
@@ -93,17 +104,6 @@ function(ko, template, $, _, bridge, maskComponent) {
         self.habilidadesSelecionadas = _.uniq(self.habilidadesSelecionadas);
       }
     };
-
-    self.loadHabilidades = ko.computed(function(){
-      if (!!self.ramo()) {
-        self.habilidadesSelecionadas = [];
-        self.servicosSelecionados = [];
-        bridge.get("/api/especialidades/seeded_by_ramo/"+self.ramo())
-        .then(function(response){
-          mapResponseToHabilidades(response.especialidades);
-        })
-      }
-    });
 
     self.generatePayload = function(payload){
       payload.ramo = self.ramo();

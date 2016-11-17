@@ -1,12 +1,12 @@
 define(['moment'], function(moment) {
 
-  function convertStringToDateTime(data, horario) {
-    var momentDate = moment(data + " " + horario, "DD/MM/YYYY HH:mm");
+  function convertStringToDateTime(date, horario) {
+    var momentDate = moment(date + " " + horario, "DD/MM/YYYY HH:mm");
     return momentDate.toDate();
   }
 
-  function convertStringToDate(data) {
-    var momentDate = moment(data + " 00:00", "DD/MM/YYYY HH:mm");
+  function convertStringToDate(date) {
+    var momentDate = moment(date + " 00:00", "DD/MM/YYYY HH:mm");
     return momentDate.toDate();
   }
 
@@ -19,16 +19,31 @@ define(['moment'], function(moment) {
     return momentDate = moment(time, "HH:mm");
   }
 
-  function convertDateToString(data) {
-    return moment(data).utcOffset(0).format("DD/MM/YYYY");
+  function convertDateToString(date) {
+    return moment(date).format("DD/MM/YYYY");
+  }
+
+  function convertDayMonthToString(date) {
+    return moment(date).format("DD/MM");
   }
 
   function convertTimeToString(time) {
-    return moment(time).utcOffset(0).format("HH:mm");
+    return moment(time).format("HH:mm");
   }
 
-  function calculateFinTime(data, horario, duracao) {
-    var momentDate = moment(data + ' ' + horario,'DD/MM/YYYY HH:mm', true);
+  function returnDateWeekday(date) {
+    var momentDate = moment(date);
+    var weekday = momentDate.weekday();
+
+    if (weekday == 7) {
+      return 0;
+    }
+
+    return weekday + 1;
+  }
+
+  function calculateFinTime(date, horario, duracao) {
+    var momentDate = moment(date + ' ' + horario,'DD/MM/YYYY HH:mm', true);
 
     if (momentDate.isValid()) {
       momentDate.add(duracao, 'minutes');
@@ -42,7 +57,9 @@ define(['moment'], function(moment) {
     convertStringToTime:convertStringToTime,
     convertStringToMomentTime:convertStringToMomentTime,
     convertDateToString:convertDateToString,
+    convertDayMonthToString:convertDayMonthToString,
     convertTimeToString:convertTimeToString,
+    returnDateWeekday:returnDateWeekday,
     calculateFinTime:calculateFinTime
   };
 });
