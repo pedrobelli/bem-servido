@@ -64,7 +64,7 @@
     "page"   : "pages/frontend/frontendComponent",
     "params" : {
       "name"   : "frontend",
-      "header" : "default"
+      "header" : "orange"
     }
   },
 

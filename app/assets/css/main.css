@@ -386,6 +386,36 @@ ul.available-list > li.available-time > label.label-disabled{
   color: orange;
   font-size: 14px;
 }
+
+/*PERFIL CLIENTE*/
+.infos-detalhes .card-title{
+  text-transform: uppercase;
+  font-weight: 200;
+  color: orange;
+}
+.perfil > .perfil-infos  .infos-detalhes .detalhes{
+  min-height: 150px;
+  margin-top: 10px;
+}
+.perfil > .perfil-infos  .infos-detalhes .detalhes > p{
+  font-size: 12px;
+  color: #979797;
+}
+.perfil-infos  .infos-detalhes .detalhes > p > span{
+  font-size: 14px;
+  color: #333;
+  margin-left: 5px;
+}
+.infos-detalhes:last-child .card-action {
+  display: flex;
+  justify-content: space-between;
+}
+.infos-detalhes:last-child .card-action > a:not(.btn):not(.btn-large):not(.btn-floating){
+  margin: 0;
+}
+
+
+
 /* RESPONSIVO */
 
 @media screen and (max-width: 1024px){
