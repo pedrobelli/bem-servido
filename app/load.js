@@ -31,8 +31,8 @@ requirejs.config({
 		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
 		clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
     homeComponent               : 'pages/home/homeComponent',
-		pesquisaComponent           : 'pages/home/pesquisaComponentComponent',
     loginComponent              : 'pages/login/loginComponent',
+		pesquisaComponent           : 'pages/profissionais/pesquisaComponent',
 		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
 
 
@@ -60,8 +60,8 @@ requirejs.config({
 		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
 		clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
-		pesquisaTemplate           : 'pages/home/pesquisaTemplate.html',
     loginTemplate              : 'pages/login/loginTemplate.html',
+		pesquisaTemplate           : 'pages/profissionais/pesquisaTemplate.html',
 		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
 
 

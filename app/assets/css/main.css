@@ -181,10 +181,11 @@ header > .header-search{
   max-width: 70%;
   border-left: 2px solid orange;
 }
-.info-available ul.available-list + p{
+.item-info > .info-available > p{
   font-size: 11px;
   color: #979797;
   margin-left: 5px;
+  min-height: 30px;
 }
 .resultado-item .item-info > .info-available > ul.available-list {
   display: inline-block;

@@ -61,9 +61,9 @@ module.exports = function(sequelize, DataTypes) {
 			All: function(){
 				return this.findAll();
 			},
-			Search: function(query){
-				return this.findAll({ where: { nome: { $like: '%'+query+'%' } } });
-			},
+			// Search: function(query){
+			// 	return this.findAll({ where: { nome: { $like: '%'+query+'%' } } });
+			// },
 			Get: function(models, id){
 				return this.find({
 					 include: [
@@ -88,8 +88,36 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			FindByUuid: function(uuids){
 				return this.find({ where: { uuid: JSON.parse(uuids) }});
+			},
+			Search: function(scopes){
+				return this.scope(scopes).findAll({ order: [ [sequelize.fn('RAND')] ] });
 			}
 		},
+		scopes: {
+	    byServiceName: function (models, value) {
+	      return {
+					include: [ {
+						model: models.detalhe_servicos, include: [ {
+							model: models.servicos, where: { nome: { $like: '%'+value+'%' } }
+						} ]
+					} ]
+	      }
+	    },
+	    byCidade: function (models, value) {
+	      return {
+					include: [ {
+						model: models.enderecos, where: { cidade: { $like: '%'+value+'%' } }
+					} ]
+	      }
+	    },
+	    byDiaSemana: function (models, value) {
+	      return {
+					include: [ {
+						model: models.horas_trabalho, where: { diaSemana: value }
+					} ]
+	      }
+	    }
+	  },
 		paranoid: true
 	});
 

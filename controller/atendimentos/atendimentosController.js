@@ -1,4 +1,5 @@
 var models           = require('../../models'),
+    enums            = require('../shared/enums'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
