@@ -54,7 +54,7 @@ define(['moment'], function(moment) {
     return moment('11/11/1900 ' + horaAtual).utcOffset(0).add(1, 'hour').startOf('hour');
   }
 
-  function calculateFinTime(date, horario, duracao) {
+  function calculateHoraFim(date, horario, duracao) {
     var momentDate = moment(date + ' ' + horario,'DD/MM/YYYY HH:mm', true);
 
     if (momentDate.isValid()) {
@@ -75,6 +75,6 @@ define(['moment'], function(moment) {
     convertTimeToStringNoOffset:convertTimeToStringNoOffset,
     returnDateWeekday:returnDateWeekday,
     roundUp:roundUp,
-    calculateFinTime:calculateFinTime
+    calculateHoraFim:calculateHoraFim
   };
 });

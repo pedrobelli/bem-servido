@@ -1,5 +1,7 @@
-define(['ko', 'text!atendimentosFormTemplate', 'jquery', 'underscore', 'bridge', 'maskComponent', 'datepickerComponent', 'momentComponent'],
-function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentComponent) {
+define(['ko', 'text!atendimentosFormTemplate', 'jquery', 'underscore', 'bridge', 'maskComponent', 'datepickerComponent',
+'momentComponent', 'atendimentoModalComponent', 'swalComponent'],
+function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentComponent, atendimentoModalComponent,
+swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -13,17 +15,41 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.detalheServicos = ko.observableArray([]);
     self.horasTrabalho = ko.observableArray([]);
 
+    self.agendar = function(profissional){
+      // TODO verificar se esta logado o bixin
+
+      if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 2) {
+        swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
+      } else if (!localStorage.getItem('current_user_id')) {
+        swalComponent.customWarningAction("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
+					return window.location = '/#login';
+				});
+      } else {
+        var dto = {
+          profissional : self.profissional(),
+          cliente      : localStorage.getItem('current_user_id'),
+          data         : self.data()
+        }
+        atendimentoModalComponent.showAtendimentosModal(dto, function(){
+          console.log('TERMINEI');
+        });
+      }
+    };
+
     var mapResponseToDetalheServicos = function(detalheServicos){
       if(!detalheServicos.length) return self.detalheServicos([]);
 
       var detalheServicos = detalheServicos.map(function(detalheServico){
         return {
-          nome  : detalheServico.servico.nome,
-          valor : maskComponent.accountingFormat(detalheServico.valor)
+          id      : detalheServico.id,
+          text    : detalheServico.servico.nome,
+          valor   : maskComponent.accountingFormat(detalheServico.valor),
+          duracao : detalheServico.duracao
         }
       });
 
       self.detalheServicos(detalheServicos);
+      atendimentoModalComponent.subscribe(self.detalheServicos());
     };
 
     var mapResponseToHoraDeTrabalho = function(horasTrabalho){
@@ -54,7 +80,6 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
         profissionalHorasTrabalho.push(payload);
       }
 
-      console.log(profissionalHorasTrabalho);
       self.horasTrabalho(profissionalHorasTrabalho);
     };
 
@@ -101,8 +126,8 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
       .then(function() {
         $('select').material_select();
         $('.collapsible').collapsible();
+        $('.modal-trigger').leanModal();
       });
-    //  $('.modal-trigger').leanModal();
     }
 
     init();

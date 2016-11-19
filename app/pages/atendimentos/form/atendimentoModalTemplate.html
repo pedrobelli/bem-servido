@@ -1,0 +1,40 @@
+<div id="modal-agendamento" class="modal modal-fixed-footer modal-agendamento">
+  <div class="modal-content">
+    <h4>Agendamento</h4>
+    <div class="agendamento-info">
+      <form class="agendamento-form row">
+        <div class="input-field col s12">
+          <input data-bind="value: data" type="date" class="datepicker" id="date">
+          <label for="date">Data*</label>
+        </div>
+
+        <div class="input-field col s12">
+          <select data-bind="value: servico">
+            <option value="" disabled selected>Escolha um Serviço</option>
+            <!-- ko foreach: $data.servicos -->
+            <option data-bind="value: $data.id, text: $data.text"></option>
+            <!-- /ko -->
+          </select>
+          <label>Serviço*</label>
+        </div>
+
+        <div class="input-field col s6">
+          <input data-bind="textInput: horaInicio" type="text" id="horaInicio" class="time">
+          <label for="horaInicio">Hora Início*</label>
+        </div>
+
+        <div class="input-field col s6">
+          <input data-bind="value: horaFim" type="text" id="horaFim" class="time" disabled>
+          <label for="horaFim">Hora Fim</label>
+        </div>
+
+      </form>
+      <span class="info-valor">Valor: <span data-bind="text: 'R$ ' + valor()"></span></span>
+      <span class="info-duracao right">Duração estimada: <span data-bind="text: duracao() + ' minutos'">60 minutos</span></span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action waves-effect waves-orange btn-flat">Confirmar</a>
+    <a class="modal-action modal-close waves-effect waves-orange btn-flat">Fechar</a>
+  </div>
+</div>

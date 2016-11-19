@@ -31,13 +31,13 @@ module.exports = function(sequelize, DataTypes) {
 					args: /^[0-9]*$/,
 					msg: "CPF/CNPJ deve conter apenas números"
 				},
-        isUnique: function(value, callback) {
+        isUnique: function(value) {
 					Profissional.find({ where: {cpf_cnpj: value} })
           .then(function(response) {
             if (response)
-							return callback(new Error('Já existe um profissional cadastrado com este CPF/CNPJ!'));
+							throw new Error('Já existe um profissional cadastrado com este CPF/CNPJ!');
 
-						return callback();
+						return;
           });
         }
 			}

@@ -17,7 +17,7 @@
           </div>
         </form>
         <div class="agenda-action col s12 m6 right">
-          <a href="#modal-agendamento" class="modal-trigger btn orange">Agendar Serviço</a>
+          <a data-bind="click: agendar" class="modal-trigger btn orange">Agendar Serviço</a>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
               <div class="services">
                 <ul data-bind="foreach: detalheServicos" class="collection">
                   <li class="collection-item">
-                    <span data-bind="text: nome" class="service-name"></span>
+                    <span data-bind="text: text" class="service-name"></span>
                     <span data-bind="text: 'R$ ' + valor" class="service-price right"></span>
                   </li>
                 </ul>
@@ -57,39 +57,4 @@
     </div>
   </div>
 </main>
-<div id="modal-agendamento" class="modal modal-fixed-footer modal-agendamento">
-    <div class="modal-content">
-      <h4>Agendamento</h4>
-      <div class="agendamento-info">
-        <form class="agendamento-form row">
-          <div class="input-field col s12">
-            <input type="date" class="datepicker" id="date">
-            <label for="date">Data</label>
-          </div>
-          <div class="input-field col s12">
-            <select>
-              <option value="" disabled selected>Escolha um Serviço</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Serviço</label>
-          </div>
-          <div class="input-field col s12">
-            <select>
-              <option value="" disabled selected>Escolha um Horario</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Horario</label>
-          </div>
-        </form>
-        <span class="info-valor">Valor: <span>R$ 40,00</span></span>
-        <span class="info-duracao right">Duração estimada: <span>60 minutos</span></span>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Confirmar</a>
-    </div>
-  </div>
+<div data-bind="component: { name: 'atendimento-modal-component' }"></div>
