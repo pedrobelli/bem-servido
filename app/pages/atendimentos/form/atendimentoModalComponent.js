@@ -31,29 +31,17 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
       }
     });
 
-    self.validate = function() {
-      var errors = []
-      valid = !!self.profissional();
-      valid = valid && !!self.cliente();
-      valid = valid && !!self.data();
-      valid = valid && !!self.servico();
-      valid = valid && !!self.horaInicio();
-      valid = valid && !!self.horaFim();
-      valid = valid && !!self.duracao();
-
-      if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
-      }
-
-      if ((!!self.password() && !!self.confirmPassword()) && self.password() != self.confirmPassword()) {
-        errors.push("Verifique se as senhas são as mesmas.")
-      }
-
-      if (!!self.email() && !maskComponent.validateEmailFormat(self.email())) {
-        errors.push("Este não é um email válido.");
-      }
-
-      return errors;
+    self.save = function() {
+      var
+      // var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
+      //
+      // bridge.post(path, generatePayload())
+      // .fail(function(context, errorMessage, serverError) {
+      //   var errorTitle = params.name == 'new' ? 'Não foi possível criar atendimento' : 'Não foi possível alterar atendimento';
+      //   swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+      // }).done(function() {
+      //   window.location.hash = "atendimentos"
+      // });
     };
 
     self.showAtendimentosModal = function(dto, callback){
@@ -81,6 +69,23 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
       payload.password = self.password();
 
       return payload;
+    };
+
+    var validate = function() {
+      var errors = []
+      valid = !!self.profissional();
+      valid = valid && !!self.cliente();
+      valid = valid && !!self.data();
+      valid = valid && !!self.servico();
+      valid = valid && !!self.horaInicio();
+      valid = valid && !!self.horaFim();
+      valid = valid && !!self.duracao();
+
+      if (!valid) {
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+      }
+
+      return errors;
     };
 
     var cleanFields = function() {
