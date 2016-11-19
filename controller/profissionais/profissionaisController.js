@@ -120,29 +120,29 @@ self.create = function(req, res) {
         });
         return models.enderecos.Create(endereco.dataValues).then(function() {
           var servicos = JSON.parse(req.body.servicos);
-          servicos.forEach(function(servico) {
+          return Promise.all(servicos.map(function(servico) {
             var newServico = models.detalhe_servicos.build({
               valor          : servico.valor,
               duracao        : servico.duracao,
               servicoId      : servico.servicoId,
               profissionalId : profissional.id
             });
-            models.detalhe_servicos.Create(newServico.dataValues);
-          });
-
-          var horasTrabalho = JSON.parse(req.body.horasTrabalho);
-          horasTrabalho.forEach(function(horaTrabalho) {
-            var newHoraTrabalho = models.horas_trabalho.build({
-              diaSemana      : horaTrabalho.diaSemana,
-              horaInicio     : horaTrabalho.horaInicio,
-              horaFim        : horaTrabalho.horaFim,
-              profissionalId : profissional.id
+            return models.detalhe_servicos.Create(newServico.dataValues)
+          })).then(function() {
+            var horasTrabalho = JSON.parse(req.body.horasTrabalho);
+            return Promise.all(horasTrabalho.map(function(horaTrabalho) {
+              var newHoraTrabalho = models.horas_trabalho.build({
+                diaSemana      : horaTrabalho.diaSemana,
+                horaInicio     : horaTrabalho.horaInicio,
+                horaFim        : horaTrabalho.horaFim,
+                profissionalId : profissional.id
+              });
+              return models.horas_trabalho.Create(newHoraTrabalho.dataValues)
+            })).then(function() {
+              return profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
+                return profissional;
+              });
             });
-            models.horas_trabalho.Create(newHoraTrabalho.dataValues);
-          });
-
-          return profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
-            return profissional;
           });
         });
       });

@@ -24,12 +24,12 @@ function(ko, template, $, _, maskComponent, momentComponent) {
           var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;
           if (!reg.test(horaTrabalho.horarioInicio()) || !reg.test(horaTrabalho.horarioFim())) {
             errors.push("É necessário preencher horários validos nos campos de horario inicial e final")
-          }else {
+          } else {
             var horarioInicio = momentComponent.convertTimeStringToMoment(horaTrabalho.horarioInicio());
             var horarioFim = momentComponent.convertTimeStringToMoment(horaTrabalho.horarioFim());
-            // if (horarioFim.diff(horarioInicio, 'minutes') <= 0) {
-            //   errors.push("O horario final de trabalho não pode ser anterior ou igual ao inicial")
-            // }
+            if (horarioFim.diff(horarioInicio, 'minutes') <= 0) {
+              errors.push("O horario final de trabalho não pode ser anterior ou igual ao inicial")
+            }
           }
         }
       });

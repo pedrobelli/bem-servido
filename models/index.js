@@ -30,14 +30,14 @@ Object.keys(db).forEach(function (modelName) {
 });
 
 //atendimentos
-db['atendimentos'].belongsTo(db['clientes'], { foreignKey: { name: 'clienteId' } });
+db['atendimentos'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
 db['atendimentos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profissionalId', allowNull: false } });
 db['atendimentos'].belongsTo(db['servicos'], { foreignKey: { name: 'servicoId', allowNull: false } });
 
 //clientes
 db['clientes'].hasOne(db['telefones'], {foreignKey : 'clienteId'});
 db['clientes'].hasOne(db['enderecos'], {foreignKey : 'clienteId'});
-db['clientes'].hasMany(db['atendimentos'], { foreignKey: { name: 'clienteId' } });
+db['clientes'].hasMany(db['atendimentos'], { foreignKey: 'clienteId' });
 
 //detalheServicos
 db['detalhe_servicos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profissionalId', allowNull: false }  });
@@ -73,6 +73,7 @@ db['servicos'].belongsTo(db['especialidades'], { foreignKey: { name: 'especialid
 
 //telefones
 db['telefones'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId'});
+db['telefones'].belongsTo(db['clientes'], {foreignKey : 'clienteId'});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

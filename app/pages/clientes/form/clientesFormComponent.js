@@ -188,7 +188,6 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
     var deleteUser = function(profile) {
       var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTIzMTg4NiwianRpIjoiM2I2YWIyMGI1NjllMDc5ZDBkNjg3MjViN2Y2OTc1OWUifQ.fjPTPC0BBV1ibLAD40KXgD28sq7pvW5dAuEQ6_K5pog'};
 
-      console.log(profile);
       bridge.del('https://pedrobelli.auth0.com/api/v2/users/' + profile.user_id, headers)
       .fail(function(context, errorMessage, serverError){
         console.log(context);
