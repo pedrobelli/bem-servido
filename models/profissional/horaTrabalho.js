@@ -14,6 +14,12 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.DATE
 		}
 	}, {
+		validate: {
+	    horaFimBeforeHoraInicio: function() {
+	      if (this.horaFim <= this.horaInicio)
+	        throw new Error("O horario final de trabalho não pode ser anterior ou igual ao inicial");
+	    }
+	  },
 		classMethods: {
 			All: function(models){
 				return this.findAll({ include: [ { model: models.servicos } ] });

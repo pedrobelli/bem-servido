@@ -54,7 +54,17 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
 
     });
 
-    self.validate = function(){
+    self.salvar = function(){
+      var errors = validate();
+
+      if (errors.length > 0) {
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
+      }
+
+      signupProfissional(generatePayload());
+    };
+
+    var validate = function(){
       var errors = []
       valid = !!self.nomeCompleto();
       valid = valid && !!self.cpf();
@@ -77,16 +87,6 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       }
 
       return errors;
-    };
-
-    self.salvar = function(){
-      var errors = self.validate();
-
-      if (errors.length > 0) {
-        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
-      }
-
-      signupProfissional(generatePayload());
     };
 
     var generatePayload = function(){

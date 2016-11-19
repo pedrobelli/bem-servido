@@ -1,5 +1,5 @@
-define(['ko', 'text!atendimentoModalTemplate', 'jquery', 'maskComponentForm', 'datepickerComponent', 'momentComponent'],
-function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
+define(['ko', 'text!atendimentoModalTemplate', 'jquery', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
+function(ko, template, $, maskComponent, datepickerComponent, momentComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -31,8 +31,12 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
       }
     });
 
-    self.save = function() {
-      var
+    self.salvar  = function() {
+      var errors = validate();
+
+      if (errors.length > 0) {
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
+      }
       // var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
       //
       // bridge.post(path, generatePayload())
@@ -83,6 +87,11 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent) {
 
       if (!valid) {
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+      }
+
+      var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;
+      if (!!self.horaInicio() && !reg.test(self.horaInicio())) {
+        errors.push("É necessário preencher um horário valido no campos de horario inicial")
       }
 
       return errors;
