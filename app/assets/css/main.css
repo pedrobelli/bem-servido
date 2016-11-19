@@ -29,6 +29,16 @@ header[class*="topheader-"] .navbar{
   border: 1px solid orange;
   color: orange;
 }
+.navbar .navbar-list .material-icons{
+  line-height: 35px;
+}
+.navbar .dropdown-content{
+  min-width: 190px;
+}
+.navbar .dropdown-content > li > a{
+  color: orange;
+}
+
 
 header > .header-search{
   opacity: 1;
@@ -59,7 +69,12 @@ header > .header-search{
 .search-section > .search{
   margin: 10px auto;
 }
-
+.search-section .search-field > label{
+  color: orange;
+}
+.search-section .search-field  > input:focus:not([readonly])+label{
+  color: orange;
+}
 .page-title{
   margin: 30px auto;
   margin-left: -40px;
