@@ -14,6 +14,7 @@ swalComponent) {
     self.ramos = ko.observableArray([]);
     self.detalheServicos = ko.observableArray([]);
     self.horasTrabalho = ko.observableArray([]);
+    self.atendimentos = ko.observableArray([]);
 
     self.agendar = function(profissional){
       // TODO verificar se esta logado o bixin
@@ -70,11 +71,11 @@ swalComponent) {
           payload.height = 0;
           horaAtual.add(30, 'minutes')
         } else if (horaFim.diff(inicioRoundUp, 'minutes') >= 0) {
-          payload = generateHoraTrabalho(horaAtual, (inicioRoundUp.diff(horaAtual, 'minutes')) * 2);
-          horaAtual.add((payload.height/2), 'minutes')
+          payload = generateHoraTrabalho(horaAtual, inicioRoundUp.diff(horaAtual, 'minutes'));
+          horaAtual.add(payload.height, 'minutes')
         } else {
-          payload = generateHoraTrabalho(horaAtual, (horaFim.diff(horaAtual, 'minutes')) * 2);
-          horaAtual.add((payload.height/2), 'minutes')
+          payload = generateHoraTrabalho(horaAtual, horaFim.diff(horaAtual, 'minutes'));
+          horaAtual.add(payload.height, 'minutes')
         }
 
         profissionalHorasTrabalho.push(payload);
@@ -83,12 +84,28 @@ swalComponent) {
       self.horasTrabalho(profissionalHorasTrabalho);
     };
 
+    var mapResponseToAtendimentos = function(atendimentos){
+      if(!atendimentos.length) return self.atendimentos([]);
+
+      var horaTrabalhoInicial = momentComponent.convertTimeStringToMoment(self.horasTrabalho()[0].hora)
+      var atendimentos = atendimentos.map(function(atendimento){
+        var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(atendimento.dataInicio));
+        return {
+          top    : (horaAtual.diff(horaTrabalhoInicial, 'minutes')),
+          height : atendimento.duracao
+        }
+      });
+      console.log(atendimentos);
+
+      self.atendimentos(atendimentos);
+    };
+
     var generateHoraTrabalho = function(horaAtual, diferenca) {
       payload.hora = momentComponent.convertTimeToStringNoOffset(horaAtual.toDate());
-      if (diferenca <= 60) {
+      if (diferenca <= 30) {
         payload.height = diferenca;
       } else {
-        diferenca = diferenca - 60
+        diferenca = diferenca - 30
         payload.height = diferenca;
       }
       return payload;
@@ -121,12 +138,12 @@ swalComponent) {
 
           mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
           mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos);
+          mapResponseToAtendimentos(response.profissional.atendimentos);
         });
       })
       .then(function() {
         $('select').material_select();
         $('.collapsible').collapsible();
-        $('.modal-trigger').leanModal();
       });
     }
 

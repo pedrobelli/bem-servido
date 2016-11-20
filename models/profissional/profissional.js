@@ -69,7 +69,8 @@ module.exports = function(sequelize, DataTypes) {
 					 include: [
 						 { model: models.especialidades },
 						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
-						 { model: models.horas_trabalho }
+						 { model: models.horas_trabalho },
+						 { model: models.atendimentos }
 					 ],
 					 where: { id: id }
 				});

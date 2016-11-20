@@ -4,7 +4,6 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
   var viewModel = function(params) {
     var self = this;
 
-    self.onSuccessCallback = ko.observable(function(){});
     self.profissional = ko.observable();
     self.cliente = ko.observable();
     self.data = ko.observable();
@@ -56,8 +55,6 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
       self.profissional(dto.profissional);
       self.cliente(dto.cliente);
       self.data(dto.data);
-
-      self.onSuccessCallback = callback;
     };
 
     self.subscribe = function(servicos){

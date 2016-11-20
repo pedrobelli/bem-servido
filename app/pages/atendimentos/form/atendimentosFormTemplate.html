@@ -41,13 +41,16 @@
           <div class="card card-agenda">
             <div class="card-content">
               <span class="card-title">Horários <span class="color-legenda right"><span></span> horário indisponível</span></span>
-              <ul data-bind="foreach: horasTrabalho" class="collection schedule-list">
-                <li data-bind="style: { height: height+'px' }" class="collection-item">
-                  <span data-bind="text: hora " class="hour"></span>
-                </li>
+              <ul class="collection schedule-list">
+                <!-- ko foreach: $data.horasTrabalho -->
+                  <li data-bind="style: { height: height+'px' }" class="collection-item">
+                    <span data-bind="text: hora " class="hour"></span>
+                  </li>
+                <!-- /ko -->
 
-                <!-- <span class="unvailable" style="top: 120px; height: 60px;"></span>
-                <span class="unvailable" style="top: 300px; height: 30px;"></span> -->
+                <!-- ko foreach: $data.atendimentos -->
+                  <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable" style="height: 60px;"></span>
+                <!-- /ko -->
               </ul>
             </div>
           </div>
