@@ -31,9 +31,7 @@ swalComponent) {
           cliente      : localStorage.getItem('current_user_id'),
           data         : self.data()
         }
-        atendimentoModalComponent.showAtendimentosModal(dto, function(){
-          console.log('TERMINEI');
-        });
+        atendimentoModalComponent.showAtendimentosModal(dto);
       }
     };
 
@@ -95,7 +93,6 @@ swalComponent) {
           height : atendimento.duracao
         }
       });
-      console.log(atendimentos);
 
       self.atendimentos(atendimentos);
     };
