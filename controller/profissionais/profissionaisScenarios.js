@@ -25,7 +25,7 @@ exports.createProfissionais = function() {
   });
 
   var endereco = models.enderecos.build({
-    cep            : 82620380,
+    cep            : '82620380',
     rua            : 'Avenida do Seed',
     num            : '400',
     complemento    : '',
@@ -232,23 +232,17 @@ var createTelefoneAndEndereco = function(telefone, endereco, profissionalId) {
 }
 
 var createServico = function(servico, servicoIds, profissionalId) {
-  var result = deferred();
-  servicoIds.forEach(function(servicoId) {
+  return Promise.all(servicoIds.map(function(servicoId) {
     servico.dataValues.servicoId = servicoId;
     servico.dataValues.profissionalId = profissionalId;
-    models.detalhe_servicos.Create(servico.dataValues);
-  });
-
-  return result.resolve();
+    return models.detalhe_servicos.Create(servico.dataValues);
+  }));
 }
 
 var createHoraTrabalho = function(horaTrabalho, profissionalId) {
-  var result = deferred();
-  enums.diasSemana.forEach(function(diaSemana) {
+  return Promise.all(enums.diasSemana.map(function(diaSemana) {
     horaTrabalho.dataValues.diaSemana = diaSemana.id;
     horaTrabalho.dataValues.profissionalId = profissionalId;
-    models.horas_trabalho.Create(horaTrabalho.dataValues);
-  });
-
-  return result.resolve();
+    return models.horas_trabalho.Create(horaTrabalho.dataValues);
+  }));
 }

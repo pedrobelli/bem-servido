@@ -43,6 +43,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
       title: title,
       text: message,
       type: "warning",
+      html: true,
       showCancelButton: false,
       confirmButtonColor: "orange",
       confirmButtonText: "OK",
@@ -50,6 +51,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
       animation: false
     },
     function(answer) {
+      $('body').css('overflow', 'visible');
       callback();
     });
   }

@@ -1,83 +1,63 @@
-<p class="center login-form-text" data-bind="text: pageMode"></p>
-
-<form id="new-appointment-form" method="post">
-  <div class="row">
-    <div class="col s12">
-
-      <div class="row">
-        <div class="col s12">
-          <label>Cliente:</label>
-          <select data-bind="value: cliente" id="cliente">
-            <option value="" disabled>Clientes</option>
-            <!-- ko foreach: $data.clientes -->
-            <option data-bind="value: $data.id, text: $data.nome"></option>
-            <!-- /ko -->
-          </select>
-        </div>
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Agenda</h2>
+      <hr>
+    </div>
+    <div class="agenda row">
+      <div class="profissional-info">
+        <h3 data-bind="text: nome" class="profissional-nome"></h3>
+        <p data-bind="text: ramo" class="profissional-ramo"></p>
       </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Prestador:</label>
-          <select data-bind="value: prestador" id="prestador">
-            <option value="" disabled>Prestadores</option>
-            <!-- ko foreach: $data.prestadores -->
-            <option data-bind="value: $data.id, text: $data.nome"></option>
-            <!-- /ko -->
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <label>Serviço:</label>
-          <select data-bind="value: servico" id="servico">
-            <option value="" disabled>Serviços</option>
-            <!-- ko foreach: $data.servicos -->
-            <option data-bind="value: $data.id, text: $data.nome"></option>
-            <!-- /ko -->
-          </select>
-        </div>
-
-        <div class="col s6">
-          <label>Preço:</label>
-          <input class="currency" data-bind="value: valorTotal" type="text" id="valorTotal" placeholder="Preço" disabled>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12">
-          <div class="col s6">
-            <label>Data:</label>
-            <input class="datepicker" data-bind="value: data" type="text" id="data" placeholder="Data">
+      <div class="date row">
+        <form action="" class="col s12 m6">
+          <div class="input-field col s12 m8 search-field">
+            <input data-bind="value: data" type="date" placeholder="Escolha uma Data" class="datepicker" id="date">
+            <label for="date">Data</label>
           </div>
+        </form>
+        <div class="agenda-action col s12 m6 right">
+          <a data-bind="click: agendar" class="modal-trigger btn orange">Agendar Serviço</a>
+        </div>
+      </div>
 
-          <div class="col s6">
-            <label>Duração:</label>
-            <input class="number" data-bind="textInput: duracao" type="text" id="duracao" placeholder="Duração">
+      <div class="col s12 services-available">
+        <div class="col s12 m6">
+          <div class="card card-servicos">
+            <div class="card-content">
+              <span class="card-title">Serviços</span>
+              <div class="services">
+                <ul data-bind="foreach: detalheServicos" class="collection">
+                  <li class="collection-item">
+                    <span data-bind="text: text" class="service-name"></span>
+                    <span data-bind="text: 'R$ ' + valor" class="service-price right"></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="col s12 m6">
+          <div class="card card-agenda">
+            <div class="card-content">
+              <span class="card-title">Horários <span class="color-legenda right"><span></span> horário indisponível</span></span>
+              <ul class="collection schedule-list">
+                <!-- ko foreach: $data.horasTrabalho -->
+                  <li data-bind="style: { height: height+'px' }" class="collection-item">
+                    <span data-bind="text: hora " class="hour"></span>
+                  </li>
+                <!-- /ko -->
 
-      <div class="row">
-        <div class="col s12">
-          <div class="col s6">
-            <label>Hora Início:</label>
-            <input class="time" data-bind="textInput: iniTime" type="text" id="iniTime" placeholder="Hora Início">
-          </div>
-
-          <div class="col s6">
-            <label>Hora Final:</label>
-            <input class="time" data-bind="value: finTime" type="text" id="finTime" placeholder="Hora Final" disabled>
+                <!-- ko foreach: $data.atendimentos -->
+                  <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable" style="height: 60px;"></span>
+                <!-- /ko -->
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-
-  <input  class="btn" type="submit" data-bind="attr: { disabled: !validForm() }, css: { disabled: !validForm() }, click:save" value="SALVAR">
-</form>
-
-<p></p>
-<a class="btn btn-default" href="/#atendimentos">VOLTAR</a>
+</main>
+<div data-bind="component: { name: 'atendimento-modal-component' }"></div>

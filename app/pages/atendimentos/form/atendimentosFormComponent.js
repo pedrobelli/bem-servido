@@ -1,189 +1,157 @@
-define(['ko', 'text!atendimentosFormTemplate', 'bridge', 'momentComponent', 'datepickerComponent', 'maskComponentForm', 'swalComponentForm'],
-function(ko, template, bridge, momentComponent, datepickerComponent, maskComponent, swalComponent) {
+define(['ko', 'text!atendimentosFormTemplate', 'jquery', 'underscore', 'bridge', 'maskComponent', 'datepickerComponent',
+'momentComponent', 'atendimentoModalComponent', 'swalComponent'],
+function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentComponent, atendimentoModalComponent,
+swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var CREATE_PATH = "/api/atendimentos/new";
-    var UPDATE_PATH = "/api/atendimentos/edit/" + params.id;
+    self.profissional = ko.observable(params.profissional != 'undefined' ? params.profissional : '');
+    self.data = ko.observable(decodeURIComponent(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date())));
+    self.nome = ko.observable();
+    self.ramo = ko.observable();
 
-    self.id = ko.observable(params.id);
-    self.data = ko.observable();
-    self.iniTime = ko.observable();
-    self.finTime = ko.observable("00:00");
-    self.valorTotal = ko.observable();
-    self.duracao = ko.observable();
-    self.cliente = ko.observable();
-    self.prestador = ko.observable();
-    self.servico = ko.observable();
-    self.pageMode = params.name == 'new' ? 'Novo Atendimento' : 'Editar Atendimento';
-    self.editSemaphore = false;
+    self.ramos = ko.observableArray([]);
+    self.detalheServicos = ko.observableArray([]);
+    self.horasTrabalho = ko.observableArray([]);
+    self.atendimentos = ko.observableArray([]);
 
-    self.prestadores = ko.observableArray([]);
-    self.servicos = ko.observableArray([]);
-    self.clientes = ko.observableArray([]);
+    self.agendar = function(profissional){
+      // TODO verificar se esta logado o bixin
 
-    self.validForm = ko.pureComputed(function() {
-      var valid = !!self.cliente();
-      valid = valid && !!self.prestador();
-      valid = valid && !!self.servico();
-      valid = valid && !!self.valorTotal();
-      valid = valid && !!self.data();
-      valid = valid && !!self.iniTime();
-      valid = valid && !!self.duracao();
-
-      return valid;
-    });
-
-    self.loadServicos = ko.computed(function(){
-      if (!!self.prestador() && !self.editSemaphore) {
-        loadServicos();
-      }
-    });
-
-    self.loadValor = ko.computed(function(){
-      if (!!self.servico() && !self.editSemaphore) {
-        loadValor();
-      }
-    });
-
-    self.loadFinTime = ko.computed(function(){
-      var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;
-      if (!!self.data() && reg.test(self.iniTime()) && !!self.duracao()) {
-        self.finTime(momentComponent.calculateFinTime(self.data(), self.iniTime(), self.duracao()));
+      if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 2) {
+        swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
+      } else if (!localStorage.getItem('current_user_id')) {
+        swalComponent.customWarningAction("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
+					return window.location.hash = '#login';
+				});
       } else {
-        self.finTime("00:00");
+        var dto = {
+          profissional : self.profissional(),
+          cliente      : localStorage.getItem('current_user_id'),
+          data         : self.data()
+        }
+        atendimentoModalComponent.showAtendimentosModal(dto);
       }
-    });
-
-    self.save = function() {
-      var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
-
-      bridge.post(path, generatePayload())
-      .fail(function(context, errorMessage, serverError) {
-        var errorTitle = params.name == 'new' ? 'Não foi possível criar atendimento' : 'Não foi possível alterar atendimento';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
-      }).done(function() {
-        window.location.hash = "atendimentos"
-      });
     };
 
-    var generatePayload = function() {
-      var payload = {
-        dataInicio    : momentComponent.convertStringToDateTime(self.data(), self.iniTime()),
-        dataFim       : momentComponent.convertStringToDateTime(self.data(), self.finTime()),
-        duracao       : self.duracao(),
-        valorTotal    : self.valorTotal(),
-        profissionalId : self.prestador(),
-        servicoId     : self.servico(),
-        clienteId     : self.cliente()
-      };
+    var mapResponseToDetalheServicos = function(detalheServicos){
+      if(!detalheServicos.length) return self.detalheServicos([]);
 
-      if (isEditMode()) payload.id = params.id;
+      var detalheServicos = detalheServicos.map(function(detalheServico){
+        return {
+          id      : detalheServico.id,
+          text    : detalheServico.servico.nome,
+          valor   : maskComponent.accountingFormat(detalheServico.valor),
+          duracao : detalheServico.duracao
+        }
+      });
 
+      self.detalheServicos(detalheServicos);
+      atendimentoModalComponent.subscribe(self.detalheServicos());
+    };
+
+    var mapResponseToHoraDeTrabalho = function(horasTrabalho){
+      if(!horasTrabalho.length) return self.horasTrabalho([]);
+
+      profissionalHorasTrabalho = [];
+      var diaSemanaId = momentComponent.returnDateWeekday(returnData());
+      var horaTrabalho = _.find(horasTrabalho, function(horaTrabalho){ return horaTrabalho.diaSemana == diaSemanaId; });
+      var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(horaTrabalho.horaInicio));
+      var horaFim = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(horaTrabalho.horaFim));
+
+      for ( ; horaFim.diff(horaAtual, 'minutes') >= 0; ) {
+        payload = {};
+        var inicioRoundUp = momentComponent.roundUp(momentComponent.convertTimeToStringNoOffset(horaAtual));
+
+        if (horaFim .diff(horaAtual, 'minutes') == 0) {
+          payload.hora = momentComponent.convertTimeToStringNoOffset(horaFim.toDate());
+          payload.height = 0;
+          horaAtual.add(30, 'minutes')
+        } else if (horaFim.diff(inicioRoundUp, 'minutes') >= 0) {
+          payload = generateHoraTrabalho(horaAtual, inicioRoundUp.diff(horaAtual, 'minutes'));
+          horaAtual.add(payload.height, 'minutes')
+        } else {
+          payload = generateHoraTrabalho(horaAtual, horaFim.diff(horaAtual, 'minutes'));
+          horaAtual.add(payload.height, 'minutes')
+        }
+
+        profissionalHorasTrabalho.push(payload);
+      }
+
+      self.horasTrabalho(profissionalHorasTrabalho);
+    };
+
+    var mapResponseToAtendimentos = function(atendimentos){
+      if(!atendimentos.length) return self.atendimentos([]);
+
+      var horaTrabalhoInicial = momentComponent.convertTimeStringToMoment(self.horasTrabalho()[0].hora)
+      var atendimentos = atendimentos.map(function(atendimento){
+        var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(atendimento.dataInicio));
+        return {
+          top    : (horaAtual.diff(horaTrabalhoInicial, 'minutes')),
+          height : atendimento.duracao
+        }
+      });
+
+      self.atendimentos(atendimentos);
+    };
+
+    var generateHoraTrabalho = function(horaAtual, diferenca) {
+      payload.hora = momentComponent.convertTimeToStringNoOffset(horaAtual.toDate());
+      if (diferenca <= 30) {
+        payload.height = diferenca;
+      } else {
+        diferenca = diferenca - 30
+        payload.height = diferenca;
+      }
       return payload;
     };
 
-    var mapResponseToServicos = function(servicos){
-      if(!servicos) return self.servicos([]);
-
-      self.servicosDecorator = servicos;
-      var servicos = servicos.map(function(servicos){
-        return {
-          id    : servicos.id,
-          nome  : servicos.descricao,
-          valor : servicos.valor
-        }
-      });
-
-      self.servicos(servicos);
-      $('select').material_select();
+    var returnData = function() {
+      return self.data() ? momentComponent.convertStringToDate(self.data()) : new Date();
     };
 
-    var loadServicos = function(){
-      self.servico(undefined);
-      self.valorTotal(undefined);
-      self.servicos([]);
+    var init = function(){
+      datepickerComponent.applyDatepickerForFuture();
 
-      return bridge.get("/api/profissionais/get/" + self.prestador())
+      bridge.get("/api/profissionais/pesquisa/form_options")
       .then(function(response){
-        mapResponseToServicos(response.profissional.servicos);
-      });
-    };
-
-    var loadValor = function(){
-      self.valorTotal(undefined);
-
-      var servico = self.servicos().filter(function ( servico ) {
-          return servico.id === self.servico();
-      })[0];
-
-      self.valorTotal(servico.valor);
-    };
-
-    var init = function() {
-      maskComponent.applyDatepickerMask();
-      maskComponent.applyTimeMask();
-      maskComponent.applyNumberMask();
-      maskComponent.applyCurrencyMask();
-      datepickerComponent.applyDatepicker();
-
-      bridge.get("/api/atendimentos/form_options")
-      .then(function(response){
-        var prestadores = response.profissionais.map(function(profissional){
+        var ramos = response.ramos.map(function(ramo){
           return {
-            id   : profissional.id,
-            nome : profissional.nome
+            id   : ramo.id,
+            text : ramo.text
           }
         });
 
-        var clientes = response.clientes.map(function(cliente){
-          return {
-            id   : cliente.id,
-            nome : cliente.nome
-          }
+        self.ramos(ramos);
+      })
+      .then(function() {
+        bridge.get("/api/profissionais/get/" + self.profissional())
+        .then(function(response) {
+          var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == response.profissional.ramo; });
+          self.nome(response.profissional.nome);
+          self.ramo(ramo.text);
+
+          mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
+          mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos);
+          mapResponseToAtendimentos(response.profissional.atendimentos);
         });
-
-        self.prestadores(prestadores);
-        self.clientes(clientes);
       })
-      .then(function(){
-        if(isEditMode()) {
-          return bridge.get("/api/atendimentos/get/" + params.id).then(function(response) {
-            if(!response)
-              return;
-
-            self.editSemaphore = true;
-            self.cliente(response.atendimento.clienteId);
-            self.prestador(response.atendimento.profissionalId);
-            self.data(momentComponent.convertDateToString(response.atendimento.data));
-            self.duracao(response.atendimento.duracao);
-            self.iniTime(momentComponent.convertTimeToString(response.atendimento.dataInicio));
-            return loadServicos().then(function(){
-              self.servico(response.atendimento.servicoId);
-              self.valorTotal(response.atendimento.valorTotal);
-            });
-          });
-        }
-      })
-      .then(function(){
+      .then(function() {
         $('select').material_select();
-      })
-      .always(function(){
-        self.editSemaphore = false;
+        $('.collapsible').collapsible();
       });
-    };
+    }
 
-    var isEditMode = function() {
-      return params.name == "edit"
+    init();
+  };
+
+  return {
+    viewModel: viewModel,
+    template: template,
+    title: function(params) {
+      return "Agenda de Profissional"
     }
-      init();
-    }
-    return {
-      viewModel : viewModel,
-      template : template,
-      title: function(params) {
-        return "Atendimentos form"
-      }
-    };
+  };
 });

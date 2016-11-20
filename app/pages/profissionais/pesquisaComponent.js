@@ -33,8 +33,8 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
       findUsers();
     };
 
-    self.pesquisa = function(){
-      findUsers();
+    self.visualizar = function(profissional){
+      return window.location = '/#atendimentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data());
     };
 
     var mapResponseToHabilidades = function(habilidades){

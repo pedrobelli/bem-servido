@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         isUnique: function(value, callback) {
 					Cliente.find({ where: {cpf: value} })
           .then(function(response) {
-            if (response)
+            if (response.length > 0)
 							return callback(new Error('Já existe um cliente cadastrado com este CPF!'));
 
 						return callback();
