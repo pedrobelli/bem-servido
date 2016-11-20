@@ -54,7 +54,17 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
 
     });
 
-    self.validate = function(){
+    self.salvar = function(){
+      var errors = validate();
+
+      if (errors.length > 0) {
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
+      }
+
+      signupProfissional(generatePayload());
+    };
+
+    var validate = function(){
       var errors = []
       valid = !!self.nomeCompleto();
       valid = valid && !!self.cpf();
@@ -77,16 +87,6 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       }
 
       return errors;
-    };
-
-    self.salvar = function(){
-      var errors = self.validate();
-
-      if (errors.length > 0) {
-        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
-      }
-
-      signupProfissional(generatePayload());
     };
 
     var generatePayload = function(){
@@ -169,8 +169,7 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
     var createCliente = function(payload, result, profile) {
       bridge.post("/api/clientes/new", payload)
       .fail(function(context, errorMessage, serverError){
-        var errorTitle = 'Não foi possível concluir o cadastro';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
         deleteUser(profile);
       })
       .done(function(response){
@@ -188,7 +187,6 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
     var deleteUser = function(profile) {
       var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTIzMTg4NiwianRpIjoiM2I2YWIyMGI1NjllMDc5ZDBkNjg3MjViN2Y2OTc1OWUifQ.fjPTPC0BBV1ibLAD40KXgD28sq7pvW5dAuEQ6_K5pog'};
 
-      console.log(profile);
       bridge.del('https://pedrobelli.auth0.com/api/v2/users/' + profile.user_id, headers)
       .fail(function(context, errorMessage, serverError){
         console.log(context);

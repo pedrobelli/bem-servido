@@ -29,6 +29,8 @@ requirejs.config({
 		// Components
 		headerComponent             : 'pages/header/headerComponent',
 		socialAuthComponent         : 'pages/socialAuth/socialAuthComponent',
+		atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
+		atendimentoModalComponent   : 'pages/atendimentos/form/atendimentoModalComponent',
 		clientesFormComponent       : 'pages/clientes/form/clientesFormComponent',
     homeComponent               : 'pages/home/homeComponent',
     loginComponent              : 'pages/login/loginComponent',
@@ -37,7 +39,6 @@ requirejs.config({
 
 
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
-    atendimentosFormComponent   : 'pages/atendimentos/form/atendimentosFormComponent',
     clientesComponent           : 'pages/clientes/clientesComponent',
     profissionaisComponent      : 'pages/profissionais/profissionaisComponent',
     especialidadesComponent     : 'pages/profissionais/especialidadesComponent',
@@ -58,6 +59,8 @@ requirejs.config({
     // Templates
 		headerTemplate             : 'pages/header/headerTemplate.html',
 		socialAuthTemplate         : 'pages/socialAuth/socialAuthTemplate.html',
+		atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
+		atendimentoModalTemplate   : 'pages/atendimentos/form/atendimentoModalTemplate.html',
 		clientesFormTemplate       : 'pages/clientes/form/clientesFormTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
     loginTemplate              : 'pages/login/loginTemplate.html',
@@ -66,7 +69,6 @@ requirejs.config({
 
 
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
-    atendimentosFormTemplate   : 'pages/atendimentos/form/atendimentosFormTemplate.html',
     clientesTemplate           : 'pages/clientes/clientesTemplate.html',
     profissionaisTemplate      : 'pages/profissionais/profissionaisTemplate.html',
     especialidadesTemplate     : 'pages/profissionais/especialidadesTemplate.html',
@@ -86,6 +88,7 @@ requirejs.config({
 		// agendaClienteTemplate      : 'pages/frontend/agendaClienteTemplate.html',
 		// pesquisaTemplate           : 'pages/frontend/pesquisaTemplate.html',
 		// perfilTemplate           : 'pages/frontend/perfilTemplate.html',
+		// servicosEditTemplate           : 'pages/frontend/servicosListTemplate.html',
 		servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
   }
 

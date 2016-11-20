@@ -11,7 +11,10 @@ define(['jquery'], function($) {
       close: 'fechar',
       format: 'dd/mm/yyyy',
       selectMonths: true,
-      selectYears: 140
+      selectYears: 140,
+      onOpen: function() {
+        $('.picker').appendTo('body');
+      }
     });
   };
 
@@ -27,7 +30,10 @@ define(['jquery'], function($) {
       format: 'dd/mm/yyyy',
       selectMonths: true,
       selectYears: 140,
-      min: new Date()
+      min: new Date(),
+      onOpen: function() {
+        $('.picker').appendTo('body');
+      }
     });
   };
 
