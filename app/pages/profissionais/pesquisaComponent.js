@@ -8,7 +8,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.cidade = ko.observable(decodeURIComponent(params.cidade != 'undefined' ? params.cidade : ''));
     self.habilidadesSelecionadas = ko.observable();
     self.ramo = ko.observable();
-    self.data = ko.observable();
+    self.data = ko.observable(momentComponent.convertDateToString(new Date()));
     self.hora = ko.observable();
 
     self.ramos = ko.observableArray();
@@ -35,6 +35,20 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
 
     self.visualizar = function(profissional){
       return window.location = '/#atendimentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data());
+    };
+
+    var generatePayload = function(){
+      var payload = {
+        servico     : self.servico(),
+        cidade      : self.cidade(),
+        habilidades : JSON.stringify(self.habilidadesSelecionadas()),
+        ramo        : self.ramo(),
+        data        : returnData(),
+        hora        : self.hora(),
+        diaSemana   : momentComponent.returnDateWeekday(returnData())
+      };
+
+      return payload;
     };
 
     var mapResponseToHabilidades = function(habilidades){
@@ -68,7 +82,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
           id        : profissional.id,
           nome      : profissional.nome,
           ramo      : ramo.text,
-          data      : momentComponent.convertDayMonthToString(returnData()),
+          data      : returnData().substring(0, 5),
           diaSemana : diaSemana.text.substring(0, 3)
         }
       });
@@ -77,26 +91,11 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     };
 
     var returnData = function() {
-      return self.data() ? momentComponent.convertStringToDate(self.data()) : new Date();
+      return self.data() ? self.data() : momentComponent.convertDateToString(new Date());
     };
 
     var findUsers = function() {
-      var habilidades = [];
-      self.habilidades().forEach(function(habilidade) {
-        habilidades.push(habilidade.id);
-      });
-
-      var payload = {
-        servico     : self.servico(),
-        cidade      : self.cidade(),
-        habilidades : JSON.stringify(habilidades),
-        ramo        : self.ramo(),
-        data        : returnData(),
-        hora        : self.hora(),
-        diaSemana   : momentComponent.returnDateWeekday(returnData())
-      };
-
-      bridge.post("/api/profissionais/search", payload)
+      bridge.post("/api/profissionais/search", generatePayload())
       .then(function(response){
         mapResponseToProfissionais(response.profissionais);
       });

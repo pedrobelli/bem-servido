@@ -38,7 +38,6 @@ module.exports = function(sequelize, DataTypes) {
 	    isProfessionalWorkingHour: function(callback) {
         var atendimento = this;
         var weekday = this.dataInicio.getDay() + 1;
-        if (weekday == 8) weekday = 0;
 
         sequelize.query(
           "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ?",
@@ -60,12 +59,9 @@ module.exports = function(sequelize, DataTypes) {
         });
 	    },
 	    professionalScheduleAvailable: function(callback) {
-        var dataInicio = new Date(this.dataInicio.setHours(this.dataInicio.getHours()));
-        var dataFim = new Date(this.dataFim.setHours(this.dataFim.getHours()));
-
         sequelize.query(
           "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio < ? AND dataFim > ?",
-          { replacements: [this.profissionalId, dataFim, dataInicio], type: sequelize.QueryTypes.SELECT}
+          { replacements: [this.profissionalId, this.dataFim, this.dataInicio], type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length > 0)
             callback(new Error("O horario selecionado para este profissional se encontra indisponível"));
@@ -74,12 +70,9 @@ module.exports = function(sequelize, DataTypes) {
         });
 	    },
 	    clienteScheduleAvailable: function(callback) {
-        var dataInicio = new Date(this.dataInicio.setHours(this.dataInicio.getHours()));
-        var dataFim = new Date(this.dataFim.setHours(this.dataFim.getHours()));
-
         sequelize.query(
           "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio < ? AND dataFim > ?",
-          { replacements: [this.clienteId, dataFim, dataInicio], type: sequelize.QueryTypes.SELECT}
+          { replacements: [this.clienteId, this.dataFim, this.dataInicio], type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length > 0)
             callback(new Error("Já há um agendamento feito em sua agenda nesse horário"));
@@ -87,11 +80,13 @@ module.exports = function(sequelize, DataTypes) {
           callback();
         });
 	    },
-	    appointmentIsTodayOnwards: function(callback) {
+	    appointmentIsTodayOnwards: function() {
+        var dataInicio = new Date(this.dataInicio);
+        dataInicio = new Date(dataInicio.setHours(dataInicio.getHours() - 2));
         var today = new Date();
-        today.setHours(0 - 2,0,0,0);
+        today.setHours(-2,0,0,0);
 
-        if (this.dataInicio < today)
+        if (dataInicio < today)
 	        throw new Error("Não é possível realizar agendamentos para datas passadas");
 	    }
 	  },

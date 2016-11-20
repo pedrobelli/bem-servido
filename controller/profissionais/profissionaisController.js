@@ -34,6 +34,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getByUuid(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_date_weekday', function(req, res) {
+    return self.getByDateAdnWeekday(req, res);
+  });
+
   apiRoutes.post(endpoint + '/search', function(req, res) {
     return self.search(req, res);
   });
@@ -185,6 +189,21 @@ self.getByUuid = function(req, res) {
   });
 }
 
+self.getByDateAdnWeekday = function(req, res) {
+  return sequelize.transaction(function(t) {
+    console.log("========== ===========");
+    console.log("========== ===========");
+    console.log("========== ===========");
+    return models.profissionais.FindByDateAdnWeekday(models, req.body.id, req.body.data, req.body.diaSemana);
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ profissional: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
 self.search = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
@@ -197,13 +216,22 @@ self.search = function(req, res) {
       scopes.push({ method: ['byCidade', models, req.body.cidade] });
     }
 
+    if (!!req.body.diaSemana && !!req.body.data) {
+      scopes.push({ method: ['byDiaSemanaEData', models, req.body.diaSemana, req.body.data] });
+    }
+
     if (!!req.body.diaSemana) {
       scopes.push({ method: ['byDiaSemana', models, req.body.diaSemana] });
     }
+
+    if (!!req.body.ramo) {
+      scopes.push({ method: ['byRamo', req.body.ramo] });
+    }
+
+    if (!!req.body.habilidades && JSON.parse(req.body.habilidades).length > 0) {
+      scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
+    }
     // console.log("========== ===========");
-    // console.log(req.body.habilidades);
-    // console.log(req.body.ramo);
-    // console.log(req.body.data);
     // console.log(req.body.hora);
     // console.log("========== ===========");
 

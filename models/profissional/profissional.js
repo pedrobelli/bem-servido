@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         isUnique: function(value, callback) {
 					Profissional.find({ where: {cpf_cnpj: value} })
           .then(function(response) {
-            if (response.length > 0)
+            if (response)
 							return callback(new Error('Já existe um profissional cadastrado com este CPF/CNPJ!'));
 
 						return callback();
@@ -91,6 +91,19 @@ module.exports = function(sequelize, DataTypes) {
 			FindByUuid: function(uuids){
 				return this.find({ where: { uuid: JSON.parse(uuids) }});
 			},
+			FindByDateAdnWeekday: function(models, id, data, diaSemana){
+				return this.find({
+					 include: [
+						 { model: models.especialidades },
+						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
+						 { model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },
+						 { model: models.atendimentos, required: false, where: sequelize.where(
+							 sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%'
+						 ) }
+					 ],
+					 where: { id: id }
+				});
+			},
 			Search: function(scopes){
 				return this.scope(scopes).findAll({ order: [ [sequelize.fn('RAND')] ] });
 			}
@@ -112,12 +125,42 @@ module.exports = function(sequelize, DataTypes) {
 					} ]
 	      }
 	    },
-	    byDiaSemana: function (models, value) {
+	    byDiaSemanaEData: function (models, diaSemana, data) {
+				return models.atendimentos.findAll({ where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d-%m-%Y'), data) })
+				.then(function(response) {
+					console.log("========== ==========");
+					console.log("========== ==========");
+					console.log(response);
+					console.log("========== ==========");
+					console.log("========== ==========");
+				});
+
+	      // return {
+				// 	include: [ {
+				// 		model: models.horas_trabalho, where: { diaSemana: diaSemana }
+				// 	} ]
+	      // }
+	    },
+	    byDiaSemana: function (models, diaSemana) {
 	      return {
 					include: [ {
-						model: models.horas_trabalho, where: { diaSemana: value }
+						model: models.horas_trabalho, where: { diaSemana: diaSemana }
 					} ]
 	      }
+	    },
+	    byRamo: function (value) {
+	      return {
+					where: {
+						ramo: value
+					}
+	      }
+	    },
+	    byEspecialidades: function (models, values) {
+				return {
+					include: [ {
+						model: models.especialidades, required: true, through: { where: { especialidadeId: values } }
+					} ]
+				}
 	    }
 	  },
 		paranoid: true

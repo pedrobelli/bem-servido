@@ -40,14 +40,8 @@ define(['moment'], function(moment) {
   }
 
   function returnDateWeekday(date) {
-    var momentDate = moment(date);
-    var weekday = momentDate.weekday();
-
-    if (weekday == 7) {
-      return 0;
-    }
-
-    return weekday + 1;
+    var momentDate = moment(date, "DD/MM/YYYY");
+    return momentDate.weekday() + 1;
   }
 
   function roundUp(horaAtual) {

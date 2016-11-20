@@ -42,7 +42,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         swalComponent.errorAlertWithTitle("Não foi possível realizar o agendamento", context.errors);
       }).done(function() {
         // TODO arrumar esse redirecionamento bosta
-        window.location.hash = "#home";
+        $('#modal-agendamento').closeModal();
+        window.location = "/#home";
       });
     };
 
