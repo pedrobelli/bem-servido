@@ -1,5 +1,5 @@
-define(['ko', 'text!atendimentoModalTemplate', 'jquery', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
-function(ko, template, $, maskComponent, datepickerComponent, momentComponent, swalComponent) {
+define(['ko', 'text!atendimentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
+function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -37,15 +37,14 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent, s
       if (errors.length > 0) {
         return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
-      // var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
-      //
-      // bridge.post(path, generatePayload())
-      // .fail(function(context, errorMessage, serverError) {
-      //   var errorTitle = params.name == 'new' ? 'Não foi possível criar atendimento' : 'Não foi possível alterar atendimento';
-      //   swalComponent.errorAlertWithTitle(errorTitle, context.errors);
-      // }).done(function() {
-      //   window.location.hash = "atendimentos"
-      // });
+
+      bridge.post("/api/atendimentos/new", generatePayload())
+      .fail(function(context, errorMessage, serverError) {
+        swalComponent.errorAlertWithTitle("Não foi possível realizar o agendamento", context.errors);
+      }).done(function() {
+        // TODO arrumar esse redirecionamento bosta
+        window.location.hash = "#home";
+      });
     };
 
     self.showAtendimentosModal = function(dto, callback){
@@ -68,9 +67,16 @@ function(ko, template, $, maskComponent, datepickerComponent, momentComponent, s
       $('select').material_select();
     };
 
-    self.generatePayload = function(payload){
-      payload.email = self.email();
-      payload.password = self.password();
+    var generatePayload = function(){
+      var payload = {
+        valorTotal     : parseInt(self.valor()),
+        dataInicio     : momentComponent.convertStringToDateTime(self.data(), self.horaInicio()),
+        dataFim        : momentComponent.convertStringToDateTime(self.data(), self.horaFim()),
+        duracao        : self.duracao(),
+        clienteId      : self.cliente(),
+        profissionalId : self.profissional(),
+        servicoId      : self.servico()
+      };
 
       return payload;
     };

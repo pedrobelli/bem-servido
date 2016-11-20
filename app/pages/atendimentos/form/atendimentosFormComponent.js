@@ -22,7 +22,7 @@ swalComponent) {
         swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
       } else if (!localStorage.getItem('current_user_id')) {
         swalComponent.customWarningAction("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
-					return window.location = '/#login';
+					return window.location.hash = '#login';
 				});
       } else {
         var dto = {

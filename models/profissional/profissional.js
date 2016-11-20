@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         isUnique: function(value, callback) {
 					Profissional.find({ where: {cpf_cnpj: value} })
           .then(function(response) {
-            if (response)
+            if (response.length > 0)
 							return callback(new Error('Já existe um profissional cadastrado com este CPF/CNPJ!'));
 
 						return callback();

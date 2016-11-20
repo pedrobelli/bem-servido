@@ -30,6 +30,71 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
+    validate: {
+	    timeBeginBeforeTimeEnd: function() {
+	      if (this.dataFim <= this.dataInicio)
+	        throw new Error("O horario final do agendamento não pode ser anterior ou igual ao inicial");
+	    },
+	    isProfessionalWorkingHour: function(callback) {
+        var atendimento = this;
+        var weekday = this.dataInicio.getDay() + 1;
+        if (weekday == 8) weekday = 0;
+
+        sequelize.query(
+          "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ?",
+          { replacements: [atendimento.profissionalId, weekday], type: sequelize.QueryTypes.SELECT}
+        ).then(function(response) {
+          if (response.length == 0) {
+            callback(new Error("Este profissional não trabalha no dia escolhido"));
+          } else {
+            var horaTrabalho = response[0];
+            var horaInicio = new Date(Date.parse('11/11/1900 ' + (atendimento.dataInicio.getHours() - 2) + ':' + atendimento.dataInicio.getMinutes()));
+            var horaFim = new Date(Date.parse('11/11/1900 ' + (atendimento.dataFim.getHours() - 2) + ':' + atendimento.dataFim.getMinutes()));
+
+            if (horaInicio < horaTrabalho.horaInicio || horaFim > horaTrabalho.horaFim) {
+              callback(new Error("Este profissional não trabalha no horário escolhido"));
+            }
+
+            callback();
+          }
+        });
+	    },
+	    professionalScheduleAvailable: function(callback) {
+        var dataInicio = new Date(this.dataInicio.setHours(this.dataInicio.getHours()));
+        var dataFim = new Date(this.dataFim.setHours(this.dataFim.getHours()));
+
+        sequelize.query(
+          "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio < ? AND dataFim > ?",
+          { replacements: [this.profissionalId, dataFim, dataInicio], type: sequelize.QueryTypes.SELECT}
+        ).then(function(response) {
+          if (response.length > 0)
+            callback(new Error("O horario selecionado para este profissional se encontra indisponível"));
+
+          callback();
+        });
+	    },
+	    clienteScheduleAvailable: function(callback) {
+        var dataInicio = new Date(this.dataInicio.setHours(this.dataInicio.getHours()));
+        var dataFim = new Date(this.dataFim.setHours(this.dataFim.getHours()));
+
+        sequelize.query(
+          "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio < ? AND dataFim > ?",
+          { replacements: [this.clienteId, dataFim, dataInicio], type: sequelize.QueryTypes.SELECT}
+        ).then(function(response) {
+          if (response.length > 0)
+            callback(new Error("Já há um agendamento feito em sua agenda nesse horário"));
+
+          callback();
+        });
+	    },
+	    appointmentIsTodayOnwards: function(callback) {
+        var today = new Date();
+        today.setHours(0 - 2,0,0,0);
+
+        if (this.dataInicio < today)
+	        throw new Error("Não é possível realizar agendamentos para datas passadas");
+	    }
+	  },
 		classMethods: {
 			All: function(models){
 				return this.findAll({ include: [

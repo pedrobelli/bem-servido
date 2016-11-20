@@ -200,14 +200,12 @@ self.search = function(req, res) {
     if (!!req.body.diaSemana) {
       scopes.push({ method: ['byDiaSemana', models, req.body.diaSemana] });
     }
-    console.log("========== ===========");
-    console.log("========== ===========");
-    console.log(req.body.habilidades);
-    console.log(req.body.ramo);
-    console.log(req.body.data);
-    console.log(req.body.hora);
-    console.log("========== ===========");
-    console.log("========== ===========");
+    // console.log("========== ===========");
+    // console.log(req.body.habilidades);
+    // console.log(req.body.ramo);
+    // console.log(req.body.data);
+    // console.log(req.body.hora);
+    // console.log("========== ===========");
 
     return models.profissionais.Search(scopes);
 

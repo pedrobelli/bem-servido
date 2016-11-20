@@ -169,8 +169,7 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
     var createCliente = function(payload, result, profile) {
       bridge.post("/api/clientes/new", payload)
       .fail(function(context, errorMessage, serverError){
-        var errorTitle = 'Não foi possível concluir o cadastro';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
         deleteUser(profile);
       })
       .done(function(response){
