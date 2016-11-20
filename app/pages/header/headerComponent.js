@@ -43,6 +43,7 @@ function(ko, template, materialize, waves) {
     init = function() {
       Waves.displayEffect();
       $(".button-collapse").sideNav();
+      $(".dropdown-button").dropdown();
     }
 
     init();
