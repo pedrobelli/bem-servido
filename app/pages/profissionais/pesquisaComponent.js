@@ -74,12 +74,14 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
       if(!profissionais.length) return self.profissionais([]);
 
       var profissionais = profissionais.filter(function(profissional){
+        var dataHora = momentComponent.convertStringToDateTime(returnData(), self.hora());
         if (!!self.hora()) {
-          var dataHora = momentComponent.convertStringToDateTime(returnData(), self.hora());
           var atendimento = _.find(profissional.atendimentos, function(atendimento){
-            return momentComponent.convertDateStringToDate(atendimento.dataInicio) <= dataHora &&
-            momentComponent.convertDateStringToDate(atendimento.dataFim) >= dataHora;
+            var dataInicio = momentComponent.convertDateStringToDate(atendimento.dataInicio);
+            var dataFim = momentComponent.convertDateStringToDate(atendimento.dataFim);
+            return dataInicio <= dataHora && dataFim >= dataHora;
           });
+          
           if (atendimento) return false;
         }
         return true;
