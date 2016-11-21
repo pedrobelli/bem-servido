@@ -16,9 +16,15 @@ swalComponent) {
     self.horasTrabalho = ko.observableArray([]);
     self.atendimentos = ko.observableArray([]);
 
-    self.agendar = function(profissional){
-      // TODO verificar se esta logado o bixin
+    self.pageLoadSemaphore = false;
 
+    self.loadProfissionalInfo = ko.computed(function(){
+      if ((!!self.data() || !self.data()) && self.pageLoadSemaphore) {
+        loadProfissionalInfo();
+      }
+    });
+
+    self.agendar = function(profissional){
       if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 2) {
         swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
       } else if (!localStorage.getItem('current_user_id')) {
@@ -33,6 +39,16 @@ swalComponent) {
         }
         atendimentoModalComponent.showAtendimentosModal(dto);
       }
+    };
+
+    var generatePayload = function(){
+      var payload = {
+        id        : self.profissional(),
+        data      : self.data(),
+        diaSemana : momentComponent.returnDateWeekday(returnData())
+      };
+
+      return payload;
     };
 
     var mapResponseToDetalheServicos = function(detalheServicos){
@@ -51,12 +67,10 @@ swalComponent) {
       atendimentoModalComponent.subscribe(self.detalheServicos());
     };
 
-    var mapResponseToHoraDeTrabalho = function(horasTrabalho){
-      if(!horasTrabalho.length) return self.horasTrabalho([]);
+    var mapResponseToHoraDeTrabalho = function(horaTrabalho){
+      if(!horaTrabalho) return self.horasTrabalho([]);
 
       profissionalHorasTrabalho = [];
-      var diaSemanaId = momentComponent.returnDateWeekday(returnData());
-      var horaTrabalho = _.find(horasTrabalho, function(horaTrabalho){ return horaTrabalho.diaSemana == diaSemanaId; });
       var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(horaTrabalho.horaInicio));
       var horaFim = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(horaTrabalho.horaFim));
 
@@ -83,7 +97,7 @@ swalComponent) {
     };
 
     var mapResponseToAtendimentos = function(atendimentos){
-      if(!atendimentos.length) return self.atendimentos([]);
+      if(!atendimentos.length || !self.horasTrabalho().length) return self.atendimentos([]);
 
       var horaTrabalhoInicial = momentComponent.convertTimeStringToMoment(self.horasTrabalho()[0].hora)
       var atendimentos = atendimentos.map(function(atendimento){
@@ -109,7 +123,20 @@ swalComponent) {
     };
 
     var returnData = function() {
-      return self.data() ? momentComponent.convertStringToDate(self.data()) : new Date();
+      return self.data() ? self.data() : momentComponent.convertDateToString(new Date());
+    };
+
+    var loadProfissionalInfo = function() {
+      bridge.post("/api/profissionais/by_date_weekday", generatePayload())
+      .then(function(response) {
+        var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == response.profissional.ramo; });
+        self.nome(response.profissional.nome);
+        self.ramo(ramo.text);
+
+        mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
+        mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos[0]);
+        mapResponseToAtendimentos(response.profissional.atendimentos);
+      });
     };
 
     var init = function(){
@@ -127,18 +154,10 @@ swalComponent) {
         self.ramos(ramos);
       })
       .then(function() {
-        bridge.get("/api/profissionais/get/" + self.profissional())
-        .then(function(response) {
-          var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == response.profissional.ramo; });
-          self.nome(response.profissional.nome);
-          self.ramo(ramo.text);
-
-          mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
-          mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos);
-          mapResponseToAtendimentos(response.profissional.atendimentos);
-        });
+        loadProfissionalInfo();
       })
       .then(function() {
+        self.pageLoadSemaphore = true;
         $('select').material_select();
         $('.collapsible').collapsible();
       });

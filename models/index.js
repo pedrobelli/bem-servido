@@ -31,49 +31,49 @@ Object.keys(db).forEach(function (modelName) {
 
 //atendimentos
 db['atendimentos'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
-db['atendimentos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profissionalId', allowNull: false } });
+db['atendimentos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false });
 db['atendimentos'].belongsTo(db['detalhe_servicos'], { foreignKey: 'detalheServicoId' });
 
 //clientes
-db['clientes'].hasOne(db['telefones'], {foreignKey : 'clienteId'});
-db['clientes'].hasOne(db['enderecos'], {foreignKey : 'clienteId'});
+db['clientes'].hasOne(db['telefones'], { foreignKey: 'clienteId' });
+db['clientes'].hasOne(db['enderecos'], { foreignKey: 'clienteId' });
 db['clientes'].hasMany(db['atendimentos'], { foreignKey: 'clienteId' });
 
 //detalheServicos
-db['detalhe_servicos'].belongsTo(db['profissionais'], { foreignKey: { name: 'profissionalId', allowNull: false }  });
-db['detalhe_servicos'].belongsTo(db['servicos'], { foreignKey: { name: 'servicoId', allowNull: false } });
+db['detalhe_servicos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false  });
+db['detalhe_servicos'].belongsTo(db['servicos'], { foreignKey: 'servicoId', allowNull: false });
 db['detalhe_servicos'].hasMany(db['atendimentos'], { foreignKey: 'detalheServicoId' });
 
 //enderecos
-db['enderecos'].belongsTo(db['clientes'], {foreignKey : 'clienteId'});
-db['enderecos'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId'});
+db['enderecos'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
+db['enderecos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' });
 
 //formaPagamentos
-db['forma_pagamentos'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId'});
+db['forma_pagamentos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' });
 
 //especialidades
 db['especialidades'].belongsToMany(db['profissionais'], { through: 'profissional_especialidades' });
-db['especialidades'].hasMany(db['servicos'], { foreignKey: { name: 'especialidadeId', allowNull: false } });
+db['especialidades'].hasMany(db['servicos'], { foreignKey: 'especialidadeId', allowNull: false });
 
 //profissionais
-db['profissionais'].hasOne(db['telefones'], {foreignKey : 'profissionalId'});
-db['profissionais'].hasOne(db['enderecos'], {foreignKey : 'profissionalId'});
-db['profissionais'].hasMany(db['atendimentos'], { foreignKey: { name: 'profissionalId', allowNull: false } });
-db['profissionais'].hasMany(db['horas_trabalho'], {foreignKey : 'profissionalId', allowNull: false });
-db['profissionais'].hasMany(db['detalhe_servicos'], {foreignKey : 'profissionalId', allowNull: false });
-db['profissionais'].hasMany(db['forma_pagamentos'], {foreignKey : 'profissionalId'});
-db['profissionais'].belongsToMany(db['especialidades'], { foreignKey : 'profissionalId', through: 'profissional_especialidades' });
+db['profissionais'].hasOne(db['telefones'], { foreignKey: 'profissionalId' });
+db['profissionais'].hasOne(db['enderecos'], { foreignKey: 'profissionalId' });
+db['profissionais'].hasMany(db['atendimentos'], { foreignKey: 'profissionalId', allowNull: false });
+db['profissionais'].hasMany(db['horas_trabalho'], { foreignKey: 'profissionalId', allowNull: false });
+db['profissionais'].hasMany(db['detalhe_servicos'], { foreignKey: 'profissionalId', allowNull: false });
+db['profissionais'].hasMany(db['forma_pagamentos'], { foreignKey: 'profissionalId' });
+db['profissionais'].belongsToMany(db['especialidades'], { foreignKey: 'profissionalId', through: 'profissional_especialidades' });
 
 //horasTrabalho
-db['horas_trabalho'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId', allowNull: false });
+db['horas_trabalho'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false });
 
 //servicos
-db['servicos'].hasMany(db['detalhe_servicos'], { foreignKey: { name: 'servicoId', allowNull: false } });
-db['servicos'].belongsTo(db['especialidades'], { foreignKey: { name: 'especialidadeId', allowNull: false } });
+db['servicos'].hasMany(db['detalhe_servicos'], { foreignKey: 'servicoId', allowNull: false });
+db['servicos'].belongsTo(db['especialidades'], { foreignKey: 'especialidadeId', allowNull: false });
 
 //telefones
-db['telefones'].belongsTo(db['profissionais'], {foreignKey : 'profissionalId'});
-db['telefones'].belongsTo(db['clientes'], {foreignKey : 'clienteId'});
+db['telefones'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' });
+db['telefones'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

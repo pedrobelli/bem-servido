@@ -8,7 +8,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.cidade = ko.observable(decodeURIComponent(params.cidade != 'undefined' ? params.cidade : ''));
     self.habilidadesSelecionadas = ko.observable();
     self.ramo = ko.observable();
-    self.data = ko.observable();
+    self.data = ko.observable(momentComponent.convertDateToString(new Date()));
     self.hora = ko.observable();
 
     self.ramos = ko.observableArray();
@@ -37,6 +37,20 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
       return window.location = '/#atendimentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data());
     };
 
+    var generatePayload = function(){
+      var payload = {
+        servico     : self.servico(),
+        cidade      : self.cidade(),
+        habilidades : JSON.stringify(self.habilidadesSelecionadas()),
+        ramo        : self.ramo(),
+        data        : returnData(),
+        hora        : self.hora(),
+        diaSemana   : momentComponent.returnDateWeekday(returnData())
+      };
+
+      return payload;
+    };
+
     var mapResponseToHabilidades = function(habilidades){
       if(!habilidades.length) {
         self.habilidades([]);
@@ -59,7 +73,19 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     var mapResponseToProfissionais = function(profissionais){
       if(!profissionais.length) return self.profissionais([]);
 
-      var profissionais = profissionais.map(function(profissional){
+      var profissionais = profissionais.filter(function(profissional){
+        var dataHora = momentComponent.convertStringToDateTime(returnData(), self.hora());
+        if (!!self.hora()) {
+          var atendimento = _.find(profissional.atendimentos, function(atendimento){
+            var dataInicio = momentComponent.convertDateStringToDate(atendimento.dataInicio);
+            var dataFim = momentComponent.convertDateStringToDate(atendimento.dataFim);
+            return dataInicio <= dataHora && dataFim >= dataHora;
+          });
+          
+          if (atendimento) return false;
+        }
+        return true;
+      }).map(function(profissional){
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var diaSemanaId = momentComponent.returnDateWeekday(returnData());
         var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });
@@ -68,7 +94,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
           id        : profissional.id,
           nome      : profissional.nome,
           ramo      : ramo.text,
-          data      : momentComponent.convertDayMonthToString(returnData()),
+          data      : returnData().substring(0, 5),
           diaSemana : diaSemana.text.substring(0, 3)
         }
       });
@@ -77,26 +103,11 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     };
 
     var returnData = function() {
-      return self.data() ? momentComponent.convertStringToDate(self.data()) : new Date();
+      return self.data() ? self.data() : momentComponent.convertDateToString(new Date());
     };
 
     var findUsers = function() {
-      var habilidades = [];
-      self.habilidades().forEach(function(habilidade) {
-        habilidades.push(habilidade.id);
-      });
-
-      var payload = {
-        servico     : self.servico(),
-        cidade      : self.cidade(),
-        habilidades : JSON.stringify(habilidades),
-        ramo        : self.ramo(),
-        data        : returnData(),
-        hora        : self.hora(),
-        diaSemana   : momentComponent.returnDateWeekday(returnData())
-      };
-
-      bridge.post("/api/profissionais/search", payload)
+      bridge.post("/api/profissionais/search", generatePayload())
       .then(function(response){
         mapResponseToProfissionais(response.profissionais);
       });
