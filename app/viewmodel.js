@@ -85,7 +85,7 @@ function ($, _, ko, footer, moment, swalComponent) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
-        return window.location = '/#home';
+				location.reload(true);
       }
     }
 	};

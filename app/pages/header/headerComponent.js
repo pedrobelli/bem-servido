@@ -7,6 +7,48 @@ function(ko, template, materialize, waves) {
     self.servico = ko.observable();
     self.cidade = ko.observable();
     self.home = ko.observable(false);
+    self.logged = ko.observable(!!localStorage.getItem('current_user_id') ? true : false);
+    self.nome = ko.observable(!!localStorage.getItem('current_user_name') ? localStorage.getItem('current_user_name') : "");
+
+    self.menuOptions = ko.observableArray([]);
+
+    self.clienteOptions = [
+      {
+        link : '#',
+        text : 'Meus agendamentos'
+      },
+      {
+        link : '#',
+        text : 'Meu Perfil'
+      }
+    ];
+
+    self.profissionalOptions = [
+      {
+        link : '#',
+        text : 'Meus agendamentos'
+      },
+      {
+        link : '#',
+        text : 'Meus serviços'
+      },
+      {
+        link : '#',
+        text : 'Meus horários'
+      },
+      {
+        link : '#',
+        text : 'Meu Perfil'
+      }
+    ];
+
+    if (!!localStorage.getItem('current_user_role')) {
+      if (localStorage.getItem('current_user_role') == 1) {
+        self.menuOptions(self.clienteOptions);
+      } else if (localStorage.getItem('current_user_role') == 2) {
+        self.menuOptions(self.profissionalOptions);
+      }
+    }
 
     if (params.header == "home") {
       self.home(true);
@@ -32,7 +74,7 @@ function(ko, template, materialize, waves) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
-        return window.location = '/#home';
+        location.reload(true);
       }
     };
 
