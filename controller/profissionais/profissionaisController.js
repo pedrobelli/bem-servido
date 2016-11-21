@@ -213,8 +213,10 @@ self.search = function(req, res) {
       scopes.push({ method: ['byCidade', models, req.body.cidade] });
     }
 
-    if (!!req.body.diaSemana && !!req.body.data) {
-      scopes.push({ method: ['byDiaSemanaEData', models, req.body.diaSemana, req.body.data] });
+    if (!!req.body.data && !!req.body.diaSemana  && !!req.body.hora) {
+      scopes.push({ method: ['byHora', models, req.body.data, req.body.diaSemana, req.body.hora] });
+    }else if (!!req.body.data && !!req.body.diaSemana) {
+      scopes.push({ method: ['byDiaSemanaEData', models, req.body.data, req.body.diaSemana] });
     }
 
     if (!!req.body.ramo) {
@@ -224,9 +226,7 @@ self.search = function(req, res) {
     if (!!req.body.habilidades && JSON.parse(req.body.habilidades).length > 0) {
       scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
     }
-    console.log("========== ===========");
-    console.log(req.body.hora);
-    console.log("========== ===========");
+
 
     return models.profissionais.Search(scopes);
 

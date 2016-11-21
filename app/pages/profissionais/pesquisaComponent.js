@@ -73,7 +73,17 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     var mapResponseToProfissionais = function(profissionais){
       if(!profissionais.length) return self.profissionais([]);
 
-      var profissionais = profissionais.map(function(profissional){
+      var profissionais = profissionais.filter(function(profissional){
+        if (!!self.hora()) {
+          var dataHora = momentComponent.convertStringToDateTime(returnData(), self.hora());
+          var atendimento = _.find(profissional.atendimentos, function(atendimento){
+            return momentComponent.convertDateStringToDate(atendimento.dataInicio) <= dataHora &&
+            momentComponent.convertDateStringToDate(atendimento.dataFim) >= dataHora;
+          });
+          if (atendimento) return false;
+        }
+        return true;
+      }).map(function(profissional){
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var diaSemanaId = momentComponent.returnDateWeekday(returnData());
         var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });

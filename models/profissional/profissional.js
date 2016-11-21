@@ -133,7 +133,7 @@ module.exports = function(sequelize, DataTypes) {
 					} ]
 	      }
 	    },
-	    byDiaSemanaEData: function (models, diaSemana, data) {
+	    byDiaSemanaEData: function (models, data, diaSemana) {
 	      return {
 					include: [ {
 						model: models.horas_trabalho, where: { diaSemana: diaSemana }
@@ -162,14 +162,31 @@ module.exports = function(sequelize, DataTypes) {
 					} ]
 				}
 	    },
-	    // byHora: function (models, data, hora) {
-			// 	var dataHora =
-			// 	// return {
-			// 	// 	include: [ {
-			// 	// 		model: models.especialidades, required: true, through: { where: { especialidadeId: values } }
-			// 	// 	} ]
-			// 	// }
-	    // },
+	    byHora: function (models, data, diaSemana, hora) {
+				var dataHora = new Date(Date.parse('11/11/1900 ' + hora));
+				return {
+					include: [ {
+						model: models.horas_trabalho,
+						where: [
+							{ diaSemana: diaSemana },
+							{ horaInicio: {
+									$lte: dataHora,
+							} },
+							{ horaFim: {
+									$gte: dataHora,
+							} }
+						]
+					}, {
+						model: models.atendimentos, required: false,
+						attributes: { include: [ [
+							sequelize.fn(
+								'sum', sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('dataInicio'), sequelize.col('dataFim'))
+							), 'tempoTotalAtendimento'
+						] ] },
+						where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
+					} ]
+				}
+	    },
 	  },
 		paranoid: true
 	});
