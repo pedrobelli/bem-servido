@@ -113,6 +113,16 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: atendimento.id } }).then(function(entity) {
 		      return entity.updateAttributes(atendimento);
 		    });
+			},
+			TotalUsedTime: function(data){
+        return this.find({
+					attributes: [ [
+						sequelize.fn(
+							'sum', sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('dataInicio'), sequelize.col('dataFim'))
+						), 'tempoTotalAtendimento'
+					] ],
+					where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
+				});
 			}
 		},
 		paranoid: true

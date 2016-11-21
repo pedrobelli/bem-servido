@@ -25,8 +25,6 @@ swalComponent) {
     });
 
     self.agendar = function(profissional){
-      // TODO verificar se esta logado o bixin
-
       if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 2) {
         swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
       } else if (!localStorage.getItem('current_user_id')) {

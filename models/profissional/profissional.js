@@ -105,7 +105,15 @@ module.exports = function(sequelize, DataTypes) {
 				});
 			},
 			Search: function(scopes){
-				return this.scope(scopes).findAll({ order: [ [sequelize.fn('RAND')] ] });
+				return this.scope(scopes).findAll({
+					having: sequelize.where(
+						sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('horas_trabalhos.horaInicio'), sequelize.col('horas_trabalhos.horaFim')),
+						'>',
+						sequelize.fn('ifnull', sequelize.literal('`atendimentos.tempoTotalAtendimento`'), 0)
+					),
+					group: [ [sequelize.col('profissionais.nome')] ],
+				  order: [ [sequelize.fn('RAND')] ]
+				});
 			}
 		},
 		scopes: {
@@ -126,25 +134,17 @@ module.exports = function(sequelize, DataTypes) {
 	      }
 	    },
 	    byDiaSemanaEData: function (models, diaSemana, data) {
-				return models.atendimentos.findAll({ where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d-%m-%Y'), data) })
-				.then(function(response) {
-					console.log("========== ==========");
-					console.log("========== ==========");
-					console.log(response);
-					console.log("========== ==========");
-					console.log("========== ==========");
-				});
-
-	      // return {
-				// 	include: [ {
-				// 		model: models.horas_trabalho, where: { diaSemana: diaSemana }
-				// 	} ]
-	      // }
-	    },
-	    byDiaSemana: function (models, diaSemana) {
 	      return {
 					include: [ {
 						model: models.horas_trabalho, where: { diaSemana: diaSemana }
+					}, {
+						model: models.atendimentos, required: false,
+						attributes: { include: [ [
+							sequelize.fn(
+								'sum', sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('dataInicio'), sequelize.col('dataFim'))
+							), 'tempoTotalAtendimento'
+						] ] },
+						where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
 					} ]
 	      }
 	    },
@@ -161,7 +161,15 @@ module.exports = function(sequelize, DataTypes) {
 						model: models.especialidades, required: true, through: { where: { especialidadeId: values } }
 					} ]
 				}
-	    }
+	    },
+	    // byHora: function (models, data, hora) {
+			// 	var dataHora =
+			// 	// return {
+			// 	// 	include: [ {
+			// 	// 		model: models.especialidades, required: true, through: { where: { especialidadeId: values } }
+			// 	// 	} ]
+			// 	// }
+	    // },
 	  },
 		paranoid: true
 	});

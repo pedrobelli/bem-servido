@@ -191,9 +191,6 @@ self.getByUuid = function(req, res) {
 
 self.getByDateAdnWeekday = function(req, res) {
   return sequelize.transaction(function(t) {
-    console.log("========== ===========");
-    console.log("========== ===========");
-    console.log("========== ===========");
     return models.profissionais.FindByDateAdnWeekday(models, req.body.id, req.body.data, req.body.diaSemana);
 
   }).then(function(entity) {
@@ -220,10 +217,6 @@ self.search = function(req, res) {
       scopes.push({ method: ['byDiaSemanaEData', models, req.body.diaSemana, req.body.data] });
     }
 
-    if (!!req.body.diaSemana) {
-      scopes.push({ method: ['byDiaSemana', models, req.body.diaSemana] });
-    }
-
     if (!!req.body.ramo) {
       scopes.push({ method: ['byRamo', req.body.ramo] });
     }
@@ -231,9 +224,9 @@ self.search = function(req, res) {
     if (!!req.body.habilidades && JSON.parse(req.body.habilidades).length > 0) {
       scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
     }
-    // console.log("========== ===========");
-    // console.log(req.body.hora);
-    // console.log("========== ===========");
+    console.log("========== ===========");
+    console.log(req.body.hora);
+    console.log("========== ===========");
 
     return models.profissionais.Search(scopes);
 

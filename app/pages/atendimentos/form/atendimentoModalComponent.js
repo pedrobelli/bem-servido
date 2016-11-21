@@ -42,8 +42,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         swalComponent.errorAlertWithTitle("Não foi possível realizar o agendamento", context.errors);
       }).done(function() {
         // TODO arrumar esse redirecionamento bosta
-        $('#modal-agendamento').closeModal();
-        window.location = "/#home";
+        // $('#modal-agendamento').closeModal();
+        // window.location = "/#home";
       });
     };
 
@@ -67,13 +67,13 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
 
     var generatePayload = function(){
       var payload = {
-        valorTotal     : parseInt(self.valor()),
-        dataInicio     : momentComponent.convertStringToDateTime(self.data(), self.horaInicio()),
-        dataFim        : momentComponent.convertStringToDateTime(self.data(), self.horaFim()),
-        duracao        : self.duracao(),
-        clienteId      : self.cliente(),
-        profissionalId : self.profissional(),
-        servicoId      : self.servico()
+        valorTotal       : parseInt(self.valor()),
+        dataInicio       : momentComponent.convertStringToDateTime(self.data(), self.horaInicio()),
+        dataFim          : momentComponent.convertStringToDateTime(self.data(), self.horaFim()),
+        duracao          : self.duracao(),
+        profissionalId   : self.profissional(),
+        clienteId        : self.cliente(),
+        detalheServicoId : self.servico()
       };
 
       return payload;
