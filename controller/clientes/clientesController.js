@@ -49,7 +49,7 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.clientes.Get(req.param('id'));
+    return models.clientes.Get(models, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;

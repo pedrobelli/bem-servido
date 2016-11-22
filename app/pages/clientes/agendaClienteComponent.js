@@ -46,8 +46,8 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
           profissional  : profissional.nome,
           ramo          : ramo.text,
           endereco      : profissional.endereco.rua + ", " + profissional.endereco.num + " | " + profissional.endereco.cidade + " - " + estado.sigla,
-          telefone      : !!telefone ? "("+telefone.substring(0, 2)+") "+telefone.substring(2) : "",
-          celular       : !!celular ? "("+celular.substring(0, 2)+") "+celular.substring(2) : "",
+          telefone      : !!telefone ? telefone : "",
+          celular       : !!celular ? celular : "",
           servico       : atendimento.detalhe_servico.servico.nome,
           horario       : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim),
           duracao       : atendimento.duracao,
@@ -59,9 +59,8 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     };
 
     var findAtendimentos = function() {
-      bridge.post("/api/atendimentos/by_clientes", generatePayload())
+      return bridge.post("/api/atendimentos/by_clientes", generatePayload())
       .then(function(response){
-        console.log(response);
         mapResponseToAtendimentos(response.atendimentos);
       });
     };
@@ -104,9 +103,10 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
         self.estados(estados);
       })
       .then(function() {
-        findAtendimentos();
+        return findAtendimentos();
       })
       .then(function() {
+        maskComponent.applyCelphoneMask();
         $('.collapsible').collapsible();
       });
     }

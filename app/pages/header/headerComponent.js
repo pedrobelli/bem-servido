@@ -18,7 +18,7 @@ function(ko, template, materialize, waves) {
         text : 'Meus agendamentos'
       },
       {
-        link : '#',
+        link : '#clientes/perfil',
         text : 'Meu Perfil'
       }
     ];

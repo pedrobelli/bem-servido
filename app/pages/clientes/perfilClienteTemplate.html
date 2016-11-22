@@ -1,0 +1,61 @@
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Meu Perfil</h2>
+      <hr>
+    </div>
+    <div class="perfil row">
+
+      <h3 data-bind="text: nome" class="perfil-nome"></h3>
+
+      <div class="perfil-infos">
+        <div class="col s12 m4">
+          <div class="card infos-detalhes">
+            <div class="card-content">
+              <span class="card-title">Meus dados</span>
+              <div class="detalhes">
+                <p class="info-nome">Nome: <span data-bind="text: nome"></span></p>
+                <p class="info-cpf_cnpj">CPF/CNPJ: <span data-bind="text: cpf" class="cpf"></span></p>
+                <p class="info-nasc">Data Nascimento: <span data-bind="text: dataNascimento"></span></p>
+                <p class="info-sexo">Sexo: <span data-bind="text: sexo"></span></p>
+                <p class="info-tel">Telefone: <span data-bind="text: telefone" class="cellphones"></span></p>
+                <p class="info-cel">Celular: <span data-bind="text: celular" class="cellphones"></span></p>
+              </div>
+            </div>
+            <div class="card-action">
+              <a href="#">Editar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card infos-detalhes">
+            <div class="card-content">
+              <span class="card-title">Endereço</span>
+              <div class="detalhes">
+                <p class="info-cep">CEP: <span data-bind="text: cep" class="zip-code"></span></p>
+                <p class="info-end">Endereço: <span data-bind="text: endereco">Rua Josué, 230, sobrado 3 - Santa Candida, Curitiba - PR</span></p>
+              </div>
+            </div>
+            <div class="card-action">
+              <a href="#">Editar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card infos-detalhes">
+            <div class="card-content">
+              <span class="card-title">Login</span>
+              <div class="detalhes">
+                <p class="info-email">Email: <span data-bind="text: email"></span></p>
+              </div>
+            </div>
+            <div class="card-action">
+              <a href="#">Editar Email</a>
+              <a href="#">Editar Senha</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

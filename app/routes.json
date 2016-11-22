@@ -40,6 +40,16 @@
     }
   },
   {
+    "path"   : "#clientes/perfil",
+    "page"   : "pages/clientes/perfilClienteComponent",
+    "params" : {
+      "name"   : "customerPerfil",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
+    }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {
