@@ -72,111 +72,138 @@ exports.diasSemana = [
 
 exports.estados = [
   {
-    id   : 12,
-    text : "Acre"
+    id    : 12,
+    text  : "Acre",
+    sigla : "AC"
   },
   {
-    id   : 27,
-    text : "Alagoas"
+    id    : 27,
+    text  : "Alagoas",
+    sigla : "AL"
   },
   {
-    id   : 16,
-    text : "Amapá"
+    id    : 16,
+    text  : "Amapá",
+    sigla : "AP"
   },
   {
-    id   : 13,
-    text : "Amazonas"
+    id    : 13,
+    text  : "Amazonas",
+    sigla : "AM"
   },
   {
-    id   : 29,
-    text : "Bahia"
+    id    : 29,
+    text  : "Bahia",
+    sigla : "BA"
   },
   {
-    id   : 23,
-    text : "Ceará"
+    id    : 23,
+    text  : "Ceará",
+    sigla : "CE"
   },
   {
-    id   : 53,
-    text : "Distrito Federal"
+    id    : 53,
+    text  : "Distrito Federal",
+    sigla : "DF"
   },
   {
-    id   : 32,
-    text : "Espírito Santo"
+    id    : 32,
+    text  : "Espírito Santo",
+    sigla : "ES"
   },
   {
-    id   : 52,
-    text : "Goiás"
+    id    : 52,
+    text  : "Goiás",
+    sigla : "GO"
   },
   {
-    id   : 21,
-    text : "Maranhão"
+    id    : 21,
+    text  : "Maranhão",
+    sigla : "MA"
   },
   {
-    id   : 51,
-    text : "Mato Grosso"
+    id    : 51,
+    text  : "Mato Grosso",
+    sigla : "MT"
   },
   {
-    id   : 50,
-    text : "Mato Grosso do Sul"
+    id    : 50,
+    text  : "Mato Grosso do Sul",
+    sigla : "MS"
   },
   {
-    id   : 31,
-    text : "Minas Gerais"
+    id    : 31,
+    text  : "Minas Gerais",
+    sigla : "MG"
   },
   {
-    id   : 15,
-    text : "Pará"
+    id    : 15,
+    text  : "Pará",
+    sigla : "PA"
   },
   {
-    id   : 25,
-    text : "Paraíba"
+    id    : 25,
+    text  : "Paraíba",
+    sigla : "PB"
   },
   {
-    id   : 41,
-    text : "Paraná"
+    id    : 41,
+    text  : "Paraná",
+    sigla : "PR"
   },
   {
-    id   : 26,
-    text : "Pernambuco"
+    id    : 26,
+    text  : "Pernambuco",
+    sigla : "PE"
   },
   {
-    id   : 22,
-    text : "Piauí"
+    id    : 22,
+    text  : "Piauí",
+    sigla : "PI"
   },
   {
-    id   : 33,
-    text : "Rio de Janeiro"
+    id    : 33,
+    text  : "Rio de Janeiro",
+    sigla : "RJ"
   },
   {
-    id   : 24,
-    text : "Rio Grande do Norte"
+    id    : 24,
+    text  : "Rio Grande do Norte",
+    sigla : "RN"
   },
   {
-    id   : 43,
-    text : "Rio Grande do Sul"
+    id    : 43,
+    text  : "Rio Grande do Sul",
+    sigla : "RS"
   },
   {
-    id   : 23,
-    text : "Rondônia"
+    id    : 23,
+    text  : "Rondônia",
+    sigla : "RO"
   },
   {
-    id   : 14,
-    text : "Roraima"
+    id    : 14,
+    text  : "Roraima",
+    sigla : "RR"
   },
   {
-    id   : 42,
-    text : "Santa Catarina"
+    id    : 42,
+    text  : "Santa Catarina",
+    sigla : "SC"
   },
   {
-    id   : 35,
-    text : "São Paulo"
+    id    : 35,
+    text  : "São Paulo",
+    sigla : "SP"
   },
   {
-    id   : 28,
-    text : "Sergipe"
+    id    : 28,
+    text  : "Sergipe",
+    sigla : "SE"
   },
   {
-    id   : 17,
-    text : "Tocantins"
+    id    : 17,
+    text  : "Tocantins",
+    sigla : "TO"
   }
 ]

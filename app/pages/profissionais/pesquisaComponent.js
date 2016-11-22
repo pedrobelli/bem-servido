@@ -11,10 +11,10 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.data = ko.observable(momentComponent.convertDateToString(new Date()));
     self.hora = ko.observable();
 
-    self.ramos = ko.observableArray();
-    self.diasSemana = ko.observableArray();
-    self.habilidades = ko.observableArray();
-    self.profissionais = ko.observableArray();
+    self.ramos = ko.observableArray([]);
+    self.diasSemana = ko.observableArray([]);
+    self.habilidades = ko.observableArray([]);
+    self.profissionais = ko.observableArray([]);
 
     self.loadHabilidades = ko.computed(function(){
       self.habilidadesSelecionadas(undefined);
@@ -30,7 +30,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     });
 
     self.pesquisa = function(){
-      findUsers();
+      findProfissionais();
     };
 
     self.visualizar = function(profissional){
@@ -106,7 +106,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
       return self.data() ? self.data() : momentComponent.convertDateToString(new Date());
     };
 
-    var findUsers = function() {
+    var findProfissionais = function() {
       bridge.post("/api/profissionais/search", generatePayload())
       .then(function(response){
         mapResponseToProfissionais(response.profissionais);
@@ -142,7 +142,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
         $('select').material_select();
       })
       .then(function() {
-        findUsers();
+        findProfissionais();
       });
     };
 

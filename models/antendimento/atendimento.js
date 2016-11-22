@@ -114,17 +114,38 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.updateAttributes(atendimento);
 		    });
 			},
-			TotalUsedTime: function(data){
-        return this.find({
-					attributes: [ [
-						sequelize.fn(
-							'sum', sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('dataInicio'), sequelize.col('dataFim'))
-						), 'tempoTotalAtendimento'
-					] ],
-					where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
-				});
+			getByClientes: function(models, scopes, data, cliente){
+				return this.scope(scopes).findAll({
+          include: { model: models.profissionais, include: [
+            { model: models.enderecos },
+            { model: models.telefones }
+          ] },
+          where: [
+            { clienteId: cliente },
+            sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
+          ],
+				  order: 'dataInicio ASC'
+        });
 			}
 		},
+		scopes: {
+	    byServiceName: function (models, value) {
+	      return {
+					include: [ {
+						model: models.detalhe_servicos, include: [ {
+							model: models.servicos, where: { nome: { $like: '%'+value+'%' } }
+						} ]
+					} ]
+	      }
+	    },
+	    noServiceName: function (models, value) {
+	      return {
+					include: [ {
+						model: models.detalhe_servicos, include: [ { model: models.servicos } ]
+					} ]
+	      }
+	    },
+	  },
 		paranoid: true
 	});
 

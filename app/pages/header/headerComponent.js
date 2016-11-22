@@ -14,7 +14,7 @@ function(ko, template, materialize, waves) {
 
     self.clienteOptions = [
       {
-        link : '#',
+        link : '#clientes/atendimentos',
         text : 'Meus agendamentos'
       },
       {

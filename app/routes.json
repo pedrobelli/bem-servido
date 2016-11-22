@@ -30,6 +30,16 @@
     }
   },
   {
+    "path"   : "#clientes/atendimentos",
+    "page"   : "pages/clientes/agendaClienteComponent",
+    "params" : {
+      "name"   : "customerAppointments",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
+    }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {
@@ -50,7 +60,7 @@
     "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
     "page"   : "pages/profissionais/pesquisaComponent",
     "params" : {
-      "name"   : "pesquisa",
+      "name"   : "search",
       "header" : "default"
     }
   },

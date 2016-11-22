@@ -26,6 +26,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.update(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_clientes', function(req, res) {
+    return self.getByClientes(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -90,20 +94,32 @@ self.update = function(req, res) {
   });
 }
 
-self.formOptions = function(req, res) {
-  var options = {}
+self.getByClientes = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.clientes.All().then(function(entities) {
-      options.clientes = entities;
-      return models.profissionais.All().then(function(entities) {
-        options.profissionais = entities;
-      });
-    });
+    scopes = [];
 
-  }).then(function() {
+    if (!!req.body.servico) {
+      scopes.push({ method: ['byServiceName', models, req.body.servico] });
+    } else {
+      scopes.push({ method: ['noServiceName', models, req.body.servico] });
+    }
+
+    return models.atendimentos.getByClientes(models, scopes, req.body.data, req.body.cliente);
+
+  }).then(function(entities) {
     res.statusCode = 200;
-    res.json(options);
+    res.json({ atendimentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
+}
+
+self.formOptions = function(req, res) {
+  var options = {}
+  options.ramos = enums.ramos;
+  options.diasSemana = enums.diasSemana;
+  options.estados = enums.estados;
+
+  res.statusCode = 200;
+  res.json(options);
 }

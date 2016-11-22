@@ -227,7 +227,6 @@ self.search = function(req, res) {
       scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
     }
 
-
     return models.profissionais.Search(scopes);
 
   }).then(function(entities) {
