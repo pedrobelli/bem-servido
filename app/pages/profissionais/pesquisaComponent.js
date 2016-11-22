@@ -81,7 +81,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
             var dataFim = momentComponent.convertDateStringToDate(atendimento.dataFim);
             return dataInicio <= dataHora && dataFim >= dataHora;
           });
-          
+
           if (atendimento) return false;
         }
         return true;
