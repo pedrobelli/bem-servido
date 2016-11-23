@@ -51,6 +51,7 @@ requirejs.config({
     dadosUsuarioComponent       : 'pages/profissionais/form/partials/dadosUsuarioComponent',
 		servicosComponent           : 'pages/servicos/servicosComponent',
 		servicosFormComponent       : 'pages/servicos/form/servicosFormComponent',
+		auth0Component              : 'pages/shared/auth0/auth0Component',
 		datepickerComponent         : 'pages/shared/datepicker/datepickerComponent',
 		momentComponent             : 'pages/shared/moment/momentComponent',
 		maskComponent               : '../pages/shared/mask/maskComponent',

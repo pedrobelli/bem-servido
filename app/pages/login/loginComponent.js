@@ -1,5 +1,5 @@
-define(['ko', 'text!loginTemplate', 'bridge', 'auth0', 'swalComponent'],
-function(ko, template, bridge, auth0, swalComponent) {
+define(['ko', 'text!loginTemplate', 'bridge', 'auth0Component', 'swalComponent'],
+function(ko, template, bridge, auth0Component, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -7,10 +7,7 @@ function(ko, template, bridge, auth0, swalComponent) {
     self.email = ko.observable();
     self.password = ko.observable();
 
-    self.auth0 = new auth0({
-      domain: 'pedrobelli.auth0.com',
-      clientID: 'hneM83CMnlnsW0K7qjVHZJ88qkD4ULSM'
-    });
+    self.auth0 = auth0Component.createAuth0Instance();
 
     self.errorTitle = "Ocorreu um erro no login!"
 
@@ -65,33 +62,11 @@ function(ko, template, bridge, auth0, swalComponent) {
 
       bridge.post(url, payload).done(function(response){
         if (profile.user_metadata.role == '1') {
-          mapClienteToLocalStorage(response, result, profile);
+          auth0Component.mapClienteToLocalStorage(response, result, profile);
         } else {
-          mapProfissionalToLocalStorage(response, result, profile);
+          auth0Component.mapProfissionalToLocalStorage(response, result, profile);
         }
       });
-    }
-
-    var mapClienteToLocalStorage = function(response, result, profile)  {
-      localStorage.setItem('id_token', result.idToken);
-      localStorage.setItem('current_user_id', response.cliente.id);
-      localStorage.setItem('current_user_auth_id', response.cliente.uuid);
-      localStorage.setItem('current_user_name', response.cliente.nome);
-      localStorage.setItem('current_user_role', profile.user_metadata.role);
-      localStorage.setItem('exp', result.idTokenPayload.exp);
-      // TODO arrumar esse redirecionamento bosta
-      return window.location.hash = "#home";
-    }
-
-    var mapProfissionalToLocalStorage = function(response, result, profile)  {
-      localStorage.setItem('id_token', result.idToken);
-      localStorage.setItem('current_user_id', response.profissional.id);
-      localStorage.setItem('current_user_auth_id', response.profissional.uuid);
-      localStorage.setItem('current_user_name', response.profissional.nome);
-      localStorage.setItem('current_user_role', profile.user_metadata.role);
-      localStorage.setItem('exp', result.idTokenPayload.exp);
-      // TODO arrumar esse redirecionamento bosta
-      return window.location.hash = "#home";
     }
 
   };

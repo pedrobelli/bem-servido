@@ -1,8 +1,10 @@
-define(['ko', 'text!perfilClienteTemplate', 'bridge', 'maskComponent', 'momentComponent'],
-function(ko, template, bridge, maskComponent, momentComponent) {
+define(['ko', 'text!perfilClienteTemplate', 'bridge', 'maskComponent', 'momentComponent', 'auth0Component'],
+function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
 
   var viewModel = function(params) {
     var self = this;
+
+    self.auth0 = auth0Component.createAuth0Instance();
 
     self.nome = ko.observable();
     self.cpf = ko.observable();
@@ -54,7 +56,7 @@ function(ko, template, bridge, maskComponent, momentComponent) {
 
           self.nome(cliente.nome);
           self.cpf(cliente.cpf);
-          self.sexo(sexo.text);
+          self.sexo(!!sexo ? sexo.text : "");
           self.dataNascimento(momentComponent.convertDateToString(momentComponent.convertDateStringToDate(cliente.dataNascimento)));
           self.telefone(!!cliente.telefone.telefone ? cliente.telefone.telefone : "");
           self.celular(!!cliente.telefone.celular? cliente.telefone.celular : "");
@@ -70,15 +72,8 @@ function(ko, template, bridge, maskComponent, momentComponent) {
         maskComponent.applyZipCodeMask();
       })
       .then(function() {
-        var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX0sInVzZXJfaWRwX3Rva2VucyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0Nzk4NTY3MTQsImp0aSI6ImQxMTQzNDg2NGQ1NjMzZjhhZTYxZTRhNjM1MzliYjQ4In0.9CCHse78u9e86Twy1Lhk-f-u9yBRzvcvMaFU87lWZtU'};
-
-        bridge.get('https://pedrobelli.auth0.com/api/v2/users/' + localStorage.getItem('current_user_auth_id'), headers)
-        .fail(function(context, errorMessage, serverError){
-          console.log(context);
-        })
-        .done(function(response){
-          console.log("Usuário pego do auth0");
-          self.email(response.email)
+        self.auth0.getProfile(localStorage.getItem('id_token'), function (err, profile) {
+            self.email(profile.email)
         });
       });
 
