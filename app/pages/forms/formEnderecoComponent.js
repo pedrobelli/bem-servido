@@ -61,7 +61,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent) {
       valid = valid && !!self.endereco_num();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seu endereço.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seu endereço.");
       }
 
       return errors;

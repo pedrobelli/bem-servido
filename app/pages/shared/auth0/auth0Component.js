@@ -1,4 +1,4 @@
-define(['auth0', 'bridge'], function(auth0, bridge) {
+define(['auth0', 'bridge', 'swalComponentForm'], function(auth0, bridge, swalComponent) {
 
   function createAuth0Instance(date, horario) {
     return new auth0({
@@ -19,6 +19,18 @@ define(['auth0', 'bridge'], function(auth0, bridge) {
     });
   }
 
+  function updateAuth0User(payload, errorTitle) {
+    var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfSwidXNlcnNfYXBwX21ldGFkYXRhIjp7ImFjdGlvbnMiOlsidXBkYXRlIl19fSwiaWF0IjoxNDc5OTEzNTY5LCJqdGkiOiI4MTcxYjdmM2Y0MjcyZDNiMDhkYjg4YThlOTE4MTAwZSJ9.5JUeF1JxPNH0BvABh8ju-LX72HO0LDKAUZ2GUf8LV4U'};
+
+    bridge.patch('https://pedrobelli.auth0.com/api/v2/users/' + localStorage.getItem("current_user_auth_id"), payload, headers)
+    .fail(function(context, errorMessage, serverError){
+      swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+    })
+    .done(function(){
+    return window.location.hash = "#clientes/perfil";
+    });
+  }
+
   function mapClienteToLocalStorage(response, result, profile)  {
     localStorage.setItem('id_token', result.idToken);
     localStorage.setItem('current_user_id', response.cliente.id);
@@ -26,7 +38,6 @@ define(['auth0', 'bridge'], function(auth0, bridge) {
     localStorage.setItem('current_user_name', response.cliente.nome);
     localStorage.setItem('current_user_role', profile.user_metadata.role);
     localStorage.setItem('exp', result.idTokenPayload.exp);
-    // TODO arrumar esse redirecionamento bosta
     return window.location.hash = "#home";
   }
 
@@ -44,6 +55,7 @@ define(['auth0', 'bridge'], function(auth0, bridge) {
   return {
     createAuth0Instance:createAuth0Instance,
     deleteAuth0User:deleteAuth0User,
+    updateAuth0User:updateAuth0User,
     mapClienteToLocalStorage:mapClienteToLocalStorage,
     mapProfissionalToLocalStorage:mapProfissionalToLocalStorage
   };

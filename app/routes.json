@@ -93,6 +93,15 @@
     }
   },
   {
+    "path"   : "#email/update",
+    "page"   : "pages/forms/formEmailComponent",
+    "params" : {
+      "name"   : "updateEmail",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
+  {
     "path"   : "#endereco/update/:id",
     "page"   : "pages/forms/formEnderecoComponent",
     "params" : {

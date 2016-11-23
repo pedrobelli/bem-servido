@@ -41,7 +41,6 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
       .fail(function(context, errorMessage, serverError) {
         swalComponent.errorAlertWithTitle("Não foi possível realizar o agendamento", context.errors);
       }).done(function() {
-        // TODO arrumar esse redirecionamento bosta
         $('#modal-agendamento').closeModal();
         window.location = "/#clientes/atendimentos";
       });

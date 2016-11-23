@@ -35,7 +35,6 @@ function ($, _, ko, footer, moment, swalComponent) {
 
 			if (params.dontAccessWhenLogged && isLogged()) {
 				if (localStorage.getItem('current_user_role') == '1') {
-					// TODO arrumar esse redirecionamento bosta
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
@@ -52,7 +51,6 @@ function ($, _, ko, footer, moment, swalComponent) {
 
 			if (params.rolesAccess && !hasRoleAccess(params.rolesAccess)) {
 				if (localStorage.getItem('current_user_role') == '1') {
-					// TODO arrumar esse redirecionamento bosta
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {

@@ -50,7 +50,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
       valid = valid && !!self.endereco_num();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.");
       }
       return errors;
     };

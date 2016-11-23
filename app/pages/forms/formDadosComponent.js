@@ -52,7 +52,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       valid = valid && !!self.dataNascimento();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
       }
 
       return errors;

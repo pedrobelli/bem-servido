@@ -11,24 +11,24 @@ function(ko, template, $, _, maskComponent, momentComponent) {
       var errors = []
       valid = self.horasTrabalhoSelecionados.length > 0;
       if (!valid) {
-        errors.push("É necessário selecionar pelo menos um dia para montar sua agenda de trabalho.")
+        errors.push("É necessário selecionar pelo menos um dia para montar sua agenda de trabalho.");
       }
 
       self.horasTrabalho().forEach(function(horaTrabalho){
         if (horaTrabalho.checked()) {
 
           if (!horaTrabalho.horarioInicio() || !horaTrabalho.horarioFim()) {
-            errors.push("É necessário preencher os campos de horário inicial e final dos dias selecionados")
+            errors.push("É necessário preencher os campos de horário inicial e final dos dias selecionados");
           }
 
           var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;
           if (!reg.test(horaTrabalho.horarioInicio()) || !reg.test(horaTrabalho.horarioFim())) {
-            errors.push("É necessário preencher horários validos nos campos de horario inicial e final")
+            errors.push("É necessário preencher horários validos nos campos de horario inicial e final");
           } else {
             var horarioInicio = momentComponent.convertTimeStringToMoment(horaTrabalho.horarioInicio());
             var horarioFim = momentComponent.convertTimeStringToMoment(horaTrabalho.horarioFim());
             if (horarioFim.diff(horarioInicio, 'minutes') <= 0) {
-              errors.push("O horario final de trabalho não pode ser anterior ou igual ao inicial")
+              errors.push("O horario final de trabalho não pode ser anterior ou igual ao inicial");
             }
           }
         }

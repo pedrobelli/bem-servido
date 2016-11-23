@@ -26,14 +26,14 @@ function(ko, template, $, _, bridge, maskComponent) {
       var errors = []
       valid = !!self.ramo();
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.");
       }
 
       self.habilidades().forEach(function(habilidade){
         habilidade.servicos.forEach(function(servico){
           if (servico.checked()) {
             if (!servico.valor() || !servico.duracao()) {
-              errors.push("É necessário preencher os campos valor e duração dos serviços selecionados")
+              errors.push("É necessário preencher os campos valor e duração dos serviços selecionados");
             }
           }
         });

@@ -33,7 +33,6 @@ function(ko, template, bridge, auth0Component) {
         if (!response.cliente && !response.profissional) {
           localStorage.setItem('id_token', self.result.idToken);
           localStorage.setItem('exp', self.result.idTokenPayload.exp);
-          // TODO arrumar esse redirecionamento bosta
           window.location.hash = "#home";
         } else if (profile.user_metadata.role == '1') {
           auth0Component.mapClienteToLocalStorage(response, self.result, profile);
