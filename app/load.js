@@ -38,10 +38,10 @@ requirejs.config({
     loginComponent              : 'pages/login/loginComponent',
 		pesquisaComponent           : 'pages/profissionais/pesquisaComponent',
 		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
+		formDadosComponent          : 'pages/forms/formDadosComponent',
 
 
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
-    clientesComponent           : 'pages/clientes/clientesComponent',
     profissionaisComponent      : 'pages/profissionais/profissionaisComponent',
     especialidadesComponent     : 'pages/profissionais/especialidadesComponent',
     especialidadesFormComponent : 'pages/profissionais/form/especialidadesFormComponent',
@@ -71,10 +71,10 @@ requirejs.config({
     loginTemplate              : 'pages/login/loginTemplate.html',
 		pesquisaTemplate           : 'pages/profissionais/pesquisaTemplate.html',
 		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
+		formDadosTemplate          : 'pages/forms/formDadosTemplate.html',
 
 
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
-    clientesTemplate           : 'pages/clientes/clientesTemplate.html',
     profissionaisTemplate      : 'pages/profissionais/profissionaisTemplate.html',
     especialidadesTemplate     : 'pages/profissionais/especialidadesTemplate.html',
     especialidadesFormTemplate : 'pages/profissionais/form/especialidadesFormTemplate.html',

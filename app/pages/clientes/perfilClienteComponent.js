@@ -59,12 +59,12 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
           self.sexo(!!sexo ? sexo.text : "");
           self.dataNascimento(momentComponent.convertDateToString(momentComponent.convertDateStringToDate(cliente.dataNascimento)));
           self.telefone(!!cliente.telefone.telefone ? cliente.telefone.telefone : "");
-          self.celular(!!cliente.telefone.celular? cliente.telefone.celular : "");
+          self.celular(!!cliente.telefone.celular ? cliente.telefone.celular : "");
           self.enderecoId(endereco.id);
           self.cep(endereco.cep);
           self.endereco(enderecoString);
 
-        })
+        });
       })
       .then(function() {
         maskComponent.applyCPFMask();

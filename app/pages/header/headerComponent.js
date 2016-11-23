@@ -79,7 +79,7 @@ function(ko, template, materialize, waves) {
     };
 
     self.pesquisa = function(){
-      return window.location = '/#pesquisa/servico=' + encodeURIComponent(self.servico()) + '&cidade=' + encodeURIComponent(self.cidade());
+      return window.location.hash = '#pesquisa/servico=' + encodeURIComponent(self.servico()) + '&cidade=' + encodeURIComponent(self.cidade());
     };
 
     init = function() {

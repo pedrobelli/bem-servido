@@ -83,6 +83,18 @@
       "dontAccessWhenLogged" : true
     }
   },
+  {
+    "path"   : "#dados/update",
+    "page"   : "pages/forms/formDadosComponent",
+    "params" : {
+      "name"   : "updateData",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
+
+
+
 
 
 
@@ -109,14 +121,6 @@
     "path"   : "#atendimentos/edit/:id",
     "page"   : "pages/atendimentos/form/atendimentosFormComponent",
     "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#clientes",
-    "page"   : "pages/clientes/clientesComponent",
-    "params" : {
-      "name"  : "index",
-      "header" : "orange"
-    }
   },
   {
     "path"   : "#clientes/edit/:id",

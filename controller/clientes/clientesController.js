@@ -22,7 +22,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.create(req, res);
   });
 
-  apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
+  apiRoutes.post(endpoint + '/edit', function(req, res) {
     return self.update(req, res);
   });
 
@@ -82,20 +82,20 @@ self.create = function(req, res) {
     });
     return models.clientes.Create(cliente.dataValues).then(function(cliente) {
       var telefone = models.telefones.build({
-        telefone       : req.body.telefone,
-        celular        : req.body.celular,
-        clienteId      : cliente.id
+        telefone  : req.body.telefone,
+        celular   : req.body.celular,
+        clienteId : cliente.id
       });
       return models.telefones.Create(telefone.dataValues).then(function() {
         var endereco = models.enderecos.build({
-          cep            : req.body.cep,
-          rua            : req.body.rua,
-          num            : req.body.num,
-          complemento    : req.body.complemento,
-          bairro         : req.body.bairro,
-          cidade         : req.body.cidade,
-          estado         : req.body.estado,
-          clienteId      : cliente.id
+          cep         : req.body.cep,
+          rua         : req.body.rua,
+          num         : req.body.num,
+          complemento : req.body.complemento,
+          bairro      : req.body.bairro,
+          cidade      : req.body.cidade,
+          estado      : req.body.estado,
+          clienteId   : cliente.id
         });
         return models.enderecos.Create(endereco.dataValues).then(function() {
           return cliente;
@@ -113,7 +113,23 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.clientes.Update(req.body);
+    var cliente = models.clientes.build({
+      id             : req.body.id,
+      nome           : req.body.nome,
+      dataNascimento : req.body.dataNascimento,
+      sexo           : req.body.sexo,
+      cpf            : req.body.cpf
+    });
+    return models.clientes.Update(cliente.dataValues).then(function(cliente) {
+      var telefone = models.telefones.build({
+        id       : req.body.telefoneId,
+        telefone : req.body.telefone,
+        celular  : req.body.celular
+      });
+      return models.telefones.Update(telefone.dataValues).then(function() {
+        return cliente;
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
