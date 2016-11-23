@@ -4,6 +4,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
   var viewModel = function(params) {
     var self = this;
 
+    var formOptionsRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/form_options" : "/api/profissionais/form_options";
     var getRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/get/" + localStorage.getItem('current_user_id') : "/api/profissionais/get/" + localStorage.getItem('current_user_id');
     var updateRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/edit" : "/api/profissionais/edit";
 
@@ -19,7 +20,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
 
     self.sexos = ko.observableArray([]);
 
-    self.errorTitle = "Ocorreu um erro em seu cadastro!";
+    self.errorTitle = "Ocorreu um erro na atualização de seus dados!";
 
     self.cancelar = function(){
       return window.location.hash = "#clientes/perfil";
@@ -51,7 +52,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       valid = valid && !!self.dataNascimento();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.")
       }
 
       return errors;
@@ -81,7 +82,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       maskComponent.applyCPFMask();
       maskComponent.applyCelphoneMask();
 
-      bridge.get("/api/clientes/form_options")
+      bridge.get(formOptionsRoute)
       .then(function(response){
         var sexos = response.sexos.map(function(sexo){
           return {
@@ -116,7 +117,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Cadastro de Clientes"
+      return "Atualizar dados"
     }
   };
 });

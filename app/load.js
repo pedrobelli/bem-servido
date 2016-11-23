@@ -39,6 +39,7 @@ requirejs.config({
 		pesquisaComponent           : 'pages/profissionais/pesquisaComponent',
 		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
 		formDadosComponent          : 'pages/forms/formDadosComponent',
+		formEnderecoComponent       : 'pages/forms/formEnderecoComponent',
 
 
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
@@ -72,6 +73,7 @@ requirejs.config({
 		pesquisaTemplate           : 'pages/profissionais/pesquisaTemplate.html',
 		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
 		formDadosTemplate          : 'pages/forms/formDadosTemplate.html',
+		formEnderecoTemplate       : 'pages/forms/formEnderecoTemplate.html',
 
 
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',

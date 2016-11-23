@@ -92,6 +92,15 @@
       "accessWhenLoggedOnly" : true
     }
   },
+  {
+    "path"   : "#endereco/update/:id",
+    "page"   : "pages/forms/formEnderecoComponent",
+    "params" : {
+      "name"   : "updateAddress",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
 
 
 
