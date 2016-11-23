@@ -30,6 +30,26 @@
     }
   },
   {
+    "path"   : "#clientes/atendimentos",
+    "page"   : "pages/clientes/agendaClienteComponent",
+    "params" : {
+      "name"   : "customerAppointments",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
+    }
+  },
+  {
+    "path"   : "#clientes/perfil",
+    "page"   : "pages/clientes/perfilClienteComponent",
+    "params" : {
+      "name"   : "customerPerfil",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
+    }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {
@@ -50,7 +70,7 @@
     "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
     "page"   : "pages/profissionais/pesquisaComponent",
     "params" : {
-      "name"   : "pesquisa",
+      "name"   : "search",
       "header" : "default"
     }
   },
@@ -63,6 +83,45 @@
       "dontAccessWhenLogged" : true
     }
   },
+  {
+    "path"   : "#dados/update",
+    "page"   : "pages/forms/formDadosComponent",
+    "params" : {
+      "name"   : "updateData",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
+  {
+    "path"   : "#email/update",
+    "page"   : "pages/forms/formEmailComponent",
+    "params" : {
+      "name"   : "updateEmail",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
+  {
+    "path"   : "#endereco/update/:id",
+    "page"   : "pages/forms/formEnderecoComponent",
+    "params" : {
+      "name"   : "updateAddress",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
+  {
+    "path"   : "#senha/update",
+    "page"   : "pages/forms/formSenhaComponent",
+    "params" : {
+      "name"   : "updateSenha",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
+
+
+
 
 
 
@@ -89,14 +148,6 @@
     "path"   : "#atendimentos/edit/:id",
     "page"   : "pages/atendimentos/form/atendimentosFormComponent",
     "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#clientes",
-    "page"   : "pages/clientes/clientesComponent",
-    "params" : {
-      "name"  : "index",
-      "header" : "orange"
-    }
   },
   {
     "path"   : "#clientes/edit/:id",

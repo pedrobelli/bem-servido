@@ -51,8 +51,14 @@ module.exports = function(sequelize, DataTypes) {
 			All: function(){
 				return this.findAll();
 			},
-			Get: function(id){
-				return this.find({ where: { id: id } });
+			Get: function(models, id){
+				return this.find({
+					 include: [
+						 { model: models.telefones },
+						 { model: models.enderecos }
+					 ],
+					 where: { id: id }
+				});
 			},
 			Destroy: function(id){
 				return this.find({ where: { id: id } }).then(function(entity) {

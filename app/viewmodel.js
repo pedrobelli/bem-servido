@@ -29,30 +29,34 @@ function ($, _, ko, footer, moment, swalComponent) {
 
 			if (isLogged() && !hasUser()) {
 				// TODO arrumar esse redirecionamento bosta
-				return window.location.hash = '#home';
+				window.location.hash = '#home';
+				return location.reload(true);
 			}
 
 			if (params.dontAccessWhenLogged && isLogged()) {
 				if (localStorage.getItem('current_user_role') == '1') {
-					// TODO arrumar esse redirecionamento bosta
-					return window.location.hash = '#home';
+					window.location.hash = '#home';
+					return location.reload(true);
 				} else {
 					// TODO arrumar esse redirecionamento bosta
-					return window.location.hash = '#home';
+					window.location.hash = '#home';
+					return location.reload(true);
 				}
 			}
 
 			if (params.accessWhenLoggedOnly && !isLogged()) {
-				return window.location.hash = '#home';
+				window.location.hash = '#login';
+				return location.reload(true);
 			}
 
 			if (params.rolesAccess && !hasRoleAccess(params.rolesAccess)) {
 				if (localStorage.getItem('current_user_role') == '1') {
-					// TODO arrumar esse redirecionamento bosta
-					return window.location.hash = '#home';
+					window.location.hash = '#home';
+					return location.reload(true);
 				} else {
 					// TODO arrumar esse redirecionamento bosta
-					return window.location.hash = '#home';
+					window.location.hash = '#home';
+					return location.reload(true);
 				}
 			}
 

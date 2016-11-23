@@ -3,7 +3,7 @@ var request  = require('request'),
     models   = require('../../models');
 
 exports.createClientes = function() {
-  var today = new Date();
+  var dataNascimento = new Date(Date.parse('10/03/1975 00:00'));
 
   var payload = {
     "connection": "Username-Password-Authentication",
@@ -22,10 +22,10 @@ exports.createClientes = function() {
 
   var endereco = models.enderecos.build({
     cep            : 82620380,
-    rua            : 'Avenida do Seed',
+    rua            : 'Praça Hedwirges Nadolny',
     num            : '843',
     complemento    : '',
-    bairro         : 'Bairro do Teste',
+    bairro         : 'Santa Cândida',
     cidade         : 'Curitiba',
     estado         : 41
   });
@@ -34,7 +34,7 @@ exports.createClientes = function() {
     var cliente = models.clientes.build({
       nome: 'Marcelo',
       uuid: response.user_id,
-      dataNascimento: today,
+      dataNascimento: dataNascimento,
       cpf: '07593809961',
       sexo: 1
     });
@@ -48,7 +48,7 @@ exports.createClientes = function() {
       var cliente = models.clientes.build({
         nome: 'Camila',
         uuid: response.user_id,
-        dataNascimento: today,
+        dataNascimento: dataNascimento,
         cpf: '07593809962',
         sexo: 2
       });
@@ -63,7 +63,7 @@ exports.createClientes = function() {
       var cliente = models.clientes.build({
         nome: 'Leandro',
         uuid: response.user_id,
-        dataNascimento: today,
+        dataNascimento: dataNascimento,
         cpf: '07593809963',
         sexo: 1
       });
@@ -78,7 +78,7 @@ exports.createClientes = function() {
       var cliente = models.clientes.build({
         nome: 'Cezar',
         uuid: response.user_id,
-        dataNascimento: today,
+        dataNascimento: dataNascimento,
         cpf: '07593809964',
         sexo: 1
       });

@@ -2,7 +2,7 @@
 
   <ul data-bind="if: logged" id="menu-dropdown" class="dropdown-content">
     <!-- ko foreach: $data.menuOptions -->
-      <li><a data-bind="text: text, attr: { href: link }" href="#!"></a></li>
+      <li><a data-bind="text: text, attr: { href: link }"></a></li>
     <!-- /ko -->
     <li class="divider orange"></li>
     <li><a href="" data-bind="click: logout" class="red-text">Logout</a></li>
@@ -16,7 +16,7 @@
       </ul>
       <ul data-bind="if: logged" id="nav-mobile" class="right hide-on-large-only side-nav">
         <!-- ko foreach: $data.menuOptions -->
-          <li><a data-bind="text: text, attr: { href: link }" href="#!"></a></li>
+          <li><a data-bind="text: text, attr: { href: link }"></a></li>
         <!-- /ko -->
         <li class="divider orange"></li>
         <li><a href="" data-bind="click: logout" class="red-text">Logout</a></li>

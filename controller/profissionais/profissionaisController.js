@@ -26,7 +26,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.create(req, res);
   });
 
-  apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
+  apiRoutes.post(endpoint + '/edit', function(req, res) {
     return self.update(req, res);
   });
 
@@ -162,9 +162,20 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.profissionais.Update(req.body).then(function(profissional) {
-      profissional.setServicos(JSON.parse(req.param('servicos')));
-      return profissional.setEspecialidades(JSON.parse(req.param('especialidades'))).then(function() {
+    var profissional = models.profissionals.build({
+      id             : req.body.id,
+      nome           : req.body.nome,
+      dataNascimento : req.body.dataNascimento,
+      sexo           : req.body.sexo,
+      cpf            : req.body.cpf
+    });
+    return models.profissionais.Update(profissional).then(function(profissional) {
+      var telefone = models.telefones.build({
+        id       : req.body.telefoneId,
+        telefone : req.body.telefone,
+        celular  : req.body.celular
+      });
+      return models.telefones.Update(telefone.dataValues).then(function() {
         return profissional;
       });
     });
@@ -226,7 +237,6 @@ self.search = function(req, res) {
     if (!!req.body.habilidades && JSON.parse(req.body.habilidades).length > 0) {
       scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
     }
-
 
     return models.profissionais.Search(scopes);
 

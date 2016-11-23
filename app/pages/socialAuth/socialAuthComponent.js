@@ -1,13 +1,10 @@
-define(['ko', 'text!socialAuthTemplate', 'bridge', 'auth0'],
-function(ko, template, bridge, auth0) {
+define(['ko', 'text!socialAuthTemplate', 'bridge', 'auth0Component'],
+function(ko, template, bridge, auth0Component) {
 
   var viewModel = function(params) {
     var self = this;
 
-    self.auth0 = new auth0({
-      domain: 'pedrobelli.auth0.com',
-      clientID: 'hneM83CMnlnsW0K7qjVHZJ88qkD4ULSM'
-    });
+    self.auth0 = auth0Component.createAuth0Instance();
 
     self.result = self.auth0.parseHash('access_token=' + params.token);
     self.token = localStorage.getItem('id_token');
@@ -36,36 +33,13 @@ function(ko, template, bridge, auth0) {
         if (!response.cliente && !response.profissional) {
           localStorage.setItem('id_token', self.result.idToken);
           localStorage.setItem('exp', self.result.idTokenPayload.exp);
-          // TODO arrumar esse redirecionamento bosta
           window.location.hash = "#home";
         } else if (profile.user_metadata.role == '1') {
-          mapClienteToLocalStorage(response, profile);
+          auth0Component.mapClienteToLocalStorage(response, self.result, profile);
         } else {
-          mapProfissionalToLocalStorage(response, profile);
+          auth0Component.mapProfissionalToLocalStorage(response, self.result, profile);
         }
       });
-    }
-
-    var mapClienteToLocalStorage = function(response, profile)  {
-      localStorage.setItem('id_token', self.result.idToken);
-      localStorage.setItem('current_user_id', response.cliente.id);
-      localStorage.setItem('current_user_auth_id', response.cliente.uuid);
-      localStorage.setItem('current_user_name', response.cliente.nome);
-      localStorage.setItem('current_user_role', profile.user_metadata.role);
-      localStorage.setItem('exp', self.result.idTokenPayload.exp);
-      // TODO arrumar esse redirecionamento bosta
-      window.location.hash = "#home";
-    }
-
-    var mapProfissionalToLocalStorage = function(response, profile)  {
-      localStorage.setItem('id_token', self.result.idToken);
-      localStorage.setItem('current_user_id', response.profissional.id);
-      localStorage.setItem('current_user_auth_id', response.profissional.uuid);
-      localStorage.setItem('current_user_name', response.profissional.nome);
-      localStorage.setItem('current_user_role', profile.user_metadata.role);
-      localStorage.setItem('exp', self.result.idTokenPayload.exp);
-      // TODO arrumar esse redirecionamento bosta
-      window.location.hash = "#home";
     }
   };
 

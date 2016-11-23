@@ -38,6 +38,13 @@ define(['jquery'], function ($) {
         return executeRequest(url, "POST", undefined, data);
       }
     },
+    patch : function (url, data, headers) {
+      if (headers) {
+        return executeRequest(url, "PATCH", headers, data);
+      } else {
+        return executeRequest(url, "PATCH", undefined, data);
+      }
+    },
     del : function (url, headers) {
       return executeRequest(url, "DELETE", headers);
     }

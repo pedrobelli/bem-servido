@@ -1,14 +1,11 @@
-define(['ko', 'text!clientesFormTemplate', 'jquery', 'bridge', 'auth0', 'maskComponentForm', 'swalComponentForm',
+define(['ko', 'text!clientesFormTemplate', 'jquery', 'bridge', 'auth0Component', 'maskComponentForm', 'swalComponentForm',
 'datepickerComponent', 'momentComponent'],
-function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepickerComponent, momentComponent) {
+function(ko, template, $, bridge, auth0Component, maskComponent, swalComponent, datepickerComponent, momentComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    self.auth0 = new auth0({
-      domain: 'pedrobelli.auth0.com',
-      clientID: 'hneM83CMnlnsW0K7qjVHZJ88qkD4ULSM'
-    });
+    self.auth0 = auth0Component.createAuth0Instance();
 
     self.nomeCompleto = ko.observable();
     self.dataNascimento = ko.observable();
@@ -70,16 +67,17 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       valid = valid && !!self.cpf();
       valid = valid && !!self.dataNascimento();
       valid = valid && !!self.endereco_cep();
+      valid = valid && !!self.endereco_num();
       valid = valid && !!self.email();
       valid = valid && !!self.password();
       valid = valid && !!self.confirmPassword();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.");
       }
 
       if ((!!self.password() && !!self.confirmPassword()) && self.password() != self.confirmPassword()) {
-        errors.push("Verifique se as senhas são as mesmas.")
+        errors.push("Verifique se as senhas são as mesmas.");
       }
 
       if (!!self.email() && !maskComponent.validateEmailFormat(self.email())) {
@@ -170,29 +168,10 @@ function(ko, template, $, bridge, auth0, maskComponent, swalComponent, datepicke
       bridge.post("/api/clientes/new", payload)
       .fail(function(context, errorMessage, serverError){
         swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
-        deleteUser(profile);
+        auth0Component.deleteAuth0User(profile);
       })
       .done(function(response){
-        localStorage.setItem('id_token', result.idToken);
-        localStorage.setItem('current_user_id', response.cliente.id);
-        localStorage.setItem('current_user_auth_id', response.cliente.uuid);
-        localStorage.setItem('current_user_name', response.cliente.nome);
-        localStorage.setItem('current_user_role', profile.user_metadata.role);
-        localStorage.setItem('exp', result.idTokenPayload.exp);
-        // TODO arrumar esse redirecionamento bosta
-        window.location.hash = "#home";
-      });
-    }
-
-    var deleteUser = function(profile) {
-      var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbImRlbGV0ZSJdfX0sImlhdCI6MTQ3OTIzMTg4NiwianRpIjoiM2I2YWIyMGI1NjllMDc5ZDBkNjg3MjViN2Y2OTc1OWUifQ.fjPTPC0BBV1ibLAD40KXgD28sq7pvW5dAuEQ6_K5pog'};
-
-      bridge.del('https://pedrobelli.auth0.com/api/v2/users/' + profile.user_id, headers)
-      .fail(function(context, errorMessage, serverError){
-        console.log(context);
-      })
-      .done(function(){
-        console.log("Usuário deletado do auth0");
+        auth0Component.mapClienteToLocalStorage(response, result, profile);
       });
     }
 

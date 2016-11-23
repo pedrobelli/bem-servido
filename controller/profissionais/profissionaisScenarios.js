@@ -5,7 +5,7 @@ var request  = require('request'),
 
 exports.createProfissionais = function() {
   var servicoIds = [];
-  var today = new Date();
+  var dataNascimento = new Date(Date.parse('10/03/1975 00:00'));
   var horaInicio = new Date(new Date('1900-11-11 08:00:00'));
   var horaFim = new Date(new Date('1900-11-11 18:00:00'));
 
@@ -63,7 +63,7 @@ exports.createProfissionais = function() {
         var profissional = models.profissionais.build({
           nome           : 'Carol',
           uuid           : response.user_id,
-          dataNascimento : today,
+          dataNascimento : dataNascimento,
           sexo           : 2,
           cpf_cnpj       : 92847502010,
           ramo           : 2
@@ -104,7 +104,7 @@ exports.createProfissionais = function() {
         var profissional = models.profissionais.build({
           nome           : 'Agatha',
           uuid           : response.user_id,
-          dataNascimento : today,
+          dataNascimento : dataNascimento,
           sexo           : 2,
           cpf_cnpj       : 92847502020,
           ramo           : 2
@@ -140,7 +140,7 @@ exports.createProfissionais = function() {
         var profissional = models.profissionais.build({
           nome           : 'Manoel',
           uuid           : response.user_id,
-          dataNascimento : today,
+          dataNascimento : dataNascimento,
           sexo           : 1,
           cpf_cnpj       : 92847502030,
           ramo           : 2
@@ -181,7 +181,7 @@ exports.createProfissionais = function() {
         var profissional = models.profissionais.build({
           nome           : 'José',
           uuid           : response.user_id,
-          dataNascimento : today,
+          dataNascimento : dataNascimento,
           sexo           : 1,
           cpf_cnpj       : 92847502040,
           ramo           : 4

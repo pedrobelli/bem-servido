@@ -15,11 +15,11 @@ function(ko, template, $, maskComponent) {
       valid = valid && !!self.confirmPassword();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.");
       }
 
       if ((!!self.password() && !!self.confirmPassword()) && self.password() != self.confirmPassword()) {
-        errors.push("Verifique se as senhas são as mesmas.")
+        errors.push("Verifique se as senhas são as mesmas.");
       }
 
       if (!!self.email() && !maskComponent.validateEmailFormat(self.email())) {
