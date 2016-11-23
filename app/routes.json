@@ -67,14 +67,6 @@
     }
   },
   {
-    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
-    "page"   : "pages/profissionais/pesquisaComponent",
-    "params" : {
-      "name"   : "search",
-      "header" : "default"
-    }
-  },
-  {
     "path"   : "#profissionais/new",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : {
@@ -84,12 +76,31 @@
     }
   },
   {
+    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
+    "page"   : "pages/profissionais/pesquisaComponent",
+    "params" : {
+      "name"   : "search",
+      "header" : "default"
+    }
+  },
+  {
+    "path"   : "#profissionais/perfil",
+    "page"   : "pages/profissionais/perfilProfissionalComponent",
+    "params" : {
+      "name"   : "profissionalPerfil",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#dados/update",
     "page"   : "pages/forms/formDadosComponent",
     "params" : {
       "name"   : "updateData",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
   {
@@ -98,7 +109,8 @@
     "params" : {
       "name"   : "updateEmail",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
   {
@@ -107,7 +119,8 @@
     "params" : {
       "name"   : "updateAddress",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
   {
@@ -116,7 +129,8 @@
     "params" : {
       "name"   : "updateSenha",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
 
@@ -153,11 +167,6 @@
     "path"   : "#clientes/edit/:id",
     "page"   : "pages/clientes/form/clientesFormComponent",
     "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#profissionais",
-    "page"   : "pages/profissionais/profissionaisComponent",
-    "params" : { "name" : "index" }
   },
   {
     "path"   : "#profissionais/edit/:id",

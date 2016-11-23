@@ -37,7 +37,7 @@ function(ko, template, materialize, waves) {
         text : 'Meus horários'
       },
       {
-        link : '#',
+        link : '#profissionais/perfil',
         text : 'Meu Perfil'
       }
     ];
@@ -74,6 +74,7 @@ function(ko, template, materialize, waves) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
+        window.location.hash = '#home';
         location.reload(true);
       }
     };

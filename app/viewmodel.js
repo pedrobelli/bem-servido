@@ -89,6 +89,7 @@ function ($, _, ko, footer, moment, swalComponent) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
+				window.location.hash = '#home';
 				location.reload(true);
       }
     }

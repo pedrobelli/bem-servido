@@ -118,7 +118,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "servicosEdit"
+      return "Agenda do cliente"
     }
   };
 });

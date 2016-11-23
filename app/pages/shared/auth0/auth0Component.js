@@ -27,7 +27,7 @@ define(['auth0', 'bridge', 'swalComponentForm'], function(auth0, bridge, swalCom
       swalComponent.errorAlertWithTitle(errorTitle, context.errors);
     })
     .done(function(){
-    return window.location.hash = "#clientes/perfil";
+    return window.location.hash = localStorage.getItem('current_user_role') == 1 ? "#clientes/perfil" : "#profissionais/perfil";
     });
   }
 

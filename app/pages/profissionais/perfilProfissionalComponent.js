@@ -1,4 +1,4 @@
-define(['ko', 'text!perfilClienteTemplate', 'bridge', 'maskComponent', 'momentComponent', 'auth0Component'],
+define(['ko', 'text!perfilProfissionalTemplate', 'bridge', 'maskComponent', 'momentComponent', 'auth0Component'],
 function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
 
   var viewModel = function(params) {
@@ -7,7 +7,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
     self.auth0 = auth0Component.createAuth0Instance();
 
     self.nome = ko.observable();
-    self.cpf = ko.observable();
+    self.cpfCnpj = ko.observable();
     self.dataNascimento = ko.observable();
     self.telefone = ko.observable();
     self.celular = ko.observable();
@@ -21,7 +21,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
     self.estados = ko.observableArray([]);
 
     var init = function(){
-      bridge.get("/api/clientes/form_options")
+      bridge.get("/api/profissionais/form_options")
       .then(function(response){
         var sexos = response.sexos.map(function(sexo){
           return {
@@ -43,23 +43,23 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
         self.estados(estados);
       })
       .then(function() {
-        return bridge.get("/api/clientes/get/" + localStorage.getItem('current_user_id'))
+        return bridge.get("/api/profissionais/get/" + localStorage.getItem('current_user_id'))
         .then(function(response){
-          var cliente = response.cliente;
-          var endereco = cliente.endereco;
-          var sexo = _.find(self.sexos(), function(currentSexo){ return currentSexo.id == cliente.sexo; });
+          var profissional = response.profissional;
+          var endereco = profissional.endereco;
+          var sexo = _.find(self.sexos(), function(currentSexo){ return currentSexo.id == profissional.sexo; });
           var estado = _.find(self.estados(), function(estado){ return estado.id == endereco.estado; });
 
           var enderecoString = endereco.rua + ", " + endereco.num ;
           if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
           enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla,
 
-          self.nome(cliente.nome);
-          self.cpf(cliente.cpf);
+          self.nome(profissional.nome);
+          self.cpfCnpj(profissional.cpf_cnpj);
           self.sexo(!!sexo ? sexo.text : "");
-          self.dataNascimento(momentComponent.convertDateToString(momentComponent.convertDateStringToDate(cliente.dataNascimento)));
-          self.telefone(!!cliente.telefone.telefone ? cliente.telefone.telefone : "");
-          self.celular(!!cliente.telefone.celular ? cliente.telefone.celular : "");
+          self.dataNascimento(momentComponent.convertDateToString(momentComponent.convertDateStringToDate(profissional.dataNascimento)));
+          self.telefone(!!profissional.telefone.telefone ? profissional.telefone.telefone : "");
+          self.celular(!!profissional.telefone.celular ? profissional.telefone.celular : "");
           self.enderecoId(endereco.id);
           self.cep(endereco.cep);
           self.endereco(enderecoString);
@@ -67,7 +67,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
         });
       })
       .then(function() {
-        maskComponent.applyCPFMask();
+        maskComponent.applyCPF_CNPJMask();
         maskComponent.applyCelphoneMask();
         maskComponent.applyZipCodeMask();
       })
@@ -86,7 +86,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Perfil do cliente"
+      return "servicosEdit"
     }
   };
 });

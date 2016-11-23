@@ -26,10 +26,10 @@ exports.createProfissionais = function() {
 
   var endereco = models.enderecos.build({
     cep            : '82620380',
-    rua            : 'Avenida do Seed',
+    rua            : 'Praça Hedwirges Nadolny',
     num            : '400',
     complemento    : '',
-    bairro         : 'Bairro do Teste',
+    bairro         : 'Santa Cândida',
     cidade         : 'Curitiba',
     estado         : 41
   });

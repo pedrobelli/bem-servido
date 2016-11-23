@@ -36,8 +36,9 @@ requirejs.config({
 		perfilClienteComponent      : 'pages/clientes/perfilClienteComponent',
     homeComponent               : 'pages/home/homeComponent',
     loginComponent              : 'pages/login/loginComponent',
-		pesquisaComponent           : 'pages/profissionais/pesquisaComponent',
 		profissionaisFormComponent  : 'pages/profissionais/form/profissionaisFormComponent',
+		pesquisaComponent           : 'pages/profissionais/pesquisaComponent',
+		perfilProfissionalComponent : 'pages/profissionais/perfilProfissionalComponent',
 		formDadosComponent          : 'pages/forms/formDadosComponent',
 		formEmailComponent          : 'pages/forms/formEmailComponent',
 		formEnderecoComponent       : 'pages/forms/formEnderecoComponent',
@@ -45,7 +46,6 @@ requirejs.config({
 
 
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
-    profissionaisComponent      : 'pages/profissionais/profissionaisComponent',
     especialidadesComponent     : 'pages/profissionais/especialidadesComponent',
     especialidadesFormComponent : 'pages/profissionais/form/especialidadesFormComponent',
     dadosHorarioComponent       : 'pages/profissionais/form/partials/dadosHorarioComponent',
@@ -72,8 +72,9 @@ requirejs.config({
 		perfilClienteTemplate      : 'pages/clientes/perfilClienteTemplate.html',
     homeTemplate               : 'pages/home/homeTemplate.html',
     loginTemplate              : 'pages/login/loginTemplate.html',
-		pesquisaTemplate           : 'pages/profissionais/pesquisaTemplate.html',
 		profissionaisFormTemplate  : 'pages/profissionais/form/profissionaisFormTemplate.html',
+		pesquisaTemplate           : 'pages/profissionais/pesquisaTemplate.html',
+		perfilProfissionalTemplate : 'pages/profissionais/perfilProfissionalTemplate.html',
 		formDadosTemplate          : 'pages/forms/formDadosTemplate.html',
 		formEmailTemplate          : 'pages/forms/formEmailTemplate.html',
 		formEnderecoTemplate       : 'pages/forms/formEnderecoTemplate.html',
@@ -81,7 +82,6 @@ requirejs.config({
 
 
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',
-    profissionaisTemplate      : 'pages/profissionais/profissionaisTemplate.html',
     especialidadesTemplate     : 'pages/profissionais/especialidadesTemplate.html',
     especialidadesFormTemplate : 'pages/profissionais/form/especialidadesFormTemplate.html',
 		dadosHorarioTemplate       : 'pages/profissionais/form/partials/dadosHorarioTemplate.html',

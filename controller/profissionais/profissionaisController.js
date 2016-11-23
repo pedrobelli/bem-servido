@@ -162,14 +162,14 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    var profissional = models.profissionals.build({
+    var profissional = models.profissionais.build({
       id             : req.body.id,
       nome           : req.body.nome,
       dataNascimento : req.body.dataNascimento,
       sexo           : req.body.sexo,
-      cpf            : req.body.cpf
+      cpf_cnpj       : req.body.cpf_cnpj
     });
-    return models.profissionais.Update(profissional).then(function(profissional) {
+    return models.profissionais.Update(profissional.dataValues).then(function(profissional) {
       var telefone = models.telefones.build({
         id       : req.body.telefoneId,
         telefone : req.body.telefone,

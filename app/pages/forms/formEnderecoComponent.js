@@ -5,6 +5,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent) {
     var self = this;
 
     var formOptionsRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/form_options" : "/api/profissionais/form_options";
+    var route = localStorage.getItem('current_user_role') == 1 ? "#clientes/perfil" : "#profissionais/perfil";
 
     self.endereco_rua = ko.observable();
     self.endereco_num   = ko.observable();
@@ -35,7 +36,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent) {
     });
 
     self.cancelar = function(){
-      return window.location.hash = "#clientes/perfil";
+      return window.location.hash = route;
     };
 
     self.salvar = function(){
@@ -50,7 +51,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent) {
         swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
       })
       .done(function(response){
-        return window.location.hash = "#clientes/perfil";
+        return window.location.hash = route;
       });
 
     };
