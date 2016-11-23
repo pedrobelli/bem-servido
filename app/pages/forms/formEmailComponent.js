@@ -7,6 +7,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
     self.auth0 = auth0Component.createAuth0Instance();
 
     self.email = ko.observable();
+    self.oldEmail = ko.observable();
 
     self.errorTitle = "Ocorreu um erro na atualização de seu email!";
 
@@ -37,6 +38,10 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
         errors.push("Este não é um email válido.");
       }
 
+      if (self.email() == self.oldEmail()) {
+        errors.push("Seu novo email não pode ser igual ao antigo.");
+      }
+
       return errors;
     };
 
@@ -54,6 +59,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
     var init = function(){
       self.auth0.getProfile(localStorage.getItem('id_token'), function (err, profile) {
           self.email(profile.email)
+          self.oldEmail(profile.email)
       });
     };
 
