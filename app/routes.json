@@ -110,6 +110,15 @@
       "accessWhenLoggedOnly" : true
     }
   },
+  {
+    "path"   : "#senha/update",
+    "page"   : "pages/forms/formSenhaComponent",
+    "params" : {
+      "name"   : "updateSenha",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true
+    }
+  },
 
 
 

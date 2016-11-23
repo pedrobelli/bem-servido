@@ -1,0 +1,37 @@
+<main>
+   <div class="container">
+    <div class="page-title">
+      <h2>Atualizar Senha</h2>
+      <hr>
+    </div>
+    <div class="cadastro">
+      <div class="row form-cadastro">
+        <form action="" class="col s12 form">
+          <div class="input-field col s12">
+            <input data-bind="value: actualPassword" id="actualPassword" type="password">
+            <label for="password">Senha atual</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input data-bind="value: newPassword" id="newPassword" type="password">
+            <label for="password">Nova senha</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input data-bind="value: comfirmNewPassword" id="comfirmNewPassword" type="password">
+            <label for="password">Comfirmar nova senha</label>
+          </div>
+
+          <button data-bind="click: cancelar" id="cancelar" class="btn waves-effect waves-light left orange" type="button">
+            <span>CANCELAR</span>
+          </button>
+
+          <button data-bind="click: salvar" id="salvar" class="btn waves-effect waves-light right orange" type="button">
+            CONCLUIR
+          </button>
+        </form>
+      </div>
+
+    </div>
+   </div>
+ </main>

@@ -41,6 +41,7 @@ requirejs.config({
 		formDadosComponent          : 'pages/forms/formDadosComponent',
 		formEmailComponent          : 'pages/forms/formEmailComponent',
 		formEnderecoComponent       : 'pages/forms/formEnderecoComponent',
+		formSenhaComponent          : 'pages/forms/formSenhaComponent',
 
 
     atendimentosComponent       : 'pages/atendimentos/atendimentosComponent',
@@ -76,6 +77,7 @@ requirejs.config({
 		formDadosTemplate          : 'pages/forms/formDadosTemplate.html',
 		formEmailTemplate          : 'pages/forms/formEmailTemplate.html',
 		formEnderecoTemplate       : 'pages/forms/formEnderecoTemplate.html',
+		formSenhaTemplate          : 'pages/forms/formSenhaTemplate.html',
 
 
     atendimentosTemplate       : 'pages/atendimentos/atendimentosTemplate.html',

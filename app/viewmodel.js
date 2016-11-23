@@ -45,7 +45,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 			}
 
 			if (params.accessWhenLoggedOnly && !isLogged()) {
-				window.location.hash = '#home';
+				window.location.hash = '#login';
 				return location.reload(true);
 			}
 
