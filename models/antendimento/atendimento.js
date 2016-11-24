@@ -1,6 +1,28 @@
 module.exports = function(sequelize, DataTypes) {
 
   var Atendimento = sequelize.define('atendimentos', {
+		nomeCliente: {
+			type: DataTypes.STRING,
+			validate: {
+				len: {
+					args: [3, 50],
+					msg: "Nome do cliente deve conter pelo menos 3 caracteres"
+				}
+			}
+		},
+    telefone: {
+			type: DataTypes.STRING,
+			validate: {
+				len: {
+					args: [10, 11],
+					msg: "Número de telefone deve conter 8 ou 9 dígitos"
+				},
+				is: {
+					args: /^[0-9]*$/,
+					msg: "Número de telefone deve conter apenas números"
+				}
+			}
+		},
     valorTotal: {
       allowNull: false,
       type: DataTypes.DOUBLE,
