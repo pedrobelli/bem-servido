@@ -48,8 +48,7 @@ define(['auth0', 'bridge', 'swalComponentForm'], function(auth0, bridge, swalCom
     localStorage.setItem('current_user_name', response.profissional.nome);
     localStorage.setItem('current_user_role', profile.user_metadata.role);
     localStorage.setItem('exp', result.idTokenPayload.exp);
-    // TODO arrumar esse redirecionamento bosta
-    return window.location.hash = "#home";
+    return window.location.hash = "#profissionais/atendimentos";
   }
 
   return {

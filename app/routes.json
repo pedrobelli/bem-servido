@@ -76,6 +76,16 @@
     }
   },
   {
+    "path"   : "#profissionais/atendimentos",
+    "page"   : "pages/profissionais/agendaProfissionalComponent",
+    "params" : {
+      "name"   : "professionalAppointments",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
     "page"   : "pages/profissionais/pesquisaComponent",
     "params" : {

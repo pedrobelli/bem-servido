@@ -52,7 +52,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
 
           var enderecoString = endereco.rua + ", " + endereco.num ;
           if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
-          enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla,
+          enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
 
           self.nome(cliente.nome);
           self.cpf(cliente.cpf);

@@ -334,6 +334,9 @@ ul.available-list > li.available-time > label.label-disabled{
 .card-agenda .schedule-list .unvailable > p.desc-horario{
   width: 25%;
 }
+.card-agenda .schedule-list .unvailable > p.desc-horario-agendamento{
+  width: 32%;
+}
 .card-agenda .schedule-list .unvailable > p.desc-servico{
   width: 40%;
 }

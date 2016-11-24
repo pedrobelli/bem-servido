@@ -38,8 +38,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
-					// TODO arrumar esse redirecionamento bosta
-					window.location.hash = '#home';
+					window.location.hash = '#profissionais/atendimentos';
 					return location.reload(true);
 				}
 			}
@@ -54,8 +53,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
-					// TODO arrumar esse redirecionamento bosta
-					window.location.hash = '#home';
+					window.location.hash = '#profissionais/atendimentos';
 					return location.reload(true);
 				}
 			}

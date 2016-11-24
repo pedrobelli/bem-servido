@@ -25,7 +25,7 @@ function(ko, template, materialize, waves) {
 
     self.profissionalOptions = [
       {
-        link : '#',
+        link : '#profissionais/atendimentos',
         text : 'Meus agendamentos'
       },
       {
