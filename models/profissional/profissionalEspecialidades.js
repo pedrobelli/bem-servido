@@ -15,7 +15,16 @@ module.exports = function(sequelize, DataTypes) {
         });
 	    }
 	  },
-		paranoid: true
+		classMethods: {
+			Destroy: function(especialidadeId, profissionalId){
+				return this.find({ where: [
+          { especialidadeId: especialidadeId },
+          { profissionalId: profissionalId }
+        ] }).then(function(entity) {
+		      return entity.destroy();
+		    });
+			}
+		}
   });
 
   return ProfissionalEspecialidades

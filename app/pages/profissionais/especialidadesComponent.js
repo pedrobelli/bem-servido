@@ -6,9 +6,9 @@ function(ko, template, bridge, $, swalComponent) {
 
     self.especialidades = ko.observableArray([]);
 
-    self.exclude = function(especialidades) {
+    self.exclude = function(especialidade) {
       var errorTitle = 'Não foi possível excluir especialidade';
-      swalComponent.removeInstanceWarning("/api/especialidades/" + especialidades.id, errorTitle, function(){
+      swalComponent.removeInstanceWarning("/api/especialidades/" + especialidade.id + "/" + localStorage.getItem('current_user_id'), errorTitle, function(){
         init();
       });
     };

@@ -24,8 +24,8 @@
                   <tr>
                     <td data-bind="text: nome"></td>
                     <td>
-                      <a class="waves-effect waves-light btn-flat orange-text">editar</a>
-                      <a class="waves-effect waves-light btn-flat red-text">excluir</a>
+                      <a data-bind="attr: {href: '#especialidades/edit/'+id}" class="waves-effect waves-light btn-flat orange-text">editar</a>
+                      <a data-bind="click: $component.exclude" class="waves-effect waves-light btn-flat red-text">excluir</a>
                     </td>
                   </tr>
                 </tbody>
