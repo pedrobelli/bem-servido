@@ -1,14 +1,10 @@
-define(['ko', 'text!servicosTemplate', 'bridge', 'jquery', 'swalComponent', 'maskComponent', '../shared/search/searchComponent'],
-function(ko, template, bridge, $, swalComponent, maskComponent, searchComponent) {
+define(['ko', 'text!servicosTemplate', 'bridge', 'jquery', 'swalComponent', 'maskComponent'],
+function(ko, template, bridge, $, swalComponent, maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
     self.detalheServicos = ko.observableArray([]);
-
-    searchComponent.subscribe("/api/detalhe_servicos/query", function(response){
-      mapResponseToServicos(response.detalheServicos);
-    });
 
     self.exclude = function(detalheServico){
       var errorTitle = 'Não foi possível excluir serviço';
@@ -18,12 +14,14 @@ function(ko, template, bridge, $, swalComponent, maskComponent, searchComponent)
     };
 
     var mapResponseToServicos = function(detalheServicos){
-      if(!detalheServicos) return self.detalheServicos([]);
+      if(!detalheServicos.length) return self.detalheServicos([]);
+
       var detalheServicos = detalheServicos.map(function(detalheServico){
         return {
-          id     : detalheServico.id,
-          nome   : detalheServico.servico.nome,
-          valor  : maskComponent.accountingFormat(detalheServico.valor)
+          id      : detalheServico.id,
+          nome    : detalheServico.servico.nome,
+          valor   : maskComponent.accountingFormat(detalheServico.valor),
+          duracao : detalheServico.duracao
         };
       });
 
@@ -31,10 +29,10 @@ function(ko, template, bridge, $, swalComponent, maskComponent, searchComponent)
     };
 
     var init = function(){
-      bridge.get("/api/detalhe_servicos")
+      bridge.post("/api/detalhe_servicos/by_profissional", { profissional : localStorage.getItem('current_user_id') })
       .then(function(response){
+        console.log(response);
         mapResponseToServicos(response.detalheServicos);
-        searchComponent.setPlaceholderText(response.placeholderOptions);
       });
     };
 

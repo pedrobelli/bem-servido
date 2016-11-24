@@ -134,6 +134,36 @@
     }
   },
   {
+    "path"   : "#servicos",
+    "page"   : "pages/servicos/servicosComponent",
+    "params" : {
+      "name" : "index",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#servicos/new",
+    "page"   : "pages/servicos/form/servicosFormComponent",
+    "params" : {
+      "name" : "new",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#servicos/edit/:id",
+    "page"   : "pages/servicos/form/servicosFormComponent",
+    "params" : {
+      "name" : "edit",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#dados/update",
     "page"   : "pages/forms/formDadosComponent",
     "params" : {
@@ -187,45 +217,5 @@
       "name"   : "frontend",
       "header" : "orange"
     }
-  },
-
-
-
-
-
-  {
-    "path"   : "#atendimentos",
-    "page"   : "pages/atendimentos/atendimentosComponent",
-    "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#atendimentos/edit/:id",
-    "page"   : "pages/atendimentos/form/atendimentosFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#clientes/edit/:id",
-    "page"   : "pages/clientes/form/clientesFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#profissionais/edit/:id",
-    "page"   : "pages/profissionais/form/profissionaisFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#servicos",
-    "page"   : "pages/servicos/servicosComponent",
-    "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#servicos/new",
-    "page"   : "pages/servicos/form/servicosFormComponent",
-    "params" : { "name" : "new" }
-  },
-  {
-    "path"   : "#servicos/edit/:id",
-    "page"   : "pages/servicos/form/servicosFormComponent",
-    "params" : { "name" : "edit" }
   }
 ]

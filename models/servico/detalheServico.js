@@ -67,6 +67,12 @@ module.exports = function(sequelize, DataTypes) {
 					servicoId: detalheServico.servicoId,
 					profissionalId: detalheServico.profissionalId
 				 } });
+			},
+			FindByProfissional: function(models, profissionalId){
+				return this.findAll({
+					where: { profissionalId: profissionalId },
+					include: [ { model: models.servicos } ]
+				});
 			}
 		},
 		paranoid: true

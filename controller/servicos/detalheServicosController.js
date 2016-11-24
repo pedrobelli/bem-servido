@@ -29,6 +29,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.update(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_profissional', function(req, res) {
+    return self.getByProfissional(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -88,7 +92,7 @@ self.create = function(req, res) {
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ servico: entity });
+    res.json({ detalheServico: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -108,7 +112,19 @@ self.update = function(req, res) {
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ servico: entity });
+    res.json({ detalheServico: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByProfissional = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.detalhe_servicos.FindByProfissional(models, req.body.profissional)
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ detalheServicos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

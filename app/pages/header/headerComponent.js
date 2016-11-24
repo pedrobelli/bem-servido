@@ -33,7 +33,7 @@ function(ko, template, materialize, waves) {
         text : 'Minhas habilidades'
       },
       {
-        link : '#',
+        link : '#servicos',
         text : 'Meus serviços'
       },
       {
