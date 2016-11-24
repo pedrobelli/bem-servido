@@ -21,7 +21,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.destroy(req, res);
   });
 
-  apiRoutes.post(endpoint + '/create', function(req, res) {
+  apiRoutes.post(endpoint + '/new', function(req, res) {
     return self.create(req, res);
   });
 
@@ -33,7 +33,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getByProfissional(req, res);
   });
 
-  apiRoutes.get(endpoint + '/form_options', function(req, res) {
+  apiRoutes.get(endpoint + '/form_options/:profissional_id', function(req, res) {
     return self.formOptions(req, res);
   });
 }
@@ -84,10 +84,18 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.servicos.FindOrCreate(req.body).then(function(entity) {
-
-      req.body.servicoId = entity.id;
-      return models.detalhe_servicos.FindOrCreate(req.body);
+    var newServico = models.servicos.build({
+      nome            : req.body.nome,
+      especialidadeId : req.body.especialidadeId
+    });
+    return models.servicos.FindOrCreate(newServico.dataValues).then(function(entity) {
+      var newDetalheServico = models.detalhe_servicos.build({
+        valor          : req.body.valor,
+        duracao        : req.body.duracao,
+        servicoId      : entity.id,
+        profissionalId : req.body.profissionalId
+      });
+      return models.detalhe_servicos.FindOrCreate(newDetalheServico.dataValues);
     });
 
   }).then(function(entity) {
@@ -100,14 +108,19 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    var servicoPayload = {
+    var newServico = models.servicos.build({
       nome            : req.body.nome,
-      especialidadeId : req.body.especialidadeId,
-    }
-    return models.servicos.FindOrCreate(servicoPayload).then(function(entity) {
-
-      req.body.servicoId = entity.id;
-      return models.detalhe_servicos.Update(req.body);
+      especialidadeId : req.body.especialidadeId
+    });
+    return models.servicos.FindOrCreate(newServico.dataValues).then(function(entity) {
+      var newDetalheServico = models.detalhe_servicos.build({
+        id             : req.body.id,
+        valor          : req.body.valor,
+        duracao        : req.body.duracao,
+        servicoId      : entity.id,
+        profissionalId : req.body.profissionalId
+      });
+      return models.detalhe_servicos.Update(newDetalheServico.dataValues);
     });
 
   }).then(function(entity) {
@@ -133,7 +146,7 @@ self.getByProfissional = function(req, res) {
 self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-    return models.especialidades.All().then(function(entities) {
+    return models.especialidades.FindByProfissional(models, req.param('profissional_id')).then(function(entities) {
       options.especialidades = entities;
     });
 

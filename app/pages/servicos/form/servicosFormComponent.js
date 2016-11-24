@@ -13,29 +13,44 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
     self.valor = ko.observable();
     self.especialidade = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
+    self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de serviço!" : "Ocorreu um erro na atualização de serviço!";
 
     self.especialidades = ko.observableArray([]);
 
-    self.validForm = ko.pureComputed(function(){
+    self.cancelar = function(){
+      return window.location.hash = "#servicos";
+    };
+
+    self.save = function(){
+      var errors = validate();
+
+      if (errors.length > 0) {
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
+      }
+
+      var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
+
+      bridge.post(path, generatePayload())
+      .fail(function(context, errorMessage, serverError){
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
+      })
+      .done(function(){
+        window.location.hash = "#servicos"
+      });
+    };
+
+    var validate = function(){
+      var errors = []
       valid = !!self.nome();
       valid = valid && !!self.duracao();
       valid = valid && !!self.valor();
       valid = valid && !!self.especialidade();
 
-      return valid;
-    });
+      if (!valid) {
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
+      }
 
-    self.save = function(){
-      var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
-
-      bridge.post(path, generatePayload())
-      .fail(function(context, errorMessage, serverError){
-        var errorTitle = params.name == 'new' ? 'Não foi possível criar serviço' : 'Não foi possível alterar serviço';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
-      })
-      .done(function(){
-        window.location.hash = "servicos"
-      });
+      return errors;
     };
 
     var generatePayload = function(){
@@ -43,7 +58,8 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
         nome            : self.nome(),
         duracao         : self.duracao(),
         valor           : self.valor(),
-        especialidadeId : self.especialidade()
+        especialidadeId : self.especialidade(),
+        profissionalId : localStorage.getItem('current_user_id')
       };
 
       if(isEditMode()) payload.id = params.id;
@@ -53,8 +69,9 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
 
     var init = function(){
       maskComponent.applyCurrencyMask();
+      maskComponent.applyNumberMask();
 
-      bridge.get("/api/detalhe_servicos/form_options")
+      bridge.get("/api/detalhe_servicos/form_options/" + localStorage.getItem('current_user_id'))
       .then(function(response){
         var especialidades = response.especialidades.map(function(especialidade){
           return {
@@ -68,7 +85,6 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
       .then(function(){
         if (isEditMode()) {
           return bridge.get("/api/detalhe_servicos/get/"+params.id).then(function(response){
-            console.log(response);
             if (!response)
               return;
 

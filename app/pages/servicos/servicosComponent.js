@@ -31,7 +31,6 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
     var init = function(){
       bridge.post("/api/detalhe_servicos/by_profissional", { profissional : localStorage.getItem('current_user_id') })
       .then(function(response){
-        console.log(response);
         mapResponseToServicos(response.detalheServicos);
       });
     };

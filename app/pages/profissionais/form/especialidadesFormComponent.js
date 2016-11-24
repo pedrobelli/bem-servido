@@ -27,11 +27,10 @@ function(ko, template, bridge, $, swalComponent) {
 
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError) {
-        var errorTitle = params.name == 'new' ? 'Não foi possível criar especialidade' : 'Não foi possível alterar especialidade';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
       })
       .done(function() {
-        window.location.hash = "especialidades"
+        window.location.hash = "#especialidades"
       });
     };
 
