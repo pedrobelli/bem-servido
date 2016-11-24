@@ -75,7 +75,18 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Create(req.body);
+    return models.profissionais.Get(models, req.body.profissionalId).then(function(profissional) {
+      var newEspecialidade = models.especialidades.build({
+        nome   : req.body.nome,
+        ramo   : profissional.ramo,
+        seeded : false
+      });
+      return models.especialidades.FindOrCreate(newEspecialidade.dataValues).then(function(entity) {
+        return profissional.addEspecialidades(entity).then(function() {
+          return entity;
+        });
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;

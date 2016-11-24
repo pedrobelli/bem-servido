@@ -54,7 +54,7 @@ function(ko, template, bridge, momentComponent, agendaComponent, datepickerCompo
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "servicosEdit"
+      return "Agenda do profissional"
     }
   };
 });

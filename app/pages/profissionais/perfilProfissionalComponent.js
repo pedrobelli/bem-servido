@@ -86,7 +86,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "servicosEdit"
+      return "Perfil do profissional"
     }
   };
 });

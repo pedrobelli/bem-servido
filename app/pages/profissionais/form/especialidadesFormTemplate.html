@@ -1,28 +1,27 @@
-<p class="center login-form-text" data-bind="text: pageMode"></p>
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2 data-bind="text: pageMode"></h2>
+      <hr>
+    </div>
+    <div class="row edit servicos-edit">
+      <div class="col s12 m8 offset-m2 form-servico">
+        <form action="" class="">
 
-<form id="new-skill-form" method="post">
-  <div class="row">
-    <div class="col s12">
+          <div class="input-field col s12">
+            <label>Nome*</label>
+            <input data-bind="value: nome" type="text" id="nome" placeholder="Nome">
+          </div>
 
-      <div class="row">
-        <div class="col s12">
-          <label>Nome:</label>
-          <input data-bind="value: nome" type="text" id="nome" placeholder="Nome">
-        </div>
+          <button data-bind="click: cancelar" id="cancelar" class="btn waves-effect waves-light left orange" type="button">
+            <span>CANCELAR</span>
+          </button>
+
+          <button data-bind="click: save" class="btn waves-effect waves-light right orange" type="button">
+            <span>Salvar</span>
+          </button>
+        </form>
       </div>
-
-      <div class="row">
-        <div class="col s12">
-          <label>Descrição:</label>
-          <input data-bind="value: descricao" type="text" id="descricao" placeholder="Descrição">
-        </div>
-      </div>
-
     </div>
   </div>
-
-  <input  class="btn" type="submit" data-bind="attr: { disabled: !validForm() }, css: { disabled: !validForm() }, click:save" value="SALVAR">
-</form>
-
-<p></p>
-<a class="btn" href="/#especialidades">VOLTAR</a>
+</main>
