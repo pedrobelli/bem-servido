@@ -29,8 +29,9 @@ function ($, _, ko, footer, moment, swalComponent) {
 
 			if (isLogged() && !hasUser()) {
 				// TODO arrumar esse redirecionamento bosta
-				window.location.hash = '#home';
-				return location.reload(true);
+				// logout()
+				// window.location.hash = '#home';
+				// return location.reload(true);
 			}
 
 			if (params.dontAccessWhenLogged && isLogged()) {

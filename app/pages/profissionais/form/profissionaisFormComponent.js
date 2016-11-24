@@ -1,7 +1,7 @@
 define(['ko', 'text!profissionaisFormTemplate', 'jquery', 'bridge', 'auth0Component', 'swalComponentForm', "dadosUsuarioComponent",
-'dadosProfissionalComponent', 'dadosServicoComponent', 'dadosHorarioComponent'],
+'dadosProfissionalComponent', 'dadosServicoComponent', 'dadosHorarioComponent', 'pace'],
 function(ko, template, $, bridge, auth0Component, swalComponent, dadosUsuarioComponent, dadosProfissionalComponent, dadosServicoComponent,
-dadosHorarioComponent) {
+dadosHorarioComponent, pace) {
 
   var viewModel = function(params) {
     var self = this;
@@ -85,24 +85,26 @@ dadosHorarioComponent) {
     };
 
     var signupProfissional = function(payload) {
-      self.auth0.signup({
-        connection: 'Username-Password-Authentication',
-        email: payload.email,
-        password: payload.password,
-        "user_metadata": {
-          "role": 2
-        },
-        auto_login: true,
-        sso: false
-      }, function (err, result) {
-        if (!!err) {
-          swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Um usuário com esse email já existe ou seu email não é válido, por favor verifique seus dados e tente novamente."]);
-        } else {
-          self.auth0.getProfile(result.idToken, function (err, profile) {
-            payload.uuid = profile.user_id;
-            createProfissional(payload, result, profile);
-          });
-        }
+      pace.track(function(){
+        self.auth0.signup({
+          connection: 'Username-Password-Authentication',
+          email: payload.email,
+          password: payload.password,
+          "user_metadata": {
+            "role": 2
+          },
+          auto_login: true,
+          sso: false
+        }, function (err, result) {
+          if (!!err) {
+            swalComponent.simpleErrorAlertWithTitle(self.errorTitle, ["Um usuário com esse email já existe ou seu email não é válido, por favor verifique seus dados e tente novamente."]);
+          } else {
+            self.auth0.getProfile(result.idToken, function (err, profile) {
+              payload.uuid = profile.user_id;
+              createProfissional(payload, result, profile);
+            });
+          }
+        });
       });
     }
 

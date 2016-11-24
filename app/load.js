@@ -17,6 +17,7 @@ requirejs.config({
 		moment          : "components/moment/moment",
 		auth0Lock       : "components/auth0-lock/build/lock.min",
 		auth0           : "components/auth0.js/build/auth0.min",
+		pace            : "components/PACE/pace",
 
 		hammerjs        : "components/hammerjs/hammer.min",
 		waves           : "components/Waves/dist/waves.min",
