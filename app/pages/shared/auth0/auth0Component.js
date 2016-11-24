@@ -1,4 +1,4 @@
-define(['auth0', 'bridge', 'swalComponentForm'], function(auth0, bridge, swalComponent) {
+define(['auth0', 'bridge', 'swalComponentForm', 'pace'], function(auth0, bridge, swalComponent, pace) {
 
   function createAuth0Instance(date, horario) {
     return new auth0({
@@ -22,12 +22,14 @@ define(['auth0', 'bridge', 'swalComponentForm'], function(auth0, bridge, swalCom
   function updateAuth0User(payload, errorTitle) {
     var headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaUFvZGNtaHgwRWlpUnhIYUJ6RUR5RUI1RXQzTXBJaSIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfSwidXNlcnNfYXBwX21ldGFkYXRhIjp7ImFjdGlvbnMiOlsidXBkYXRlIl19fSwiaWF0IjoxNDc5OTEzNTY5LCJqdGkiOiI4MTcxYjdmM2Y0MjcyZDNiMDhkYjg4YThlOTE4MTAwZSJ9.5JUeF1JxPNH0BvABh8ju-LX72HO0LDKAUZ2GUf8LV4U'};
 
-    bridge.patch('https://pedrobelli.auth0.com/api/v2/users/' + localStorage.getItem("current_user_auth_id"), payload, headers)
-    .fail(function(context, errorMessage, serverError){
-      swalComponent.errorAlertWithTitle(errorTitle, context.errors);
-    })
-    .done(function(){
-    return window.location.hash = "#clientes/perfil";
+    pace.track(function(){
+      bridge.patch('https://pedrobelli.auth0.com/api/v2/users/' + localStorage.getItem("current_user_auth_id"), payload, headers)
+      .fail(function(context, errorMessage, serverError){
+        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+      })
+      .done(function(){
+        return window.location.hash = localStorage.getItem('current_user_role') == 1 ? "#clientes/perfil" : "#profissionais/perfil";
+      });
     });
   }
 
@@ -48,8 +50,7 @@ define(['auth0', 'bridge', 'swalComponentForm'], function(auth0, bridge, swalCom
     localStorage.setItem('current_user_name', response.profissional.nome);
     localStorage.setItem('current_user_role', profile.user_metadata.role);
     localStorage.setItem('exp', result.idTokenPayload.exp);
-    // TODO arrumar esse redirecionamento bosta
-    return window.location.hash = "#home";
+    return window.location.hash = "#profissionais/atendimentos";
   }
 
   return {

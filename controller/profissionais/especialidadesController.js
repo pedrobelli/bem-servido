@@ -13,7 +13,7 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.get(req, res);
   });
 
-  apiRoutes.delete(endpoint + '/:id', function(req, res) {
+  apiRoutes.delete(endpoint + '/:id/:profissional_id', function(req, res) {
     return self.destroy(req, res);
   });
 
@@ -27,6 +27,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
   apiRoutes.post(endpoint + '/by_servicos', function(req, res) {
     return self.getByServicos(req, res);
+  });
+
+  apiRoutes.post(endpoint + '/by_profissional', function(req, res) {
+    return self.getByProfissional(req, res);
   });
 
   apiRoutes.get(endpoint + '/seeded_by_ramo/:ramo_id', function(req, res) {
@@ -60,7 +64,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Destroy(req.param('id'));
+    return models.profissional_especialidades.Destroy(req.param('id'), req.param('profissional_id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -71,7 +75,18 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Create(req.body);
+    return models.profissionais.Get(models, req.body.profissionalId).then(function(profissional) {
+      var newEspecialidade = models.especialidades.build({
+        nome   : req.body.nome,
+        ramo   : profissional.ramo,
+        seeded : false
+      });
+      return models.especialidades.FindOrCreate(newEspecialidade.dataValues).then(function(entity) {
+        return profissional.addEspecialidades(entity).then(function() {
+          return entity;
+        });
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -83,7 +98,20 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Update(req.body);
+    return models.profissional_especialidades.Destroy(req.body.id, req.body.profissionalId).then(function() {
+      return models.profissionais.Get(models, req.body.profissionalId).then(function(profissional) {
+        var newEspecialidade = models.especialidades.build({
+          nome   : req.body.nome,
+          ramo   : profissional.ramo,
+          seeded : false
+        });
+        return models.especialidades.FindOrCreate(newEspecialidade.dataValues).then(function(entity) {
+          return profissional.addEspecialidades(entity).then(function() {
+            return entity;
+          });
+        });
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -96,6 +124,18 @@ self.update = function(req, res) {
 self.getByServicos = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.especialidades.FindByServicos(models, req.param('servicos'))
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ especialidades: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByProfissional = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.especialidades.FindByProfissional(models, req.body.profissional)
 
   }).then(function(entities) {
     res.statusCode = 200;

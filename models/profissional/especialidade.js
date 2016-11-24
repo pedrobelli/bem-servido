@@ -11,15 +11,6 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    descricao: {
-      type: DataTypes.STRING,
-      validate: {
-        len: {
-          args: [5, 500],
-          msg: "Descrição deve conter pelo menos 5 caracteres"
-        }
-      }
-    },
     ramo: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
@@ -50,16 +41,39 @@ module.exports = function(sequelize, DataTypes) {
 		    });
 			},
 			Create: function(especialidade){
+        especialidade.nome = especialidade.nome.charAt(0).toUpperCase() + especialidade.nome.slice(1).toLowerCase();
 				return this.create(especialidade);
 			},
 			Update: function(especialidade){
+        especialidade.nome = especialidade.nome.charAt(0).toUpperCase() + especialidade.nome.slice(1).toLowerCase();
 				return this.find({ where: { id: especialidade.id } }).then(function(entity) {
 		      return entity.updateAttributes(especialidade);
 		    });
 			},
+			FindOrCreate: function(especialidade){
+				return this.FindByNomeAndRamo(especialidade).then(function(response) {
+					if (!response) {
+						return this.Create(especialidade).then(function(response) {
+							return response
+						});
+					}
+					return response;
+				});
+			},
+			FindByNomeAndRamo: function(especialidade){
+				return this.find({ where: {
+					nome: especialidade.nome,
+					ramo: especialidade.ramo
+				 } });
+			},
 			FindByServicos: function(models, servicoIds){
 				return this.findAll({ include: [
           { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
+        ] });
+			},
+			FindByProfissional: function(models, profissionalId){
+				return this.findAll({ include: [
+          { model: models.profissionais, required: true, through: { where: { profissionalId: profissionalId } } }
         ] });
 			},
 			FindSeededByRamo: function(models, ramoId){

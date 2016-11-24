@@ -29,8 +29,9 @@ function ($, _, ko, footer, moment, swalComponent) {
 
 			if (isLogged() && !hasUser()) {
 				// TODO arrumar esse redirecionamento bosta
-				window.location.hash = '#home';
-				return location.reload(true);
+				// logout()
+				// window.location.hash = '#home';
+				// return location.reload(true);
 			}
 
 			if (params.dontAccessWhenLogged && isLogged()) {
@@ -38,8 +39,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
-					// TODO arrumar esse redirecionamento bosta
-					window.location.hash = '#home';
+					window.location.hash = '#profissionais/atendimentos';
 					return location.reload(true);
 				}
 			}
@@ -54,8 +54,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
-					// TODO arrumar esse redirecionamento bosta
-					window.location.hash = '#home';
+					window.location.hash = '#profissionais/atendimentos';
 					return location.reload(true);
 				}
 			}
@@ -89,6 +88,7 @@ function ($, _, ko, footer, moment, swalComponent) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
+				window.location.hash = '#home';
 				location.reload(true);
       }
     }

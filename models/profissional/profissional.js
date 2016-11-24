@@ -67,6 +67,8 @@ module.exports = function(sequelize, DataTypes) {
 			Get: function(models, id){
 				return this.find({
 					 include: [
+						 { model: models.telefones },
+						 { model: models.enderecos },
 						 { model: models.especialidades },
 						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						 { model: models.horas_trabalho },
@@ -97,9 +99,14 @@ module.exports = function(sequelize, DataTypes) {
 						 { model: models.especialidades },
 						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						 { model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },
-						 { model: models.atendimentos, required: false, where: sequelize.where(
-							 sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%'
-						 ) }
+						 { model: models.atendimentos, required: false, include: [
+							 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] } ,
+							 { model: models.clientes }
+						 ],
+							 where: sequelize.where(
+								 sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%'
+							 )
+						 }
 					 ],
 					 where: { id: id }
 				});

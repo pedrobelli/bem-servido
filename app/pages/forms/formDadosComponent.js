@@ -7,11 +7,14 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
     var formOptionsRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/form_options" : "/api/profissionais/form_options";
     var getRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/get/" + localStorage.getItem('current_user_id') : "/api/profissionais/get/" + localStorage.getItem('current_user_id');
     var updateRoute = localStorage.getItem('current_user_role') == 1 ? "/api/clientes/edit" : "/api/profissionais/edit";
+    var route = localStorage.getItem('current_user_role') == 1 ? "#clientes/perfil" : "#profissionais/perfil";
 
     self.nomeCompleto = ko.observable();
     self.dataNascimento = ko.observable();
     self.sexo = ko.observable();
     self.cpf = ko.observable();
+    self.cpfCnpj = ko.observable();
+    self.cliente = ko.observable(localStorage.getItem('current_user_role') == 1 ? true : false);
 
     // telefones
     self.telefoneId = ko.observable();
@@ -23,7 +26,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
     self.errorTitle = "Ocorreu um erro na atualização de seus dados!";
 
     self.cancelar = function(){
-      return window.location.hash = "#clientes/perfil";
+      return window.location.hash = route;
     };
 
     self.salvar = function(){
@@ -40,7 +43,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       .done(function(response){
         var nome = !!response.cliente ? response.cliente.nome : response.profissional.nome;
         localStorage.setItem('current_user_name', nome);
-        return window.location.hash = "#clientes/perfil";
+        return window.location.hash = route;
       });
 
     };
@@ -48,8 +51,10 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
     var validate = function(){
       var errors = []
       valid = !!self.nomeCompleto();
-      valid = valid && !!self.cpf();
       valid = valid && !!self.dataNascimento();
+
+      if(localStorage.getItem('current_user_role') == 1) valid = valid && !!self.cpf();;
+      if(localStorage.getItem('current_user_role') == 2) valid = valid && !!self.cpfCnpj();
 
       if (!valid) {
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
@@ -65,6 +70,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
         dataNascimento : momentComponent.convertStringToDate(self.dataNascimento()),
         sexo           : !!self.sexo() ? self.sexo() : 0,
         cpf            : self.cpf(),
+        cpf_cnpj       : self.cpfCnpj(),
         telefoneId     : self.telefoneId(),
         telefone       : self.telefone(),
         celular        : self.celular(),
@@ -80,6 +86,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       datepickerComponent.applyDatepicker();
 
       maskComponent.applyCPFMask();
+      maskComponent.applyCPF_CNPJMask();
       maskComponent.applyCelphoneMask();
 
       bridge.get(formOptionsRoute)
@@ -96,13 +103,16 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       .then(function(){
         return bridge.get(getRoute)
         .then(function(response){
-          self.nomeCompleto(response.cliente.nome);
-          self.cpf(response.cliente.cpf);
-          self.sexo(!!response.cliente.sexo ? response.cliente.sexo : undefined);
-          self.dataNascimento(momentComponent.convertDateToString(momentComponent.convertDateStringToDate(response.cliente.dataNascimento)));
-          self.telefoneId(response.cliente.telefone.id);
-          self.telefone(response.cliente.telefone.telefone);
-          self.celular(response.cliente.telefone.celular);
+          var usuario = !!response.cliente ? response.cliente : response.profissional;
+          self.nomeCompleto(usuario.nome);
+          self.sexo(!!usuario.sexo ? usuario.sexo : undefined);
+          self.dataNascimento(momentComponent.convertDateToString(momentComponent.convertDateStringToDate(usuario.dataNascimento)));
+          self.telefoneId(usuario.telefone.id);
+          self.telefone(usuario.telefone.telefone);
+          self.celular(usuario.telefone.celular);
+
+          if(localStorage.getItem('current_user_role') == 1) self.cpf(usuario.cpf);
+          if(localStorage.getItem('current_user_role') == 2) self.cpfCnpj(usuario.cpf_cnpj);
         });
       })
       .then(function(){

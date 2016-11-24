@@ -25,11 +25,15 @@ function(ko, template, materialize, waves) {
 
     self.profissionalOptions = [
       {
-        link : '#',
+        link : '#profissionais/atendimentos',
         text : 'Meus agendamentos'
       },
       {
-        link : '#',
+        link : '#especialidades',
+        text : 'Minhas habilidades'
+      },
+      {
+        link : '#servicos',
         text : 'Meus serviços'
       },
       {
@@ -37,7 +41,7 @@ function(ko, template, materialize, waves) {
         text : 'Meus horários'
       },
       {
-        link : '#',
+        link : '#profissionais/perfil',
         text : 'Meu Perfil'
       }
     ];
@@ -74,6 +78,7 @@ function(ko, template, materialize, waves) {
         localStorage.removeItem('current_user_name');
         localStorage.removeItem('current_user_role');
         localStorage.removeItem('exp');
+        window.location.hash = '#home';
         location.reload(true);
       }
     };

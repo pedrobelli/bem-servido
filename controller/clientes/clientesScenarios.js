@@ -21,7 +21,7 @@ exports.createClientes = function() {
   });
 
   var endereco = models.enderecos.build({
-    cep            : 82620380,
+    cep            : '82620380',
     rua            : 'Praça Hedwirges Nadolny',
     num            : '843',
     complemento    : '',

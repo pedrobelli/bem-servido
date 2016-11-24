@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			FindByNomeAndEspecialidade: function(servico){
 				return this.findAll({ where: {
-					nome: { $like: '%'+servico.nome+'%' },
+					nome: servico.nome,
 					especialidadeId: servico.especialidadeId
 				 } });
 			}

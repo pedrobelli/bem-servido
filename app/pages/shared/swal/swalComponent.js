@@ -63,7 +63,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
       type: "warning",
       html: true,
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
+      confirmButtonColor: "orange",
       confirmButtonText: "Sim!",
       closeOnConfirm: true,
       animation: false
