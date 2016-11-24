@@ -433,9 +433,9 @@ ul.available-list > li.available-time > label.label-disabled{
   margin: 0;
 }
 
-.infos-detalhes .servicos-list{
+.infos-detalhes .generic-list{
   max-height: 550px;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 /*EDIÇÃO*/
@@ -508,7 +508,7 @@ ul.available-list > li.available-time > label.label-disabled{
   .card-agenda .schedule-list .unvailable > p.desc-servico{
     width: 60%;
   }
-  .infos-detalhes .servicos-list{
+  .infos-detalhes .generic-list{
     max-height: 350px;
   }
 

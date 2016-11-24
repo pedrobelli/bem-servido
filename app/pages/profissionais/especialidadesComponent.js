@@ -27,7 +27,9 @@ function(ko, template, bridge, $, swalComponent) {
     };
 
     var init = function() {
-      bridge.get("/api/especialidades").then(function(response) {
+      bridge.post("/api/especialidades/by_profissional", { profissional : localStorage.getItem('current_user_id')})
+      .then(function(response) {
+        console.log(response);
         mapResponseToEspecialidades(response.especialidades);
       });
     };

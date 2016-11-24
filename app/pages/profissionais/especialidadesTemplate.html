@@ -1,26 +1,41 @@
-<p class="center login-form-text">Especialidades</p>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Nome</th>
-      <th>Descrição</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-
-  <tbody data-bind="foreach: especialidades">
-    <tr>
-      <th scope="row" data-bind="text: id"></th>
-      <td data-bind="text: nome"></td>
-      <td data-bind="text: descricao"></td>
-      <td>
-        <a data-bind="attr: {href: '#especialidades/edit/'+id}" class="btn">EDITAR</a>
-        <a data-bind="click: $component.exclude" class="btn">EXCLUIR</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<a class="btn" href="#especialidades/new">Novo</a>
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Minhas Habilidades</h2>
+      <hr>
+      <div class="agenda-action col s12 m6 right">
+        <a href="#especialidades/new" class="modal-trigger btn orange">Novo</a>
+      </div>
+    </div>
+    <div class="especialidades row">
+      <div class="especialidade-infos">
+        <div class="col s12">
+          <div class="card infos-detalhes">
+            <div class="card-content">
+              <span class="card-title">Habilidades</span>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody data-bind="foreach: especialidades">
+                  <tr>
+                    <td data-bind="text: nome"></td>
+                    <td data-bind="text: descricao"></td>
+                    <td>
+                      <a class="waves-effect waves-light btn-flat orange-text">editar</a>
+                      <a class="waves-effect waves-light btn-flat red-text">excluir</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

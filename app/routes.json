@@ -94,6 +94,16 @@
     }
   },
   {
+    "path"   : "#especialidades",
+    "page"   : "pages/profissionais/especialidadesComponent",
+    "params" : {
+      "name"   : "profissionalPerfil",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#profissionais/perfil",
     "page"   : "pages/profissionais/perfilProfissionalComponent",
     "params" : {
@@ -182,11 +192,6 @@
     "path"   : "#profissionais/edit/:id",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#especialidades",
-    "page"   : "pages/profissionais/especialidadesComponent",
-    "params" : { "name" : "index" }
   },
   {
     "path"   : "#especialidades/new",

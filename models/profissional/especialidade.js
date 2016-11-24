@@ -62,6 +62,11 @@ module.exports = function(sequelize, DataTypes) {
           { model: models.servicos, where: { id: JSON.parse(servicoIds) } }
         ] });
 			},
+			FindByProfissional: function(models, profissionalId){
+				return this.findAll({ include: [
+          { model: models.profissionais, through: { where: { profissionalId: profissionalId } } } 
+        ] });
+			},
 			FindSeededByRamo: function(models, ramoId){
 				return this.findAll({
 					include: [ { model: models.servicos, where: { seed: true } } ],
