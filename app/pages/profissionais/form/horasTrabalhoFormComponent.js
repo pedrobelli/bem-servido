@@ -7,7 +7,7 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
 
     var CREATE_PATH = "/api/horas_trabalho/new";
     var UPDATE_PATH = "/api/horas_trabalho/edit";
-    var DELETE_PATH = "/api/horas_trabalho/delete/";
+    var DELETE_PATH = "/api/horas_trabalho/";
 
     self.errorTitle = "Ocorreu um erro na edição de horários de trabalho!";
 
@@ -27,12 +27,12 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
           updateHoraTrabalho(horaTrabalho);
         } else if (horaTrabalho.checked() && !horaTrabalho.registerId) {
           createHoraTrabalho(horaTrabalho);
-        } else if (horaTrabalho.checked() && !!horaTrabalho.registerId) {
+        } else if (!horaTrabalho.checked() && !!horaTrabalho.registerId) {
           deleteHoraTrabalho(horaTrabalho);
         }
       });
 
-      window.location.hash = "#especialidades"
+      window.location.hash = "#profissionais/atendimentos"
     };
 
     self.check = function(horario){
@@ -111,7 +111,7 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
     };
 
     var deleteHoraTrabalho = function(horaTrabalho){
-      bridge.del(DELETE_PATH + horaTrabalho.perfilId)
+      bridge.del(DELETE_PATH + horaTrabalho.registerId)
       .fail(function(context, errorMessage, serverError){
         swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
       });
@@ -154,7 +154,7 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
         maskComponent.applyTimeMask();
 
         self.horasTrabalho().forEach(function(horaTrabalho){
-          if (!!horaTrabalho.id) $('#horario' + horaTrabalho.id).addClass('material-checkbox');
+          if (!!horaTrabalho.registerId) $('#horario' + horaTrabalho.id).addClass('material-checkbox');
         });
       });
     };

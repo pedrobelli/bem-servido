@@ -37,6 +37,9 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			Destroy: function(id){
 				return this.find({ where: { id: id } }).then(function(entity) {
+					console.log("========== ==========");
+					console.log(entity);
+					console.log("========== ==========");
 		      return entity.destroy();
 		    });
 			},

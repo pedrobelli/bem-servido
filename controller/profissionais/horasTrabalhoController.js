@@ -56,7 +56,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.horas_trabalho.Destroy(req.param('id'), req.param('profissional_id'));
+    return models.horas_trabalho.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
