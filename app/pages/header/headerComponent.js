@@ -37,7 +37,7 @@ function(ko, template, materialize, waves) {
         text : 'Meus serviços'
       },
       {
-        link : '#',
+        link : '#horas_trabalho/edit',
         text : 'Meus horários'
       },
       {

@@ -47,6 +47,9 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: detalheServico.id } }).then(function(entity) {
 		      return entity.updateAttributes(detalheServico);
 		    });
+			},
+			FindByProfissional: function(models, profissionalId){
+				return this.findAll({ where: { profissionalId: profissionalId } });
 			}
 		},
 		paranoid: true,

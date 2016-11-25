@@ -7,9 +7,10 @@ var express                 = require('express'),
   config                    = require('./config/config'),
   atendimentosController    = require('./controller/atendimentos/atendimentosController'),
   clientesController        = require('./controller/clientes/clientesController'),
-  enderecosController        = require('./controller/enderecos/enderecosController'),
+  enderecosController       = require('./controller/enderecos/enderecosController'),
   profissionaisController   = require('./controller/profissionais/profissionaisController'),
   especialidadesController  = require('./controller/profissionais/especialidadesController'),
+  horasTrabalhoController   = require('./controller/profissionais/horasTrabalhoController'),
   servicosController        = require('./controller/servicos/servicosController'),
   detalheServicosController = require('./controller/servicos/detalheServicosController');
 
@@ -60,6 +61,7 @@ function loadRoutes() {
 
   profissionaisController.loadRoutes("/profissionais", apiRoutes);
   especialidadesController.loadRoutes("/especialidades", apiRoutes);
+  horasTrabalhoController.loadRoutes("/horas_trabalho", apiRoutes);
 
   servicosController.loadRoutes("/servicos", apiRoutes);
   detalheServicosController.loadRoutes("/detalhe_servicos", apiRoutes);
