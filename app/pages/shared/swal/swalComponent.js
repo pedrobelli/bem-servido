@@ -84,7 +84,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
   }
 
   function removeInstanceWarning(url, errorTitle, callback) {
-    var warningBody = $("<div class='swal-body'></div>");
+    var messageBody = $("<div class='swal-body'></div>");
     messageBody.append($('<h5 class="swal-content"></h5>').html("Esta operação não pode ser desfeita!"));
 
     sweetAlert({
