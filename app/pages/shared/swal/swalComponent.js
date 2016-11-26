@@ -63,8 +63,8 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
   }
 
   function customWarningActionWithTitle(title, message, callback) {
-    var messageBody = $("<div class='swal-body'></div>");
-    messageBody.append($('<h5 class="swal-content"></h5>').html(message));
+    var warningBody = $("<div class='swal-body'></div>");
+    warningBody.append($('<h5 class="swal-content"></h5>').html(message));
 
     sweetAlert({
       title:"<div class='swal-header'>" + title + "</div>",
@@ -84,7 +84,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
   }
 
   function removeInstanceWarning(url, errorTitle, callback) {
-    var messageBody = $("<div class='swal-body'></div>");
+    var warningBody = $("<div class='swal-body'></div>");
     messageBody.append($('<h5 class="swal-content"></h5>').html("Esta operação não pode ser desfeita!"));
 
     sweetAlert({
