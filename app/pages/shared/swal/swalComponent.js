@@ -38,10 +38,37 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
     });
   }
 
-  function customWarningAction(title, message, callback) {
+  function customWarningAction(warnings, callback) {
+    var warningBody = $("<div class='swal-body'></div>").css({textAlign: "left"});
+
+    warnings.forEach(function(warning){
+      warningBody.append($('<h5 class="swal-content"></h5>').html(" - " + warning));
+    });
+
     sweetAlert({
-      title: title,
-      text: message,
+      title:"<div class='swal-header'>Esta operação não pode ser desfeita!</div>",
+      text: warningBody[0].outerHTML,
+      type: "warning",
+      html: true,
+      showCancelButton: false,
+      confirmButtonColor: "orange",
+      confirmButtonText: "OK",
+      closeOnConfirm: true,
+      animation: false
+    },
+    function(answer) {
+      $('body').css('overflow', 'visible');
+      callback();
+    });
+  }
+
+  function customWarningActionWithTitle(title, message, callback) {
+    var messageBody = $("<div class='swal-body'></div>");
+    messageBody.append($('<h5 class="swal-content"></h5>').html(message));
+
+    sweetAlert({
+      title:"<div class='swal-header'>" + title + "</div>",
+      text: warningBody[0].outerHTML,
       type: "warning",
       html: true,
       showCancelButton: false,
@@ -57,9 +84,12 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
   }
 
   function removeInstanceWarning(url, errorTitle, callback) {
+    var messageBody = $("<div class='swal-body'></div>");
+    messageBody.append($('<h5 class="swal-content"></h5>').html("Esta operação não pode ser desfeita!"));
+
     sweetAlert({
-      title: "Tem certeza?",
-      text: "Esta operação não pode ser desfeita!",
+      title:"<div class='swal-header'>Tem certeza?</div>",
+      text: messageBody[0].outerHTML,
       type: "warning",
       html: true,
       showCancelButton: true,
@@ -88,6 +118,7 @@ define(['sweetAlert', 'bridge', 'jquery'], function(sweetAlert, bridge, $) {
     errorAlertWithTitle:errorAlertWithTitle,
     simpleErrorAlertWithTitle:simpleErrorAlertWithTitle,
     customWarningAction:customWarningAction,
+    customWarningActionWithTitle:customWarningActionWithTitle,
     removeInstanceWarning:removeInstanceWarning
   }
 });

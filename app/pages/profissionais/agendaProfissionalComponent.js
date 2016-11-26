@@ -19,9 +19,9 @@ function(ko, template, bridge, momentComponent, agendaComponent, datepickerCompo
 
     self.agendar = function(profissional){
       if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 1) {
-        swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um profissional para realizar um agendamento!", function(){});
+        swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado com um profissional para realizar um agendamento!", function(){});
       } else if (!localStorage.getItem('current_user_id')) {
-        swalComponent.customWarningAction("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
+        swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
 					return window.location.hash = '#login';
 				});
       } else {

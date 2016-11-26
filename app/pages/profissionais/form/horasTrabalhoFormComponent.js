@@ -22,17 +22,19 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
         return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
 
-      self.horasTrabalho().forEach(function(horaTrabalho){
-        if (horaTrabalho.checked() && !!horaTrabalho.registerId) {
-          updateHoraTrabalho(horaTrabalho);
-        } else if (horaTrabalho.checked() && !horaTrabalho.registerId) {
-          createHoraTrabalho(horaTrabalho);
-        } else if (!horaTrabalho.checked() && !!horaTrabalho.registerId) {
-          deleteHoraTrabalho(horaTrabalho);
+      bridge.post("/api/horas_trabalho/validate_warning", generatePayloadForValidation())
+      .then(function(response) {
+        var warnings = _.uniq(response.warnings);
+        if (warnings.length > 0) {
+          warnings.push('Esta ação cancelara todos estes agendamentos, deseja continuar?');
+          swalComponent.customWarningAction(warnings, saveHorasTrabalho());
+        } else {
+          saveHorasTrabalho();
         }
+      })
+      .fail(function(context, errorMessage, serverError){
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
       });
-
-      window.location.hash = "#profissionais/atendimentos"
     };
 
     self.check = function(horario){
@@ -94,6 +96,37 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
       if(!!horaTrabalho.registerId) payload.id = horaTrabalho.registerId;
 
       return payload;
+    };
+
+    var generatePayloadForValidation = function(){
+      var payload = {};
+      var horasTrabalho = [];
+      self.horasTrabalho().forEach(function(horaTrabalho){
+        horasTrabalho.push({
+          id         : horaTrabalho.registerId,
+          diaSemana  : horaTrabalho.id,
+          horaInicio : momentComponent.convertStringToTime(horaTrabalho.horarioInicio()),
+          horaFim    : momentComponent.convertStringToTime(horaTrabalho.horarioFim()),
+          checked    : horaTrabalho.checked()
+        });
+      });
+      payload.horasTrabalho = JSON.stringify(horasTrabalho);
+
+      return payload;
+    };
+
+    var saveHorasTrabalho = function(){
+      self.horasTrabalho().forEach(function(horaTrabalho){
+        if (horaTrabalho.checked() && !!horaTrabalho.registerId) {
+          updateHoraTrabalho(horaTrabalho);
+        } else if (horaTrabalho.checked() && !horaTrabalho.registerId) {
+          createHoraTrabalho(horaTrabalho);
+        } else if (!horaTrabalho.checked() && !!horaTrabalho.registerId) {
+          deleteHoraTrabalho(horaTrabalho);
+        }
+      });
+
+      window.location.hash = "#profissionais/atendimentos"
     };
 
     var updateHoraTrabalho = function(horaTrabalho){

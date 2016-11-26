@@ -148,6 +148,33 @@ module.exports = function(sequelize, DataTypes) {
           ],
 				  order: 'dataInicio ASC'
         });
+			},
+			getFromTodayByWeekday: function(weekday){
+        var diaSemana = weekday == 7 ? 6 : weekday - 2
+
+        return this.findAll({
+          where: [
+            { dataInicio: {
+                $gte: new Date(),
+            } },
+            sequelize.where(sequelize.fn('weekday', sequelize.col('dataInicio')), '=', diaSemana)
+          ]
+        });
+			},
+			getFromTodayByWeekdayAndTime: function(horaTrabalho){
+        var diaSemana = horaTrabalho.diaSemana == 7 ? 6 : horaTrabalho.diaSemana - 2;
+        var horaInicio = new Date(horaTrabalho.horaInicio);
+        var horaFim = new Date(horaTrabalho.horaFim);
+
+				return this.findAll({
+          where: sequelize.and(
+            sequelize.where(sequelize.fn('weekday', sequelize.col('dataInicio')), '=', diaSemana),
+            sequelize.or(
+              sequelize.where(sequelize.fn('time', sequelize.col('dataInicio')), '<', sequelize.fn('time', horaInicio)),
+              sequelize.where(sequelize.fn('time', sequelize.col('dataFim')), '>', sequelize.fn('time', horaFim))
+            )
+          )
+        });
 			}
 		},
 		scopes: {

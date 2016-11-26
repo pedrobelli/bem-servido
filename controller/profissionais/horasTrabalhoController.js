@@ -28,6 +28,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.post(endpoint + '/by_profissional', function(req, res) {
     return self.getByProfissional(req, res);
   });
+
+  apiRoutes.post(endpoint + '/validate_warning', function(req, res) {
+    return self.validateWarning(req, res);
+  });
 }
 
 self.index = function(req, res) {
@@ -56,7 +60,15 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.horas_trabalho.Destroy(req.param('id'));
+    return Promise.all(horasTrabalho.map(function(horaTrabalho) {
+      return models.atendimentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
+        response.forEach(function(atendimento) {
+          models.atendimentos.Destroy(atendimento.id);
+        });
+      });
+    })).then(function() {
+      return models.horas_trabalho.Destroy(req.param('id'));
+    });
 
   }).then(function(entity) {
     res.send(204)
@@ -79,7 +91,15 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.horas_trabalho.Update(req.body)
+    return Promise.all(horasTrabalho.map(function(horaTrabalho) {
+      return models.atendimentos.getFromTodayByWeekdayAndTime(horaTrabalho).then(function(response) {
+        response.forEach(function(atendimento) {
+          models.atendimentos.Destroy(atendimento.id);
+        });
+      });
+    })).then(function() {
+      return models.horas_trabalho.Update(req.body)
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
@@ -99,4 +119,30 @@ self.getByProfissional = function(req, res) {
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
+}
+
+self.validateWarning = function(req, res) {
+  var warnings = [];
+  return sequelize.transaction(function(t) {
+
+    var horasTrabalho = JSON.parse(req.body.horasTrabalho);
+    return Promise.all(horasTrabalho.map(function(horaTrabalho) {
+      if (horaTrabalho.checked && !!horaTrabalho.id) {
+        return models.atendimentos.getFromTodayByWeekdayAndTime(horaTrabalho).then(function(response) {
+          if (response.length > 0) warnings.push("Você tem agendamentos nos dias alterados/excluidos");
+        });
+      } else if (!horaTrabalho.checked && !!horaTrabalho.id) {
+        return models.atendimentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
+          if (response.length > 0) warnings.push("Você tem agendamentos nos dias alterados/excluidos");
+        });
+      }
+    }));
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ warnings: warnings });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+
 }
