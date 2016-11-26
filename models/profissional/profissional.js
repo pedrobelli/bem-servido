@@ -113,8 +113,12 @@ module.exports = function(sequelize, DataTypes) {
 					 where: { id: id }
 				});
 			},
-			Search: function(scopes){
+			Search: function(models, scopes){
 				return this.scope(scopes).findAll({
+					include: [
+						{ model: models.telefones },
+						{ model: models.enderecos }
+					],
 					having: sequelize.where(
 						sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('horas_trabalhos.horaInicio'), sequelize.col('horas_trabalhos.horaFim')),
 						'>',
