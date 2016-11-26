@@ -21,6 +21,7 @@
     "Waves": "waves#^0.7.5",
     "materialize": "^0.97.8",
     "auth0-lock": "^10.6.1",
-    "auth0.js": "^7.4.0"
+    "auth0.js": "^7.4.0",
+    "chart.js": "^2.4.0"
   }
 }

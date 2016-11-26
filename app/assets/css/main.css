@@ -443,6 +443,32 @@ ul.available-list > li.available-time > label.label-disabled{
   margin: 0 auto;
 }
 
+.estrelas > i{
+  color: orange;
+}
+.estrelas > .nota{
+  font-size: 14px;
+}
+
+
+/*QUALIFICACAO*/
+.qualificacoes .qualificacao-total {
+  text-align: right;
+}
+.qualificacoes .qualificacao .qualificacao-servico, .qualificacoes .qualificacao .qualificacao-data{
+  font-size: 12px;
+  color: #979797;
+  display: inline-block;
+}
+.qualificacoes table > tbody > tr > td .secondary-content{
+  text-transform: uppercase;
+}
+.qualificacoes table > tbody > tr > td .secondary-content > i{
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+
 /* RESPONSIVO */
 
 @media screen and (max-width: 1024px){
