@@ -5,7 +5,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     var self = this;
 
     self.servico = ko.observable();
-    self.data = ko.observable(momentComponent.convertDateToString(new Date()));
+    self.data = ko.observable(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date()));
 
     self.ramos = ko.observableArray([]);
     self.diasSemana = ko.observableArray([]);
