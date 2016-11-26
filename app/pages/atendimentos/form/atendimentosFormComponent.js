@@ -75,21 +75,16 @@ swalComponent, agendaComponent) {
     };
 
     var loadProfissionalInfo = function() {
-      bridge.post("/api/profissionais/by_date_weekday", generatePayload())
+      return bridge.post("/api/profissionais/by_date_weekday", generatePayload())
       .then(function(response) {
         var profissional = response.profissional;
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
-        var endereco = profissional.endereco;
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
         var telefone = profissional.telefone.telefone;
 
-        var enderecoString = endereco.rua + ", " + endereco.num ;
-        if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
-        enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
-
         self.nome(profissional.nome);
         self.ramo(ramo.text);
-        self.endereco(enderecoString);
+        self.endereco(maskComponent.addressFormat(profissional.endereco, estado));
         self.telefone(telefone)
 
         mapResponseToDetalheServicos(profissional.detalhe_servicos);
@@ -123,7 +118,7 @@ swalComponent, agendaComponent) {
         self.estados(estados);
       })
       .then(function() {
-        loadProfissionalInfo();
+        return loadProfissionalInfo();
       })
       .then(function() {
         maskComponent.applyCelphoneMask();

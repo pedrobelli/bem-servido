@@ -120,12 +120,16 @@ module.exports = function(sequelize, DataTypes) {
 						'>',
 						sequelize.fn('ifnull', sequelize.literal('`atendimentos.tempoTotalAtendimento`'), 0)
 					),
-					group: [ [sequelize.col('profissionais.nome')] ],
-				  order: [ [sequelize.fn('RAND')] ]
+					group: [ [sequelize.col('profissionais.nome')] ]
 				});
 			}
 		},
 		scopes: {
+	    home: function () {
+	      return {
+					order: [ [sequelize.fn('RAND')] ]
+	      }
+	    },
 	    byServiceName: function (models, value) {
 	      return {
 					include: [ {

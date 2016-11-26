@@ -4,6 +4,13 @@ function(ko, template, bridge) {
   var viewModel = function(params) {
     var self = this;
 
+    self.profissionais = ko.observableArray([]);
+
+     var init = function() {
+
+     }
+
+     init();
   };
 
   return {
