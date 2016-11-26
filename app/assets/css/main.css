@@ -257,6 +257,9 @@ ul.available-list > li.available-time > label.label-disabled{
 .agenda > .profissional-info > *{
   margin: auto 10px;
 }
+.agenda > .profissional-info > .info-secondary{
+  font-size: 12px;
+}
 .agenda > div.date{
   /*background-color: #f2f2f2;*/
   height: 100px;
@@ -342,7 +345,7 @@ ul.available-list > li.available-time > label.label-disabled{
 }
 
 .modal-agendamento{
-  width: 35%;
+  /*width: 35%;*/
   border: 2px solid orange;
 }
 .modal-agendamento h4{
@@ -406,6 +409,7 @@ ul.available-list > li.available-time > label.label-disabled{
   font-size: 14px;
 }
 
+
 /*PERFIL CLIENTE*/
 .infos-detalhes .card-title{
   text-transform: uppercase;
@@ -445,6 +449,32 @@ ul.available-list > li.available-time > label.label-disabled{
   padding: 10px;
   margin: 0 auto;
 }
+
+.estrelas > i{
+  color: orange;
+}
+.estrelas > .nota{
+  font-size: 14px;
+}
+
+
+/*QUALIFICACAO*/
+.qualificacoes .qualificacao-total {
+  text-align: right;
+}
+.qualificacoes .qualificacao .qualificacao-servico, .qualificacoes .qualificacao .qualificacao-data{
+  font-size: 12px;
+  color: #979797;
+  display: inline-block;
+}
+.qualificacoes table > tbody > tr > td .secondary-content{
+  text-transform: uppercase;
+}
+.qualificacoes table > tbody > tr > td .secondary-content > i{
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
 
 /* RESPONSIVO */
 
@@ -499,8 +529,10 @@ ul.available-list > li.available-time > label.label-disabled{
   .pesquisa{
     display: block;
   }
-  .services-available .card{
+
+  .card-agenda .schedule-list{
     max-height: 350px;
+
   }
   .card-agenda .schedule-list .unvailable > p.desc-horario{
     display: none;

@@ -106,7 +106,9 @@ requirejs.config({
 		// pesquisaTemplate           : 'pages/frontend/pesquisaTemplate.html',
 		// perfilTemplate           : 'pages/frontend/perfilTemplate.html',
 		// servicosEditTemplate           : 'pages/frontend/servicosListTemplate.html',
-		servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
+		// servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
+		// qualificacoesProfissionalTemplate           : 'pages/frontend/qualificacoesProfissionalTemplate.html',
+		qualificacoesClienteTemplate           : 'pages/frontend/qualificacoesClienteTemplate.html',
   }
 
 	// Styles
