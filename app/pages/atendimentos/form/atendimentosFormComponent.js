@@ -11,6 +11,7 @@ swalComponent, agendaComponent) {
     self.nome = ko.observable();
     self.ramo = ko.observable();
     self.telefone = ko.observable();
+    self.celular = ko.observable();
     self.endereco = ko.observable();
 
     self.ramos = ko.observableArray([]);
@@ -75,22 +76,19 @@ swalComponent, agendaComponent) {
     };
 
     var loadProfissionalInfo = function() {
-      bridge.post("/api/profissionais/by_date_weekday", generatePayload())
+      return bridge.post("/api/profissionais/by_date_weekday", generatePayload())
       .then(function(response) {
         var profissional = response.profissional;
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
-        var endereco = profissional.endereco;
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
         var telefone = profissional.telefone.telefone;
-
-        var enderecoString = endereco.rua + ", " + endereco.num ;
-        if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
-        enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
+        var celular = profissional.telefone.celular;
 
         self.nome(profissional.nome);
         self.ramo(ramo.text);
-        self.endereco(enderecoString);
-        self.telefone(telefone)
+        self.endereco(maskComponent.addressFormat(profissional.endereco, estado));
+        self.telefone(telefone);
+        self.celular(celular);
 
         mapResponseToDetalheServicos(profissional.detalhe_servicos);
         self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(profissional.horas_trabalhos[0]));
@@ -123,7 +121,7 @@ swalComponent, agendaComponent) {
         self.estados(estados);
       })
       .then(function() {
-        loadProfissionalInfo();
+        return loadProfissionalInfo();
       })
       .then(function() {
         maskComponent.applyCelphoneMask();

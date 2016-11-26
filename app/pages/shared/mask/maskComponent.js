@@ -74,6 +74,14 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     return formatedValue;
   }
 
+  var addressFormat = function(endereco, estado) {
+    var enderecoString = endereco.rua + ", " + endereco.num ;
+    if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
+    enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
+
+    return enderecoString;
+  }
+
   var validateEmailFormat = function(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
@@ -90,6 +98,7 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     applyCurrencyMask:applyCurrencyMask,
     applyNumberMask:applyNumberMask,
     accountingFormat:accountingFormat,
+    addressFormat:addressFormat,
     validateEmailFormat:validateEmailFormat
   }
 

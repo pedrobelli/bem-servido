@@ -50,10 +50,6 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
           var sexo = _.find(self.sexos(), function(currentSexo){ return currentSexo.id == cliente.sexo; });
           var estado = _.find(self.estados(), function(estado){ return estado.id == endereco.estado; });
 
-          var enderecoString = endereco.rua + ", " + endereco.num ;
-          if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
-          enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
-
           self.nome(cliente.nome);
           self.cpf(cliente.cpf);
           self.sexo(!!sexo ? sexo.text : "");
@@ -62,7 +58,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
           self.celular(!!cliente.telefone.celular ? cliente.telefone.celular : "");
           self.enderecoId(endereco.id);
           self.cep(endereco.cep);
-          self.endereco(enderecoString);
+          self.endereco(maskComponent.addressFormat(cliente.endereco, estado));
 
         });
       })

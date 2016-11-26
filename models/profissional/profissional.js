@@ -113,19 +113,27 @@ module.exports = function(sequelize, DataTypes) {
 					 where: { id: id }
 				});
 			},
-			Search: function(scopes){
+			Search: function(models, scopes){
 				return this.scope(scopes).findAll({
+					include: [
+						{ model: models.telefones },
+						{ model: models.enderecos }
+					],
 					having: sequelize.where(
 						sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('horas_trabalhos.horaInicio'), sequelize.col('horas_trabalhos.horaFim')),
 						'>',
 						sequelize.fn('ifnull', sequelize.literal('`atendimentos.tempoTotalAtendimento`'), 0)
 					),
-					group: [ [sequelize.col('profissionais.nome')] ],
-				  order: [ [sequelize.fn('RAND')] ]
+					group: [ [sequelize.col('profissionais.nome')] ]
 				});
 			}
 		},
 		scopes: {
+	    home: function () {
+	      return {
+					order: [ [sequelize.fn('RAND')] ]
+	      }
+	    },
 	    byServiceName: function (models, value) {
 	      return {
 					include: [ {
