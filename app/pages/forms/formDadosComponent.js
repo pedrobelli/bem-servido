@@ -72,8 +72,8 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
         cpf            : self.cpf(),
         cpf_cnpj       : self.cpfCnpj(),
         telefoneId     : self.telefoneId(),
-        telefone       : self.telefone(),
-        celular        : self.celular(),
+        telefone       : !!self.telefone() ? self.telefone() : undefined,
+        celular        : !!self.celular() ? self.celular() : undefined,
       };
 
       if (localStorage.getItem('current_user_role') == 1) payload.clienteId = payload.id;

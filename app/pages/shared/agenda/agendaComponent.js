@@ -35,10 +35,19 @@ define(['momentComponent'], function(momentComponent) {
     var horaTrabalhoInicial = momentComponent.convertTimeStringToMoment(horasTrabalho[0].hora)
     var atendimentos = atendimentos.map(function(atendimento){
       var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(atendimento.dataInicio));
+      var nome = "";
+
+      if (!!atendimento.cliente) {
+        nome = atendimento.cliente.nome;
+      } else {
+        nome = atendimento.nomeCliente;
+      }
+
       return {
+        id      : atendimento.id,
         top     : (horaAtual.diff(horaTrabalhoInicial, 'minutes')),
         height  : atendimento.duracao,
-        cliente : atendimento.cliente.nome,
+        cliente : nome,
         servico : atendimento.detalhe_servico.servico.nome,
         horario : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim)
       }

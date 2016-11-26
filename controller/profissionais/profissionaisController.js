@@ -262,6 +262,7 @@ self.formOptions = function(req, res) {
 self.pesquisaFormOptions = function(req, res) {
   var options = {}
   options.ramos = enums.ramos;
+  options.estados = enums.estados;
   options.diasSemana = enums.diasSemana;
 
   res.statusCode = 200;

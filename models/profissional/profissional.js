@@ -96,6 +96,8 @@ module.exports = function(sequelize, DataTypes) {
 			FindByDateAdnWeekday: function(models, id, data, diaSemana){
 				return this.find({
 					 include: [
+						 { model: models.telefones },
+						 { model: models.enderecos },
 						 { model: models.especialidades },
 						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						 { model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },

@@ -22,7 +22,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 
 			var duration = moment.duration(moment(parseInt(localStorage.getItem('exp')) * 1000).diff(Date.now()));
 			if(isLogged() && duration.asMilliseconds() <= 1){
-				swalComponent.customWarningAction("Atenção", "Sua sessão expirou!", function(){
+				swalComponent.customWarningActionWithTitle("Atenção", "Sua sessão expirou!", function(){
 					logout();
 				});
 			}

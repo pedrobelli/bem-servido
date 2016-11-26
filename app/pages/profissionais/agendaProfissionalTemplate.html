@@ -15,7 +15,7 @@
           </form>
         </div>
         <div class="col s12 m6">
-          <button class="btn waves-effect waves-light orange right" type="submit" name="action"><i class="material-icons right">plus_one</i>Novo agendamento</button>
+          <button data-bind="click: agendar" class="btn waves-effect waves-light orange right" type="submit" name="action"><i class="material-icons right">plus_one</i>Novo agendamento</button>
         </div>
       </div>
 
@@ -47,3 +47,4 @@
     </div>
   </div>
 </main>
+<div data-bind="component: { name: 'profissional-atendimento-modal-component' }"></div>

@@ -10,11 +10,14 @@ swalComponent, agendaComponent) {
     self.data = ko.observable(decodeURIComponent(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date())));
     self.nome = ko.observable();
     self.ramo = ko.observable();
+    self.telefone = ko.observable();
+    self.endereco = ko.observable();
 
     self.ramos = ko.observableArray([]);
     self.detalheServicos = ko.observableArray([]);
     self.horasTrabalho = ko.observableArray([]);
     self.atendimentos = ko.observableArray([]);
+    self.estados = ko.observableArray([]);
 
     self.pageLoadSemaphore = false;
 
@@ -26,9 +29,9 @@ swalComponent, agendaComponent) {
 
     self.agendar = function(profissional){
       if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 2) {
-        swalComponent.customWarningAction("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
+        swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado com um cliente para realizar um agendamento!", function(){});
       } else if (!localStorage.getItem('current_user_id')) {
-        swalComponent.customWarningAction("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
+        swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
 					return window.location.hash = '#login';
 				});
       } else {
@@ -74,13 +77,24 @@ swalComponent, agendaComponent) {
     var loadProfissionalInfo = function() {
       bridge.post("/api/profissionais/by_date_weekday", generatePayload())
       .then(function(response) {
-        var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == response.profissional.ramo; });
-        self.nome(response.profissional.nome);
-        self.ramo(ramo.text);
+        var profissional = response.profissional;
+        var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
+        var endereco = profissional.endereco;
+        var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
+        var telefone = profissional.telefone.telefone;
 
-        mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
-        self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos[0]));
-        self.atendimentos(agendaComponent.mapResponseToAtendimentos(response.profissional.atendimentos, self.horasTrabalho()));
+        var enderecoString = endereco.rua + ", " + endereco.num ;
+        if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
+        enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
+
+        self.nome(profissional.nome);
+        self.ramo(ramo.text);
+        self.endereco(enderecoString);
+        self.telefone(telefone)
+
+        mapResponseToDetalheServicos(profissional.detalhe_servicos);
+        self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(profissional.horas_trabalhos[0]));
+        self.atendimentos(agendaComponent.mapResponseToAtendimentos(profissional.atendimentos, self.horasTrabalho()));
       });
     };
 
@@ -97,11 +111,22 @@ swalComponent, agendaComponent) {
         });
 
         self.ramos(ramos);
+
+        var estados = response.estados.map(function(estado){
+          return {
+            id    : estado.id,
+            text  : estado.text,
+            sigla : estado.sigla
+          }
+        });
+
+        self.estados(estados);
       })
       .then(function() {
         loadProfissionalInfo();
       })
       .then(function() {
+        maskComponent.applyCelphoneMask();
         self.pageLoadSemaphore = true;
         $('select').material_select();
         $('.collapsible').collapsible();

@@ -124,6 +124,16 @@
     }
   },
   {
+    "path"   : "#horas_trabalho/edit",
+    "page"   : "pages/profissionais/form/horasTrabalhoFormComponent",
+    "params" : {
+      "name"   : "new",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#profissionais/perfil",
     "page"   : "pages/profissionais/perfilProfissionalComponent",
     "params" : {

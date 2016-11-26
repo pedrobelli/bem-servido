@@ -8,6 +8,8 @@
       <div class="profissional-info">
         <h3 data-bind="text: nome" class="profissional-nome"></h3>
         <p data-bind="text: ramo" class="profissional-ramo"></p>
+        <p data-bind="text: endereco" class="profissional-endereco info-secondary"></p>
+        <p data-bind="text: telefone" class="profissional-telefone info-secondary cellphones"></p>
       </div>
       <div class="date row">
         <form action="" class="col s12 m6">
@@ -30,7 +32,7 @@
                 <ul data-bind="foreach: detalheServicos" class="collection">
                   <li class="collection-item">
                     <span data-bind="text: text" class="service-name"></span>
-                    <span data-bind="text: 'R$ ' + valor" class="service-price right"></span>
+                    <span data-bind="text: 'R$ ' + valor + ' | ' + duracao + ' minutos'" class="service-price right"></span>
                   </li>
                 </ul>
               </div>
