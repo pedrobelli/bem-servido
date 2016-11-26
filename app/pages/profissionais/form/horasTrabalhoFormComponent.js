@@ -27,7 +27,9 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
         var warnings = _.uniq(response.warnings);
         if (warnings.length > 0) {
           warnings.push('Esta ação cancelara todos estes agendamentos, deseja continuar?');
-          swalComponent.customWarningAction(warnings, saveHorasTrabalho());
+          swalComponent.customWarningAction(warnings, function() {
+            saveHorasTrabalho()
+          });
         } else {
           saveHorasTrabalho();
         }
@@ -121,7 +123,8 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
           updateHoraTrabalho(horaTrabalho);
         } else if (horaTrabalho.checked() && !horaTrabalho.registerId) {
           createHoraTrabalho(horaTrabalho);
-        } else if (!horaTrabalho.checked() && !!horaTrabalho.registerId) {
+        } else
+        if (!horaTrabalho.checked() && !!horaTrabalho.registerId) {
           deleteHoraTrabalho(horaTrabalho);
         }
       });
@@ -132,21 +135,27 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
     var updateHoraTrabalho = function(horaTrabalho){
       bridge.post(UPDATE_PATH, generatePayload(horaTrabalho))
       .fail(function(context, errorMessage, serverError){
-        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
+        console.log(horaTrabalho);
+        console.log(self.errorTitle);
+        console.log(context.errors);
       });
     };
 
     var createHoraTrabalho = function(horaTrabalho){
       bridge.post(CREATE_PATH, generatePayload(horaTrabalho))
       .fail(function(context, errorMessage, serverError){
-        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
+        console.log(horaTrabalho);
+        console.log(self.errorTitle);
+        console.log(context.errors);
       });
     };
 
     var deleteHoraTrabalho = function(horaTrabalho){
       bridge.del(DELETE_PATH + horaTrabalho.registerId)
       .fail(function(context, errorMessage, serverError){
-        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
+        console.log(horaTrabalho);
+        console.log(self.errorTitle);
+        console.log(context.errors);
       });
     };
 
