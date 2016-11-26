@@ -30,7 +30,7 @@
     }
   },
   {
-    "path"   : "#clientes/atendimentos",
+    "path"   : "#clientes/atendimentos/data=:data",
     "page"   : "pages/clientes/agendaClienteComponent",
     "params" : {
       "name"   : "customerAppointments",

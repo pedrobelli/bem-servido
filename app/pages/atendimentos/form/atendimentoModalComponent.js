@@ -42,7 +42,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         swalComponent.errorAlertWithTitle("Não foi possível realizar o agendamento", context.errors);
       }).done(function() {
         $('#modal-agendamento').closeModal();
-        window.location = "/#clientes/atendimentos";
+        window.location = "/#clientes/atendimentos/data=" + encodeURIComponent(self.data());
       });
     };
 
