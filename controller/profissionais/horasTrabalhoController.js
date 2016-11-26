@@ -60,13 +60,13 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return Promise.all(horasTrabalho.map(function(horaTrabalho) {
+    return models.horas_trabalho.Get(req.param('id')).then(function(horaTrabalho) {
       return models.atendimentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
-        response.forEach(function(atendimento) {
-          models.atendimentos.Destroy(atendimento.id);
-        });
+        return Promise.all(response.map(function(atendimento) {
+          return models.atendimentos.Destroy(atendimento.dataValues.id);
+        }));
       });
-    })).then(function() {
+    }).then(function() {
       return models.horas_trabalho.Destroy(req.param('id'));
     });
 
@@ -91,13 +91,11 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return Promise.all(horasTrabalho.map(function(horaTrabalho) {
-      return models.atendimentos.getFromTodayByWeekdayAndTime(horaTrabalho).then(function(response) {
-        response.forEach(function(atendimento) {
-          models.atendimentos.Destroy(atendimento.id);
-        });
-      });
-    })).then(function() {
+    return models.atendimentos.getFromTodayByWeekdayAndTime(req.body).then(function(response) {
+      return Promise.all(response.map(function(atendimento) {
+        return models.atendimentos.Destroy(atendimento.dataValues.id);
+      }));
+    }).then(function() {
       return models.horas_trabalho.Update(req.body)
     });
 

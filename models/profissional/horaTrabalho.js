@@ -24,31 +24,20 @@ module.exports = function(sequelize, DataTypes) {
 			All: function(models){
 				return this.findAll({ include: [ { model: models.servicos } ] });
 			},
-			Search: function(models, query){
-				return this.findAll({ include: [
-          { model: models.servicos, where: { nome: { $like: '%'+query+'%' } } }
-        ] });
-			},
-			Get: function(models, id){
-				return this.find({
-					include: [ { model: models.servicos } ],
-					where: { id: id },
-			  });
+			Get: function(id){
+				return this.find({ where: { id: id } });
 			},
 			Destroy: function(id){
 				return this.find({ where: { id: id } }).then(function(entity) {
-					console.log("========== ==========");
-					console.log(entity);
-					console.log("========== ==========");
 		      return entity.destroy();
 		    });
 			},
-			Create: function(detalheServico){
-				return this.create(detalheServico);
+			Create: function(horaTrabalho){
+				return this.create(horaTrabalho);
 			},
-			Update: function(detalheServico){
-				return this.find({ where: { id: detalheServico.id } }).then(function(entity) {
-		      return entity.updateAttributes(detalheServico);
+			Update: function(horaTrabalho){
+				return this.find({ where: { id: horaTrabalho.id } }).then(function(entity) {
+		      return entity.updateAttributes(horaTrabalho);
 		    });
 			},
 			FindByProfissional: function(models, profissionalId){
