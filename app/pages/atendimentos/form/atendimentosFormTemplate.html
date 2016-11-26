@@ -49,7 +49,9 @@
                 <!-- /ko -->
 
                 <!-- ko foreach: $data.atendimentos -->
-                  <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable" style="height: 60px;"></span>
+                  <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable">
+                    <p data-bind="text: horario" class="desc-horario-agendamento"></p>
+                  </span>
                 <!-- /ko -->
               </ul>
             </div>

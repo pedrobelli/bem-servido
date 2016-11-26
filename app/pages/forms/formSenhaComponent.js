@@ -6,6 +6,8 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
 
     self.auth0 = auth0Component.createAuth0Instance();
 
+    var route = localStorage.getItem('current_user_role') == 1 ? "#clientes/perfil" : "#profissionais/perfil";
+
     self.email = ko.observable();
     self.actualPassword = ko.observable();
     self.newPassword = ko.observable();
@@ -14,7 +16,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
     self.errorTitle = "Ocorreu um erro na atualização de seu email!";
 
     self.cancelar = function(){
-      return window.location.hash = "#clientes/perfil";
+      return window.location.hash = route;
     };
 
     self.salvar = function(){
@@ -91,7 +93,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
     viewModel: viewModel,
     template: template,
     title: function(params) {
-      return "Atualizar dados"
+      return "Atualizar senha"
     }
   };
 });

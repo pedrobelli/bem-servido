@@ -67,14 +67,6 @@
     }
   },
   {
-    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
-    "page"   : "pages/profissionais/pesquisaComponent",
-    "params" : {
-      "name"   : "search",
-      "header" : "default"
-    }
-  },
-  {
     "path"   : "#profissionais/new",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : {
@@ -84,12 +76,101 @@
     }
   },
   {
+    "path"   : "#profissionais/atendimentos",
+    "page"   : "pages/profissionais/agendaProfissionalComponent",
+    "params" : {
+      "name"   : "professionalAppointments",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
+    "page"   : "pages/profissionais/pesquisaComponent",
+    "params" : {
+      "name"   : "search",
+      "header" : "default"
+    }
+  },
+  {
+    "path"   : "#especialidades",
+    "page"   : "pages/profissionais/especialidadesComponent",
+    "params" : {
+      "name"   : "especialidades",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#especialidades/new",
+    "page"   : "pages/profissionais/form/especialidadesFormComponent",
+    "params" : {
+      "name"   : "new",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#especialidades/edit/:id",
+    "page"   : "pages/profissionais/form/especialidadesFormComponent",
+    "params" : {
+      "name"   : "edit",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#profissionais/perfil",
+    "page"   : "pages/profissionais/perfilProfissionalComponent",
+    "params" : {
+      "name"   : "profissionalPerfil",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#servicos",
+    "page"   : "pages/servicos/servicosComponent",
+    "params" : {
+      "name" : "index",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#servicos/new",
+    "page"   : "pages/servicos/form/servicosFormComponent",
+    "params" : {
+      "name" : "new",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#servicos/edit/:id",
+    "page"   : "pages/servicos/form/servicosFormComponent",
+    "params" : {
+      "name" : "edit",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#dados/update",
     "page"   : "pages/forms/formDadosComponent",
     "params" : {
       "name"   : "updateData",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
   {
@@ -98,7 +179,8 @@
     "params" : {
       "name"   : "updateEmail",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
   {
@@ -107,7 +189,8 @@
     "params" : {
       "name"   : "updateAddress",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
   {
@@ -116,7 +199,8 @@
     "params" : {
       "name"   : "updateSenha",
       "header" : "orange",
-      "accessWhenLoggedOnly" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1, 2]
     }
   },
 
@@ -133,65 +217,5 @@
       "name"   : "frontend",
       "header" : "orange"
     }
-  },
-
-
-
-
-
-  {
-    "path"   : "#atendimentos",
-    "page"   : "pages/atendimentos/atendimentosComponent",
-    "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#atendimentos/edit/:id",
-    "page"   : "pages/atendimentos/form/atendimentosFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#clientes/edit/:id",
-    "page"   : "pages/clientes/form/clientesFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#profissionais",
-    "page"   : "pages/profissionais/profissionaisComponent",
-    "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#profissionais/edit/:id",
-    "page"   : "pages/profissionais/form/profissionaisFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#especialidades",
-    "page"   : "pages/profissionais/especialidadesComponent",
-    "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#especialidades/new",
-    "page"   : "pages/profissionais/form/especialidadesFormComponent",
-    "params" : { "name" : "new" }
-  },
-  {
-    "path"   : "#especialidades/edit/:id",
-    "page"   : "pages/profissionais/form/especialidadesFormComponent",
-    "params" : { "name" : "edit" }
-  },
-  {
-    "path"   : "#servicos",
-    "page"   : "pages/servicos/servicosComponent",
-    "params" : { "name" : "index" }
-  },
-  {
-    "path"   : "#servicos/new",
-    "page"   : "pages/servicos/form/servicosFormComponent",
-    "params" : { "name" : "new" }
-  },
-  {
-    "path"   : "#servicos/edit/:id",
-    "page"   : "pages/servicos/form/servicosFormComponent",
-    "params" : { "name" : "edit" }
   }
 ]

@@ -9,30 +9,46 @@ function(ko, template, bridge, $, swalComponent) {
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
-    self.descricao = ko.observable();
     self.pageMode = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
+    self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de especialidade!" : "Ocorreu um erro na atualização de especialidade!";
 
-    self.validForm = ko.pureComputed(function(){
-      return !!self.nome();
-    });
+    self.cancelar = function(){
+      return window.location.hash = "#especialidades";
+    };
 
     self.save = function() {
+      var errors = validate();
+
+      if (errors.length > 0) {
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
+      }
+
       var path = isEditMode() ? UPDATE_PATH : CREATE_PATH;
 
       bridge.post(path, generatePayload())
       .fail(function(context, errorMessage, serverError) {
-        var errorTitle = params.name == 'new' ? 'Não foi possível criar especialidade' : 'Não foi possível alterar especialidade';
-        swalComponent.errorAlertWithTitle(errorTitle, context.errors);
+        swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
       })
       .done(function() {
-        window.location.hash = "especialidades"
+        window.location.hash = "#especialidades"
       });
+    };
+
+    var validate = function(){
+      var errors = []
+      valid = !!self.nome();
+
+      if (!valid) {
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
+      }
+
+      return errors;
     };
 
     var generatePayload = function() {
       var payload = {
-        nome      : self.nome(),
-        descricao : self.descricao()
+        nome           : self.nome(),
+        profissionalId : localStorage.getItem('current_user_id')
       };
 
       if(isEditMode()) payload.id = params.id;
@@ -47,7 +63,6 @@ function(ko, template, bridge, $, swalComponent) {
             return;
 
           self.nome(response.especialidade.nome);
-          self.descricao(response.especialidade.descricao);
         });
       }
     };

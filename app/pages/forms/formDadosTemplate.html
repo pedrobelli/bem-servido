@@ -12,9 +12,18 @@
             <label for="nomeCompleto">Nome Completo*</label>
           </div>
 
-          <div class="input-field col s4">
-            <input data-bind="value: cpf" id="cpf" type="text" class="cpf">
-            <label for="cpf">CPF*</label>
+          <div data-bind="if: cliente" class="">
+            <div class="input-field col s4">
+              <input data-bind="value: cpf" id="cpf" type="text" class="cpf">
+              <label for="cpf">CPF*</label>
+            </div>
+          </div>
+
+          <div data-bind="ifnot: cliente" class="">
+            <div class="input-field col s4">
+              <input data-bind="value: cpfCnpj" id="cpf-cnpj" type="text" class="cpf-cnpj">
+              <label for="cpf">CPF/CNPJ*</label>
+            </div>
           </div>
 
           <div class="input-field col s4">

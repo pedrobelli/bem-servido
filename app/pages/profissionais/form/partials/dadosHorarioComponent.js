@@ -78,6 +78,8 @@ function(ko, template, $, _, maskComponent, momentComponent) {
         self.horasTrabalhoSelecionados = _.without(self.horasTrabalhoSelecionados, horario.id);
       } else {
         horario.checked(true);
+        horario.horarioInicio("08:00");
+        horario.horarioFim("18:00");
         $('#horario' + horario.id).addClass('material-checkbox');
 
         self.horasTrabalhoSelecionados.push(horario.id);

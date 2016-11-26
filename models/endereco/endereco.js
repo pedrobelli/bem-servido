@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING
 		},
 		num: {
+			allowNull: false,
 			type: DataTypes.STRING
 		},
 		complemento: {
