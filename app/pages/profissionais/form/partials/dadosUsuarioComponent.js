@@ -15,7 +15,7 @@ function(ko, template, $, maskComponent) {
       valid = valid && !!self.confirmPassword();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.");
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar seu cadastro.");
       }
 
       if ((!!self.password() && !!self.confirmPassword()) && self.password() != self.confirmPassword()) {

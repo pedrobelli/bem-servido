@@ -72,7 +72,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         duracao          : self.duracao(),
         profissionalId   : self.profissional(),
         clienteId        : self.cliente(),
-        detalheServicoId : self.servico()
+        detalheServicoId : self.servico(),
+        qualificado      : false
       };
 
       return payload;
@@ -89,7 +90,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
       valid = valid && !!self.duracao();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.")
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para concluir seu agendamento.")
       }
 
       var reg = /^(2[0-3]|1[0-9]|0[0-9]|[^0-9][0-9]):([0-5][0-9])$/;

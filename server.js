@@ -6,6 +6,7 @@ var express                 = require('express'),
   systemSeed                = require('./system/seed'),
   config                    = require('./config/config'),
   atendimentosController    = require('./controller/atendimentos/atendimentosController'),
+  qualificacoesController   = require('./controller/atendimentos/qualificacoesController'),
   clientesController        = require('./controller/clientes/clientesController'),
   enderecosController       = require('./controller/enderecos/enderecosController'),
   profissionaisController   = require('./controller/profissionais/profissionaisController'),
@@ -54,6 +55,7 @@ function loadRoutes() {
   var apiRoutes = express.Router();
 
   atendimentosController.loadRoutes("/atendimentos", apiRoutes);
+  qualificacoesController.loadRoutes("/qualificacoes", apiRoutes);
 
   clientesController.loadRoutes("/clientes", apiRoutes);
 

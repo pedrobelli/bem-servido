@@ -50,6 +50,9 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Duração deve ser maior ou igual 1 minuto"
         }
       }
+    },
+    qualificado: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     validate: {
@@ -157,6 +160,7 @@ module.exports = function(sequelize, DataTypes) {
           ],
           where: [
             { clienteId: cliente },
+            { qualificado: false },
             { dataFim: {
                 $lte: new Date(),
             } }

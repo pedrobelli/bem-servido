@@ -14,6 +14,7 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
     self.especialidade = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
     self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de serviço!" : "Ocorreu um erro na atualização de serviço!";
+    self.errorMessageApend = params.name == "new" ? ' criação do serviço.' : ' edição do serviço.';
 
     self.especialidades = ko.observableArray([]);
 
@@ -47,7 +48,7 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
       valid = valid && !!self.especialidade();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a" + self.errorMessageApend);
       }
 
       return errors;

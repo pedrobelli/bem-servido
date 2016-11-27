@@ -28,11 +28,11 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.enderecos.All();
+    return models.qualificacoes.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ enderecos: entities });
+    res.json({ qualificacoes: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -40,11 +40,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.enderecos.Get(req.param('id'));
+    return models.qualificacoes.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ endereco: entity });
+    res.json({ qualificacao: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -52,7 +52,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.enderecos.Destroy(req.param('id'));
+    return models.qualificacoes.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -63,11 +63,19 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.enderecos.Create(req.body);
+    return models.qualificacoes.Create(req.body).then(function(qualificacao) {
+      var newAtendimento = models.atendimentos.build({
+        id          : qualificacao.atendimentoId,
+        qualificado : true
+      });
+      return models.atendimentos.Update(newAtendimento.dataValues).then(function() {
+        return qualificacao;
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ endereco: entity });
+    res.json({ qualificacao: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -75,11 +83,11 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.enderecos.Update(req.body);
+    return models.qualificacoes.Update(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ endereco: entity });
+    res.json({ qualificacao: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
