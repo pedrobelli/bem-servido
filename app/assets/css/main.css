@@ -99,13 +99,14 @@ header > .header-search{
 }
 
 /* CARDS HOME */
-.destaques {
-  display: flex;
-}
+
 .destaques > .card.destaque{
   border: 1px solid #979797;
 }
-
+.destaque  > .profissional-info .profissional-phone, .profissional-info > .profissional-endereco{
+  color: #979797;
+  font-size: 12px;
+}
 /* CADATRO */
 .cadastro > .form-cadastro{
   border: 1px solid orange;
@@ -344,15 +345,6 @@ ul.available-list > li.available-time > label.label-disabled{
   width: 40%;
 }
 
-.modal-agendamento{
-  /*width: 35%;*/
-  border: 2px solid orange;
-}
-.modal-agendamento h4{
-  color: orange;
-  text-transform: uppercase;
-  font-weight: 200;
-}
 
 .modal-agendamento .agendamento-info{
   margin-top: 20px;

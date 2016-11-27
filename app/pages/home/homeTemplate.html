@@ -6,15 +6,17 @@
     </div>
     <div class="destaques row">
       <!-- ko foreach: $data.profissionais -->
-        <div class="card col s12 m6 destaque">
-          <div class="card-content">
-            <span data-bind="text: nome" class="card-title"></span>
-            <p data-bind="text: ramo" class="profissional-ramo">Serviços Manutenção</p>
-            <p><span data-bind="text: telefone" class="cellphones"></span> | <span data-bind="text: celular" class="cellphones"></span></p>
-            <p data-bind="text: endereco"></p>
-          </div>
-          <div class="card-action">
-            <a data-bind="click: $component.visualizar" href="#">Visualizar</a>
+        <div class="col s12 m6">
+          <div class="card destaque">
+            <div class="card-content profissional-info">
+              <span data-bind="text: nome" class="card-title"></span>
+              <p data-bind="text: ramo" class="profissional-ramo">Serviços Manutenção</p>
+              <p><span data-bind="text: telefone" class="profissional-phone cellphones"></span> | <span data-bind="text: celular" class="profissional-phone cellphones"></span></p>
+              <p data-bind="text: endereco" class="profissional-endereco"></p>
+            </div>
+            <div class="card-action">
+              <a data-bind="click: $component.visualizar" href="#">Visualizar Agenda</a>
+            </div>
           </div>
         </div>
       <!-- /ko -->
