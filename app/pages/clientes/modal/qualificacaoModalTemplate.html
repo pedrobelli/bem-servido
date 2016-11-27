@@ -1,0 +1,33 @@
+<div id="modal-qualificacao" class="modal modal-fixed-footer modal-qualificacao">
+  <div class="modal-content">
+    <h4>Qualificação <a class="modal-action modal-close grey-text right"><i class="material-icons">close</i></a></h4>
+    <div class="agendamento-info">
+      <p>dê uma nota de 0 a 5 para o serviço prestado</p>
+      <form class="agendamento-form row">
+        <div class="input-field col s6">
+          <p class="range-field">
+            <input type="range" data-bind="value: nota, valueUpdate: 'input'" id="test5" min="0" max="5"/>
+          </p>
+        </div>
+        <span class="info-valor">Nota: </span>
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Textarea</label>
+        </div>
+      </form>
+        <!-- //colocar o valor da Nota vi js
+        // on page load, set the text of the label based the value of the range
+        $('#rangeText').text(rangeValues[$('#rangeInput').val()]);
+
+        // setup an event handler to set the text when the range value is dragged (see event for input) or changed (see event for change)
+        $('#rangeInput').on('input change', function () {
+            $('#rangeText').text(rangeValues[$(this).val()]);
+        }); -->
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a data-bind="click: salvar" class="modal-action waves-effect waves-orange btn-flat">Confirmar</a>
+
+  </div>
+</div>

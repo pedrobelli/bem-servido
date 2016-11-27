@@ -1,5 +1,5 @@
-define(['ko', 'text!qualificacoesClienteTemplate', 'bridge', 'momentComponent'],
-function(ko, template, bridge, momentComponent) {
+define(['ko', 'text!qualificacoesClienteTemplate', 'bridge', 'momentComponent', 'qualificacaoModalComponent'],
+function(ko, template, bridge, momentComponent, qualificacaoModalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -9,11 +9,13 @@ function(ko, template, bridge, momentComponent) {
 
     self.qualificar = function(atendimento) {
       var dto = {
-        profissional  : atendimento.profissionalId,
-        atendimentoId : atendimento.id,
+        profissional : atendimento.profissionalId,
+        atendimento  : atendimento.id,
         cliente      : localStorage.getItem('current_user_id')
       }
-      qualificacaoModalComponent.showQualificacaoModal(dto);
+      qualificacaoModalComponent.showQualificacaoModal(dto, function() {
+        findAtendimentos();
+      });
     };
 
     var mapResponseToAtendimentos = function(atendimentos){
@@ -35,6 +37,13 @@ function(ko, template, bridge, momentComponent) {
       self.atendimentos(atendimentos);
     };
 
+    var findAtendimentos = function() {
+      bridge.get("/api/atendimentos/not_qualified_by_clientes/" + localStorage.getItem('current_user_id'))
+      .then(function(response){
+        mapResponseToAtendimentos(response.atendimentos);
+      });
+    };
+
     var init = function(){
 
       bridge.get("/api/atendimentos/form_options")
@@ -49,10 +58,7 @@ function(ko, template, bridge, momentComponent) {
         self.ramos(ramos);
       })
       .then(function() {
-        return bridge.get("/api/atendimentos/not_qualified_by_clientes/" + localStorage.getItem('current_user_id'))
-        .then(function(response){
-          mapResponseToAtendimentos(response.atendimentos);
-        });
+        findAtendimentos();
       });
     }
 

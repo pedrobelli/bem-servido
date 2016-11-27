@@ -1,5 +1,7 @@
-define(['ko', 'text!agendaProfissionalTemplate', 'bridge', 'momentComponent', 'agendaComponent', 'datepickerComponent', 'profissionalAtendimentoModalComponent', 'maskComponent'],
-function(ko, template, bridge, momentComponent, agendaComponent, datepickerComponent, profissionalAtendimentoModalComponent, maskComponent) {
+define(['ko', 'text!agendaProfissionalTemplate', 'bridge', 'momentComponent', 'agendaComponent', 'datepickerComponent',
+'profissionalAtendimentoModalComponent', 'maskComponent'],
+function(ko, template, bridge, momentComponent, agendaComponent, datepickerComponent, profissionalAtendimentoModalComponent,
+maskComponent) {
 
   var viewModel = function(params) {
     var self = this;
