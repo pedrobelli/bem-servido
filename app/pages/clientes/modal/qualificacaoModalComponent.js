@@ -9,11 +9,10 @@ function(ko, template, bridge) {
     self.atendimento = ko.observable(3);
     self.profissional = ko.observable(3);
     self.cliente = ko.observable(3);
-    self.descricao = ko.observable(3);
+    self.avaliacao = ko.observable(3);
 
     self.showQualificacaoModal = function(dto, callback){
       cleanFields();
-      $('select').material_select();
 
       $('#modal-qualificacao').openModal();
 
@@ -33,7 +32,7 @@ function(ko, template, bridge) {
       self.atendimento(undefined);
       self.profissional(undefined);
       self.cliente(undefined);
-      self.descricao(undefined);
+      self.avaliacao(undefined);
     };
   };
 

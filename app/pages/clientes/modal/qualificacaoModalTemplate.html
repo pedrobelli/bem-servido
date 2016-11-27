@@ -2,17 +2,17 @@
   <div class="modal-content">
     <h4>Qualificação <a class="modal-action modal-close grey-text right"><i class="material-icons">close</i></a></h4>
     <div class="agendamento-info">
-      <p>dê uma nota de 0 a 5 para o serviço prestado</p>
+      <p>Dê uma nota de 0 a 5 para o serviço prestado</p>
       <form class="agendamento-form row">
         <div class="input-field col s6">
           <p class="range-field">
-            <input type="range" data-bind="value: nota, valueUpdate: 'input'" id="test5" min="0" max="5"/>
+            <input data-bind="value: nota, valueUpdate: 'input'" type="range" id="nota" min="0" max="5"/>
           </p>
         </div>
         <span class="info-valor">Nota: </span>
         <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Textarea</label>
+          <textarea data-bind="value: avaliacao" id="avaliacao" class="materialize-textarea"></textarea>
+          <label for="textarea1">Avaliação</label>
         </div>
       </form>
         <!-- //colocar o valor da Nota vi js
