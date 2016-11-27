@@ -149,6 +149,21 @@ module.exports = function(sequelize, DataTypes) {
 				  order: 'dataInicio ASC'
         });
 			},
+			getNotQualifiedByClientes: function(models, cliente){
+				return this.findAll({
+          include: [
+            { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
+            { model: models.profissionais }
+          ],
+          where: [
+            { clienteId: cliente },
+            { dataFim: {
+                $lte: new Date(),
+            } }
+          ],
+				  order: 'dataInicio ASC'
+        });
+			},
 			getFromTodayByWeekday: function(weekday){
         var diaSemana = weekday == 7 ? 6 : weekday - 2
 

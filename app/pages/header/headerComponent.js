@@ -18,6 +18,10 @@ function(ko, template, materialize, waves) {
         text : 'Meus agendamentos'
       },
       {
+        link : '#clientes/qualificacoes',
+        text : 'Qualificações'
+      },
+      {
         link : '#clientes/perfil',
         text : 'Meu Perfil'
       }

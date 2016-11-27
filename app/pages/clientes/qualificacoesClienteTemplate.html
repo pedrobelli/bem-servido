@@ -1,0 +1,43 @@
+<main>
+  <div class="container">
+    <div class="page-title">
+      <h2>Qualificações</h2>
+      <hr>
+    </div>
+    <div class="qualificacoes row">
+      <div class="qualificacoes-infos">
+        <h4>Qualifique os serviços</h4>
+        <div class="col s12">
+          <div class="card infos-detalhes">
+            <div class="card-content">
+              <span class="card-title">serviços finalizados</span>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th data-field="date">Data</th>
+                    <th data-field="profissional">Profissional</th>
+                    <th data-field="price">Serviço</th>
+                    <th data-field="qualificação"></th>
+                  </tr>
+                </thead>
+
+                <tbody data-bind="foreach: atendimentos">
+                  <tr>
+                    <td data-bind="text: data"></td>
+                    <td data-bind="text: profissional"></td>
+                    <td data-bind="text: ramo"></td>
+                    <td>
+                      <a data-bind="click: $component.qualificar" href="#" class="secondary-content orange-text modal-trigger">Avaliar<i class="material-icons orange-text">grade</i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

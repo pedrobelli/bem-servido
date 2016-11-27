@@ -50,6 +50,16 @@
     }
   },
   {
+    "path"   : "#clientes/qualificacoes",
+    "page"   : "pages/clientes/qualificacoesClienteComponent",
+    "params" : {
+      "name"   : "customerQualificacoes",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
+    }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {

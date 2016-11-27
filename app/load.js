@@ -35,6 +35,7 @@ requirejs.config({
 		clientesFormComponent                 : 'pages/clientes/form/clientesFormComponent',
 		agendaClienteComponent                : 'pages/clientes/agendaClienteComponent',
 		perfilClienteComponent                : 'pages/clientes/perfilClienteComponent',
+		qualificacoesClienteComponent         : 'pages/clientes/qualificacoesClienteComponent',
     homeComponent                         : 'pages/home/homeComponent',
     loginComponent                        : 'pages/login/loginComponent',
 		dadosHorarioComponent                 : 'pages/profissionais/form/partials/dadosHorarioComponent',
@@ -74,6 +75,7 @@ requirejs.config({
 		clientesFormTemplate                 : 'pages/clientes/form/clientesFormTemplate.html',
 		agendaClienteTemplate                : 'pages/clientes/agendaClienteTemplate.html',
 		perfilClienteTemplate                : 'pages/clientes/perfilClienteTemplate.html',
+		qualificacoesClienteTemplate         : 'pages/clientes/qualificacoesClienteTemplate.html',
     homeTemplate                         : 'pages/home/homeTemplate.html',
     loginTemplate                        : 'pages/login/loginTemplate.html',
 		dadosHorarioTemplate                 : 'pages/profissionais/form/partials/dadosHorarioTemplate.html',
@@ -108,7 +110,7 @@ requirejs.config({
 		// servicosEditTemplate           : 'pages/frontend/servicosListTemplate.html',
 		// servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
 		// qualificacoesProfissionalTemplate           : 'pages/frontend/qualificacoesProfissionalTemplate.html',
-		qualificacoesClienteTemplate           : 'pages/frontend/qualificacoesClienteTemplate.html',
+		// qualificacoesClienteTemplate           : 'pages/frontend/qualificacoesClienteTemplate.html',
   }
 
 	// Styles
