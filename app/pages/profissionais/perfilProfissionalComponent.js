@@ -50,10 +50,6 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
           var sexo = _.find(self.sexos(), function(currentSexo){ return currentSexo.id == profissional.sexo; });
           var estado = _.find(self.estados(), function(estado){ return estado.id == endereco.estado; });
 
-          var enderecoString = endereco.rua + ", " + endereco.num ;
-          if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
-          enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla,
-
           self.nome(profissional.nome);
           self.cpfCnpj(profissional.cpf_cnpj);
           self.sexo(!!sexo ? sexo.text : "");
@@ -62,7 +58,7 @@ function(ko, template, bridge, maskComponent, momentComponent, auth0Component) {
           self.celular(!!profissional.telefone.celular ? profissional.telefone.celular : "");
           self.enderecoId(endereco.id);
           self.cep(endereco.cep);
-          self.endereco(enderecoString);
+          self.endereco(maskComponent.addressFormat(profissional.endereco, estado));
 
         });
       })

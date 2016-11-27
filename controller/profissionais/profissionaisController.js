@@ -238,7 +238,11 @@ self.search = function(req, res) {
       scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
     }
 
-    return models.profissionais.Search(scopes);
+    if (!!req.body.home) {
+      scopes.push({ method: ['home'] });
+    }
+
+    return models.profissionais.Search(models, scopes);
 
   }).then(function(entities) {
     res.statusCode = 200;

@@ -5,28 +5,19 @@
       <hr>
     </div>
     <div class="destaques row">
-      <div class="card col s12 m5 destaque">
-        <div class="card-content">
-          <span class="card-title">Martelinho de Ouro</span>
-          <p class="profissional-ramo">Serviços Manutenção</p>
-          <p>(41) 3356-9996</p>
-          <p>Rua das Graças, 869</p>
+      <!-- ko foreach: $data.profissionais -->
+        <div class="card col s12 m6 destaque">
+          <div class="card-content">
+            <span data-bind="text: nome" class="card-title"></span>
+            <p data-bind="text: ramo" class="profissional-ramo">Serviços Manutenção</p>
+            <p><span data-bind="text: telefone" class="cellphones"></span> | <span data-bind="text: celular" class="cellphones"></span></p>
+            <p data-bind="text: endereco"></p>
+          </div>
+          <div class="card-action">
+            <a data-bind="click: $component.visualizar" href="#">Visualizar</a>
+          </div>
         </div>
-        <div class="card-action">
-          <a href="#">visualizar</a>
-        </div>
-      </div>
-      <div class="card col s12 m5 destaque">
-        <div class="card-content">
-          <span class="card-title">Molina's Hair</span>
-          <p class="profissional-ramo">Estética e Beleza</p>
-          <p>(41) 3356-9996</p>
-          <p>Rua das Graças, 869</p>
-        </div>
-        <div class="card-action">
-          <a href="#">visualizar</a>
-        </div>
-      </div>
+      <!-- /ko -->
     </div>
   </div>
 </main>

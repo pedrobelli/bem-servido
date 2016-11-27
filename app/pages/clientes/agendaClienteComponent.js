@@ -5,7 +5,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     var self = this;
 
     self.servico = ko.observable();
-    self.data = ko.observable(momentComponent.convertDateToString(new Date()));
+    self.data = ko.observable(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date()));
 
     self.ramos = ko.observableArray([]);
     self.diasSemana = ko.observableArray([]);
@@ -34,7 +34,6 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
       var atendimentos = atendimentos.map(function(atendimento){
         var data = momentComponent.convertDateStringToDate(atendimento.dataInicio);
         var profissional = atendimento.profissionai;
-        var endereco = profissional.endereco;
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
         var telefone = profissional.telefone.telefone;
@@ -42,15 +41,11 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
         var diaSemanaId = momentComponent.returnDateWeekday(returnData());
         var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });
 
-        var enderecoString = endereco.rua + ", " + endereco.num ;
-        if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
-        enderecoString = enderecoString + " - " + endereco.bairro + ", " + endereco.cidade + " - " + estado.sigla;
-
         return {
           dataDiaSemana : diaSemana.text + ", " + data.getDate() + " de " + self.meses[data.getMonth()],
           profissional  : profissional.nome,
           ramo          : ramo.text,
-          endereco      : enderecoString,
+          endereco      : maskComponent.addressFormat(profissional.endereco, estado),
           telefone      : !!telefone ? telefone : "",
           celular       : !!celular ? celular : "",
           servico       : atendimento.detalhe_servico.servico.nome,
