@@ -344,15 +344,6 @@ ul.available-list > li.available-time > label.label-disabled{
   width: 40%;
 }
 
-.modal-agendamento{
-  /*width: 35%;*/
-  border: 2px solid orange;
-}
-.modal-agendamento h4{
-  color: orange;
-  text-transform: uppercase;
-  font-weight: 200;
-}
 
 .modal-agendamento .agendamento-info{
   margin-top: 20px;

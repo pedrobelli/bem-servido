@@ -105,6 +105,12 @@
   padding: 5px;
 }
 
+input[type=range]+.thumb{
+  background-color: orange;
+}
+input[type=range]+.thumb .value{
+  color: orange;
+}
 
 /*CARD */
 .card{
@@ -147,4 +153,15 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 }
 .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
   background-color: orange;
+}
+
+
+.modal{
+  /*width: 35%;*/
+  border: 2px solid orange;
+}
+.modal h4{
+  color: orange;
+  text-transform: uppercase;
+  font-weight: 200;
 }
