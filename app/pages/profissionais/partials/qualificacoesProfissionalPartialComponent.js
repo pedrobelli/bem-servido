@@ -1,5 +1,6 @@
-define(['ko', 'text!qualificacoesProfissionalPartialTemplate', 'bridge', 'maskComponent', 'momentComponent'],
-function(ko, template, bridge, maskComponent, momentComponent) {
+define(['ko', 'text!qualificacoesProfissionalPartialTemplate', 'bridge', 'maskComponent', 'momentComponent',
+'qualificacaoComponent'],
+function(ko, template, bridge, maskComponent, momentComponent, qualificacaoComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -17,22 +18,13 @@ function(ko, template, bridge, maskComponent, momentComponent) {
 
       var qualificacoes = qualificacoes.map(function(qualificacao){
         var data = momentComponent.convertDateStringToDate(qualificacao.atendimento.dataInicio);
-        var estrelas = [];
-
-        for(var cont = 1; cont <= 5; cont++) {
-          estrelas.push({
-            isGrey : qualificacao.nota >= cont ? false : true
-          });
-        }
-
-        self.nota += qualificacao.nota;
 
         return {
           nota      : maskComponent.scoreFormat(qualificacao.nota),
           avaliacao : qualificacao.avaliacao,
           servico   : qualificacao.atendimento.detalhe_servico.servico.nome,
           data      : self.meses[data.getMonth()] + ' de ' + data.getYear(),
-          estrelas  : estrelas
+          estrelas  : qualificacaoComponent.buildStarsArray(qualificacao.nota)
         }
       });
 
@@ -45,17 +37,11 @@ function(ko, template, bridge, maskComponent, momentComponent) {
         mapResponseToQualificacoes(response.qualificacoes);
       })
       .then(function() {
-        self.nota = Math.round(self.nota / self.qualificacoes().length);
-        var estrelas = [];
-
-        for(var cont = 1; cont <= 5; cont++) {
-          estrelas.push({
-            isGrey : self.nota >= cont ? false : true
-          });
-        }
-
-        self.media(maskComponent.scoreFormat(self.nota));
-        self.mediaEstrelas(estrelas);
+        return bridge.get("/api/profissionais/get_score/" + profissionalId)
+        .then(function(response){
+          self.media(maskComponent.scoreFormat(!!response.profissional.mediaNota ? response.profissional.mediaNota : 0));
+          self.mediaEstrelas(qualificacaoComponent.buildStarsArray(response.profissional.mediaNota));
+        });
       });
     }
   };

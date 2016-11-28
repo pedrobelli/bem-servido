@@ -112,10 +112,16 @@ module.exports = function(sequelize, DataTypes) {
 							)
 					  }
 				  ],
- 					attributes: { include: [
- 						[ sequelize.literal('sum(qualificacoes.nota)/count(qualificacoes.nota)'), 'mediaNota' ]
- 					] },
 					where: { id: id }
+				});
+			},
+			GetScore: function(models, id){
+				return this.find({
+					 include: { model: models.qualificacoes },
+					 	attributes: { include: [
+					 		[ sequelize.literal('sum(qualificacoes.nota)/count(qualificacoes.nota)'), 'mediaNota' ]
+					 	] },
+					 where: { id: id }
 				});
 			},
 			Search: function(models, scopes){

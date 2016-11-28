@@ -65,10 +65,11 @@ requirejs.config({
 		agendaComponent                           : 'pages/shared/agenda/agendaComponent',
 		auth0Component                            : 'pages/shared/auth0/auth0Component',
 		datepickerComponent                       : 'pages/shared/datepicker/datepickerComponent',
-		momentComponent                           : 'pages/shared/moment/momentComponent',
 		maskComponent                             : '../pages/shared/mask/maskComponent',
-		swalComponent                             : '../pages/shared/swal/swalComponent',
 		maskComponentForm                         : '../../pages/shared/mask/maskComponent',
+		momentComponent                           : 'pages/shared/moment/momentComponent',
+		qualificacaoComponent                     : 'pages/shared/qualificacao/qualificacaoComponent',
+		swalComponent                             : '../pages/shared/swal/swalComponent',
 		swalComponentForm                         : '../../pages/shared/swal/swalComponent',
 
     // Templates

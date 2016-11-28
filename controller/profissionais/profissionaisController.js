@@ -38,6 +38,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getByDateAdnWeekday(req, res);
   });
 
+  apiRoutes.get(endpoint + '/get_score/:id', function(req, res) {
+    return self.getScore(req, res);
+  });
+
   apiRoutes.post(endpoint + '/search', function(req, res) {
     return self.search(req, res);
   });
@@ -212,7 +216,20 @@ self.getByDateAdnWeekday = function(req, res) {
   });
 }
 
+self.getScore = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.profissionais.GetScore(models, req.param('id'));
+
+  }).then(function(entity) {
+    res.statusCode = 200;
+    res.json({ profissional: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
 self.search = function(req, res) {
+  // var profissionais = [];
   return sequelize.transaction(function(t) {
     scopes = [];
 
@@ -247,6 +264,17 @@ self.search = function(req, res) {
     }
 
     return models.profissionais.Search(models, scopes);
+    // .then(function(response) {
+    //   return Promise.all(response.map(function(profissional) {
+    //     return models.profissionais.GetScore(models, profissional.dataValues.id).then(function(response) {
+    //       profissional.dataValues.mediaNota = response.dataValues.mediaNota;
+    //       profissionais.push(profissional);
+    //     });
+    //   }));
+    // })
+    // .then(function() {
+    //   return profissionais;
+    // });
 
   }).then(function(entities) {
     res.statusCode = 200;

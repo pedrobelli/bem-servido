@@ -1,7 +1,7 @@
 define(['ko', 'text!atendimentosFormTemplate', 'jquery', 'underscore', 'bridge', 'maskComponent', 'datepickerComponent',
-'momentComponent', 'atendimentoModalComponent', 'swalComponent', 'agendaComponent'],
+'momentComponent', 'atendimentoModalComponent', 'swalComponent', 'agendaComponent', 'qualificacaoComponent'],
 function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentComponent, atendimentoModalComponent,
-swalComponent, agendaComponent) {
+swalComponent, agendaComponent, qualificacaoComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -84,15 +84,6 @@ swalComponent, agendaComponent) {
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
         var telefone = profissional.telefone.telefone;
         var celular = profissional.telefone.celular;
-        var estrelas = [];
-
-        for(var cont = 1; cont <= 5; cont++) {
-          estrelas.push({
-            isGrey : profissional.mediaNota >= cont ? false : true
-          });
-        }
-
-        self.mediaEstrelas(estrelas);
         self.nome(profissional.nome);
         self.ramo(ramo.text);
         self.endereco(maskComponent.addressFormat(profissional.endereco, estado));
@@ -131,6 +122,12 @@ swalComponent, agendaComponent) {
       })
       .then(function() {
         return loadProfissionalInfo();
+      })
+      .then(function() {
+        return bridge.get("/api/profissionais/get_score/" + self.profissional())
+        .then(function(response){
+          self.mediaEstrelas(qualificacaoComponent.buildStarsArray(response.profissional.mediaNota));
+        });
       })
       .then(function() {
         maskComponent.applyCelphoneMask();

@@ -1,5 +1,5 @@
-define(['ko', 'text!homeTemplate', 'bridge', 'momentComponent', 'maskComponent'],
-function(ko, template, bridge, momentComponent, maskComponent) {
+define(['ko', 'text!homeTemplate', 'bridge', 'momentComponent', 'maskComponent', 'qualificacaoComponent'],
+function(ko, template, bridge, momentComponent, maskComponent, qualificacaoComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -45,7 +45,7 @@ function(ko, template, bridge, momentComponent, maskComponent) {
           telefone : profissional.telefone.telefone,
           celular  : profissional.telefone.celular,
           endereco : maskComponent.addressFormat(profissional.endereco, estado),
-          estrelas : estrelas
+          estrelas : qualificacaoComponent.buildStarsArray(profissional.mediaNota)
         }
       });
 

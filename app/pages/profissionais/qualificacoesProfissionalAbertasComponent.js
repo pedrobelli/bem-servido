@@ -8,10 +8,6 @@ function(ko, template, bridge, qualificacoesProfissionalPartialComponent) {
 
     qualificacoesProfissionalPartialComponent.subscribe(params.id);
 
-    self.voltar = function(){
-      return window.location.hash = '#atendimentos/new/profissional=' + params.id + '&data=undefined';
-    };
-
     var init = function() {
       return bridge.get("/api/profissionais/get/" + params.id)
       .then(function(response){
