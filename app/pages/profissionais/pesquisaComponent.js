@@ -8,7 +8,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.cidade = ko.observable(decodeURIComponent(params.cidade != 'undefined' ? params.cidade : ''));
     self.habilidadesSelecionadas = ko.observable();
     self.ramo = ko.observable();
-    self.data = ko.observable(momentComponent.convertDateToString(new Date()));
+    self.data = ko.observable(decodeURIComponent(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date())));
     self.hora = ko.observable();
 
     self.ramos = ko.observableArray([]);

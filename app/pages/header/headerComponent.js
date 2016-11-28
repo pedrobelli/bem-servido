@@ -1,9 +1,10 @@
-define(['ko', 'text!headerTemplate', 'materialize', 'waves'],
-function(ko, template, materialize, waves) {
+define(['ko', 'text!headerTemplate', 'materialize', 'waves', 'momentComponent', 'datepickerComponent'],
+function(ko, template, materialize, waves, momentComponent, datepickerComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
+    self.data = ko.observable(momentComponent.convertDateToString(new Date()));
     self.servico = ko.observable();
     self.cidade = ko.observable();
     self.home = ko.observable(false);
@@ -92,10 +93,17 @@ function(ko, template, materialize, waves) {
     };
 
     self.pesquisa = function(){
-      return window.location.hash = '#pesquisa/servico=' + encodeURIComponent(self.servico()) + '&cidade=' + encodeURIComponent(self.cidade());
+      var servico = !!self.servico() ? self.servico() : undefined;
+      var cidade = !!self.cidade() ? self.cidade() : undefined;
+      var data = !!self.data() ? self.data() : undefined;
+
+      return window.location.hash = '#pesquisa/servico=' + encodeURIComponent(servico) +
+        '&cidade=' + encodeURIComponent(cidade) +
+        '&data=' + encodeURIComponent(data);
     };
 
     init = function() {
+      datepickerComponent.applyDatepicker();
       Waves.displayEffect();
       $(".button-collapse").sideNav();
       $(".dropdown-button").dropdown();
