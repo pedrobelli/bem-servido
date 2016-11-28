@@ -21,12 +21,22 @@
     }
   },
   {
-    "path"   : "#clientes/new",
+    "path"   : "#clientes/register",
     "page"   : "pages/clientes/form/clientesFormComponent",
+    "params" : {
+      "name"   : "register",
+      "header" : "orange",
+      "dontAccessWhenLogged" : true
+    }
+  },
+  {
+    "path"   : "#clientes/new",
+    "page"   : "pages/clientes/form/clientesNewComponent",
     "params" : {
       "name"   : "new",
       "header" : "orange",
-      "dontAccessWhenLogged" : true
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
     }
   },
   {
@@ -77,7 +87,7 @@
     }
   },
   {
-    "path"   : "#profissionais/new",
+    "path"   : "#profissionais/register",
     "page"   : "pages/profissionais/form/profissionaisFormComponent",
     "params" : {
       "name"   : "new",
