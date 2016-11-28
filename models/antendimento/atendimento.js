@@ -161,8 +161,16 @@ module.exports = function(sequelize, DataTypes) {
 					 ]
 				});
 			},
-			Get: function(id){
-				return this.find({ where: { id: id } });
+			Get: function(models, id){
+				return this.find({
+          include: [
+            { model: models.clientes, include: [
+              { model: models.telefones },
+            ] },
+            { model: models.detalhe_servicos, include: [ { model: models.servicos } ] }
+          ],
+          where: { id: id }
+        });
 			},
 			Destroy: function(id){
 				return this.find({ where: { id: id } }).then(function(entity) {

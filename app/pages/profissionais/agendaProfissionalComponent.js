@@ -1,7 +1,7 @@
 define(['ko', 'text!agendaProfissionalTemplate', 'bridge', 'momentComponent', 'agendaComponent', 'datepickerComponent',
-'profissionalAtendimentoModalComponent', 'maskComponent'],
+'profissionalAtendimentoModalComponent', 'maskComponent', 'detalheAtendimentoModalComponent'],
 function(ko, template, bridge, momentComponent, agendaComponent, datepickerComponent, profissionalAtendimentoModalComponent,
-maskComponent) {
+maskComponent, detalheAtendimentoModalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -12,6 +12,8 @@ maskComponent) {
     self.atendimentos = ko.observableArray([]);
 
     self.pageLoadSemaphore = false;
+
+    detalheAtendimentoModalComponent.subscribe();
 
     self.loadProfissionalInfo = ko.computed(function(){
       if ((!!self.data() || !self.data()) && self.pageLoadSemaphore) {
@@ -35,6 +37,12 @@ maskComponent) {
           findProfissional();
         });
       }
+    };
+
+    self.mostrarDetalhes = function(atendimento){
+      detalheAtendimentoModalComponent.showDetalhesAtendimentoModal(atendimento.id, function() {
+        findProfissional();
+      });
     };
 
     var generatePayload = function(){

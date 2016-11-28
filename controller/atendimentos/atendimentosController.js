@@ -53,7 +53,7 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Get(req.param('id'));
+    return models.atendimentos.Get(models, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;

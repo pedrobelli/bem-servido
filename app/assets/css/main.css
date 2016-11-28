@@ -342,7 +342,10 @@ ul.available-list > li.available-time > label.label-disabled{
   width: 32%;
 }
 .card-agenda .schedule-list .unvailable > p.desc-servico{
-  width: 40%;
+  width: 28%;
+}
+.card-agenda .schedule-list .unvailable > p.desc-link{
+  width: 12%;
 }
 
 

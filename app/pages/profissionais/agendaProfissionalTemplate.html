@@ -33,9 +33,10 @@
 
                 <!-- ko foreach: $data.atendimentos -->
                   <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable">
-                    <p data-bind="text: cliente"  class="desc-cliente"></p>
+                    <p data-bind="text: cliente" class="desc-cliente"></p>
                     <p data-bind="text: horario" class="desc-horario"></p>
-                    <p data-bind="text: servico"  class="desc-servico"></p>
+                    <p data-bind="text: servico" class="desc-servico"></p>
+                    <a data-bind="click: $component.mostrarDetalhes" href="#" class="desc-link">Veja mais(+)</a>
                   </span>
                 <!-- /ko -->
               </ul>
@@ -48,3 +49,4 @@
   </div>
 </main>
 <div data-bind="component: { name: 'profissional-atendimento-modal-component' }"></div>
+<div data-bind="component: { name: 'detalhe-atendimento-modal-component' }"></div>
