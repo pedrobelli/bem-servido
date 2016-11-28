@@ -1,5 +1,5 @@
-define(['ko', 'text!qualificacaoModalTemplate', 'bridge'],
-function(ko, template, bridge) {
+define(['ko', 'text!qualificacaoModalTemplate', 'bridge', 'swalComponent'],
+function(ko, template, bridge, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;

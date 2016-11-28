@@ -23,15 +23,23 @@
       </ul>
 
 
-      <ul data-bind="ifnot: logged" class="right hide-on-med-and-down navbar-list">
-        <li class="cad-profissional"><a href="/#profissionais/new">Crie sua agenda Profissional!</a></li>
-        <li><a href="/#clientes/new">Cadastre-se</a></li>
+      <ul data-bind="if: notLogged" class="right hide-on-med-and-down navbar-list">
+        <li class="cad-profissional"><a href="/#profissionais/register">Crie sua agenda Profissional!</a></li>
+        <li><a href="/#clientes/register">Cadastre-se</a></li>
         <li><a href="/#login">Login</a></li>
       </ul>
-      <ul data-bind="ifnot: logged" id="nav-mobile" class="right hide-on-large-only side-nav">
-        <li class="cad-profissional"><a href="/#profissionais/new">Crie sua agenda Profissional!</a></li>
-        <li><a href="/#clientes/new">Cadastre-se</a></li>
+      <ul data-bind="if: notLogged" id="nav-mobile" class="right hide-on-large-only side-nav">
+        <li class="cad-profissional"><a href="/#profissionais/register">Crie sua agenda Profissional!</a></li>
+        <li><a href="/#clientes/register">Cadastre-se</a></li>
         <li><a href="/#login">Login</a></li>
+      </ul>
+
+
+      <ul data-bind="if: loggedWithoutUser" class="right hide-on-med-and-down navbar-list">
+        <li><a href="" data-bind="click: logout">Logout</a></li>
+      </ul>
+      <ul data-bind="if: loggedWithoutUser" id="nav-mobile" class="right hide-on-large-only side-nav">
+        <li><a href="" data-bind="click: logout">Logout</a></li>
       </ul>
     </div>
   </nav>

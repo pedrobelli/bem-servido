@@ -8,7 +8,9 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
     self.servico = ko.observable();
     self.cidade = ko.observable();
     self.home = ko.observable(false);
-    self.logged = ko.observable(!!localStorage.getItem('current_user_id') ? true : false);
+    self.logged = ko.observable(!!localStorage.getItem('current_user_id') && !!localStorage.getItem('current_user_auth_id') ? true : false);
+    self.loggedWithoutUser = ko.observable(!localStorage.getItem('current_user_id') && !!localStorage.getItem('current_user_auth_id') ? true : false);
+    self.notLogged = ko.observable(!localStorage.getItem('current_user_id') && !localStorage.getItem('current_user_auth_id') ? true : false);
     self.nome = ko.observable(!!localStorage.getItem('current_user_name') ? localStorage.getItem('current_user_name') : "");
 
     self.menuOptions = ko.observableArray([]);

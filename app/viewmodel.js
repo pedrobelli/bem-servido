@@ -27,11 +27,9 @@ function ($, _, ko, footer, moment, swalComponent) {
 				});
 			}
 
-			if (isLogged() && !hasUser()) {
-				// TODO arrumar esse redirecionamento bosta
-				// logout()
-				// window.location.hash = '#home';
-				// return location.reload(true);
+			if (isLogged() && !hasUser() && window.location.hash != '#clientes/new') {
+				window.location.hash = '#clientes/new';
+				return location.reload(true);
 			}
 
 			if (params.dontAccessWhenLogged && isLogged()) {

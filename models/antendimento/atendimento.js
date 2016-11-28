@@ -72,8 +72,8 @@ module.exports = function(sequelize, DataTypes) {
             callback(new Error("Este profissional não trabalha no dia escolhido"));
           } else {
             var horaTrabalho = response[0];
-            var horaInicio = new Date(Date.parse('11/11/1900 ' + (atendimento.dataInicio.getHours() - 2) + ':' + atendimento.dataInicio.getMinutes()));
-            var horaFim = new Date(Date.parse('11/11/1900 ' + (atendimento.dataFim.getHours() - 2) + ':' + atendimento.dataFim.getMinutes()));
+            var horaInicio = new Date(Date.parse('11/11/1900 ' + (atendimento.dataInicio.getUTCHours() - 2) + ':' + atendimento.dataInicio.getMinutes()));
+            var horaFim = new Date(Date.parse('11/11/1900 ' + (atendimento.dataFim.getUTCHours() - 2) + ':' + atendimento.dataFim.getMinutes()));
 
             if (horaInicio < horaTrabalho.horaInicio || horaFim > horaTrabalho.horaFim) {
               callback(new Error("Este profissional não trabalha no horário escolhido"));
