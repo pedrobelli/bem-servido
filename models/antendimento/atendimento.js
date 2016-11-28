@@ -65,7 +65,7 @@ module.exports = function(sequelize, DataTypes) {
         var weekday = this.dataInicio.getDay() + 1;
 
         sequelize.query(
-          "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ?",
+          "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ? AND deletedAt IS NULL",
           { replacements: [atendimento.profissionalId, weekday], type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length == 0) {
@@ -97,11 +97,11 @@ module.exports = function(sequelize, DataTypes) {
           ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
         );
 
-        var sql = "SELECT * FROM atendimentos WHERE id != ? AND profissionalId = ? AND dataInicio <= ? AND dataFim >= ?";
+        var sql = "SELECT * FROM atendimentos WHERE id != ? AND profissionalId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
         var replacements = [this.id, this.profissionalId, dataFim, dataInicio];
 
         if (!this.id) {
-          sql = "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio <= ? AND dataFim >= ?";
+          sql = "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
           replacements.shift();
         }
 
@@ -125,11 +125,11 @@ module.exports = function(sequelize, DataTypes) {
           ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
         );
 
-        var sql = "SELECT * FROM atendimentos WHERE id != ? AND clienteId = ? AND dataInicio <= ? AND dataFim >= ?";
+        var sql = "SELECT * FROM atendimentos WHERE id != ? AND clienteId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
         var replacements = [this.id, this.clienteId, dataFim, dataInicio];
 
         if (!this.id) {
-          sql = "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio <= ? AND dataFim >= ?";
+          sql = "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
           replacements.shift();
         }
 

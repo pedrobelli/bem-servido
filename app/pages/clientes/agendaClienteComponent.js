@@ -1,5 +1,6 @@
-define(['ko', 'text!agendaClienteTemplate', 'jquery', 'underscore', 'bridge', 'datepickerComponent', 'momentComponent', 'maskComponent'],
-function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskComponent) {
+define(['ko', 'text!agendaClienteTemplate', 'jquery', 'underscore', 'bridge', 'datepickerComponent', 'momentComponent',
+'maskComponent', 'swalComponent'],
+function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -16,6 +17,13 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
 
     self.pesquisa = function(){
       findAtendimentos();
+    };
+
+    self.cancelar = function(atendimento){
+      var errorTitle = 'Não foi possível cancelar agendamento';
+      swalComponent.removeInstanceWarning("/api/atendimentos/" + atendimento.id, errorTitle, function(){
+        findAtendimentos();
+      });
     };
 
     var generatePayload = function(){
@@ -42,6 +50,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
         var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });
 
         return {
+          id            : atendimento.id,
           dataDiaSemana : diaSemana.text + ", " + data.getDate() + " de " + self.meses[data.getMonth()],
           profissional  : profissional.nome,
           ramo          : ramo.text,
@@ -51,7 +60,8 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
           servico       : atendimento.detalhe_servico.servico.nome,
           horario       : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim),
           duracao       : atendimento.duracao,
-          valor         : maskComponent.accountingFormat(parseInt(atendimento.valorTotal))
+          valor         : maskComponent.accountingFormat(parseInt(atendimento.valorTotal)),
+          notQualified  : !atendimento.qualificado
         }
       });
 

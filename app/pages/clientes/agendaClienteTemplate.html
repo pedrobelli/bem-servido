@@ -45,7 +45,11 @@
                       <p class="servico-duração">Duração média: <span data-bind="text: duracao+' minutos'"></span></p>
                       <p class="servico-valor">Valor: <span data-bind="text: 'R$ '+valor"></span></p>
                     </div>
+                    <div data-bind="if: notQualified" class="">
+                      <a data-bind="click: $component.cancelar" class="waves-effect waves-teal btn-flat right">Cancelar Agendamento</a>
+                    </div>
                   </div>
+
                 </li>
               </ul>
             </div>
