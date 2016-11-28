@@ -24,6 +24,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
   apiRoutes.post(endpoint + '/edit', function(req, res) {
     return self.update(req, res);
   });
+
+  apiRoutes.post(endpoint + '/by_profissional', function(req, res) {
+    return self.getByProfissional(req, res);
+  });
 }
 
 self.index = function(req, res) {
@@ -88,6 +92,18 @@ self.update = function(req, res) {
   }).then(function(entity) {
     res.statusCode = 200;
     res.json({ qualificacao: entity });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByProfissional = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.qualificacoes.FindByProfissional(models, req.body.profissional)
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ qualificacoes: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

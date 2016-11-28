@@ -33,6 +33,10 @@ function(ko, template, materialize, waves) {
         text : 'Meus agendamentos'
       },
       {
+        link : '#profissionais/qualificacoes',
+        text : 'Minhas Qualificações'
+      },
+      {
         link : '#especialidades',
         text : 'Minhas habilidades'
       },

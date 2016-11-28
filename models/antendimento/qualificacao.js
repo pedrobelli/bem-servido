@@ -35,6 +35,17 @@ module.exports = function(sequelize, DataTypes) {
 				return this.find({ where: { id: qualificacao.id } }).then(function(entity) {
 		      return entity.updateAttributes(qualificacao);
 		    });
+			},
+			FindByProfissional: function(models, profissionalId){
+				return this.findAll({
+					include: [
+	          { model: models.profissionais },
+	          { model: models.atendimentos, include: [ {
+							model: models.detalhe_servicos, include: [ { model: models.servicos } ]
+					  } ] },
+        	],
+					where: { profissionalId: profissionalId }
+				});
 			}
 		},
 		paranoid: true,

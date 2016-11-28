@@ -154,6 +154,7 @@ function(ko, template, $, _, bridge, maskComponent) {
         }
       });
 
+      console.log(habilidades);
       self.habilidades(habilidades);
       self.subscribe();
       $('#dados-habilidades').fadeIn();

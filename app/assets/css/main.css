@@ -442,8 +442,11 @@ ul.available-list > li.available-time > label.label-disabled{
   margin: 0 auto;
 }
 
-.estrelas > i{
+.estrelas i{
   color: orange;
+}
+.estrelas div{
+  display: inline;
 }
 .estrelas > .nota{
   font-size: 14px;
