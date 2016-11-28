@@ -30,6 +30,10 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getByClientes(req, res);
   });
 
+  apiRoutes.get(endpoint + '/not_qualified_by_clientes/:id', function(req, res) {
+    return self.getNotQualifiedByClientes(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -105,6 +109,18 @@ self.getByClientes = function(req, res) {
     }
 
     return models.atendimentos.getByClientes(models, scopes, req.body.data, req.body.cliente);
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ atendimentos: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getNotQualifiedByClientes = function(req, res) {
+  return sequelize.transaction(function(t) {
+    return models.atendimentos.getNotQualifiedByClientes(models, req.param('id'));
 
   }).then(function(entities) {
     res.statusCode = 200;

@@ -30,6 +30,13 @@ function(ko, template, bridge, momentComponent, maskComponent) {
       var profissionais = profissionais.map(function(profissional){
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
+        var estrelas = [];
+
+        for(var cont = 1; cont <= 5; cont++) {
+          estrelas.push({
+            isGrey : profissional.mediaNota >= cont ? false : true
+          });
+        }
 
         return {
           id       : profissional.id,
@@ -37,7 +44,8 @@ function(ko, template, bridge, momentComponent, maskComponent) {
           ramo     : ramo.text,
           telefone : profissional.telefone.telefone,
           celular  : profissional.telefone.celular,
-          endereco : maskComponent.addressFormat(profissional.endereco, estado)
+          endereco : maskComponent.addressFormat(profissional.endereco, estado),
+          estrelas : estrelas
         }
       });
 

@@ -95,30 +95,39 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			FindByDateAdnWeekday: function(models, id, data, diaSemana){
 				return this.find({
-					 include: [
-						 { model: models.telefones },
-						 { model: models.enderecos },
-						 { model: models.especialidades },
-						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
-						 { model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },
-						 { model: models.atendimentos, required: false, include: [
-							 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] } ,
-							 { model: models.clientes }
-						 ],
-							 where: sequelize.where(
-								 sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%'
-							 )
-						 }
-					 ],
-					 where: { id: id }
+					include: [
+						{ model: models.qualificacoes },
+						{ model: models.telefones },
+						{ model: models.enderecos },
+						{ model: models.especialidades },
+						{ model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
+						{ model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },
+						{ model: models.atendimentos, required: false,
+							include: [
+								{ model: models.detalhe_servicos, include: [ { model: models.servicos } ] } ,
+								{ model: models.clientes }
+							],
+							where: sequelize.where(
+								sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%'
+							)
+					  }
+				  ],
+ 					attributes: { include: [
+ 						[ sequelize.literal('sum(qualificacoes.nota)/count(qualificacoes.nota)'), 'mediaNota' ]
+ 					] },
+					where: { id: id }
 				});
 			},
 			Search: function(models, scopes){
 				return this.scope(scopes).findAll({
 					include: [
+						{ model: models.qualificacoes },
 						{ model: models.telefones },
 						{ model: models.enderecos }
 					],
+					attributes: { include: [
+						[ sequelize.literal('sum(qualificacoes.nota)/count(qualificacoes.nota)'), 'mediaNota' ]
+					] },
 					having: sequelize.where(
 						sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('horas_trabalhos.horaInicio'), sequelize.col('horas_trabalhos.horaFim')),
 						'>',
@@ -129,9 +138,14 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
 		scopes: {
-	    home: function () {
+	    notHome: function () {
 	      return {
 					order: [ [sequelize.fn('RAND')] ]
+	      }
+	    },
+	    home: function () {
+	      return {
+					order: [ [sequelize.literal('`mediaNota`'), 'DESC'] ]
 	      }
 	    },
 	    byServiceName: function (models, value) {

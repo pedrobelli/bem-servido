@@ -50,6 +50,16 @@
     }
   },
   {
+    "path"   : "#clientes/qualificacoes",
+    "page"   : "pages/clientes/qualificacoesClienteComponent",
+    "params" : {
+      "name"   : "customerQualifications",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [1]
+    }
+  },
+  {
     "path"   : "#home",
     "page"   : "pages/home/homeComponent",
     "params" : {
@@ -138,6 +148,24 @@
     "page"   : "pages/profissionais/perfilProfissionalComponent",
     "params" : {
       "name"   : "profissionalPerfil",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
+    "path"   : "#profissionais/qualificacoes/:id",
+    "page"   : "pages/profissionais/qualificacoesProfissionalAbertasComponent",
+    "params" : {
+      "name"   : "openProfessionalQualifications",
+      "header" : "orange"
+    }
+  },
+  {
+    "path"   : "#profissionais/qualificacoes",
+    "page"   : "pages/profissionais/qualificacoesProfissionalComponent",
+    "params" : {
+      "name"   : "professionalQualifications",
       "header" : "orange",
       "accessWhenLoggedOnly" : true,
       "rolesAccess" : [2]

@@ -26,7 +26,7 @@ function(ko, template, $, _, bridge, maskComponent) {
       var errors = []
       valid = !!self.ramo();
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com seu cadastro.");
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar seu cadastro.");
       }
 
       self.habilidades().forEach(function(habilidade){
@@ -154,6 +154,7 @@ function(ko, template, $, _, bridge, maskComponent) {
         }
       });
 
+      console.log(habilidades);
       self.habilidades(habilidades);
       self.subscribe();
       $('#dados-habilidades').fadeIn();

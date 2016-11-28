@@ -74,6 +74,12 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     return formatedValue;
   }
 
+  var scoreFormat = function(value) {
+    var formatedValue = value.toFixed(1).replace(".",",")
+
+    return formatedValue;
+  }
+
   var addressFormat = function(endereco, estado) {
     var enderecoString = endereco.rua + ", " + endereco.num ;
     if (!!endereco.complemento) enderecoString = enderecoString + ", " + endereco.complemento;
@@ -98,6 +104,7 @@ define(['jquery', 'jqueryInputmask'], function($, jqueryMask) {
     applyCurrencyMask:applyCurrencyMask,
     applyNumberMask:applyNumberMask,
     accountingFormat:accountingFormat,
+    scoreFormat:scoreFormat,
     addressFormat:addressFormat,
     validateEmailFormat:validateEmailFormat
   }

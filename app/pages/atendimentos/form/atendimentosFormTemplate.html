@@ -1,9 +1,16 @@
 <main>
   <div class="container">
     <div class="page-title">
+      <div class="estrelas right">
+        <div data-bind="foreach: mediaEstrelas" class="">
+          <i data-bind="css: { 'grey-text' : isGrey }" class="material-icons">star</i>
+        </div>
+        <a data-bind="attr: { href: '#profissionais/qualificacoes/'+profissional() }" class="link-estrelas">(ver qualificações)</a>
+      </div>
       <h2>Agenda</h2>
       <hr>
     </div>
+
     <div class="agenda row">
       <div class="profissional-info">
         <h3 data-bind="text: nome" class="profissional-nome"></h3>

@@ -50,6 +50,9 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Duração deve ser maior ou igual 1 minuto"
         }
       }
+    },
+    qualificado: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     validate: {
@@ -145,6 +148,22 @@ module.exports = function(sequelize, DataTypes) {
           where: [
             { clienteId: cliente },
             sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
+          ],
+				  order: 'dataInicio ASC'
+        });
+			},
+			getNotQualifiedByClientes: function(models, cliente){
+				return this.findAll({
+          include: [
+            { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
+            { model: models.profissionais }
+          ],
+          where: [
+            { clienteId: cliente },
+            { qualificado: false },
+            { dataFim: {
+                $lte: new Date(),
+            } }
           ],
 				  order: 'dataInicio ASC'
         });

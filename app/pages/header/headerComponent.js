@@ -18,6 +18,10 @@ function(ko, template, materialize, waves) {
         text : 'Meus agendamentos'
       },
       {
+        link : '#clientes/qualificacoes',
+        text : 'Qualificações'
+      },
+      {
         link : '#clientes/perfil',
         text : 'Meu Perfil'
       }
@@ -27,6 +31,10 @@ function(ko, template, materialize, waves) {
       {
         link : '#profissionais/atendimentos',
         text : 'Meus agendamentos'
+      },
+      {
+        link : '#profissionais/qualificacoes',
+        text : 'Minhas Qualificações'
       },
       {
         link : '#especialidades',

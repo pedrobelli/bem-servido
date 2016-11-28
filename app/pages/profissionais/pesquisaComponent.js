@@ -89,13 +89,21 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var diaSemanaId = momentComponent.returnDateWeekday(returnData());
         var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });
+        var estrelas = [];
+
+        for(var cont = 1; cont <= 5; cont++) {
+          estrelas.push({
+            isGrey : profissional.mediaNota >= cont ? false : true
+          });
+        }
 
         return {
           id        : profissional.id,
           nome      : profissional.nome,
           ramo      : ramo.text,
           data      : returnData().substring(0, 5),
-          diaSemana : diaSemana.text.substring(0, 3)
+          diaSemana : diaSemana.text.substring(0, 3),
+          estrelas  : estrelas
         }
       });
 

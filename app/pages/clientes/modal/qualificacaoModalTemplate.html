@@ -1,0 +1,23 @@
+<div id="modal-qualificacao" class="modal modal-fixed-footer modal-qualificacao">
+  <div class="modal-content">
+    <h4>Qualificação <a class="modal-action modal-close grey-text right"><i class="material-icons">close</i></a></h4>
+    <div class="agendamento-info">
+      <p>Dê uma nota de 0 a 5 para o serviço prestado*</p>
+      <form class="agendamento-form row">
+        <div class="input-field col s6">
+          <p class="range-field">
+            <input data-bind="textInput: nota, valueUpdate: 'input'" type="range" id="nota" min="0" max="5"/>
+          </p>
+        </div>
+        <span data-bind="text: 'Nota: '+notaText()" class="info-valor"></span>
+        <div class="input-field col s12">
+          <textarea data-bind="value: avaliacao" id="avaliacao" class="materialize-textarea"></textarea>
+          <label for="avaliacao">Avaliação*</label>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a data-bind="click: salvar" class="modal-action waves-effect waves-orange btn-flat">Confirmar</a>
+  </div>
+</div>

@@ -11,6 +11,7 @@ function(ko, template, bridge, $, swalComponent) {
     self.nome = ko.observable();
     self.pageMode = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
     self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de especialidade!" : "Ocorreu um erro na atualização de especialidade!";
+    self.errorMessageApend = params.name == "new" ? ' criação da especialidade.' : ' edição da especialidade.';
 
     self.cancelar = function(){
       return window.location.hash = "#especialidades";
@@ -39,7 +40,7 @@ function(ko, template, bridge, $, swalComponent) {
       valid = !!self.nome();
 
       if (!valid) {
-        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
+        errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a" + self.errorMessageApend);
       }
 
       return errors;
