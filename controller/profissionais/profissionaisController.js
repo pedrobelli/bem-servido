@@ -242,6 +242,10 @@ self.search = function(req, res) {
       scopes.push({ method: ['home'] });
     }
 
+    if (!req.body.home) {
+      scopes.push({ method: ['notHome'] });
+    }
+
     return models.profissionais.Search(models, scopes);
 
   }).then(function(entities) {

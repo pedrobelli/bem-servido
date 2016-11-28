@@ -57,8 +57,11 @@
       <!-- ko foreach: $data.profissionais -->
         <div class="col s12 m6">
           <div class="card resultado-item">
-            <div class="card-content">
+            <div class="card-content estrelas">
               <span data-bind="text: nome" class="card-title profissional-nome"></span>
+              <span data-bind="foreach: { data: estrelas, as: 'estrela' }" class="right">
+                <i data-bind="css: { 'grey-text' : isGrey }" class="material-icons">star</i>
+              </span>
               <p data-bind="text: ramo" class="profissional-ramo"></p>
               <div class="item-info">
                 <div class="info-date">

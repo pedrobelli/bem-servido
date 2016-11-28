@@ -451,6 +451,9 @@ ul.available-list > li.available-time > label.label-disabled{
 .estrelas > .nota{
   font-size: 14px;
 }
+.estrelas > .link-estrelas{
+  display: block;
+}
 
 
 /*QUALIFICACAO*/

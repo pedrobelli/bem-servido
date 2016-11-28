@@ -154,6 +154,14 @@
     }
   },
   {
+    "path"   : "#profissionais/qualificacoes/:id",
+    "page"   : "pages/profissionais/qualificacoesProfissionalAbertasComponent",
+    "params" : {
+      "name"   : "openProfessionalQualifications",
+      "header" : "orange"
+    }
+  },
+  {
     "path"   : "#profissionais/qualificacoes",
     "page"   : "pages/profissionais/qualificacoesProfissionalComponent",
     "params" : {

@@ -19,6 +19,7 @@ swalComponent, agendaComponent) {
     self.horasTrabalho = ko.observableArray([]);
     self.atendimentos = ko.observableArray([]);
     self.estados = ko.observableArray([]);
+    self.mediaEstrelas = ko.observableArray([]);
 
     self.pageLoadSemaphore = false;
 
@@ -83,7 +84,15 @@ swalComponent, agendaComponent) {
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
         var telefone = profissional.telefone.telefone;
         var celular = profissional.telefone.celular;
+        var estrelas = [];
 
+        for(var cont = 1; cont <= 5; cont++) {
+          estrelas.push({
+            isGrey : profissional.mediaNota >= cont ? false : true
+          });
+        }
+
+        self.mediaEstrelas(estrelas);
         self.nome(profissional.nome);
         self.ramo(ramo.text);
         self.endereco(maskComponent.addressFormat(profissional.endereco, estado));

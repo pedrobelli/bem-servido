@@ -1,0 +1,36 @@
+<div class="qualificacoes row">
+  <div class="qualificacoes-infos">
+    <div class="col s12 qualificacao-total">
+      <span>Média geral total:</span>
+      <div class="estrelas">
+        <div data-bind="foreach: mediaEstrelas" class="">
+          <i data-bind="css: { 'grey-text' : isGrey }" class="material-icons">star</i>
+        </div>
+        <span data-bind="text: '('+media()+')'" class="nota"></span>
+      </div>
+    </div>
+    <div class="col s12 qualificacoes-chart">
+
+    </div>
+    <ul data-bind="foreach: { data: qualificacoes, as: 'qualificacao' }" class="col s12 m8 offset-m2">
+      <li>
+        <div class="card qualificacao">
+          <div class="card-content">
+            <span class="card-title">
+              <div class="estrelas">
+                <div data-bind="foreach: { data: estrelas, as: 'estrela' }" class="">
+                  <i data-bind="css: { 'grey-text' : estrela.isGrey }" class="material-icons">star</i>
+                </div>
+                <span data-bind="text: '('+qualificacao.nota+')'" class="nota"></span>
+              </div>
+            </span>
+            <p data-bind="text: qualificacao.avaliacao" class="qualificacao-comentario">
+            </p>
+            <p data-bind="text: qualificacao.servico" class="qualificacao-servico"></p>
+            <p data-bind="text: '· '+qualificacao.data" class="qualificacao-data"></p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
