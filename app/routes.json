@@ -96,7 +96,7 @@
     }
   },
   {
-    "path"   : "#pesquisa/servico=:servico&cidade=:cidade",
+    "path"   : "#pesquisa/servico=:servico&cidade=:cidade&data=:data",
     "page"   : "pages/profissionais/pesquisaComponent",
     "params" : {
       "name"   : "search",
