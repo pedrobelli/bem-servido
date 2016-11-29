@@ -78,7 +78,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         nomeCliente      : self.cliente(),
         telefone         : self.telefone(),
         detalheServicoId : self.servico(),
-        qualificado      : false
+        qualificado      : false,
+        bloqueio         : false
       };
 
       return payload;

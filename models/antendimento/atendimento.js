@@ -24,7 +24,6 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
     valorTotal: {
-      allowNull: false,
       type: DataTypes.DOUBLE,
 			validate: {
         isFloat: {
@@ -42,7 +41,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     },
     duracao: {
-      allowNull: true,
       type: DataTypes.DOUBLE,
 			validate: {
         min: {
@@ -52,6 +50,9 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     qualificado: {
+      type: DataTypes.BOOLEAN
+    },
+    bloqueio: {
       type: DataTypes.BOOLEAN
     }
   }, {
@@ -65,17 +66,21 @@ module.exports = function(sequelize, DataTypes) {
         var weekday = this.dataInicio.getDay() + 1;
 
         sequelize.query(
-          "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ?",
+          "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ? AND deletedAt IS NULL",
           { replacements: [atendimento.profissionalId, weekday], type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length == 0) {
             callback(new Error("Este profissional não trabalha no dia escolhido"));
           } else {
             var horaTrabalho = response[0];
-            var horaInicio = new Date(Date.parse('11/11/1900 ' + (atendimento.dataInicio.getUTCHours() - 2) + ':' + atendimento.dataInicio.getMinutes()));
-            var horaFim = new Date(Date.parse('11/11/1900 ' + (atendimento.dataFim.getUTCHours() - 2) + ':' + atendimento.dataFim.getMinutes()));
+            var dataInicio = new Date(Date.parse(
+              '11/11/1900 ' + (atendimento.dataInicio.getHours() - 2) + ':' + atendimento.dataInicio.getMinutes())
+            );
+            var dataFim = new Date(Date.parse(
+              '11/11/1900 ' + (atendimento.dataFim.getHours() - 2) + ':' + atendimento.dataFim.getMinutes())
+            );
 
-            if (horaInicio < horaTrabalho.horaInicio || horaFim > horaTrabalho.horaFim) {
+            if (dataInicio < horaTrabalho.horaInicio || dataFim > horaTrabalho.horaFim) {
               callback(new Error("Este profissional não trabalha no horário escolhido"));
             }
 
@@ -84,9 +89,26 @@ module.exports = function(sequelize, DataTypes) {
         });
 	    },
 	    professionalScheduleAvailable: function(callback) {
+        var dataInicio = new Date(Date.parse(
+          (this.dataInicio.getMonth()+1) + '/' + this.dataInicio.getDate() + '/' + this.dataInicio.getFullYear() +
+          ' ' + (this.dataInicio.getHours()) + ':' + this.dataInicio.getMinutes())
+        );
+        var dataFim = new Date(Date.parse(
+          (this.dataFim.getMonth()+1) + '/' + this.dataFim.getDate() + '/' + this.dataFim.getFullYear() +
+          ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
+        );
+
+        var sql = "SELECT * FROM atendimentos WHERE id != ? AND profissionalId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+        var replacements = [this.id, this.profissionalId, dataFim, dataInicio];
+
+        if (!this.id) {
+          sql = "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+          replacements.shift();
+        }
+
         sequelize.query(
-          "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio < ? AND dataFim > ?",
-          { replacements: [this.profissionalId, this.dataFim, this.dataInicio], type: sequelize.QueryTypes.SELECT}
+          sql,
+          { replacements: replacements, type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length > 0)
             callback(new Error("O horario selecionado para este profissional se encontra indisponível"));
@@ -95,9 +117,26 @@ module.exports = function(sequelize, DataTypes) {
         });
 	    },
 	    clienteScheduleAvailable: function(callback) {
+        var dataInicio = new Date(Date.parse(
+          (this.dataInicio.getMonth()+1) + '/' + this.dataInicio.getDate() + '/' + this.dataInicio.getFullYear() +
+          ' ' + (this.dataInicio.getHours()) + ':' + this.dataInicio.getMinutes())
+        );
+        var dataFim = new Date(Date.parse(
+          (this.dataFim.getMonth()+1) + '/' + this.dataFim.getDate() + '/' + this.dataFim.getFullYear() +
+          ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
+        );
+
+        var sql = "SELECT * FROM atendimentos WHERE id != ? AND clienteId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+        var replacements = [this.id, this.clienteId, dataFim, dataInicio];
+
+        if (!this.id) {
+          sql = "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+          replacements.shift();
+        }
+
         sequelize.query(
-          "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio < ? AND dataFim > ?",
-          { replacements: [this.clienteId, this.dataFim, this.dataInicio], type: sequelize.QueryTypes.SELECT}
+          sql,
+          { replacements: replacements, type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length > 0)
             callback(new Error("Já há um agendamento feito em sua agenda nesse horário"));
@@ -123,8 +162,16 @@ module.exports = function(sequelize, DataTypes) {
 					 ]
 				});
 			},
-			Get: function(id){
-				return this.find({ where: { id: id } });
+			Get: function(models, id){
+				return this.find({
+          include: [
+            { model: models.clientes, include: [
+              { model: models.telefones },
+            ] },
+            { model: models.detalhe_servicos, include: [ { model: models.servicos } ] }
+          ],
+          where: { id: id }
+        });
 			},
 			Destroy: function(id){
 				return this.find({ where: { id: id } }).then(function(entity) {

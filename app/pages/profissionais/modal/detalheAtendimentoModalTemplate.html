@@ -1,0 +1,27 @@
+<div id="modal-detalhe-agendamento" class="modal modal-fixed-footer modal-agendamento">
+  <div class="modal-content">
+    <h4>Detalhe do Agendamento <a class="modal-action modal-close grey-text right"><i class="material-icons">close</i></a></h4>
+    <div class="agendamento-info">
+      <div class="agendamento-header">
+        <span data-bind="text: dataDiaSemana" class="col s6 date"></span>
+        <span data-bind="text: servico" class="col s6 service"></span>
+      </div>
+      <div class="row agendamento-detalhes">
+        <div class="col s12 m6 cliente-detalhes">
+          <p data-bind="text: cliente" class="cliente-nome"></p>
+          <p class="cliente-telefone"><span data-bind="text: telefone" class="cellphones"></span> | <span data-bind="text: celular" class="cellphones"></span></p>
+        </div>
+        <div class="col s12 m6 servico-detalhes">
+          <p class="servico-nome">Serviço: <span data-bind="text: servico"></span></p>
+          <p class="servico-hora">Horário: <span data-bind="text: horario"></span></p>
+          <p class="servico-duração">Duração média: <span data-bind="text: duracao()+' minutos'"></span></p>
+          <p class="servico-valor">Valor: <span data-bind="text: 'R$ '+valor()"></span></p>
+        </div>
+        <div data-bind="if: notQualified" class="">
+          <a data-bind="click: cancelar" class="waves-effect waves-teal btn-flat right">Cancelar Agendamento</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 define(['ko', 'text!agendaProfissionalTemplate', 'bridge', 'momentComponent', 'agendaComponent', 'datepickerComponent',
-'profissionalAtendimentoModalComponent', 'maskComponent'],
+'profissionalAtendimentoModalComponent', 'maskComponent', 'detalheAtendimentoModalComponent', 'bloqueioAtendimentoModalComponent'],
 function(ko, template, bridge, momentComponent, agendaComponent, datepickerComponent, profissionalAtendimentoModalComponent,
-maskComponent) {
+maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -13,13 +13,16 @@ maskComponent) {
 
     self.pageLoadSemaphore = false;
 
+    detalheAtendimentoModalComponent.subscribe();
+    bloqueioAtendimentoModalComponent.subscribe();
+
     self.loadProfissionalInfo = ko.computed(function(){
       if ((!!self.data() || !self.data()) && self.pageLoadSemaphore) {
         findProfissional();
       }
     });
 
-    self.agendar = function(profissional){
+    self.agendar = function(){
       if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 1) {
         swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado com um profissional para realizar um agendamento!", function(){});
       } else if (!localStorage.getItem('current_user_id')) {
@@ -35,6 +38,26 @@ maskComponent) {
           findProfissional();
         });
       }
+    };
+
+    self.bloquear = function(){
+      if (!!localStorage.getItem('current_user_role') && parseInt(localStorage.getItem('current_user_role')) == 1) {
+        swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado com um profissional para realizar um agendamento!", function(){});
+      } else if (!localStorage.getItem('current_user_id')) {
+        swalComponent.customWarningActionWithTitle("Atenção", "É necessário estar loggado para realizar um agendamento!", function(){
+					return window.location.hash = '#login';
+				});
+      } else {
+        bloqueioAtendimentoModalComponent.showBloqueioModal(localStorage.getItem('current_user_id'), function() {
+          findProfissional();
+        });
+      }
+    };
+
+    self.mostrarDetalhes = function(atendimento){
+      detalheAtendimentoModalComponent.showDetalhesAtendimentoModal(atendimento.id, function() {
+        findProfissional();
+      });
     };
 
     var generatePayload = function(){
