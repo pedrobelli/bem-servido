@@ -54,6 +54,7 @@
       <hr>
     </div>
     <div class="resultado-itens row">
+      <h4 data-bind="visible: hasResult" class="col s12 center-align grey-text">Ops! Sua pesquisa não retornou nada.</h4>
       <!-- ko foreach: $data.profissionais -->
         <div class="col s12 m6">
           <div class="card resultado-item">

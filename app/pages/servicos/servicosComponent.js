@@ -5,6 +5,7 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
     var self = this;
 
     self.detalheServicos = ko.observableArray([]);
+    self.hasResult = ko.observable(false);
 
     self.exclude = function(detalheServico){
       var errorTitle = 'Não foi possível excluir serviço';
@@ -14,8 +15,12 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
     };
 
     var mapResponseToServicos = function(detalheServicos){
-      if(!detalheServicos.length) return self.detalheServicos([]);
+      if(!detalheServicos.length) {
+        self.hasResult(true);
+        return self.detalheServicos([]);
+      }
 
+      self.hasResult(false);
       var detalheServicos = detalheServicos.map(function(detalheServico){
         return {
           id      : detalheServico.id,

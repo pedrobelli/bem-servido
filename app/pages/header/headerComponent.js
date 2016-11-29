@@ -37,7 +37,7 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
       },
       {
         link : '#profissionais/qualificacoes',
-        text : 'Minhas Qualificações'
+        text : 'Minhas qualificações'
       },
       {
         link : '#especialidades',
@@ -105,7 +105,7 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
     };
 
     init = function() {
-      datepickerComponent.applyDatepicker();
+      datepickerComponent.applyDatepickerForFuture();
       Waves.displayEffect();
       $(".button-collapse").sideNav();
       $(".dropdown-button").dropdown();

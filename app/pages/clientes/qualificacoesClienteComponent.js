@@ -6,6 +6,7 @@ function(ko, template, bridge, momentComponent, qualificacaoModalComponent) {
 
     self.atendimentos = ko.observableArray([]);
     self.ramos = ko.observableArray([]);
+    self.hasResult = ko.observable(false);
 
     self.qualificar = function(atendimento) {
       var dto = {
@@ -19,8 +20,12 @@ function(ko, template, bridge, momentComponent, qualificacaoModalComponent) {
     };
 
     var mapResponseToAtendimentos = function(atendimentos){
-      if(!atendimentos.length) return self.atendimentos([]);
+      if(!atendimentos.length) {
+        self.hasResult(true);
+        return self.atendimentos([])
+      };
 
+      self.hasResult(false);
       var atendimentos = atendimentos.map(function(atendimento){
         var profissional = atendimento.profissionai;
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });

@@ -7,6 +7,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
 
     self.servico = ko.observable();
     self.data = ko.observable(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date()));
+    self.hasResult = ko.observable(false);
 
     self.ramos = ko.observableArray([]);
     self.diasSemana = ko.observableArray([]);
@@ -37,8 +38,12 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     };
 
     var mapResponseToAtendimentos = function(atendimentos){
-      if(!atendimentos.length) return self.atendimentos([]);
+      if(!atendimentos.length) {
+        self.hasResult(true);
+        return self.atendimentos([]);
+      }
 
+      self.hasResult(false);
       var atendimentos = atendimentos.map(function(atendimento){
         var data = momentComponent.convertDateStringToDate(atendimento.dataInicio);
         var profissional = atendimento.profissionai;

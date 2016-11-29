@@ -10,6 +10,7 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
 
     self.horasTrabalho = ko.observableArray([]);
     self.atendimentos = ko.observableArray([]);
+    self.hasResult = ko.observable(false);
 
     self.pageLoadSemaphore = false;
 
@@ -71,7 +72,7 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
     };
 
     var mapResponseToDetalheServicos = function(detalheServicos){
-      if(!detalheServicos.length) return self.detalheServicos([]);
+      if(!detalheServicos.length) return;
 
       var detalheServicos = detalheServicos.map(function(detalheServico){
         return {
@@ -95,6 +96,12 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
         mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
         self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos[0]));
         self.atendimentos(agendaComponent.mapResponseToAtendimentos(response.profissional.atendimentos, self.horasTrabalho()));
+
+        if (!response.profissional.horas_trabalhos.length) {
+          self.hasResult(true);
+        } else if (!!response.profissional.horas_trabalhos.length && self.hasResult()) {
+          self.hasResult(false);
+        }
       });
     };
 

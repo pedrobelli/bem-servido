@@ -13,6 +13,8 @@ swalComponent, agendaComponent, qualificacaoComponent) {
     self.telefone = ko.observable();
     self.celular = ko.observable();
     self.endereco = ko.observable();
+    self.hasHorarioResult = ko.observable(false);
+    self.hasServicoResult = ko.observable(false);
 
     self.ramos = ko.observableArray([]);
     self.detalheServicos = ko.observableArray([]);
@@ -93,6 +95,18 @@ swalComponent, agendaComponent, qualificacaoComponent) {
         mapResponseToDetalheServicos(profissional.detalhe_servicos);
         self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(profissional.horas_trabalhos[0]));
         self.atendimentos(agendaComponent.mapResponseToAtendimentos(profissional.atendimentos, self.horasTrabalho()));
+
+        if (!profissional.horas_trabalhos.length) {
+          self.hasHorarioResult(true);
+        } else if (!!profissional.horas_trabalhos.length && self.hasHorarioResult()) {
+          self.hasHorarioResult(false);
+        }
+
+        if (!profissional.detalhe_servicos.length) {
+          self.hasServicoResult(true);
+        } else if (!!profissional.detalhe_servicos.length && self.hasServicoResult()) {
+          self.hasServicoResult(false);
+        }
       });
     };
 
