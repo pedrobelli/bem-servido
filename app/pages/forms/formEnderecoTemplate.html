@@ -8,40 +8,40 @@
       <div class="row form-cadastro">
         <form action="" class="col s12 form">
           <div class="input-field col s4">
-            <input data-bind="value: endereco_cep" id="endereco_cep" type="text" class="zip-code">
+            <input data-bind="textInput: endereco_cep" id="endereco_cep" type="text" class="zip-code">
             <label for="endereco_cep">CEP*</label>
           </div>
 
           <div class="input-field col s8">
-            <input data-bind="value: endereco_rua" id="endereco_rua" type="text">
+            <input data-bind="textInput: endereco_rua" id="endereco_rua" type="text">
             <label for="endereco_rua">Endereço</label>
           </div>
 
           <div class="input-field col s4">
-            <input data-bind="value: endereco_bairro" id="endereco_bairro" type="text">
+            <input data-bind="textInput: endereco_bairro" id="endereco_bairro" type="text">
             <label for="endereco_bairro">Bairro</label>
           </div>
 
           <div class="input-field col s4">
-            <input data-bind="value: endereco_num" id="endereco_num" type="text" class="number">
+            <input data-bind="textInput: endereco_num" id="endereco_num" type="text" class="number">
             <label for="endereco_num">Numero*</label>
           </div>
 
           <div class="input-field col s4">
-            <input data-bind="value: endereco_comp" id="endereco_comp" type="text">
+            <input data-bind="textInput: endereco_comp" id="endereco_comp" type="text">
             <label for="endereco_comp">Complemento</label>
           </div>
 
           <div class="input-field col s6">
-            <input data-bind="value: endereco_cidade" id="endereco_cidade" type="text">
+            <input data-bind="textInput: endereco_cidade" id="endereco_cidade" type="text">
             <label for="endereco_cidade">Cidade</label>
           </div>
 
           <div class="input-field col s6">
-            <select data-bind="value: endereco_estado">
+            <select data-bind="textInput: endereco_estado">
               <option value="" disabled selected>Selecione uma opção</option>
               <!-- ko foreach: $data.estados -->
-              <option  data-bind="value: $data.id, text: $data.text"></option>
+              <option  data-bind="textInput: $data.id, text: $data.text"></option>
               <!-- /ko -->
             </select>
             <label for="endereco_estado">Estado</label>
