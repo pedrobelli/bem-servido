@@ -38,6 +38,12 @@ function(ko, template, bridge, auth0Component, swalComponent, pace) {
     };
 
     self.login = function(){
+      var errors = validate();
+
+      if (errors.length > 0) {
+        return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
+      }
+
       pace.track(function(){
         self.auth0.login({
           connection: 'Username-Password-Authentication',
@@ -54,6 +60,18 @@ function(ko, template, bridge, auth0Component, swalComponent, pace) {
           }
         });
       });
+    };
+
+    var validate = function(){
+      var errors = []
+      valid = !!self.email();
+      valid = valid && !!self.password();
+
+      if (!valid) {
+        errors.push("Os campos de email e senha devem ser preenchidos.");
+      }
+
+      return errors;
     };
 
     var setLocalStorageAndRedirect = function(result, profile) {

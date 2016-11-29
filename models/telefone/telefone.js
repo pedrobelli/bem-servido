@@ -4,27 +4,27 @@ module.exports = function(sequelize, DataTypes) {
 		telefone: {
 			type: DataTypes.STRING,
 			validate: {
-				len: {
-					args: [10, 11],
-					msg: "Número de telefone residencial deve conter 8 ou 9 dígitos"
-				},
 				is: {
 					args: /^[0-9]*$/,
 					msg: "Número de telefone residencial deve conter apenas números"
-				}
+				},
+        length: function(value) {
+					if (value.length != 0 && (value.length < 10 || value.length > 11))
+						throw new Error('Número de telefone residencial deve conter 8 ou 9 dígitos')
+        }
 			}
 		},
 		celular: {
 			type: DataTypes.STRING,
 			validate: {
-				len: {
-					args: [10, 11],
-					msg: "Número de telefone celular deve conter 8 ou 9 dígitos"
-				},
 				is: {
 					args: /^[0-9]*$/,
 					msg: "Número de telefone celular deve conter apenas números"
-				}
+				},
+        length: function(value) {
+					if (value.length != 0 && (value.length < 10 || value.length > 11))
+						throw new Error('Número de telefone celular deve conter 8 ou 9 dígitos')
+        }
 			}
 		}
 	}, {

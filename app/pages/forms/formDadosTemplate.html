@@ -8,46 +8,46 @@
       <div class="row form-cadastro">
         <form action="" class="col s12 form">
           <div class="input-field col s12">
-            <input data-bind="value: nomeCompleto" id="nomeCompleto" type="text">
+            <input data-bind="textInput: nomeCompleto" id="nomeCompleto" type="text">
             <label for="nomeCompleto">Nome Completo*</label>
           </div>
 
           <div data-bind="if: cliente" class="">
             <div class="input-field col s4">
-              <input data-bind="value: cpf" id="cpf" type="text" class="cpf">
+              <input data-bind="textInput: cpf" id="cpf" type="text" class="cpf">
               <label for="cpf">CPF*</label>
             </div>
           </div>
 
           <div data-bind="ifnot: cliente" class="">
             <div class="input-field col s4">
-              <input data-bind="value: cpfCnpj" id="cpf-cnpj" type="text" class="cpf-cnpj">
+              <input data-bind="textInput: cpfCnpj" id="cpf-cnpj" type="text" class="cpf-cnpj">
               <label for="cpf">CPF/CNPJ*</label>
             </div>
           </div>
 
           <div class="input-field col s4">
-            <input data-bind="value: dataNascimento" id="dataNascimento" type="date" class="datepicker">
+            <input data-bind="textInput: dataNascimento" id="dataNascimento" type="date" class="datepicker">
             <label for="dataNascimento">Data Nascimento*</label>
           </div>
 
           <div class="input-field col s4">
-            <select data-bind="value: sexo">
+            <select data-bind="textInput: sexo">
               <option value="" disabled selected>Selecione uma opção</option>
               <!-- ko foreach: $data.sexos -->
-              <option  data-bind="value: $data.id, text: $data.text"></option>
+              <option  data-bind="textInput: $data.id, text: $data.text"></option>
               <!-- /ko -->
             </select>
             <label for="sexo">Sexo</label>
           </div>
 
           <div class="input-field col s6">
-            <input data-bind="value: telefone" id="telefone" type="text" class="cellphones">
+            <input data-bind="textInput: telefone" id="telefone" type="text" class="cellphones">
             <label for="telefone">Telefone</label>
           </div>
 
           <div class="input-field col s6">
-            <input data-bind="value: celular" id="celular" type="text" class="cellphones">
+            <input data-bind="textInput: celular" id="celular" type="text" class="cellphones">
             <label for="celular">Celular</label>
           </div>
 

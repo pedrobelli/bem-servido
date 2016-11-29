@@ -60,6 +60,18 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
       }
 
+      if(localStorage.getItem('current_user_role') == 1 && self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
+        errors.push("Este não é um CPF válido.");
+      }
+
+      if(localStorage.getItem('current_user_role') == 2 && self.cpfCnpj().length == 11 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
+        errors.push("Este não é um CPF válido.");
+      }
+
+      if(localStorage.getItem('current_user_role') == 2 && self.cpfCnpj().length == 14 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
+        errors.push("Este não é um CNPJ válido.");
+      }
+
       return errors;
     };
 
@@ -72,8 +84,8 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
         cpf            : self.cpf(),
         cpf_cnpj       : self.cpfCnpj(),
         telefoneId     : self.telefoneId(),
-        telefone       : !!self.telefone() ? self.telefone() : undefined,
-        celular        : !!self.celular() ? self.celular() : undefined,
+        telefone       : self.telefone(),
+        celular        : self.celular()
       };
 
       if (localStorage.getItem('current_user_role') == 1) payload.clienteId = payload.id;

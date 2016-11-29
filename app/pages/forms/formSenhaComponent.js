@@ -62,6 +62,10 @@ function(ko, template, $, bridge, maskComponent, swalComponent, auth0Component) 
         errors.push("Verifique se as senhas são as mesmas.");
       }
 
+      if (!!self.password() && self.password().length < 5) {
+        errors.push("Sua senha deve conter pelo menos 5 caracteres.");
+      }
+
       if ((!!self.actualPassword() && !!self.newPassword()) && self.actualPassword() == self.newPassword()) {
         errors.push("Sua nova senha não pode ser igual a antiga.");
       }

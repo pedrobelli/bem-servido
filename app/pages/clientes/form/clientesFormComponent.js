@@ -81,8 +81,16 @@ function(ko, template, $, bridge, auth0Component, maskComponent, swalComponent, 
         errors.push("Verifique se as senhas são as mesmas.");
       }
 
+      if (!!self.password() && self.password().length < 5) {
+        errors.push("Sua senha deve conter pelo menos 5 caracteres.");
+      }
+
       if (!!self.email() && !maskComponent.validateEmailFormat(self.email())) {
         errors.push("Este não é um email válido.");
+      }
+
+      if (self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
+        errors.push("Este não é um CPF válido.");
       }
 
       return errors;
