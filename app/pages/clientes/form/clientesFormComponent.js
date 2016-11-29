@@ -89,6 +89,10 @@ function(ko, template, $, bridge, auth0Component, maskComponent, swalComponent, 
         errors.push("Este não é um email válido.");
       }
 
+      if (self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
+        errors.push("Este não é um CPF válido.");
+      }
+
       return errors;
     };
 

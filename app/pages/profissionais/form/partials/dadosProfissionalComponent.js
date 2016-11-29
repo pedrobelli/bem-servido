@@ -52,6 +52,15 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
       if (!valid) {
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar seu cadastro.");
       }
+
+      if (self.cpfCnpj().length == 11 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
+        errors.push("Este não é um CPF válido.");
+      }
+
+      if (self.cpfCnpj().length == 14 && !maskComponent.validateCNPJFormat(self.cpfCnpj())) {
+        errors.push("Este não é um CNPJ válido.");
+      }
+
       return errors;
     };
 
