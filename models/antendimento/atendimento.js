@@ -24,7 +24,6 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
     valorTotal: {
-      allowNull: false,
       type: DataTypes.DOUBLE,
 			validate: {
         isFloat: {
@@ -42,7 +41,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     },
     duracao: {
-      allowNull: true,
       type: DataTypes.DOUBLE,
 			validate: {
         min: {
@@ -52,6 +50,9 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     qualificado: {
+      type: DataTypes.BOOLEAN
+    },
+    bloqueio: {
       type: DataTypes.BOOLEAN
     }
   }, {

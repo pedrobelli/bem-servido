@@ -11,7 +11,7 @@ define(['momentComponent'], function(momentComponent) {
       payload = {};
       var inicioRoundUp = momentComponent.roundUp(momentComponent.convertTimeToStringNoOffset(horaAtual));
 
-      if (horaFim .diff(horaAtual, 'minutes') == 0) {
+      if (horaFim.diff(horaAtual, 'minutes') == 0) {
         payload.hora = momentComponent.convertTimeToStringNoOffset(horaFim.toDate());
         payload.height = 0;
         horaAtual.add(30, 'minutes')
@@ -39,17 +39,20 @@ define(['momentComponent'], function(momentComponent) {
 
       if (!!atendimento.cliente) {
         nome = atendimento.cliente.nome;
-      } else {
+      } else if (!!atendimento.nomeCliente) {
         nome = atendimento.nomeCliente;
+      } else {
+        nome = "Bloqueio"
       }
 
       return {
-        id      : atendimento.id,
-        top     : (horaAtual.diff(horaTrabalhoInicial, 'minutes')),
-        height  : atendimento.duracao,
-        cliente : nome,
-        servico : atendimento.detalhe_servico.servico.nome,
-        horario : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim)
+        id         : atendimento.id,
+        top        : (horaAtual.diff(horaTrabalhoInicial, 'minutes')),
+        height     : atendimento.duracao,
+        cliente    : nome,
+        servico    : !atendimento.bloqueio ? atendimento.detalhe_servico.servico.nome : "",
+        horario    : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim),
+        isBlockade : atendimento.bloqueio
       }
     });
 

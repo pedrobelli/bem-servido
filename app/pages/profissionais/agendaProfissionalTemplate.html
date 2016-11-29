@@ -15,6 +15,9 @@
           </form>
         </div>
         <div class="col s12 m6">
+          <button data-bind="click: bloquear" class="btn waves-effect waves-light orange right" type="submit" name="action"><i class="material-icons right">plus_one</i>Novo bloqueio</button>
+        </div>
+        <div class="col s12 m6">
           <button data-bind="click: agendar" class="btn waves-effect waves-light orange right" type="submit" name="action"><i class="material-icons right">plus_one</i>Novo agendamento</button>
         </div>
       </div>
@@ -36,7 +39,9 @@
                     <p data-bind="text: cliente" class="desc-cliente"></p>
                     <p data-bind="text: horario" class="desc-horario"></p>
                     <p data-bind="text: servico" class="desc-servico"></p>
-                    <a data-bind="click: $component.mostrarDetalhes" href="#" class="desc-link">Veja mais(+)</a>
+                    <span data-bind="ifnot: isBlockade">
+                      <a data-bind="click: $component.mostrarDetalhes" href="#" class="desc-link">Veja mais(+)</a>
+                    </span>
                   </span>
                 <!-- /ko -->
               </ul>
@@ -49,4 +54,5 @@
   </div>
 </main>
 <div data-bind="component: { name: 'profissional-atendimento-modal-component' }"></div>
+<div data-bind="component: { name: 'bloqueio-atendimento-modal-component' }"></div>
 <div data-bind="component: { name: 'detalhe-atendimento-modal-component' }"></div>

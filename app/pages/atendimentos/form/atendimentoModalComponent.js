@@ -73,7 +73,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         profissionalId   : self.profissional(),
         clienteId        : self.cliente(),
         detalheServicoId : self.servico(),
-        qualificado      : false
+        qualificado      : false,
+        bloqueio         : false
       };
 
       return payload;
