@@ -30,13 +30,6 @@ function(ko, template, bridge, momentComponent, maskComponent, qualificacaoCompo
       var profissionais = profissionais.map(function(profissional){
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
-        var estrelas = [];
-
-        for(var cont = 1; cont <= 5; cont++) {
-          estrelas.push({
-            isGrey : profissional.mediaNota >= cont ? false : true
-          });
-        }
 
         return {
           id       : profissional.id,
@@ -49,7 +42,7 @@ function(ko, template, bridge, momentComponent, maskComponent, qualificacaoCompo
         }
       });
 
-      self.profissionais(profissionais);
+      self.profissionais(profissionais.slice(0, 10));
     };
 
      var init = function() {
