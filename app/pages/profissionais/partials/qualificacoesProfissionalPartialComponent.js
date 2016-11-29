@@ -10,12 +10,17 @@ function(ko, template, bridge, maskComponent, momentComponent, qualificacaoCompo
     self.qualificacoes = ko.observableArray([]);
     self.media = ko.observableArray([]);
     self.mediaEstrelas = ko.observableArray([]);
+    self.hasResult = ko.observable(false);
 
     self.meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     var mapResponseToQualificacoes = function(qualificacoes){
-      if(!qualificacoes.length) return self.qualificacoes([]);
+      if(!qualificacoes.length) {
+        self.hasResult(true);
+        return self.qualificacoes([]);
+      }
 
+      self.hasResult(false);
       var qualificacoes = qualificacoes.map(function(qualificacao){
         var data = momentComponent.convertDateStringToDate(qualificacao.atendimento.dataInicio);
 

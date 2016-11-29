@@ -11,6 +11,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.ramo = ko.observable();
     self.data = ko.observable(decodeURIComponent(params.data != 'undefined' ? params.data : momentComponent.convertDateToString(new Date())));
     self.hora = ko.observable();
+    self.hasResult = ko.observable(false);
 
     self.ramos = ko.observableArray([]);
     self.diasSemana = ko.observableArray([]);
@@ -72,8 +73,12 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     };
 
     var mapResponseToProfissionais = function(profissionais){
-      if(!profissionais.length) return self.profissionais([]);
+      if(!profissionais.length) {
+        self.hasResult(true);
+        return self.profissionais([]);
+      }
 
+      self.hasResult(false);
       var profissionais = profissionais.filter(function(profissional){
         var dataHora = momentComponent.convertStringToDateTime(returnData(), self.hora());
         if (!!self.hora()) {

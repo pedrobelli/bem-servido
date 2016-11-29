@@ -35,6 +35,7 @@
           <div class="card card-servicos">
             <div class="card-content">
               <span class="card-title">Serviços</span>
+              <h5 data-bind="visible: hasServicoResult" class="col s12 center-align grey-text">Ops! O profissional não presta nenhum serviço.</h5>
               <div class="services">
                 <ul data-bind="foreach: detalheServicos" class="collection">
                   <li class="collection-item">
@@ -50,6 +51,7 @@
           <div class="card card-agenda">
             <div class="card-content">
               <span class="card-title">Horários <span class="color-legenda right"><span></span> horário indisponível</span></span>
+              <h5 data-bind="visible: hasHorarioResult" class="col s12 center-align grey-text">Ops! O profissional não trabalha neste dia.</h5>
               <ul class="collection schedule-list">
                 <!-- ko foreach: $data.horasTrabalho -->
                   <li data-bind="style: { height: height+'px' }" class="collection-item">

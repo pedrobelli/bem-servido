@@ -5,6 +5,7 @@ function(ko, template, bridge, $, swalComponent) {
     var self = this;
 
     self.especialidades = ko.observableArray([]);
+    self.hasResult = ko.observable(false);
 
     self.exclude = function(especialidade) {
       var errorTitle = 'Não foi possível excluir especialidade';
@@ -14,7 +15,12 @@ function(ko, template, bridge, $, swalComponent) {
     };
 
     var mapResponseToEspecialidades = function(especialidades) {
-      if(!especialidades) return self.especialidades([]);
+      if(!especialidades.length) {
+        self.hasResult(true);
+        return self.especialidades([]);
+      }
+
+      self.hasResult(false);
       var especialidades = especialidades.map(function(especialidade) {
         return {
           id : especialidade.id,

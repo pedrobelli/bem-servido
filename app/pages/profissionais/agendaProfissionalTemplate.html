@@ -27,6 +27,7 @@
           <div class="card card-agenda">
             <div class="card-content">
               <span class="card-title">Agendamento <span class="color-legenda right"><span></span> horário marcado</span></span>
+              <h4 data-bind="visible: hasResult" class="center-align grey-text">Ops! Você não tem nenhum agendamento.</h4>
               <ul class="collection schedule-list">
                 <!-- ko foreach: $data.horasTrabalho -->
                   <li data-bind="style: { height: height+'px' }" class="collection-item">
