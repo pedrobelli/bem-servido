@@ -60,15 +60,18 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a edição de seus dados.");
       }
 
-      if(localStorage.getItem('current_user_role') == 1 && self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
+      if(localStorage.getItem('current_user_role') == 1 &&
+       !!self.cpf() && self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
         errors.push("Este não é um CPF válido.");
       }
 
-      if(localStorage.getItem('current_user_role') == 2 && self.cpfCnpj().length == 11 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
+      if(localStorage.getItem('current_user_role') == 2 &&
+       !!self.cpfCnpj() && self.cpfCnpj().length == 11 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
         errors.push("Este não é um CPF válido.");
       }
 
-      if(localStorage.getItem('current_user_role') == 2 && self.cpfCnpj().length == 14 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
+      if(localStorage.getItem('current_user_role') == 2 &&
+       !!self.cpfCnpj() && self.cpfCnpj().length == 14 && !maskComponent.validateCNPJFormat(self.cpfCnpj())) {
         errors.push("Este não é um CNPJ válido.");
       }
 

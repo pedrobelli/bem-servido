@@ -68,7 +68,7 @@ self.destroy = function(req, res) {
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.qualificacoes.Create(req.body).then(function(qualificacao) {
-      return models.atendimentos.Get(qualificacao.atendimentoId).then(function(atendimento) {
+      return models.atendimentos.Get(models, qualificacao.atendimentoId).then(function(atendimento) {
         var newAtendimento = models.atendimentos.build({
           id          : qualificacao.atendimentoId,
           dataInicio  : atendimento.dataInicio.setHours ( atendimento.dataInicio.getHours() + 2 ),

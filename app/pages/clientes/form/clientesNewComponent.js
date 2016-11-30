@@ -78,7 +78,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar seu cadastro.");
       }
 
-      if (self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
+      if (!!self.cpf() && self.cpf().length == 11 && !maskComponent.validateCPFFormat(self.cpf())) {
         errors.push("Este não é um CPF válido.");
       }
 

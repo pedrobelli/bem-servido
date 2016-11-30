@@ -53,7 +53,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar seu cadastro.");
       }
 
-      if (self.cpfCnpj().length == 11 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
+      if (!!self.cpfCnpj() && self.cpfCnpj().length == 11 && !maskComponent.validateCPFFormat(self.cpfCnpj())) {
         errors.push("Este não é um CPF válido.");
       }
 
