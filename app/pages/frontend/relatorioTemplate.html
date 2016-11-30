@@ -5,7 +5,71 @@
       <hr>
     </div>
     <div class="relatorio row">
+      <div class="row">
+        <div class="date col s12">
+          <form action="" class="row">
+            <div class="input-field col s12 m4">
+              <select data-bind="value: ramo">
+                <option value="">Selecione uma opção</option>
+                <option>Anual</option>
+                <option>Mensal</option>
+                <option value="">Semanal</option>
 
+              </select>
+              <label>Tipo Relatório</label>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="relatorio-info">
+        <div class="col s12">
+          <div class="card infos-detalhes">
+            <div class="card-content">
+              <span class="card-title">Relatório Semanal</span>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Horario</th>
+                    <th>Serviço</th>
+                    <th>Cliente</th>
+                    <!-- <th>Ações</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>28/11/2016</td>
+                    <td>10:30</td>
+                    <td>Corte de Cabelo Femminino</td>
+                    <td>Suzana Vieira</td>
+                  </tr>
+                  <tr>
+                    <td>28/11/2016</td>
+                    <td>11:00</td>
+                    <td>Corte de Cabelo Infantil</td>
+                    <td>Suzana Vieira</td>
+                  </tr>
+                  <tr>
+                    <td>28/11/2016</td>
+                    <td>14:00</td>
+                    <td>Tintura e aplicação de Máscaras</td>
+                    <td>Joana Oliveira</td>
+                  </tr>
+                </tbody>
+
+                <!-- <tfoot data-bind="visible: hasResult">
+                  <tr>
+                    <td colspan="4">
+                      <h4 class="col s12 center-align grey-text">Ops! Não há nenhum serviço cadastrado.</h4>
+                    </td>
+                  </tr>
+                </tfoot> -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>

@@ -126,6 +126,7 @@ requirejs.config({
 		// servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
 		// qualificacoesProfissionalTemplate           : 'pages/frontend/qualificacoesProfissionalTemplate.html',
 		// qualificacoesClienteTemplate           : 'pages/frontend/qualificacoesClienteTemplate.html',
+		relatorioTemplate           : 'pages/frontend/relatorioTemplate.html',
   }
 
 	// Styles
