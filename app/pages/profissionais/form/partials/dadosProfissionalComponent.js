@@ -125,7 +125,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
 
     self.generatePayload = function(payload){
       payload.nome = self.nomeCompleto();
-      payload.dataNascimento = momentComponent.convertStringToDate(self.dataNascimento());
+      payload.dataNascimento = momentComponent.convertStringToDateFirstSecond(self.dataNascimento());
       payload.sexo = !!self.sexo() ? self.sexo() : 0;
       payload.cpf_cnpj = self.cpfCnpj();
 

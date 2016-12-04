@@ -99,7 +99,7 @@ function(ko, template, $, bridge, auth0Component, maskComponent, swalComponent, 
     var generatePayload = function(){
       var payload = {
         nome           : self.nomeCompleto(),
-        dataNascimento : momentComponent.convertStringToDate(self.dataNascimento()),
+        dataNascimento : momentComponent.convertStringToDateFirstSecond(self.dataNascimento()),
         sexo           : !!self.sexo() ? self.sexo() : 0,
         cpf            : self.cpf(),
         telefone       : self.telefone(),

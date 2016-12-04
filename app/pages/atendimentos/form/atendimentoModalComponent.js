@@ -67,8 +67,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
     var generatePayload = function(){
       var payload = {
         valorTotal       : parseInt(self.valor()),
-        dataInicio       : momentComponent.convertStringToDateTime(self.data(), self.horaInicio()),
-        dataFim          : momentComponent.convertStringToDateTime(self.data(), self.horaFim()),
+        dataInicio       : momentComponent.convertStringToDateFirstSecondTime(self.data(), self.horaInicio()),
+        dataFim          : momentComponent.convertStringToDateFirstSecondTime(self.data(), self.horaFim()),
         duracao          : self.duracao(),
         profissionalId   : self.profissional(),
         clienteId        : self.cliente(),

@@ -82,7 +82,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, datepickerCompon
       var payload = {
         id             : localStorage.getItem('current_user_id'),
         nome           : self.nomeCompleto(),
-        dataNascimento : momentComponent.convertStringToDate(self.dataNascimento()),
+        dataNascimento : momentComponent.convertStringToDateFirstSecond(self.dataNascimento()),
         sexo           : !!self.sexo() ? self.sexo() : 0,
         cpf            : self.cpf(),
         cpf_cnpj       : self.cpfCnpj(),

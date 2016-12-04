@@ -57,6 +57,7 @@ requirejs.config({
 		perfilProfissionalComponent               : 'pages/profissionais/perfilProfissionalComponent',
 		qualificacoesProfissionalAbertasComponent : 'pages/profissionais/qualificacoesProfissionalAbertasComponent',
 		qualificacoesProfissionalComponent        : 'pages/profissionais/qualificacoesProfissionalComponent',
+		relatoriosComponent                       : 'pages/profissionais/relatoriosComponent',
 		servicosComponent                         : 'pages/servicos/servicosComponent',
 		servicosFormComponent                     : 'pages/servicos/form/servicosFormComponent',
 		formDadosComponent                        : 'pages/forms/formDadosComponent',
@@ -105,6 +106,7 @@ requirejs.config({
 		perfilProfissionalTemplate               : 'pages/profissionais/perfilProfissionalTemplate.html',
 		qualificacoesProfissionalAbertasTemplate : 'pages/profissionais/qualificacoesProfissionalAbertasTemplate.html',
 		qualificacoesProfissionalTemplate        : 'pages/profissionais/qualificacoesProfissionalTemplate.html',
+		relatoriosTemplate                       : 'pages/profissionais/relatoriosTemplate.html',
 		servicosTemplate                         : 'pages/servicos/servicosTemplate.html',
 		servicosFormTemplate                     : 'pages/servicos/form/servicosFormTemplate.html',
 		formDadosTemplate                        : 'pages/forms/formDadosTemplate.html',
@@ -115,22 +117,7 @@ requirejs.config({
 
 
 		searchTemplate                           : 'pages/shared/search/searchTemplate.html',
-
-		// frontendComponent                                              : 'pages/frontend/frontendComponent',
-		// agendaTemplate : 'pages/frontend/agendaTemplate.html',
-		// agendaProfissionalTemplate : 'pages/frontend/agendaProfissionalTemplate.html',
-		// agendaClienteTemplate      : 'pages/frontend/agendaClienteTemplate.html',
-		// pesquisaTemplate           : 'pages/frontend/pesquisaTemplate.html',
-		// perfilTemplate           : 'pages/frontend/perfilTemplate.html',
-		// servicosEditTemplate           : 'pages/frontend/servicosListTemplate.html',
-		// servicosEditTemplate           : 'pages/frontend/servicosEditTemplate.html',
-		// qualificacoesProfissionalTemplate           : 'pages/frontend/qualificacoesProfissionalTemplate.html',
-		// qualificacoesClienteTemplate           : 'pages/frontend/qualificacoesClienteTemplate.html',
-		relatorioTemplate           : 'pages/frontend/relatorioTemplate.html',
   }
-
-	// Styles
-
 });
 
 require(["app"], function(app) {
