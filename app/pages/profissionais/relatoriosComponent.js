@@ -4,9 +4,9 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
   var viewModel = function(params) {
     var self = this;
 
-    var FIRST_OPTION_URL = '/api/atendimentos/by_ano';
-    var SECOND_OPTION_URL = '/api/atendimentos/by_date_interval';
-    var THIRD_OPTION_URL = '/api/atendimentos/by_date_interval/filter_by_year';
+    var FIRST_OPTION_URL = '/api/agendamentos/by_ano';
+    var SECOND_OPTION_URL = '/api/agendamentos/by_date_interval';
+    var THIRD_OPTION_URL = '/api/agendamentos/by_date_interval/filter_by_year';
 
     self.opcao = ko.observable();
     self.ano = ko.observable();
@@ -17,9 +17,9 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
 
     self.opcoes = ko.observableArray([]);
     self.anos = ko.observableArray([]);
-    self.firstOptionAtendimentos = ko.observableArray([]);
-    self.secondOptionAtendimentos = ko.observableArray([]);
-    self.thirdOptionAtendimentos = ko.observableArray([]);
+    self.firstOptionAgendamentos = ko.observableArray([]);
+    self.secondOptionAgendamentos = ko.observableArray([]);
+    self.thirdOptionAgendamentos = ko.observableArray([]);
     self.headerOptions = ko.observableArray([]);
 
     self.meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -63,7 +63,7 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
       { text: '2025' }
     ];
 
-    self.loadAtendimentosForm = ko.computed(function(){
+    self.loadAgendamentosForm = ko.computed(function(){
       if (!!self.opcao()) {
         if (self.opcao() == 1) {
           self.anos(self.anoOptions);
@@ -85,9 +85,9 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
 
       }
       self.headerOptions([]);
-      self.firstOptionAtendimentos([]);
-      self.secondOptionAtendimentos([]);
-      self.thirdOptionAtendimentos([]);
+      self.firstOptionAgendamentos([]);
+      self.secondOptionAgendamentos([]);
+      self.thirdOptionAgendamentos([]);
     });
 
     self.gerar = function(){
@@ -101,7 +101,7 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
 
       bridge.post(url, generatePayload())
       .then(function(response) {
-        mapResponseToAtendimentos(response.atendimentos);
+        mapResponseToAgendamentos(response.agendamentos);
       });
     };
 
@@ -128,59 +128,59 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
       return payload;
     };
 
-    var mapResponseToAtendimentos = function(atendimentos){
-      if(!atendimentos.length) {
+    var mapResponseToAgendamentos = function(agendamentos){
+      if(!agendamentos.length) {
         self.hasResult(true);
-        return self.firstOptionAtendimentos([]);
+        return self.firstOptionAgendamentos([]);
       }
 
       self.hasResult(false);
       var cont = 0;
       if (self.opcao() == 1) {
-        var atendimentos = atendimentos.map(function(atendimento){
+        var agendamentos = agendamentos.map(function(agendamento){
           return {
             cont         : ++cont,
-            mes          : self.meses[atendimento.mes - 1],
-            qualificados : !!atendimento.qualificados ? atendimento.qualificados : 0,
-            bloqueados   : !!atendimento.bloqueados ? atendimento.bloqueados : 0,
-            total        : !!atendimento.totalAgendamentos ? atendimento.totalAgendamentos : 0
+            mes          : self.meses[agendamento.mes - 1],
+            qualificados : !!agendamento.qualificados ? agendamento.qualificados : 0,
+            bloqueados   : !!agendamento.bloqueados ? agendamento.bloqueados : 0,
+            total        : !!agendamento.totalAgendamentos ? agendamento.totalAgendamentos : 0
           }
         });
 
         self.headerOptions(self.firstHeaderOptions);
-        self.firstOptionAtendimentos(atendimentos);
+        self.firstOptionAgendamentos(agendamentos);
       } else if (self.opcao() == 2) {
-        self.secondOptionAtendimentos([]);
-        self.thirdOptionAtendimentos([]);
+        self.secondOptionAgendamentos([]);
+        self.thirdOptionAgendamentos([]);
 
         if (!self.filterByYear) {
-          var atendimentos = atendimentos.map(function(atendimento){
+          var agendamentos = agendamentos.map(function(agendamento){
             return {
               cont          : ++cont,
-              data          : momentComponent.convertDateToString(atendimento.dataInicio),
-              horarioInicio : momentComponent.convertTimeToString(atendimento.dataInicio),
-              horarioFim    : momentComponent.convertTimeToString(atendimento.dataFim),
-              qualificado   : !!atendimento.qualificado ? 'Sim' : 'Não',
-              bloqueado     : !!atendimento.bloqueado ? 'Sim' : 'Não'
+              data          : momentComponent.convertDateToString(agendamento.dataInicio),
+              horarioInicio : momentComponent.convertTimeToString(agendamento.dataInicio),
+              horarioFim    : momentComponent.convertTimeToString(agendamento.dataFim),
+              qualificado   : !!agendamento.qualificado ? 'Sim' : 'Não',
+              bloqueado     : !!agendamento.bloqueado ? 'Sim' : 'Não'
             }
           });
 
           self.headerOptions(self.secondHeaderOptions);
-          self.secondOptionAtendimentos(atendimentos);
+          self.secondOptionAgendamentos(agendamentos);
         } else {
-          var atendimentos = atendimentos.map(function(atendimento){
+          var agendamentos = agendamentos.map(function(agendamento){
             return {
               cont          : ++cont,
-              mes          : self.meses[atendimento.mes - 1],
-              ano          : atendimento.ano,
-              qualificados : !!atendimento.qualificados ? atendimento.qualificados : 0,
-              bloqueados   : !!atendimento.bloqueados ? atendimento.bloqueados : 0,
-              total        : !!atendimento.totalAgendamentos ? atendimento.totalAgendamentos : 0
+              mes          : self.meses[agendamento.mes - 1],
+              ano          : agendamento.ano,
+              qualificados : !!agendamento.qualificados ? agendamento.qualificados : 0,
+              bloqueados   : !!agendamento.bloqueados ? agendamento.bloqueados : 0,
+              total        : !!agendamento.totalAgendamentos ? agendamento.totalAgendamentos : 0
             }
           });
 
           self.headerOptions(self.thirdHeaderOptions);
-          self.thirdOptionAtendimentos(atendimentos);
+          self.thirdOptionAgendamentos(agendamentos);
         }
       }
     };

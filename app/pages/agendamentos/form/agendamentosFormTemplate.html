@@ -59,7 +59,7 @@
                   </li>
                 <!-- /ko -->
 
-                <!-- ko foreach: $data.atendimentos -->
+                <!-- ko foreach: $data.agendamentos -->
                   <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable">
                     <p data-bind="text: horario" class="desc-horario-agendamento"></p>
                   </span>
@@ -73,4 +73,4 @@
     </div>
   </div>
 </main>
-<div data-bind="component: { name: 'atendimento-modal-component' }"></div>
+<div data-bind="component: { name: 'agendamento-modal-component' }"></div>

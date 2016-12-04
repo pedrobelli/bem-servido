@@ -5,8 +5,8 @@ var express                 = require('express'),
   models                    = require('./models'),
   systemSeed                = require('./system/seed'),
   config                    = require('./config/config'),
-  atendimentosController    = require('./controller/atendimentos/atendimentosController'),
-  qualificacoesController   = require('./controller/atendimentos/qualificacoesController'),
+  agendamentosController    = require('./controller/agendamentos/agendamentosController'),
+  qualificacoesController   = require('./controller/agendamentos/qualificacoesController'),
   clientesController        = require('./controller/clientes/clientesController'),
   enderecosController       = require('./controller/enderecos/enderecosController'),
   profissionaisController   = require('./controller/profissionais/profissionaisController'),
@@ -54,7 +54,7 @@ models.sequelize
 function loadRoutes() {
   var apiRoutes = express.Router();
 
-  atendimentosController.loadRoutes("/atendimentos", apiRoutes);
+  agendamentosController.loadRoutes("/agendamentos", apiRoutes);
   qualificacoesController.loadRoutes("/qualificacoes", apiRoutes);
 
   clientesController.loadRoutes("/clientes", apiRoutes);

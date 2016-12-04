@@ -29,34 +29,34 @@ define(['momentComponent'], function(momentComponent) {
     return profissionalHorasTrabalho;
   };
 
-  function mapResponseToAtendimentos(atendimentos, horasTrabalho){
-    if(!atendimentos.length || !horasTrabalho.length) return [];
+  function mapResponseToAgendamentos(agendamentos, horasTrabalho){
+    if(!agendamentos.length || !horasTrabalho.length) return [];
 
     var horaTrabalhoInicial = momentComponent.convertTimeStringToMoment(horasTrabalho[0].hora)
-    var atendimentos = atendimentos.map(function(atendimento){
-      var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(atendimento.dataInicio));
+    var agendamentos = agendamentos.map(function(agendamento){
+      var horaAtual = momentComponent.convertTimeStringToMoment(momentComponent.convertTimeToString(agendamento.dataInicio));
       var nome = "";
 
-      if (!!atendimento.cliente) {
-        nome = atendimento.cliente.nome;
-      } else if (!!atendimento.nomeCliente) {
-        nome = atendimento.nomeCliente;
+      if (!!agendamento.cliente) {
+        nome = agendamento.cliente.nome;
+      } else if (!!agendamento.nomeCliente) {
+        nome = agendamento.nomeCliente;
       } else {
         nome = "Bloqueio"
       }
 
       return {
-        id         : atendimento.id,
+        id         : agendamento.id,
         top        : (horaAtual.diff(horaTrabalhoInicial, 'minutes')),
-        height     : atendimento.duracao,
+        height     : agendamento.duracao,
         cliente    : nome,
-        servico    : !atendimento.bloqueio ? atendimento.detalhe_servico.servico.nome : "",
-        horario    : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim),
-        isBlockade : atendimento.bloqueio
+        servico    : !agendamento.bloqueio ? agendamento.detalhe_servico.servico.nome : "",
+        horario    : momentComponent.convertTimeToString(agendamento.dataInicio) + " - " + momentComponent.convertTimeToString(agendamento.dataFim),
+        isBlockade : agendamento.bloqueio
       }
     });
 
-    return atendimentos;
+    return agendamentos;
   };
 
   var generateHoraTrabalho = function(horaAtual, diferenca) {
@@ -72,6 +72,6 @@ define(['momentComponent'], function(momentComponent) {
 
   return {
     mapResponseToHoraDeTrabalho:mapResponseToHoraDeTrabalho,
-    mapResponseToAtendimentos:mapResponseToAtendimentos
+    mapResponseToAgendamentos:mapResponseToAgendamentos
   };
 });

@@ -50,7 +50,7 @@ define(['auth0', 'bridge', 'swalComponentForm', 'pace'], function(auth0, bridge,
     localStorage.setItem('current_user_name', response.profissional.nome);
     localStorage.setItem('current_user_role', profile.user_metadata.role);
     localStorage.setItem('exp', result.idTokenPayload.exp);
-    return window.location.hash = "#profissionais/atendimentos";
+    return window.location.hash = "#profissionais/agendamentos";
   }
 
   return {

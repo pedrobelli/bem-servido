@@ -22,12 +22,12 @@ function(ko, template, bridge, maskComponent, momentComponent, qualificacaoCompo
 
       self.hasResult(false);
       var qualificacoes = qualificacoes.map(function(qualificacao){
-        var data = momentComponent.convertDateStringToDate(qualificacao.atendimento.dataInicio);
+        var data = momentComponent.convertDateStringToDate(qualificacao.agendamento.dataInicio);
 
         return {
           nota      : maskComponent.scoreFormat(qualificacao.nota),
           avaliacao : qualificacao.avaliacao,
-          servico   : qualificacao.atendimento.detalhe_servico.servico.nome,
+          servico   : qualificacao.agendamento.detalhe_servico.servico.nome,
           data      : self.meses[data.getMonth()] + ' de ' + data.getYear(),
           estrelas  : qualificacaoComponent.buildStarsArray(qualificacao.nota)
         }

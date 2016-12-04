@@ -129,7 +129,7 @@ function(ko, template, bridge, $, _, swalComponent, maskComponent, momentCompone
         }
       });
 
-      window.location.hash = "#profissionais/atendimentos"
+      window.location.hash = "#profissionais/agendamentos"
     };
 
     var updateHoraTrabalho = function(horaTrabalho){

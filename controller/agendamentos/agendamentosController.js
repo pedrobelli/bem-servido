@@ -53,11 +53,11 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.All(models);
+    return models.agendamentos.All(models);
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ agendamentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -65,11 +65,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Get(models, req.param('id'));
+    return models.agendamentos.Get(models, req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ atendimento: entity });
+    res.json({ agendamento: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -77,7 +77,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Destroy(req.param('id'));
+    return models.agendamentos.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -88,11 +88,11 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Create(req.body);
+    return models.agendamentos.Create(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ atendimento: entity });
+    res.json({ agendamento: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -100,11 +100,11 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Update(req.body);
+    return models.agendamentos.Update(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ atendimento: entity });
+    res.json({ agendamento: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -120,11 +120,11 @@ self.getByClientes = function(req, res) {
       scopes.push({ method: ['noServiceName', models, req.body.servico] });
     }
 
-    return models.atendimentos.getByClientes(models, scopes, req.body.data, req.body.cliente);
+    return models.agendamentos.getByClientes(models, scopes, req.body.data, req.body.cliente);
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ agendamentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -132,11 +132,11 @@ self.getByClientes = function(req, res) {
 
 self.getNotQualifiedByClientes = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.getNotQualifiedByClientes(models, req.param('id'));
+    return models.agendamentos.getNotQualifiedByClientes(models, req.param('id'));
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ agendamentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -146,11 +146,11 @@ self.getByAno = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
 
-    return models.atendimentos.getByAno(req.body.ano);
+    return models.agendamentos.getByAno(req.body.ano);
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ agendamentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -160,11 +160,11 @@ self.getByDateInterval = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
 
-    return models.atendimentos.getByDateInterval(req.body.dataInicio, req.body.dataFim);
+    return models.agendamentos.getByDateInterval(req.body.dataInicio, req.body.dataFim);
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ agendamentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -174,11 +174,11 @@ self.getByDateIntervalFilterByYear = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
 
-    return models.atendimentos.getByDateIntervalFilterByYear(req.body.dataInicio, req.body.dataFim);
+    return models.agendamentos.getByDateIntervalFilterByYear(req.body.dataInicio, req.body.dataFim);
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ agendamentos: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

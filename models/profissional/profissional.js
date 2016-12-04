@@ -72,7 +72,7 @@ module.exports = function(sequelize, DataTypes) {
 						 { model: models.habilidades },
 						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						 { model: models.horas_trabalho },
-						 { model: models.atendimentos }
+						 { model: models.agendamentos }
 					 ],
 					 where: { id: id }
 				});
@@ -102,7 +102,7 @@ module.exports = function(sequelize, DataTypes) {
 						{ model: models.habilidades },
 						{ model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						{ model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },
-						{ model: models.atendimentos, required: false,
+						{ model: models.agendamentos, required: false,
 							include: [
 								{ model: models.detalhe_servicos, include: [ { model: models.servicos } ] } ,
 								{ model: models.clientes }
@@ -137,7 +137,7 @@ module.exports = function(sequelize, DataTypes) {
 					having: sequelize.where(
 						sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('horas_trabalhos.horaInicio'), sequelize.col('horas_trabalhos.horaFim')),
 						'>',
-						sequelize.fn('ifnull', sequelize.literal('`atendimentos.tempoTotalAtendimento`'), 0)
+						sequelize.fn('ifnull', sequelize.literal('`agendamentos.tempoTotalAgendamento`'), 0)
 					),
 					group: [ [sequelize.col('profissionais.nome')] ]
 				});
@@ -175,11 +175,11 @@ module.exports = function(sequelize, DataTypes) {
 					include: [ {
 						model: models.horas_trabalho, where: { diaSemana: diaSemana }
 					}, {
-						model: models.atendimentos, required: false,
+						model: models.agendamentos, required: false,
 						attributes: { include: [ [
 							sequelize.fn(
 								'sum', sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('dataInicio'), sequelize.col('dataFim'))
-							), 'tempoTotalAtendimento'
+							), 'tempoTotalAgendamento'
 						] ] },
 						where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
 					} ]
@@ -214,11 +214,11 @@ module.exports = function(sequelize, DataTypes) {
 							} }
 						]
 					}, {
-						model: models.atendimentos, required: false,
+						model: models.agendamentos, required: false,
 						attributes: { include: [ [
 							sequelize.fn(
 								'sum', sequelize.fn('timestampdiff', sequelize.literal('MINUTE'), sequelize.col('dataInicio'), sequelize.col('dataFim'))
-							), 'tempoTotalAtendimento'
+							), 'tempoTotalAgendamento'
 						] ] },
 						where: sequelize.where(sequelize.fn('date_format', sequelize.col('dataInicio'), '%d/%m/%Y'), 'LIKE', '%'+data+'%')
 					} ]

@@ -1,4 +1,4 @@
-define(['ko', 'text!bloqueioAtendimentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
+define(['ko', 'text!bloqueioAgendamentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
 function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComponent, swalComponent) {
 
   var viewModel = function(params) {
@@ -17,7 +17,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
 
-      bridge.post("/api/atendimentos/new", generatePayload())
+      bridge.post("/api/agendamentos/new", generatePayload())
       .fail(function(context, errorMessage, serverError) {
         swalComponent.errorAlertWithTitle("Não foi possível realizar o bloqueio", context.errors);
       }).done(function() {
@@ -93,7 +93,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
 
   var instance = new viewModel();
 
-  ko.components.register('bloqueio-atendimento-modal-component', {
+  ko.components.register('bloqueio-agendamento-modal-component', {
     viewModel: {
       instance : instance
     },
