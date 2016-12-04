@@ -18,15 +18,23 @@
         <!-- cadastro horario -->
         <div data-bind="component: { name: 'dados-horario-component' }"></div>
 
-        <button data-bind="click: anterior" id="anterior" class="btn waves-effect waves-light left orange" type="button">
-          <span>ANTERIOR</span>
-          <i class="material-icons left">send</i>
-        </button>
 
-        <button data-bind="click: proximo" id="proximo" class="btn waves-effect waves-light right orange" type="button">
-          <span data-bind="text: textoProximo"></span>
-          <i class="material-icons right">send</i>
-        </button>
+        <div class="col s12 m6">
+          <button data-bind="click: anterior" id="anterior" class="btn waves-effect waves-light orange" type="button">
+            <span>ANTERIOR</span>
+            <i class="material-icons left">send</i>
+          </button>
+        </div>
+        <div class="col s12 m6 right-align">
+          <button data-bind="click: proximo" id="proximo" class="btn waves-effect waves-light orange" type="button">
+            <span data-bind="text: textoProximo"></span>
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+
+
+
+
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@
       <a href="/#home" class="brand-logo">Bem Servido</a>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul data-bind="if: logged" class="right hide-on-med-and-down navbar-list">
-        <li><a data-bind="text: nome" class="dropdown-button" href="#!" data-activates="menu-dropdown"><i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="menu-dropdown"><span data-bind="text: nome" ></span><i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul data-bind="if: logged" id="nav-mobile" class="right hide-on-large-only side-nav">
         <!-- ko foreach: $data.menuOptions -->
