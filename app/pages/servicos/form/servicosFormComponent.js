@@ -11,12 +11,12 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
     self.nome = ko.observable();
     self.duracao = ko.observable();
     self.valor = ko.observable();
-    self.especialidade = ko.observable();
+    self.habilidade = ko.observable();
     self.pageMode = params.name == 'new' ? 'Novo Serviço' : 'Editar Serviço';
     self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de serviço!" : "Ocorreu um erro na atualização de serviço!";
     self.errorMessageApend = params.name == "new" ? ' criação do serviço.' : ' edição do serviço.';
 
-    self.especialidades = ko.observableArray([]);
+    self.habilidades = ko.observableArray([]);
 
     self.cancelar = function(){
       return window.location.hash = "#servicos";
@@ -45,7 +45,7 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
       valid = !!self.nome();
       valid = valid && !!self.duracao();
       valid = valid && !!self.valor();
-      valid = valid && !!self.especialidade();
+      valid = valid && !!self.habilidade();
 
       if (!valid) {
         errors.push("Os campos obrigatórios estão todos identificados(*), preencha para continuar com a" + self.errorMessageApend);
@@ -59,7 +59,7 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
         nome            : self.nome(),
         duracao         : self.duracao(),
         valor           : self.valor(),
-        especialidadeId : self.especialidade(),
+        habilidadeId : self.habilidade(),
         profissionalId : localStorage.getItem('current_user_id')
       };
 
@@ -74,14 +74,14 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
 
       bridge.get("/api/detalhe_servicos/form_options/" + localStorage.getItem('current_user_id'))
       .then(function(response){
-        var especialidades = response.especialidades.map(function(especialidade){
+        var habilidades = response.habilidades.map(function(habilidade){
           return {
-            id   : especialidade.id,
-            nome : especialidade.nome
+            id   : habilidade.id,
+            nome : habilidade.nome
           }
         });
 
-        self.especialidades(especialidades);
+        self.habilidades(habilidades);
       })
       .then(function(){
         if (isEditMode()) {
@@ -92,7 +92,7 @@ function(ko, template, bridge, $, swalComponent, maskComponent) {
             self.nome(response.detalheServico.servico.nome);
             self.duracao(response.detalheServico.duracao);
             self.valor(response.detalheServico.valor);
-            self.especialidade(response.detalheServico.servico.especialidadeId);
+            self.habilidade(response.detalheServico.servico.habilidadeId);
           });
         }
 

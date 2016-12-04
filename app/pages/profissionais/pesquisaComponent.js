@@ -21,9 +21,9 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     self.loadHabilidades = ko.computed(function(){
       self.habilidadesSelecionadas(undefined);
       if (!!self.ramo()) {
-        bridge.get("/api/especialidades/seeded_by_ramo/"+self.ramo())
+        bridge.get("/api/habilidades/seeded_by_ramo/"+self.ramo())
         .then(function(response){
-          mapResponseToHabilidades(response.especialidades);
+          mapResponseToHabilidades(response.habilidades);
         });
       } else {
         self.habilidades([]);

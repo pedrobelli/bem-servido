@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
 		    });
 			},
 			FindOrCreate: function(detalheServico){
-				return this.FindByValorDuracaoEspecialidadeServicoAndProfissional(detalheServico).then(function(response) {
+				return this.FindByValorDuracaoHabilidadeServicoAndProfissional(detalheServico).then(function(response) {
 					if (response.length == 0) {
 						return this.Create(detalheServico).then(function(response) {
 							return response
@@ -60,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
 					return response[0];
 				});
 			},
-			FindByValorDuracaoEspecialidadeServicoAndProfissional: function(detalheServico){
+			FindByValorDuracaoHabilidadeServicoAndProfissional: function(detalheServico){
 				return this.findAll({ where: {
 					valor: detalheServico.valor ,
 					duracao: detalheServico.duracao,

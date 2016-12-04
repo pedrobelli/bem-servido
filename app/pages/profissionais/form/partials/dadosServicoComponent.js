@@ -15,9 +15,9 @@ function(ko, template, $, _, bridge, maskComponent) {
       if (!!self.ramo()) {
         self.habilidadesSelecionadas = [];
         self.servicosSelecionados = [];
-        bridge.get("/api/especialidades/seeded_by_ramo/"+self.ramo())
+        bridge.get("/api/habilidades/seeded_by_ramo/"+self.ramo())
         .then(function(response){
-          mapResponseToHabilidades(response.especialidades);
+          mapResponseToHabilidades(response.habilidades);
         })
       }
     });
@@ -107,7 +107,7 @@ function(ko, template, $, _, bridge, maskComponent) {
 
     self.generatePayload = function(payload){
       payload.ramo = self.ramo();
-      payload.especialidades = JSON.stringify(self.habilidadesSelecionadas);
+      payload.habilidades = JSON.stringify(self.habilidadesSelecionadas);
 
       var servicos = [];
       self.habilidades().forEach(function(habilidade){

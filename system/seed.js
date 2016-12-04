@@ -1,7 +1,7 @@
 var request                  = require('request'),
     deferred                 = require('deferred'),
     controllerHelper         = require('../controller/shared/controllerHelper'),
-    especialidadesScenarios  = require('../controller/profissionais/especialidadesScenarios'),
+    habilidadesScenarios  = require('../controller/profissionais/habilidadesScenarios'),
     profissionaisScenarios   = require('../controller/profissionais/profissionaisScenarios'),
     detalheServicosScenarios = require('../controller/servicos/detalheServicosScenarios'),
     clientesScenarios        = require('../controller/clientes/clientesScenarios');
@@ -11,7 +11,7 @@ exports.runSeed = function() {
     var sequelize = controllerHelper.createSequelizeInstance();
     console.log('Seed Started');
     return sequelize.transaction(function(t) {
-      return especialidadesScenarios.createEspecialidades().then(function() {
+      return habilidadesScenarios.createHabilidades().then(function() {
         return detalheServicosScenarios.createServicos().then(function() {
           return profissionaisScenarios.createProfissionais();
         });

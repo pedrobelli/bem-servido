@@ -40,7 +40,7 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
         text : 'Minhas qualificações'
       },
       {
-        link : '#especialidades',
+        link : '#habilidades',
         text : 'Minhas habilidades'
       },
       {

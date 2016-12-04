@@ -147,7 +147,7 @@ self.create = function(req, res) {
               });
               return models.horas_trabalho.Create(newHoraTrabalho.dataValues)
             })).then(function() {
-              return profissional.setEspecialidades(JSON.parse(req.body.especialidades)).then(function() {
+              return profissional.setHabilidades(JSON.parse(req.body.habilidades)).then(function() {
                 return profissional;
               });
             });
@@ -252,7 +252,7 @@ self.search = function(req, res) {
     }
 
     if (!!req.body.habilidades && JSON.parse(req.body.habilidades).length > 0) {
-      scopes.push({ method: ['byEspecialidades', models, JSON.parse(req.body.habilidades)] });
+      scopes.push({ method: ['byHabilidades', models, JSON.parse(req.body.habilidades)] });
     }
 
     if (!!req.body.home) {

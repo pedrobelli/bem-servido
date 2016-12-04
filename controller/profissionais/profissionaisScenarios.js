@@ -59,7 +59,7 @@ exports.createProfissionais = function() {
   })
   .then(function() {
     return createProfissional(payload).then(function(response) {
-      return models.especialidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
+      return models.habilidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
         var profissional = models.profissionais.build({
           nome           : 'Carol',
           uuid           : response.user_id,
@@ -72,7 +72,7 @@ exports.createProfissionais = function() {
           return createTelefoneAndEndereco(telefone, endereco, profissional.id).then(function() {
             return createServico(servico, servicoIds, profissional.id).then(function() {
               return createHoraTrabalho(horaTrabalho, profissional.id).then(function() {
-                return profissional.setEspecialidades(entities);
+                return profissional.setHabilidades(entities);
               });
             });
           });
@@ -100,7 +100,7 @@ exports.createProfissionais = function() {
   .then(function() {
     payload.email = "teste6@gmail.com";
     return createProfissional(payload).then(function(response) {
-      return models.especialidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
+      return models.habilidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
         var profissional = models.profissionais.build({
           nome           : 'Agatha',
           uuid           : response.user_id,
@@ -113,7 +113,7 @@ exports.createProfissionais = function() {
           return createTelefoneAndEndereco(telefone, endereco, profissional.id).then(function() {
             return createServico(servico, servicoIds, profissional.id).then(function() {
               return createHoraTrabalho(horaTrabalho, profissional.id).then(function() {
-                return profissional.setEspecialidades(entities);
+                return profissional.setHabilidades(entities);
               });
             });
           });
@@ -134,7 +134,7 @@ exports.createProfissionais = function() {
     });
   })
   .then(function() {
-    return models.especialidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
+    return models.habilidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
       payload.email = "teste7@gmail.com";
       return createProfissional(payload).then(function(response) {
         var profissional = models.profissionais.build({
@@ -149,7 +149,7 @@ exports.createProfissionais = function() {
           return createTelefoneAndEndereco(telefone, endereco, profissional.id).then(function() {
             return createServico(servico, servicoIds, profissional.id).then(function() {
               return createHoraTrabalho(horaTrabalho, profissional.id).then(function() {
-                return profissional.setEspecialidades(entities);
+                return profissional.setHabilidades(entities);
               });
             });
           });
@@ -175,7 +175,7 @@ exports.createProfissionais = function() {
     });
   })
   .then(function() {
-    return models.especialidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
+    return models.habilidades.FindByServicos(models, JSON.stringify(servicoIds)).then(function(entities) {
       payload.email = "teste8@gmail.com";
       return createProfissional(payload).then(function(response) {
         var profissional = models.profissionais.build({
@@ -190,7 +190,7 @@ exports.createProfissionais = function() {
           return createTelefoneAndEndereco(telefone, endereco, profissional.id).then(function() {
             return createServico(servico, servicoIds, profissional.id).then(function() {
               return createHoraTrabalho(horaTrabalho, profissional.id).then(function() {
-                return profissional.setEspecialidades(entities);
+                return profissional.setHabilidades(entities);
               });
             });
           });

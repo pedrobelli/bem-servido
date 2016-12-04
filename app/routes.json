@@ -114,18 +114,18 @@
     }
   },
   {
-    "path"   : "#especialidades",
-    "page"   : "pages/profissionais/especialidadesComponent",
+    "path"   : "#habilidades",
+    "page"   : "pages/profissionais/habilidadesComponent",
     "params" : {
-      "name"   : "especialidades",
+      "name"   : "habilidades",
       "header" : "orange",
       "accessWhenLoggedOnly" : true,
       "rolesAccess" : [2]
     }
   },
   {
-    "path"   : "#especialidades/new",
-    "page"   : "pages/profissionais/form/especialidadesFormComponent",
+    "path"   : "#habilidades/new",
+    "page"   : "pages/profissionais/form/habilidadesFormComponent",
     "params" : {
       "name"   : "new",
       "header" : "orange",
@@ -134,8 +134,8 @@
     }
   },
   {
-    "path"   : "#especialidades/edit/:id",
-    "page"   : "pages/profissionais/form/especialidadesFormComponent",
+    "path"   : "#habilidades/edit/:id",
+    "page"   : "pages/profissionais/form/habilidadesFormComponent",
     "params" : {
       "name"   : "edit",
       "header" : "orange",
@@ -259,21 +259,6 @@
       "header" : "orange",
       "accessWhenLoggedOnly" : true,
       "rolesAccess" : [1, 2]
-    }
-  },
-
-
-
-
-
-
-
-  {
-    "path"   : "#frontend",
-    "page"   : "pages/frontend/frontendComponent",
-    "params" : {
-      "name"   : "frontend",
-      "header" : "orange"
     }
   }
 ]

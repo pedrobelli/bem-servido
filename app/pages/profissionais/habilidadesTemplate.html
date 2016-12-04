@@ -4,11 +4,11 @@
       <h2>Minhas Habilidades</h2>
       <hr>
       <div class="agenda-action col s12 m6 right">
-        <a href="#especialidades/new" class="modal-trigger btn orange">Novo</a>
+        <a href="#habilidades/new" class="modal-trigger btn orange">Novo</a>
       </div>
     </div>
-    <div class="especialidades row">
-      <div class="especialidade-infos">
+    <div class="habilidades row">
+      <div class="habilidade-infos">
         <div class="col s12">
           <div class="card infos-detalhes">
             <div class="card-content">
@@ -20,11 +20,11 @@
                     <th>Ações</th>
                   </tr>
                 </thead>
-                <tbody data-bind="foreach: especialidades">
+                <tbody data-bind="foreach: habilidades">
                   <tr>
                     <td data-bind="text: nome"></td>
                     <td>
-                      <a data-bind="attr: {href: '#especialidades/edit/'+id}" class="waves-effect waves-light btn-flat orange-text">editar</a>
+                      <a data-bind="attr: {href: '#habilidades/edit/'+id}" class="waves-effect waves-light btn-flat orange-text">editar</a>
                       <a data-bind="click: $component.exclude" class="waves-effect waves-light btn-flat red-text">excluir</a>
                     </td>
                   </tr>

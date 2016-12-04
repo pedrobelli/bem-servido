@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 		    });
 			},
 			FindOrCreate: function(servico){
-				return this.FindByNomeAndEspecialidade(servico).then(function(response) {
+				return this.FindByNomeAndHabilidade(servico).then(function(response) {
 					if (response.length == 0) {
 						return this.Create(servico).then(function(response) {
 							return response
@@ -51,10 +51,10 @@ module.exports = function(sequelize, DataTypes) {
 					return response[0];
 				});
 			},
-			FindByNomeAndEspecialidade: function(servico){
+			FindByNomeAndHabilidade: function(servico){
 				return this.findAll({ where: {
 					nome: servico.nome,
-					especialidadeId: servico.especialidadeId
+					habilidadeId: servico.habilidadeId
 				 } });
 			}
 		},
