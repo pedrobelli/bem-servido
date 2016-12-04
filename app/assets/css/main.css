@@ -406,7 +406,7 @@ ul.available-list > li.available-time > label.label-disabled{
 
 
 /*PERFIL CLIENTE*/
-.infos-detalhes .card-title{
+.infos-detalhes > .card-content > .card-title{
   text-transform: uppercase;
   font-weight: 200;
   color: orange;
