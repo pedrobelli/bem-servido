@@ -2,8 +2,8 @@
   <!-- ko foreach: $data.horasTrabalho -->
     <div class="day">
       <div class="input-field col s4">
-          <input data-bind="attr: { 'id' : 'horario' + id }, click: $component.check" type="checkbox" />
-          <label data-bind="text: text, attr: { 'for' : 'horario' + id }"></label>
+        <input data-bind="attr: { 'id' : 'horario' + id }, click: $component.check" type="checkbox" />
+        <label data-bind="text: text, attr: { 'for' : 'horario' + id }"></label>
       </div>
       <div class="input-field col s4">
         <input data-bind="textInput: horarioInicio, attr: { 'id' : 'horario_inicio' + id, 'disabled' : !checked() }" type="text" class="time">

@@ -98,11 +98,11 @@ module.exports = function(sequelize, DataTypes) {
           ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
         );
 
-        var sql = "SELECT * FROM atendimentos WHERE id != ? AND profissionalId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+        var sql = "SELECT * FROM atendimentos WHERE id != ? AND profissionalId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
         var replacements = [this.id, this.profissionalId, dataFim, dataInicio];
 
         if (!this.id) {
-          sql = "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+          sql = "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
           replacements.shift();
         }
 
@@ -126,11 +126,11 @@ module.exports = function(sequelize, DataTypes) {
           ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
         );
 
-        var sql = "SELECT * FROM atendimentos WHERE id != ? AND clienteId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+        var sql = "SELECT * FROM atendimentos WHERE id != ? AND clienteId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
         var replacements = [this.id, this.clienteId, dataFim, dataInicio];
 
         if (!this.id) {
-          sql = "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio <= ? AND dataFim >= ? AND deletedAt IS NULL";
+          sql = "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
           replacements.shift();
         }
 
@@ -213,6 +213,59 @@ module.exports = function(sequelize, DataTypes) {
             } }
           ],
 				  order: 'dataInicio ASC'
+        });
+			},
+			getByAno: function(ano){
+				return this.scope(scopes).findAll({
+          attributes: { include: [
+						[ sequelize.fn('month', sequelize.col('dataInicio')), 'mes' ],
+						[ sequelize.fn('sum', sequelize.literal('qualificado = 1')), 'qualificados' ],
+						[ sequelize.fn('sum', sequelize.literal('deletedAt IS NOT NULL')), 'cancelados' ],
+						[ sequelize.fn('count', sequelize.literal('*')), 'totalAgendamentos' ]
+					] },
+          where: [
+            { bloqueio: false },
+            sequelize.where(sequelize.fn('year', sequelize.col('dataInicio')), '=', ano)
+          ],
+          group: [ [sequelize.literal('mes')] ],
+				  order: [ [sequelize.literal('mes ASC')] ],
+          paranoid: false
+        });
+			},
+			getByDateInterval: function(dataInicio, dataFim){
+				return this.scope(scopes).findAll({
+          where: [
+            { dataInicio: {
+                $gte: dataInicio,
+            } },
+            { dataFim: {
+                $lte: dataFim,
+            } }
+          ],
+				  order: [ [sequelize.literal('dataInicio ASC')] ],
+          paranoid: false
+        });
+			},
+			getByDateIntervalFilterByYear: function(dataInicio, dataFim){
+				return this.scope(scopes).findAll({
+          attributes: { include: [
+						[ sequelize.fn('month', sequelize.col('dataInicio')), 'mes' ],
+						[ sequelize.fn('year', sequelize.col('dataInicio')), 'ano' ],
+						[ sequelize.fn('sum', sequelize.literal('qualificado = 1')), 'qualificados' ],
+						[ sequelize.fn('sum', sequelize.literal('deletedAt IS NOT NULL')), 'cancelados' ],
+						[ sequelize.fn('count', sequelize.literal('*')), 'totalAgendamentos' ]
+					] },
+          where: [
+            { dataInicio: {
+                $gte: dataInicio,
+            } },
+            { dataFim: {
+                $lte: dataFim,
+            } }
+          ],
+          group: [ [sequelize.literal('ano, mes')] ],
+				  order: [ [sequelize.literal('ano, mes')] ],
+          paranoid: false
         });
 			},
 			getFromTodayByWeekday: function(weekday){

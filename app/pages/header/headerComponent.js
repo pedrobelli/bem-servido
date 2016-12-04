@@ -52,6 +52,10 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
         text : 'Meus horários'
       },
       {
+        link : '#profissionais/relatorios',
+        text : 'Relatórios'
+      },
+      {
         link : '#profissionais/perfil',
         text : 'Meu Perfil'
       }

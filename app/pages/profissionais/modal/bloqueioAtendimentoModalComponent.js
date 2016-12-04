@@ -42,8 +42,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
     };
 
     var generatePayload = function(){
-      var dataInicio = momentComponent.convertStringToDateTime(self.data(), self.horaInicio());
-      var dataFim = momentComponent.convertStringToDateTime(self.data(), self.horaFim());
+      var dataInicio = momentComponent.convertStringToDateFirstSecondTime(self.data(), self.horaInicio());
+      var dataFim = momentComponent.convertStringToDateFirstSecondTime(self.data(), self.horaFim());
 
       var timeDiff = Math.abs(dataFim - dataInicio);
       var diffMinutes = Math.ceil(timeDiff / (1000 * 60));

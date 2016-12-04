@@ -1,12 +1,17 @@
 define(['moment'], function(moment) {
 
-  function convertStringToDateTime(date, horario) {
+  function convertStringToDateFirstSecondTime(date, horario) {
     var momentDate = moment(date + " " + horario, "DD/MM/YYYY HH:mm");
     return momentDate.toDate();
   }
 
-  function convertStringToDate(date) {
+  function convertStringToDateFirstSecond(date) {
     var momentDate = moment(date + " 00:00", "DD/MM/YYYY HH:mm");
+    return momentDate.toDate();
+  }
+
+  function convertStringToDateLastSecond(date) {
+    var momentDate = moment(date + " 23:59", "DD/MM/YYYY HH:mm");
     return momentDate.toDate();
   }
 
@@ -63,8 +68,9 @@ define(['moment'], function(moment) {
   }
 
   return {
-    convertStringToDateTime:convertStringToDateTime,
-    convertStringToDate:convertStringToDate,
+    convertStringToDateFirstSecondTime:convertStringToDateFirstSecondTime,
+    convertStringToDateFirstSecond:convertStringToDateFirstSecond,
+    convertStringToDateLastSecond:convertStringToDateLastSecond,
     convertStringToTime:convertStringToTime,
     convertStringToMomentTime:convertStringToMomentTime,
     convertTimeStringToMoment:convertTimeStringToMoment,

@@ -182,6 +182,16 @@
     }
   },
   {
+    "path"   : "#profissionais/relatorios",
+    "page"   : "pages/profissionais/relatoriosComponent",
+    "params" : {
+      "name"   : "professionalReports",
+      "header" : "orange",
+      "accessWhenLoggedOnly" : true,
+      "rolesAccess" : [2]
+    }
+  },
+  {
     "path"   : "#servicos",
     "page"   : "pages/servicos/servicosComponent",
     "params" : {

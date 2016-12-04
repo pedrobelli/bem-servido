@@ -80,7 +80,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
 
       self.hasResult(false);
       var profissionais = profissionais.filter(function(profissional){
-        var dataHora = momentComponent.convertStringToDateTime(returnData(), self.hora());
+        var dataHora = momentComponent.convertStringToDateFirstSecondTime(returnData(), self.hora());
         if (!!self.hora()) {
           var atendimento = _.find(profissional.atendimentos, function(atendimento){
             var dataInicio = momentComponent.convertDateStringToDate(atendimento.dataInicio);

@@ -34,6 +34,18 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.getNotQualifiedByClientes(req, res);
   });
 
+  apiRoutes.post(endpoint + '/by_ano', function(req, res) {
+    return self.getByAno(req, res);
+  });
+
+  apiRoutes.post(endpoint + '/by_date_interval', function(req, res) {
+    return self.getByDateInterval(req, res);
+  });
+
+  apiRoutes.post(endpoint + '/by_date_interval/filter_by_year', function(req, res) {
+    return self.getByDateIntervalFilterByYear(req, res);
+  });
+
   apiRoutes.get(endpoint + '/form_options', function(req, res) {
     return self.formOptions(req, res);
   });
@@ -121,6 +133,48 @@ self.getByClientes = function(req, res) {
 self.getNotQualifiedByClientes = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.atendimentos.getNotQualifiedByClientes(models, req.param('id'));
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ atendimentos: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByAno = function(req, res) {
+  return sequelize.transaction(function(t) {
+    scopes = [];
+
+    return models.atendimentos.getByAno(req.body.ano);
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ atendimentos: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByDateInterval = function(req, res) {
+  return sequelize.transaction(function(t) {
+    scopes = [];
+
+    return models.atendimentos.getByDateInterval(req.body.dataInicio, req.body.dataFim);
+
+  }).then(function(entities) {
+    res.statusCode = 200;
+    res.json({ atendimentos: entities });
+  }).catch(function(errors) {
+    return controllerHelper.writeErrors(res, errors);
+  });
+}
+
+self.getByDateIntervalFilterByYear = function(req, res) {
+  return sequelize.transaction(function(t) {
+    scopes = [];
+
+    return models.atendimentos.getByDateIntervalFilterByYear(req.body.dataInicio, req.body.dataFim);
 
   }).then(function(entities) {
     res.statusCode = 200;
