@@ -37,7 +37,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
-					window.location.hash = '#profissionais/atendimentos';
+					window.location.hash = '#profissionais/agendamentos';
 					return location.reload(true);
 				}
 			}
@@ -52,7 +52,7 @@ function ($, _, ko, footer, moment, swalComponent) {
 					window.location.hash = '#home';
 					return location.reload(true);
 				} else {
-					window.location.hash = '#profissionais/atendimentos';
+					window.location.hash = '#profissionais/agendamentos';
 					return location.reload(true);
 				}
 			}

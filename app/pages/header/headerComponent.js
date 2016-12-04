@@ -17,7 +17,7 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
 
     self.clienteOptions = [
       {
-        link : '#clientes/atendimentos/data=undefined',
+        link : '#clientes/agendamentos/data=undefined',
         text : 'Meus agendamentos'
       },
       {
@@ -32,7 +32,7 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
 
     self.profissionalOptions = [
       {
-        link : '#profissionais/atendimentos',
+        link : '#profissionais/agendamentos',
         text : 'Meus agendamentos'
       },
       {

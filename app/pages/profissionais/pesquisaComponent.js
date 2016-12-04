@@ -36,7 +36,7 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
     };
 
     self.visualizar = function(profissional){
-      return window.location.hash = '#atendimentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data());
+      return window.location.hash = '#agendamentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data());
     };
 
     var generatePayload = function(){
@@ -82,13 +82,13 @@ function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentC
       var profissionais = profissionais.filter(function(profissional){
         var dataHora = momentComponent.convertStringToDateFirstSecondTime(returnData(), self.hora());
         if (!!self.hora()) {
-          var atendimento = _.find(profissional.atendimentos, function(atendimento){
-            var dataInicio = momentComponent.convertDateStringToDate(atendimento.dataInicio);
-            var dataFim = momentComponent.convertDateStringToDate(atendimento.dataFim);
+          var agendamento = _.find(profissional.agendamentos, function(agendamento){
+            var dataInicio = momentComponent.convertDateStringToDate(agendamento.dataInicio);
+            var dataFim = momentComponent.convertDateStringToDate(agendamento.dataFim);
             return dataInicio <= dataHora && dataFim >= dataHora;
           });
 
-          if (atendimento) return false;
+          if (agendamento) return false;
         }
         return true;
       }).map(function(profissional){

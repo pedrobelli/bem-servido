@@ -13,8 +13,8 @@
     }
   },
   {
-    "path"   : "#atendimentos/new/profissional=:profissional&data=:data",
-    "page"   : "pages/atendimentos/form/atendimentosFormComponent",
+    "path"   : "#agendamentos/new/profissional=:profissional&data=:data",
+    "page"   : "pages/agendamentos/form/agendamentosFormComponent",
     "params" : {
       "name"   : "new",
       "header" : "orange"
@@ -40,7 +40,7 @@
     }
   },
   {
-    "path"   : "#clientes/atendimentos/data=:data",
+    "path"   : "#clientes/agendamentos/data=:data",
     "page"   : "pages/clientes/agendaClienteComponent",
     "params" : {
       "name"   : "customerAppointments",
@@ -96,7 +96,7 @@
     }
   },
   {
-    "path"   : "#profissionais/atendimentos",
+    "path"   : "#profissionais/agendamentos",
     "page"   : "pages/profissionais/agendaProfissionalComponent",
     "params" : {
       "name"   : "professionalAppointments",

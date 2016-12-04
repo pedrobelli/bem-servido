@@ -61,9 +61,9 @@ self.get = function(req, res) {
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.horas_trabalho.Get(req.param('id')).then(function(horaTrabalho) {
-      return models.atendimentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
-        return Promise.all(response.map(function(atendimento) {
-          return models.atendimentos.Destroy(atendimento.dataValues.id);
+      return models.agendamentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
+        return Promise.all(response.map(function(agendamento) {
+          return models.agendamentos.Destroy(agendamento.dataValues.id);
         }));
       });
     }).then(function() {
@@ -91,9 +91,9 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.getFromTodayByWeekdayAndTime(req.body).then(function(response) {
-      return Promise.all(response.map(function(atendimento) {
-        return models.atendimentos.Destroy(atendimento.dataValues.id);
+    return models.agendamentos.getFromTodayByWeekdayAndTime(req.body).then(function(response) {
+      return Promise.all(response.map(function(agendamento) {
+        return models.agendamentos.Destroy(agendamento.dataValues.id);
       }));
     }).then(function() {
       return models.horas_trabalho.Update(req.body)
@@ -126,11 +126,11 @@ self.validateWarning = function(req, res) {
     var horasTrabalho = JSON.parse(req.body.horasTrabalho);
     return Promise.all(horasTrabalho.map(function(horaTrabalho) {
       if (horaTrabalho.checked && !!horaTrabalho.id) {
-        return models.atendimentos.getFromTodayByWeekdayAndTime(horaTrabalho).then(function(response) {
+        return models.agendamentos.getFromTodayByWeekdayAndTime(horaTrabalho).then(function(response) {
           if (response.length > 0) warnings.push("Você tem agendamentos nos dias alterados/excluidos");
         });
       } else if (!horaTrabalho.checked && !!horaTrabalho.id) {
-        return models.atendimentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
+        return models.agendamentos.getFromTodayByWeekday(horaTrabalho.diaSemana).then(function(response) {
           if (response.length > 0) warnings.push("Você tem agendamentos nos dias alterados/excluidos");
         });
       }

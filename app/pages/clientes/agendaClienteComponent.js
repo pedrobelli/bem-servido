@@ -12,18 +12,18 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     self.ramos = ko.observableArray([]);
     self.diasSemana = ko.observableArray([]);
     self.estados = ko.observableArray([]);
-    self.atendimentos = ko.observableArray([]);
+    self.agendamentos = ko.observableArray([]);
 
     self.meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     self.pesquisa = function(){
-      findAtendimentos();
+      findAgendamentos();
     };
 
-    self.cancelar = function(atendimento){
+    self.cancelar = function(agendamento){
       var errorTitle = 'Não foi possível cancelar agendamento';
-      swalComponent.removeInstanceWarning("/api/atendimentos/" + atendimento.id, errorTitle, function(){
-        findAtendimentos();
+      swalComponent.removeInstanceWarning("/api/agendamentos/" + agendamento.id, errorTitle, function(){
+        findAgendamentos();
       });
     };
 
@@ -37,16 +37,16 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
       return payload;
     };
 
-    var mapResponseToAtendimentos = function(atendimentos){
-      if(!atendimentos.length) {
+    var mapResponseToAgendamentos = function(agendamentos){
+      if(!agendamentos.length) {
         self.hasResult(true);
-        return self.atendimentos([]);
+        return self.agendamentos([]);
       }
 
       self.hasResult(false);
-      var atendimentos = atendimentos.map(function(atendimento){
-        var data = momentComponent.convertDateStringToDate(atendimento.dataInicio);
-        var profissional = atendimento.profissionai;
+      var agendamentos = agendamentos.map(function(agendamento){
+        var data = momentComponent.convertDateStringToDate(agendamento.dataInicio);
+        var profissional = agendamento.profissionai;
         var ramo = _.find(self.ramos(), function(currentRamo){ return currentRamo.id == profissional.ramo; });
         var estado = _.find(self.estados(), function(estado){ return estado.id == profissional.endereco.estado; });
         var telefone = profissional.telefone.telefone;
@@ -55,28 +55,28 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
         var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });
 
         return {
-          id            : atendimento.id,
+          id            : agendamento.id,
           dataDiaSemana : diaSemana.text + ", " + data.getDate() + " de " + self.meses[data.getMonth()],
           profissional  : profissional.nome,
           ramo          : ramo.text,
           endereco      : maskComponent.addressFormat(profissional.endereco, estado),
           telefone      : !!telefone ? telefone : "",
           celular       : !!celular ? celular : "",
-          servico       : atendimento.detalhe_servico.servico.nome,
-          horario       : momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim),
-          duracao       : atendimento.duracao,
-          valor         : maskComponent.accountingFormat(parseInt(atendimento.valorTotal)),
-          notQualified  : !atendimento.qualificado
+          servico       : agendamento.detalhe_servico.servico.nome,
+          horario       : momentComponent.convertTimeToString(agendamento.dataInicio) + " - " + momentComponent.convertTimeToString(agendamento.dataFim),
+          duracao       : agendamento.duracao,
+          valor         : maskComponent.accountingFormat(parseInt(agendamento.valorTotal)),
+          notQualified  : !agendamento.qualificado
         }
       });
 
-      self.atendimentos(atendimentos);
+      self.agendamentos(agendamentos);
     };
 
-    var findAtendimentos = function() {
-      return bridge.post("/api/atendimentos/by_clientes", generatePayload())
+    var findAgendamentos = function() {
+      return bridge.post("/api/agendamentos/by_clientes", generatePayload())
       .then(function(response){
-        mapResponseToAtendimentos(response.atendimentos);
+        mapResponseToAgendamentos(response.agendamentos);
       });
     };
 
@@ -87,7 +87,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
     var init = function(){
       datepickerComponent.applyDatepicker();
 
-      bridge.get("/api/atendimentos/form_options")
+      bridge.get("/api/agendamentos/form_options")
       .then(function(response){
         var ramos = response.ramos.map(function(ramo){
           return {
@@ -118,7 +118,7 @@ function(ko, template, $, _, bridge, datepickerComponent, momentComponent, maskC
         self.estados(estados);
       })
       .then(function() {
-        return findAtendimentos();
+        return findAgendamentos();
       })
       .then(function() {
         maskComponent.applyCelphoneMask();

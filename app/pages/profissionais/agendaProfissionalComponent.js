@@ -1,7 +1,7 @@
 define(['ko', 'text!agendaProfissionalTemplate', 'bridge', 'momentComponent', 'agendaComponent', 'datepickerComponent',
-'profissionalAtendimentoModalComponent', 'maskComponent', 'detalheAtendimentoModalComponent', 'bloqueioAtendimentoModalComponent'],
-function(ko, template, bridge, momentComponent, agendaComponent, datepickerComponent, profissionalAtendimentoModalComponent,
-maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalComponent) {
+'profissionalAgendamentoModalComponent', 'maskComponent', 'detalheAgendamentoModalComponent', 'bloqueioAgendamentoModalComponent'],
+function(ko, template, bridge, momentComponent, agendaComponent, datepickerComponent, profissionalAgendamentoModalComponent,
+maskComponent, detalheAgendamentoModalComponent, bloqueioAgendamentoModalComponent) {
 
   var viewModel = function(params) {
     var self = this;
@@ -9,13 +9,13 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
     self.data = ko.observable(momentComponent.convertDateToString(new Date()));
 
     self.horasTrabalho = ko.observableArray([]);
-    self.atendimentos = ko.observableArray([]);
+    self.agendamentos = ko.observableArray([]);
     self.hasResult = ko.observable(false);
 
     self.pageLoadSemaphore = false;
 
-    detalheAtendimentoModalComponent.subscribe();
-    bloqueioAtendimentoModalComponent.subscribe();
+    detalheAgendamentoModalComponent.subscribe();
+    bloqueioAgendamentoModalComponent.subscribe();
 
     self.loadProfissionalInfo = ko.computed(function(){
       if ((!!self.data() || !self.data()) && self.pageLoadSemaphore) {
@@ -35,7 +35,7 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
           profissional : localStorage.getItem('current_user_id'),
           data         : self.data()
         }
-        profissionalAtendimentoModalComponent.showAtendimentosModal(dto, function() {
+        profissionalAgendamentoModalComponent.showAgendamentosModal(dto, function() {
           findProfissional();
         });
       }
@@ -49,14 +49,14 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
 					return window.location.hash = '#login';
 				});
       } else {
-        bloqueioAtendimentoModalComponent.showBloqueioModal(localStorage.getItem('current_user_id'), function() {
+        bloqueioAgendamentoModalComponent.showBloqueioModal(localStorage.getItem('current_user_id'), function() {
           findProfissional();
         });
       }
     };
 
-    self.mostrarDetalhes = function(atendimento){
-      detalheAtendimentoModalComponent.showDetalhesAtendimentoModal(atendimento.id, function() {
+    self.mostrarDetalhes = function(agendamento){
+      detalheAgendamentoModalComponent.showDetalhesAgendamentoModal(agendamento.id, function() {
         findProfissional();
       });
     };
@@ -83,7 +83,7 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
         }
       });
 
-      profissionalAtendimentoModalComponent.subscribe(detalheServicos);
+      profissionalAgendamentoModalComponent.subscribe(detalheServicos);
     };
 
     var returnData = function() {
@@ -95,7 +95,7 @@ maskComponent, detalheAtendimentoModalComponent, bloqueioAtendimentoModalCompone
       .then(function(response) {
         mapResponseToDetalheServicos(response.profissional.detalhe_servicos);
         self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(response.profissional.horas_trabalhos[0]));
-        self.atendimentos(agendaComponent.mapResponseToAtendimentos(response.profissional.atendimentos, self.horasTrabalho()));
+        self.agendamentos(agendaComponent.mapResponseToAgendamentos(response.profissional.agendamentos, self.horasTrabalho()));
 
         if (!response.profissional.horas_trabalhos.length) {
           self.hasResult(true);

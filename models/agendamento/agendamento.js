@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
-  var Atendimento = sequelize.define('atendimentos', {
+  var Agendamento = sequelize.define('agendamentos', {
 		nomeCliente: {
 			type: DataTypes.STRING,
 			validate: {
@@ -62,22 +62,22 @@ module.exports = function(sequelize, DataTypes) {
 	        throw new Error("O horario final do agendamento não pode ser anterior ou igual ao inicial");
 	    },
 	    isProfessionalWorkingHour: function(callback) {
-        var atendimento = this;
+        var agendamento = this;
         var weekday = this.dataInicio.getDay() + 1;
 
         sequelize.query(
           "SELECT * FROM horas_trabalho WHERE profissionalId = ? AND diaSemana = ? AND deletedAt IS NULL",
-          { replacements: [atendimento.profissionalId, weekday], type: sequelize.QueryTypes.SELECT}
+          { replacements: [agendamento.profissionalId, weekday], type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.length == 0) {
             callback(new Error("Este profissional não trabalha no dia escolhido"));
           } else {
             var horaTrabalho = response[0];
             var dataInicio = new Date(Date.parse(
-              '11/11/1900 ' + (atendimento.dataInicio.getHours() - 2) + ':' + atendimento.dataInicio.getMinutes())
+              '11/11/1900 ' + (agendamento.dataInicio.getHours() - 2) + ':' + agendamento.dataInicio.getMinutes())
             );
             var dataFim = new Date(Date.parse(
-              '11/11/1900 ' + (atendimento.dataFim.getHours() - 2) + ':' + atendimento.dataFim.getMinutes())
+              '11/11/1900 ' + (agendamento.dataFim.getHours() - 2) + ':' + agendamento.dataFim.getMinutes())
             );
 
             if (dataInicio < horaTrabalho.horaInicio || dataFim > horaTrabalho.horaFim) {
@@ -98,11 +98,11 @@ module.exports = function(sequelize, DataTypes) {
           ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
         );
 
-        var sql = "SELECT * FROM atendimentos WHERE id != ? AND profissionalId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
+        var sql = "SELECT * FROM agendamentos WHERE id != ? AND profissionalId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
         var replacements = [this.id, this.profissionalId, dataFim, dataInicio];
 
         if (!this.id) {
-          sql = "SELECT * FROM atendimentos WHERE profissionalId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
+          sql = "SELECT * FROM agendamentos WHERE profissionalId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
           replacements.shift();
         }
 
@@ -126,11 +126,11 @@ module.exports = function(sequelize, DataTypes) {
           ' ' + (this.dataFim.getHours()) + ':' + this.dataFim.getMinutes())
         );
 
-        var sql = "SELECT * FROM atendimentos WHERE id != ? AND clienteId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
+        var sql = "SELECT * FROM agendamentos WHERE id != ? AND clienteId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
         var replacements = [this.id, this.clienteId, dataFim, dataInicio];
 
         if (!this.id) {
-          sql = "SELECT * FROM atendimentos WHERE clienteId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
+          sql = "SELECT * FROM agendamentos WHERE clienteId = ? AND dataInicio < ? AND dataFim > ? AND deletedAt IS NULL";
           replacements.shift();
         }
 
@@ -178,12 +178,12 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(atendimento){
-				return this.create(atendimento);
+			Create: function(agendamento){
+				return this.create(agendamento);
 			},
-			Update: function(atendimento){
-				return this.find({ where: { id: atendimento.id } }).then(function(entity) {
-		      return entity.updateAttributes(atendimento);
+			Update: function(agendamento){
+				return this.find({ where: { id: agendamento.id } }).then(function(entity) {
+		      return entity.updateAttributes(agendamento);
 		    });
 			},
 			getByClientes: function(models, scopes, data, cliente){
@@ -317,5 +317,5 @@ module.exports = function(sequelize, DataTypes) {
 		paranoid: true
 	});
 
-  return Atendimento
+  return Agendamento
 };

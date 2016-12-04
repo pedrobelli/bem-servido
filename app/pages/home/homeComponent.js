@@ -21,7 +21,7 @@ function(ko, template, bridge, momentComponent, maskComponent, qualificacaoCompo
     };
 
     self.visualizar = function(profissional){
-      return window.location.hash = '#atendimentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data);
+      return window.location.hash = '#agendamentos/new/profissional=' + profissional.id + '&data=' + encodeURIComponent(self.data);
     };
 
     var mapResponseToProfissionais = function(profissionais){
