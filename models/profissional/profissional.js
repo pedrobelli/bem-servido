@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
 					 include: [
 						 { model: models.telefones },
 						 { model: models.enderecos },
-						 { model: models.especialidades },
+						 { model: models.habilidades },
 						 { model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						 { model: models.horas_trabalho },
 						 { model: models.atendimentos }
@@ -99,7 +99,7 @@ module.exports = function(sequelize, DataTypes) {
 						{ model: models.qualificacoes },
 						{ model: models.telefones },
 						{ model: models.enderecos },
-						{ model: models.especialidades },
+						{ model: models.habilidades },
 						{ model: models.detalhe_servicos, include: [ { model: models.servicos } ] },
 						{ model: models.horas_trabalho, required: false, where: { diaSemana: diaSemana } },
 						{ model: models.atendimentos, required: false,
@@ -192,10 +192,10 @@ module.exports = function(sequelize, DataTypes) {
 					}
 	      }
 	    },
-	    byEspecialidades: function (models, values) {
+	    byHabilidades: function (models, values) {
 				return {
 					include: [ {
-						model: models.especialidades, required: true, through: { where: { especialidadeId: values } }
+						model: models.habilidades, required: true, through: { where: { habilidadeId: values } }
 					} ]
 				}
 	    },

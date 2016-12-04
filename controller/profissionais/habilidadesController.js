@@ -40,11 +40,11 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.All();
+    return models.habilidades.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ especialidades: entities });
+    res.json({ habilidades: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -52,11 +52,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.Get(req.param('id'));
+    return models.habilidades.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ especialidade: entity });
+    res.json({ habilidade: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -64,7 +64,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.profissional_especialidades.Destroy(req.param('id'), req.param('profissional_id'));
+    return models.profissional_habilidades.Destroy(req.param('id'), req.param('profissional_id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -76,13 +76,13 @@ self.destroy = function(req, res) {
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     return models.profissionais.Get(models, req.body.profissionalId).then(function(profissional) {
-      var newEspecialidade = models.especialidades.build({
+      var newHabilidade = models.habilidades.build({
         nome   : req.body.nome,
         ramo   : profissional.ramo,
         seeded : false
       });
-      return models.especialidades.FindOrCreate(newEspecialidade.dataValues).then(function(entity) {
-        return profissional.addEspecialidades(entity).then(function() {
+      return models.habilidades.FindOrCreate(newHabilidade.dataValues).then(function(entity) {
+        return profissional.addHabilidades(entity).then(function() {
           return entity;
         });
       });
@@ -90,7 +90,7 @@ self.create = function(req, res) {
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ especialidade: entity });
+    res.json({ habilidade: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -98,15 +98,15 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.profissional_especialidades.Destroy(req.body.id, req.body.profissionalId).then(function() {
+    return models.profissional_habilidades.Destroy(req.body.id, req.body.profissionalId).then(function() {
       return models.profissionais.Get(models, req.body.profissionalId).then(function(profissional) {
-        var newEspecialidade = models.especialidades.build({
+        var newHabilidade = models.habilidades.build({
           nome   : req.body.nome,
           ramo   : profissional.ramo,
           seeded : false
         });
-        return models.especialidades.FindOrCreate(newEspecialidade.dataValues).then(function(entity) {
-          return profissional.addEspecialidades(entity).then(function() {
+        return models.habilidades.FindOrCreate(newHabilidade.dataValues).then(function(entity) {
+          return profissional.addHabilidades(entity).then(function() {
             return entity;
           });
         });
@@ -115,7 +115,7 @@ self.update = function(req, res) {
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ especialidade: entity });
+    res.json({ habilidade: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -123,11 +123,11 @@ self.update = function(req, res) {
 
 self.getByServicos = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.FindByServicos(models, req.param('servicos'))
+    return models.habilidades.FindByServicos(models, req.param('servicos'))
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ especialidades: entities });
+    res.json({ habilidades: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -135,11 +135,11 @@ self.getByServicos = function(req, res) {
 
 self.getByProfissional = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.FindByProfissional(models, req.body.profissional)
+    return models.habilidades.FindByProfissional(models, req.body.profissional)
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ especialidades: entities });
+    res.json({ habilidades: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -147,11 +147,11 @@ self.getByProfissional = function(req, res) {
 
 self.getSeededByRamo = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.especialidades.FindSeededByRamo(models, req.param('ramo_id'))
+    return models.habilidades.FindSeededByRamo(models, req.param('ramo_id'))
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ especialidades: entities });
+    res.json({ habilidades: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });

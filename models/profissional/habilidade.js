@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
-  var Especialidade = sequelize.define('especialidades', {
+  var Habilidade = sequelize.define('habilidades', {
     nome: {
       allowNull: false,
       type: DataTypes.STRING,
@@ -40,30 +40,30 @@ module.exports = function(sequelize, DataTypes) {
 		      return entity.destroy();
 		    });
 			},
-			Create: function(especialidade){
-        especialidade.nome = especialidade.nome.charAt(0).toUpperCase() + especialidade.nome.slice(1).toLowerCase();
-				return this.create(especialidade);
+			Create: function(habilidade){
+        habilidade.nome = habilidade.nome.charAt(0).toUpperCase() + habilidade.nome.slice(1).toLowerCase();
+				return this.create(habilidade);
 			},
-			Update: function(especialidade){
-        especialidade.nome = especialidade.nome.charAt(0).toUpperCase() + especialidade.nome.slice(1).toLowerCase();
-				return this.find({ where: { id: especialidade.id } }).then(function(entity) {
-		      return entity.updateAttributes(especialidade);
+			Update: function(habilidade){
+        habilidade.nome = habilidade.nome.charAt(0).toUpperCase() + habilidade.nome.slice(1).toLowerCase();
+				return this.find({ where: { id: habilidade.id } }).then(function(entity) {
+		      return entity.updateAttributes(habilidade);
 		    });
 			},
-			FindOrCreate: function(especialidade){
-				return this.FindByNomeAndRamo(especialidade).then(function(response) {
+			FindOrCreate: function(habilidade){
+				return this.FindByNomeAndRamo(habilidade).then(function(response) {
 					if (!response) {
-						return this.Create(especialidade).then(function(response) {
+						return this.Create(habilidade).then(function(response) {
 							return response
 						});
 					}
 					return response;
 				});
 			},
-			FindByNomeAndRamo: function(especialidade){
+			FindByNomeAndRamo: function(habilidade){
 				return this.find({ where: {
-					nome: especialidade.nome,
-					ramo: especialidade.ramo
+					nome: habilidade.nome,
+					ramo: habilidade.ramo
 				 } });
 			},
 			FindByServicos: function(models, servicoIds){
@@ -86,5 +86,5 @@ module.exports = function(sequelize, DataTypes) {
 		paranoid: true
   });
 
-  return Especialidade
+  return Habilidade
 };

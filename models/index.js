@@ -58,9 +58,9 @@ db['enderecos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' })
 //formaPagamentos
 db['forma_pagamentos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' });
 
-//especialidades
-db['especialidades'].belongsToMany(db['profissionais'], { through: 'profissional_especialidades' });
-db['especialidades'].hasMany(db['servicos'], { foreignKey: 'especialidadeId', allowNull: false });
+//habilidades
+db['habilidades'].belongsToMany(db['profissionais'], { through: 'profissional_habilidades' });
+db['habilidades'].hasMany(db['servicos'], { foreignKey: 'habilidadeId', allowNull: false });
 
 //profissionais
 db['profissionais'].hasOne(db['telefones'], { foreignKey: 'profissionalId' });
@@ -70,14 +70,14 @@ db['profissionais'].hasMany(db['horas_trabalho'], { foreignKey: 'profissionalId'
 db['profissionais'].hasMany(db['detalhe_servicos'], { foreignKey: 'profissionalId', allowNull: false });
 db['profissionais'].hasMany(db['forma_pagamentos'], { foreignKey: 'profissionalId' });
 db['profissionais'].hasMany(db['qualificacoes'], { foreignKey: 'profissionalId' });
-db['profissionais'].belongsToMany(db['especialidades'], { foreignKey: 'profissionalId', through: 'profissional_especialidades' });
+db['profissionais'].belongsToMany(db['habilidades'], { foreignKey: 'profissionalId', through: 'profissional_habilidades' });
 
 //horasTrabalho
 db['horas_trabalho'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false });
 
 //servicos
 db['servicos'].hasMany(db['detalhe_servicos'], { foreignKey: 'servicoId', allowNull: false });
-db['servicos'].belongsTo(db['especialidades'], { foreignKey: 'especialidadeId', allowNull: false });
+db['servicos'].belongsTo(db['habilidades'], { foreignKey: 'habilidadeId', allowNull: false });
 
 //telefones
 db['telefones'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' });

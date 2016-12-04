@@ -24,13 +24,13 @@
           </div>
 
           <div class="col s12">
-            <select data-bind="value: especialidade">
+            <select data-bind="value: habilidade">
               <option value="" disabled selected="">Selecione uma opção</option>
-              <!-- ko foreach: $data.especialidades -->
+              <!-- ko foreach: $data.habilidades -->
               <option data-bind="value: $data.id, text: $data.nome"></option>
               <!-- /ko -->
             </select>
-            <label>Especialidade*</label>
+            <label>Habilidade*</label>
           </div>
 
           <button data-bind="click: cancelar" id="cancelar" class="btn waves-effect waves-light left orange" type="button">

@@ -1,12 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
 
-  var ProfissionalEspecialidades = sequelize.define('profissional_especialidades', {
+  var ProfissionalHabilidades = sequelize.define('profissional_habilidades', {
   }, {
     validate: {
 	    RelationExists: function(callback) {
         sequelize.query(
-          "SELECT * FROM profissional_especialidades WHERE profissionalId = ? AND especialidadeId = ?",
-          { replacements: [this.profissionalId, this.especialidadeId], type: sequelize.QueryTypes.SELECT}
+          "SELECT * FROM profissional_habilidades WHERE profissionalId = ? AND habilidadeId = ?",
+          { replacements: [this.profissionalId, this.habilidadeId], type: sequelize.QueryTypes.SELECT}
         ).then(function(response) {
           if (response.lenght > 0)
             callback(new Error("Este profissional já tem está habilidade cadastrada."));
@@ -16,9 +16,9 @@ module.exports = function(sequelize, DataTypes) {
 	    }
 	  },
 		classMethods: {
-			Destroy: function(especialidadeId, profissionalId){
+			Destroy: function(habilidadeId, profissionalId){
 				return this.find({ where: [
-          { especialidadeId: especialidadeId },
+          { habilidadeId: habilidadeId },
           { profissionalId: profissionalId }
         ] }).then(function(entity) {
 		      return entity.destroy();
@@ -27,5 +27,5 @@ module.exports = function(sequelize, DataTypes) {
 		}
   });
 
-  return ProfissionalEspecialidades
+  return ProfissionalHabilidades
 };

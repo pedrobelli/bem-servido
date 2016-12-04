@@ -1,20 +1,20 @@
-define(['ko', 'text!especialidadesFormTemplate', 'bridge', 'jquery', 'swalComponentForm'],
+define(['ko', 'text!habilidadesFormTemplate', 'bridge', 'jquery', 'swalComponentForm'],
 function(ko, template, bridge, $, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
-    var CREATE_PATH = "/api/especialidades/new";
-    var UPDATE_PATH = "/api/especialidades/edit/"+params.id;
+    var CREATE_PATH = "/api/habilidades/new";
+    var UPDATE_PATH = "/api/habilidades/edit/"+params.id;
 
     self.id = ko.observable(params.id);
     self.nome = ko.observable();
-    self.pageMode = params.name == 'new' ? 'Nova Especialidade' : 'Editar Especialidade';
-    self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de especialidade!" : "Ocorreu um erro na atualização de especialidade!";
-    self.errorMessageApend = params.name == "new" ? ' criação da especialidade.' : ' edição da especialidade.';
+    self.pageMode = params.name == 'new' ? 'Nova Habilidade' : 'Editar Habilidade';
+    self.errorTitle = params.name == 'new' ? "Ocorreu um erro na criação de habilidade!" : "Ocorreu um erro na atualização de habilidade!";
+    self.errorMessageApend = params.name == "new" ? ' criação da habilidade.' : ' edição da habilidade.';
 
     self.cancelar = function(){
-      return window.location.hash = "#especialidades";
+      return window.location.hash = "#habilidades";
     };
 
     self.save = function() {
@@ -31,7 +31,7 @@ function(ko, template, bridge, $, swalComponent) {
         swalComponent.errorAlertWithTitle(self.errorTitle, context.errors);
       })
       .done(function() {
-        window.location.hash = "#especialidades"
+        window.location.hash = "#habilidades"
       });
     };
 
@@ -59,11 +59,11 @@ function(ko, template, bridge, $, swalComponent) {
 
     var init = function() {
       if (isEditMode()) {
-        bridge.get("/api/especialidades/get/"+params.id).then(function(response) {
+        bridge.get("/api/habilidades/get/"+params.id).then(function(response) {
           if(!response)
             return;
 
-          self.nome(response.especialidade.nome);
+          self.nome(response.habilidade.nome);
         });
       }
     };
@@ -77,7 +77,7 @@ function(ko, template, bridge, $, swalComponent) {
     viewModel : viewModel,
     template : template,
     title: function(params) {
-      return "Especialidades form"
+      return "Habilidades form"
     }
   };
 });

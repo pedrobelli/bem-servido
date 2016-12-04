@@ -1,12 +1,12 @@
 var models = require('../../models');
 
 exports.createServicos = function() {
-  models.especialidades.Search('Cabelereiro').then(function(entities) {
+  models.habilidades.Search('Cabelereiro').then(function(entities) {
     var cabelereiro = entities[0];
 
     var servico = models.servicos.build({
       nome: "Corte Masculino",
-      especialidadeId: cabelereiro.id,
+      habilidadeId: cabelereiro.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -21,7 +21,7 @@ exports.createServicos = function() {
 
     servico = models.servicos.build({
       nome: "Corte Feminino",
-      especialidadeId: cabelereiro.id,
+      habilidadeId: cabelereiro.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -36,7 +36,7 @@ exports.createServicos = function() {
 
     servico = models.servicos.build({
       nome: "Escova",
-      especialidadeId: cabelereiro.id,
+      habilidadeId: cabelereiro.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -50,12 +50,12 @@ exports.createServicos = function() {
     });
   });
 
-  models.especialidades.Search('Manicure').then(function(entities) {
+  models.habilidades.Search('Manicure').then(function(entities) {
     var manicure = entities[0];
 
     servico = models.servicos.build({
       nome: "Unha",
-      especialidadeId: manicure.id,
+      habilidadeId: manicure.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -70,7 +70,7 @@ exports.createServicos = function() {
 
     servico = models.servicos.build({
       nome: "Unha + cutícula",
-      especialidadeId: manicure.id,
+      habilidadeId: manicure.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -84,12 +84,12 @@ exports.createServicos = function() {
     });
   });
 
-  return models.especialidades.Search('Mecânico').then(function(entities) {
+  return models.habilidades.Search('Mecânico').then(function(entities) {
     var mecanico = entities[0];
 
     servico = models.servicos.build({
       nome: "Avaliação",
-      especialidadeId: mecanico.id,
+      habilidadeId: mecanico.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -104,7 +104,7 @@ exports.createServicos = function() {
 
     servico = models.servicos.build({
       nome: "Trocar óleo",
-      especialidadeId: mecanico.id,
+      habilidadeId: mecanico.id,
       seed: true
     });
     models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {
@@ -119,7 +119,7 @@ exports.createServicos = function() {
 
     servico = models.servicos.build({
       nome: "Balanceamento",
-      especialidadeId: mecanico.id,
+      habilidadeId: mecanico.id,
       seed: true
     });
     return models.servicos.FindOrCreate(servico.dataValues).then(function(entity) {

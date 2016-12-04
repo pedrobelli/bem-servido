@@ -86,7 +86,7 @@ self.create = function(req, res) {
   return sequelize.transaction(function(t) {
     var newServico = models.servicos.build({
       nome            : req.body.nome,
-      especialidadeId : req.body.especialidadeId
+      habilidadeId : req.body.habilidadeId
     });
     return models.servicos.FindOrCreate(newServico.dataValues).then(function(entity) {
       var newDetalheServico = models.detalhe_servicos.build({
@@ -110,7 +110,7 @@ self.update = function(req, res) {
   return sequelize.transaction(function(t) {
     var newServico = models.servicos.build({
       nome            : req.body.nome,
-      especialidadeId : req.body.especialidadeId
+      habilidadeId : req.body.habilidadeId
     });
     return models.servicos.FindOrCreate(newServico.dataValues).then(function(entity) {
       var newDetalheServico = models.detalhe_servicos.build({
@@ -146,8 +146,8 @@ self.getByProfissional = function(req, res) {
 self.formOptions = function(req, res) {
   var options = {}
   return sequelize.transaction(function(t) {
-    return models.especialidades.FindByProfissional(models, req.param('profissional_id')).then(function(entities) {
-      options.especialidades = entities;
+    return models.habilidades.FindByProfissional(models, req.param('profissional_id')).then(function(entities) {
+      options.habilidades = entities;
     });
 
   }).then(function() {
