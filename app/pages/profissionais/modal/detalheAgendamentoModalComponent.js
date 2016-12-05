@@ -1,4 +1,4 @@
-define(['ko', 'text!detalheAtendimentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'swalComponentForm',
+define(['ko', 'text!detalheAgendamentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'swalComponentForm',
 'momentComponent'],
 function(ko, template, $, bridge, maskComponent, swalComponent, momentComponent) {
 
@@ -25,20 +25,20 @@ function(ko, template, $, bridge, maskComponent, swalComponent, momentComponent)
 
     self.cancelar  = function() {
       var errorTitle = 'Não foi possível cancelar agendamento';
-      swalComponent.removeInstanceWarning("/api/atendimentos/" + self.id(), errorTitle, function(){
+      swalComponent.removeInstanceWarning("/api/agendamentos/" + self.id(), errorTitle, function(){
         $('#modal-detalhe-agendamento').closeModal();
         self.onSuccessCallback();
       });
     };
 
-    self.showDetalhesAtendimentoModal = function(atendimentoId, callback){
+    self.showDetalhesAgendamentoModal = function(agendamentoId, callback){
       cleanFields();
 
       $('#modal-detalhe-agendamento').openModal();
 
-      bridge.get("/api/atendimentos/get/" + atendimentoId)
+      bridge.get("/api/agendamentos/get/" + agendamentoId)
       .then(function(response){
-        mapResponseToAtendimento(response.atendimento);
+        mapResponseToAgendamento(response.agendamento);
       });
 
       self.onSuccessCallback = callback;
@@ -46,7 +46,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, momentComponent)
 
     self.subscribe = function(){
       maskComponent.applyCelphoneMask();
-      bridge.get("/api/atendimentos/form_options")
+      bridge.get("/api/agendamentos/form_options")
       .then(function(response){
         var ramos = response.ramos.map(function(ramo){
           return {
@@ -78,26 +78,26 @@ function(ko, template, $, bridge, maskComponent, swalComponent, momentComponent)
       })
     };
 
-    var mapResponseToAtendimento = function(atendimento){
-      if (!atendimento) return cleanFields();
+    var mapResponseToAgendamento = function(agendamento){
+      if (!agendamento) return cleanFields();
 
-      var data = momentComponent.convertDateStringToDate(atendimento.dataInicio);
-      var cliente = atendimento.cliente;
-      var telefone = cliente.telefone.telefone;
-      var celular = cliente.telefone.celular;
+      var data = momentComponent.convertDateStringToDate(agendamento.dataInicio);
+      var cliente = agendamento.cliente;
+      var telefone = !!cliente ? cliente.telefone.telefone : agendamento.telefone;
+      var celular = !!cliente ? cliente.telefone.celular : '';
       var diaSemanaId = momentComponent.returnDateWeekday(data);
       var diaSemana = _.find(self.diasSemana(), function(currentDiaSemana){ return currentDiaSemana.id == diaSemanaId; });
 
-      self.id(atendimento.id);
+      self.id(agendamento.id);
       self.dataDiaSemana(diaSemana.text + ", " + data.getDate() + " de " + self.meses[data.getMonth()]);
-      self.cliente(cliente.nome);
+      self.cliente(!!cliente ? cliente.nome : agendamento.nomeCliente);
       self.telefone(!!telefone ? telefone : "");
       self.celular(!!celular ? celular : "");
-      self.servico(atendimento.detalhe_servico.servico.nome);
-      self.horario(momentComponent.convertTimeToString(atendimento.dataInicio) + " - " + momentComponent.convertTimeToString(atendimento.dataFim));
-      self.duracao(atendimento.duracao);
-      self.valor(maskComponent.accountingFormat(parseInt(atendimento.valorTotal)));
-      self.notQualified(!atendimento.qualificado);
+      self.servico(agendamento.detalhe_servico.servico.nome);
+      self.horario(momentComponent.convertTimeToString(agendamento.dataInicio) + " - " + momentComponent.convertTimeToString(agendamento.dataFim));
+      self.duracao(agendamento.duracao);
+      self.valor(maskComponent.accountingFormat(parseInt(agendamento.valorTotal)));
+      self.notQualified(!agendamento.qualificado);
     };
 
     var cleanFields = function() {
@@ -115,7 +115,7 @@ function(ko, template, $, bridge, maskComponent, swalComponent, momentComponent)
 
   var instance = new viewModel();
 
-  ko.components.register('detalhe-atendimento-modal-component', {
+  ko.components.register('detalhe-agendamento-modal-component', {
     viewModel: {
       instance : instance
     },

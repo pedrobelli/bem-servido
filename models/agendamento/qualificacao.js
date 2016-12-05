@@ -40,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
 				return this.findAll({
 					include: [
 	          { model: models.profissionais },
-	          { model: models.atendimentos, include: [ {
+	          { model: models.agendamentos, include: [ {
 							model: models.detalhe_servicos, include: [ { model: models.servicos } ]
 					  } ] },
         	],

@@ -7,7 +7,7 @@ function(ko, template, bridge, swalComponent) {
     self.onSuccessCallback = ko.observable(function(){});
     self.nota = ko.observable(3);
     self.notaText = ko.observable(3);
-    self.atendimento = ko.observable();
+    self.agendamento = ko.observable();
     self.profissional = ko.observable();
     self.cliente = ko.observable();
     self.avaliacao = ko.observable();
@@ -23,7 +23,7 @@ function(ko, template, bridge, swalComponent) {
 
       $('#modal-qualificacao').openModal();
 
-      self.atendimento(dto.atendimento);
+      self.agendamento(dto.agendamento);
       self.profissional(dto.profissional);
       self.cliente(dto.cliente);
 
@@ -50,7 +50,7 @@ function(ko, template, bridge, swalComponent) {
       var payload = {
         nota           : self.nota(),
         avaliacao      : self.avaliacao(),
-        atendimentoId  : self.atendimento(),
+        agendamentoId  : self.agendamento(),
         profissionalId : self.profissional(),
         clienteId      : self.cliente()
       };
@@ -61,7 +61,7 @@ function(ko, template, bridge, swalComponent) {
     var validate = function() {
       var errors = []
       valid = !!self.nota();
-      valid = valid && !!self.atendimento();
+      valid = valid && !!self.agendamento();
       valid = valid && !!self.profissional();
       valid = valid && !!self.cliente();
       valid = valid && !!self.avaliacao();
@@ -76,7 +76,7 @@ function(ko, template, bridge, swalComponent) {
     var cleanFields = function() {
       self.nota(3);
       self.notaText(3);
-      self.atendimento(undefined);
+      self.agendamento(undefined);
       self.profissional(undefined);
       self.cliente(undefined);
       self.avaliacao(undefined);

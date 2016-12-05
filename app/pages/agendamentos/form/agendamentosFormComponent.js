@@ -1,6 +1,6 @@
-define(['ko', 'text!atendimentosFormTemplate', 'jquery', 'underscore', 'bridge', 'maskComponent', 'datepickerComponent',
-'momentComponent', 'atendimentoModalComponent', 'swalComponent', 'agendaComponent', 'qualificacaoComponent'],
-function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentComponent, atendimentoModalComponent,
+define(['ko', 'text!agendamentosFormTemplate', 'jquery', 'underscore', 'bridge', 'maskComponent', 'datepickerComponent',
+'momentComponent', 'agendamentoModalComponent', 'swalComponent', 'agendaComponent', 'qualificacaoComponent'],
+function(ko, template, $, _, bridge, maskComponent, datepickerComponent, momentComponent, agendamentoModalComponent,
 swalComponent, agendaComponent, qualificacaoComponent) {
 
   var viewModel = function(params) {
@@ -19,7 +19,7 @@ swalComponent, agendaComponent, qualificacaoComponent) {
     self.ramos = ko.observableArray([]);
     self.detalheServicos = ko.observableArray([]);
     self.horasTrabalho = ko.observableArray([]);
-    self.atendimentos = ko.observableArray([]);
+    self.agendamentos = ko.observableArray([]);
     self.estados = ko.observableArray([]);
     self.mediaEstrelas = ko.observableArray([]);
 
@@ -44,7 +44,7 @@ swalComponent, agendaComponent, qualificacaoComponent) {
           cliente      : localStorage.getItem('current_user_id'),
           data         : self.data()
         }
-        atendimentoModalComponent.showAtendimentosModal(dto);
+        agendamentoModalComponent.showAgendamentosModal(dto);
       }
     };
 
@@ -71,7 +71,7 @@ swalComponent, agendaComponent, qualificacaoComponent) {
       });
 
       self.detalheServicos(detalheServicos);
-      atendimentoModalComponent.subscribe(self.detalheServicos());
+      agendamentoModalComponent.subscribe(self.detalheServicos());
     };
 
     var returnData = function() {
@@ -94,7 +94,7 @@ swalComponent, agendaComponent, qualificacaoComponent) {
 
         mapResponseToDetalheServicos(profissional.detalhe_servicos);
         self.horasTrabalho(agendaComponent.mapResponseToHoraDeTrabalho(profissional.horas_trabalhos[0]));
-        self.atendimentos(agendaComponent.mapResponseToAtendimentos(profissional.atendimentos, self.horasTrabalho()));
+        self.agendamentos(agendaComponent.mapResponseToAgendamentos(profissional.agendamentos, self.horasTrabalho()));
 
         if (!profissional.horas_trabalhos.length) {
           self.hasHorarioResult(true);

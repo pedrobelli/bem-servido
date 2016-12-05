@@ -1,5 +1,4 @@
 var models           = require('../../models'),
-    enums            = require('../shared/enums'),
     controllerHelper = require('../shared/controllerHelper');
 
 var sequelize = controllerHelper.createSequelizeInstance();
@@ -22,26 +21,22 @@ exports.loadRoutes = function(endpoint, apiRoutes) {
     return self.create(req, res);
   });
 
-  apiRoutes.post(endpoint + '/edit/:id', function(req, res) {
+  apiRoutes.post(endpoint + '/edit', function(req, res) {
     return self.update(req, res);
   });
 
-  apiRoutes.post(endpoint + '/by_clientes', function(req, res) {
-    return self.getByClientes(req, res);
-  });
-
-  apiRoutes.get(endpoint + '/form_options', function(req, res) {
-    return self.formOptions(req, res);
+  apiRoutes.post(endpoint + '/by_profissional', function(req, res) {
+    return self.getByProfissional(req, res);
   });
 }
 
 self.index = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.All(models);
+    return models.qualificacoes.All();
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ qualificacoes: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -49,11 +44,11 @@ self.index = function(req, res) {
 
 self.get = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Get(req.param('id'));
+    return models.qualificacoes.Get(req.param('id'));
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ atendimento: entity });
+    res.json({ qualificacao: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -61,7 +56,7 @@ self.get = function(req, res) {
 
 self.destroy = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Destroy(req.param('id'));
+    return models.qualificacoes.Destroy(req.param('id'));
 
   }).then(function(entity) {
     res.send(204)
@@ -72,11 +67,23 @@ self.destroy = function(req, res) {
 
 self.create = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Create(req.body);
+    return models.qualificacoes.Create(req.body).then(function(qualificacao) {
+      return models.agendamentos.Get(models, qualificacao.agendamentoId).then(function(agendamento) {
+        var newAgendamento = models.agendamentos.build({
+          id          : qualificacao.agendamentoId,
+          dataInicio  : agendamento.dataInicio.setHours ( agendamento.dataInicio.getHours() + 2 ),
+          dataFim     : agendamento.dataFim.setHours ( agendamento.dataFim.getHours() + 2 ),
+          qualificado : true
+        });
+        return models.agendamentos.Update(newAgendamento.dataValues).then(function() {
+          return qualificacao;
+        });
+      });
+    });
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ atendimento: entity });
+    res.json({ qualificacao: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
@@ -84,42 +91,24 @@ self.create = function(req, res) {
 
 self.update = function(req, res) {
   return sequelize.transaction(function(t) {
-    return models.atendimentos.Update(req.body);
+    return models.qualificacoes.Update(req.body);
 
   }).then(function(entity) {
     res.statusCode = 200;
-    res.json({ atendimento: entity });
+    res.json({ qualificacao: entity });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
 }
 
-self.getByClientes = function(req, res) {
+self.getByProfissional = function(req, res) {
   return sequelize.transaction(function(t) {
-    scopes = [];
-
-    if (!!req.body.servico) {
-      scopes.push({ method: ['byServiceName', models, req.body.servico] });
-    } else {
-      scopes.push({ method: ['noServiceName', models, req.body.servico] });
-    }
-
-    return models.atendimentos.getByClientes(models, scopes, req.body.data, req.body.cliente);
+    return models.qualificacoes.FindByProfissional(models, req.body.profissional)
 
   }).then(function(entities) {
     res.statusCode = 200;
-    res.json({ atendimentos: entities });
+    res.json({ qualificacoes: entities });
   }).catch(function(errors) {
     return controllerHelper.writeErrors(res, errors);
   });
-}
-
-self.formOptions = function(req, res) {
-  var options = {}
-  options.ramos = enums.ramos;
-  options.diasSemana = enums.diasSemana;
-  options.estados = enums.estados;
-
-  res.statusCode = 200;
-  res.json(options);
 }

@@ -1,12 +1,14 @@
-define(['ko', 'text!atendimentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
+define(['ko', 'text!profissionalAgendamentoModalTemplate', 'jquery', 'bridge', 'maskComponentForm', 'datepickerComponent', 'momentComponent', 'swalComponentForm'],
 function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComponent, swalComponent) {
 
   var viewModel = function(params) {
     var self = this;
 
+    self.onSuccessCallback = ko.observable(function(){});
     self.profissional = ko.observable();
     self.cliente = ko.observable();
     self.data = ko.observable();
+    self.telefone = ko.observable();
     self.servico = ko.observable();
     self.horaInicio = ko.observable();
     self.horaFim = ko.observable("00:00");
@@ -37,29 +39,31 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         return swalComponent.simpleErrorAlertWithTitle(self.errorTitle, errors);
       }
 
-      bridge.post("/api/atendimentos/new", generatePayload())
+      bridge.post("/api/agendamentos/new", generatePayload())
       .fail(function(context, errorMessage, serverError) {
         swalComponent.errorAlertWithTitle("Não foi possível realizar o agendamento", context.errors);
       }).done(function() {
-        $('#modal-agendamento').closeModal();
-        window.location = "/#clientes/atendimentos/data=" + encodeURIComponent(self.data());
+        $('#modal-agendamento-profissional').closeModal();
+        self.onSuccessCallback();
       });
     };
 
-    self.showAtendimentosModal = function(dto, callback){
+    self.showAgendamentosModal = function(dto, callback){
       cleanFields();
       $('select').material_select();
 
-      $('#modal-agendamento').openModal();
+      $('#modal-agendamento-profissional').openModal();
 
       self.profissional(dto.profissional);
-      self.cliente(dto.cliente);
       self.data(dto.data);
+
+      self.onSuccessCallback = callback;
     };
 
     self.subscribe = function(servicos){
       datepickerComponent.applyDatepickerForFuture();
       maskComponent.applyTimeMask();
+      maskComponent.applyCelphoneMask();
       self.servicos(servicos);
       $('select').material_select();
     };
@@ -71,7 +75,8 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
         dataFim          : momentComponent.convertStringToDateFirstSecondTime(self.data(), self.horaFim()),
         duracao          : self.duracao(),
         profissionalId   : self.profissional(),
-        clienteId        : self.cliente(),
+        nomeCliente      : self.cliente(),
+        telefone         : self.telefone(),
         detalheServicoId : self.servico(),
         qualificado      : false,
         bloqueio         : false
@@ -122,7 +127,7 @@ function(ko, template, $, bridge, maskComponent, datepickerComponent, momentComp
 
   var instance = new viewModel();
 
-  ko.components.register('atendimento-modal-component', {
+  ko.components.register('profissional-agendamento-modal-component', {
     viewModel: {
       instance : instance
     },

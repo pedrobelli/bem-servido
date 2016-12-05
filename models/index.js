@@ -29,27 +29,27 @@ Object.keys(db).forEach(function (modelName) {
   }
 });
 
-//atendimentos
-db['atendimentos'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
-db['atendimentos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false });
-db['atendimentos'].belongsTo(db['detalhe_servicos'], { foreignKey: 'detalheServicoId' });
-db['atendimentos'].hasMany(db['qualificacoes'], { foreignKey: 'atendimentoId' });
+//agendamentos
+db['agendamentos'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
+db['agendamentos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false });
+db['agendamentos'].belongsTo(db['detalhe_servicos'], { foreignKey: 'detalheServicoId' });
+db['agendamentos'].hasMany(db['qualificacoes'], { foreignKey: 'agendamentoId' });
 
 //clientes
-db['qualificacoes'].belongsTo(db['atendimentos'], { foreignKey: 'atendimentoId' });
+db['qualificacoes'].belongsTo(db['agendamentos'], { foreignKey: 'agendamentoId' });
 db['qualificacoes'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
 db['qualificacoes'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId' });
 
 //clientes
 db['clientes'].hasOne(db['telefones'], { foreignKey: 'clienteId' });
 db['clientes'].hasOne(db['enderecos'], { foreignKey: 'clienteId' });
-db['clientes'].hasMany(db['atendimentos'], { foreignKey: 'clienteId' });
+db['clientes'].hasMany(db['agendamentos'], { foreignKey: 'clienteId' });
 db['clientes'].hasMany(db['qualificacoes'], { foreignKey: 'clienteId' });
 
 //detalheServicos
 db['detalhe_servicos'].belongsTo(db['profissionais'], { foreignKey: 'profissionalId', allowNull: false  });
 db['detalhe_servicos'].belongsTo(db['servicos'], { foreignKey: 'servicoId', allowNull: false });
-db['detalhe_servicos'].hasMany(db['atendimentos'], { foreignKey: 'detalheServicoId' });
+db['detalhe_servicos'].hasMany(db['agendamentos'], { foreignKey: 'detalheServicoId' });
 
 //enderecos
 db['enderecos'].belongsTo(db['clientes'], { foreignKey: 'clienteId' });
@@ -65,7 +65,7 @@ db['habilidades'].hasMany(db['servicos'], { foreignKey: 'habilidadeId', allowNul
 //profissionais
 db['profissionais'].hasOne(db['telefones'], { foreignKey: 'profissionalId' });
 db['profissionais'].hasOne(db['enderecos'], { foreignKey: 'profissionalId' });
-db['profissionais'].hasMany(db['atendimentos'], { foreignKey: 'profissionalId', allowNull: false });
+db['profissionais'].hasMany(db['agendamentos'], { foreignKey: 'profissionalId', allowNull: false });
 db['profissionais'].hasMany(db['horas_trabalho'], { foreignKey: 'profissionalId', allowNull: false });
 db['profissionais'].hasMany(db['detalhe_servicos'], { foreignKey: 'profissionalId', allowNull: false });
 db['profissionais'].hasMany(db['forma_pagamentos'], { foreignKey: 'profissionalId' });
