@@ -35,7 +35,7 @@
                 <!-- /ko -->
 
                 <!-- ko foreach: $data.agendamentos -->
-                  <span data-bind="style: { top: top+'px', height: height+'px' }" class="unvailable">
+                  <span data-bind="css: { 'bloqueio' : isBlockade }, style: { top: top+'px', height: height+'px' }" class="unvailable">
                     <p data-bind="text: cliente" class="desc-cliente"></p>
                     <p data-bind="text: horario" class="desc-horario"></p>
                     <p data-bind="text: servico" class="desc-servico"></p>
