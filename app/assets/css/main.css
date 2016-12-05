@@ -325,6 +325,9 @@ ul.available-list > li.available-time > label.label-disabled{
   padding: 2px 5px;
   border-radius: 2px;
 }
+.card-agenda .schedule-list .bloqueio{
+  background-color: #ceb9a7;
+}
 .card-agenda .schedule-list .unvailable > p{
   display: inline-block;
   font-size: 14px;
@@ -336,7 +339,7 @@ ul.available-list > li.available-time > label.label-disabled{
   overflow: hidden;
 }
 .card-agenda .schedule-list .unvailable > p.desc-horario{
-  width: 25%;
+  width: 20%;
 }
 .card-agenda .schedule-list .unvailable > p.desc-horario-agendamento{
   width: 32%;
@@ -346,6 +349,8 @@ ul.available-list > li.available-time > label.label-disabled{
 }
 .card-agenda .schedule-list .unvailable > p.desc-link{
   width: 12%;
+  font-size: 11px;
+  color: white;
 }
 
 
@@ -389,7 +394,7 @@ ul.available-list > li.available-time > label.label-disabled{
 .agendamento-detalhes > .profissional-detalhes{
   margin-bottom: 20px;
 }
-.agendamento-detalhes > .profissional-detalhes > .profissional-nome{
+.agendamento-detalhes > .profissional-detalhes > .profissional-nome, .cliente-nome{
   font-size: 20px;
   color: orange;
 }
@@ -397,6 +402,7 @@ ul.available-list > li.available-time > label.label-disabled{
   color: #979797;
 }
 .agendamento-detalhes > .servico-detalhes > p{
+  margin: 2px;
   color: #979797;
 }
 .agendamento-detalhes > .servico-detalhes > p > span{

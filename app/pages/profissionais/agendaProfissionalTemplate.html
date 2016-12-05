@@ -39,9 +39,9 @@
                     <p data-bind="text: cliente" class="desc-cliente"></p>
                     <p data-bind="text: horario" class="desc-horario"></p>
                     <p data-bind="text: servico" class="desc-servico"></p>
-                    <span data-bind="ifnot: isBlockade">
-                      <a data-bind="click: $component.mostrarDetalhes" href="#" class="desc-link">Veja mais(+)</a>
-                    </span>
+                    <p data-bind="ifnot: isBlockade" class="desc-link">
+                      <a data-bind="click: $component.mostrarDetalhes" href="#">Veja mais(+)</a>
+                    </p>
                   </span>
                 <!-- /ko -->
               </ul>
