@@ -15,6 +15,21 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
 
     self.menuOptions = ko.observableArray([]);
 
+    self.defaultOptions = [
+      {
+        link : '/#profissionais/register',
+        text : 'Crie sua agenda Profissional!'
+      },
+      {
+        link : '/#clientes/register',
+        text : 'Cadastre-se'
+      },
+      {
+        link : '/#login',
+        text : 'Login'
+      }
+    ];
+
     self.clienteOptions = [
       {
         link : '#clientes/agendamentos/data=undefined',
@@ -67,6 +82,8 @@ function(ko, template, materialize, waves, momentComponent, datepickerComponent)
       } else if (localStorage.getItem('current_user_role') == 2) {
         self.menuOptions(self.profissionalOptions);
       }
+    } else {
+      self.menuOptions(self.defaultOptions);
     }
 
     if (params.header == "home") {

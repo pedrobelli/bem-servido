@@ -215,16 +215,17 @@ module.exports = function(sequelize, DataTypes) {
 				  order: 'dataInicio ASC'
         });
 			},
-			getByAno: function(ano){
+			getByAno: function(ano, profissional){
 				return this.scope(scopes).findAll({
           attributes: { include: [
 						[ sequelize.fn('month', sequelize.col('dataInicio')), 'mes' ],
 						[ sequelize.fn('sum', sequelize.literal('qualificado = 1')), 'qualificados' ],
+						[ sequelize.fn('sum', sequelize.literal('bloqueio = 1')), 'bloqueados' ],
 						[ sequelize.fn('sum', sequelize.literal('deletedAt IS NOT NULL')), 'cancelados' ],
 						[ sequelize.fn('count', sequelize.literal('*')), 'totalAgendamentos' ]
 					] },
           where: [
-            { bloqueio: false },
+            { profissionalId: profissional },
             sequelize.where(sequelize.fn('year', sequelize.col('dataInicio')), '=', ano)
           ],
           group: [ [sequelize.literal('mes')] ],
@@ -232,7 +233,7 @@ module.exports = function(sequelize, DataTypes) {
           paranoid: false
         });
 			},
-			getByDateInterval: function(dataInicio, dataFim){
+			getByDateInterval: function(dataInicio, dataFim, profissional){
 				return this.scope(scopes).findAll({
           where: [
             { dataInicio: {
@@ -240,18 +241,20 @@ module.exports = function(sequelize, DataTypes) {
             } },
             { dataFim: {
                 $lte: dataFim,
-            } }
+            } },
+            { profissionalId: profissional },
           ],
 				  order: [ [sequelize.literal('dataInicio ASC')] ],
           paranoid: false
         });
 			},
-			getByDateIntervalFilterByYear: function(dataInicio, dataFim){
+			getByDateIntervalFilterByYear: function(dataInicio, dataFim, profissional){
 				return this.scope(scopes).findAll({
           attributes: { include: [
 						[ sequelize.fn('month', sequelize.col('dataInicio')), 'mes' ],
 						[ sequelize.fn('year', sequelize.col('dataInicio')), 'ano' ],
 						[ sequelize.fn('sum', sequelize.literal('qualificado = 1')), 'qualificados' ],
+						[ sequelize.fn('sum', sequelize.literal('bloqueio = 1')), 'bloqueados' ],
 						[ sequelize.fn('sum', sequelize.literal('deletedAt IS NOT NULL')), 'cancelados' ],
 						[ sequelize.fn('count', sequelize.literal('*')), 'totalAgendamentos' ]
 					] },
@@ -261,7 +264,8 @@ module.exports = function(sequelize, DataTypes) {
             } },
             { dataFim: {
                 $lte: dataFim,
-            } }
+            } },
+            { profissionalId: profissional },
           ],
           group: [ [sequelize.literal('ano, mes')] ],
 				  order: [ [sequelize.literal('ano, mes')] ],

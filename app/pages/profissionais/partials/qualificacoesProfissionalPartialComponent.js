@@ -28,7 +28,7 @@ function(ko, template, bridge, maskComponent, momentComponent, qualificacaoCompo
           nota      : maskComponent.scoreFormat(qualificacao.nota),
           avaliacao : qualificacao.avaliacao,
           servico   : qualificacao.agendamento.detalhe_servico.servico.nome,
-          data      : self.meses[data.getMonth()] + ' de ' + data.getYear(),
+          data      : self.meses[data.getMonth()] + ' de ' + data.getFullYear(),
           estrelas  : qualificacaoComponent.buildStarsArray(qualificacao.nota)
         }
       });

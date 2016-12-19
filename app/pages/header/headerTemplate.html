@@ -14,13 +14,6 @@
       <ul data-bind="if: logged" class="right hide-on-med-and-down navbar-list">
         <li><a class="dropdown-button" href="#!" data-activates="menu-dropdown"><span data-bind="text: nome" ></span><i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
-      <ul data-bind="if: logged" id="nav-mobile" class="right hide-on-large-only side-nav">
-        <!-- ko foreach: $data.menuOptions -->
-          <li><a data-bind="text: text, attr: { href: link }"></a></li>
-        <!-- /ko -->
-        <li class="divider orange"></li>
-        <li><a href="" data-bind="click: logout" class="red-text">Logout</a></li>
-      </ul>
 
 
       <ul data-bind="if: notLogged" class="right hide-on-med-and-down navbar-list">
@@ -28,12 +21,13 @@
         <li><a href="/#clientes/register">Cadastre-se</a></li>
         <li><a href="/#login">Login</a></li>
       </ul>
-      <ul data-bind="if: notLogged" id="nav-mobile" class="right hide-on-large-only side-nav">
-        <li class="cad-profissional"><a href="/#profissionais/register">Crie sua agenda Profissional!</a></li>
-        <li><a href="/#clientes/register">Cadastre-se</a></li>
-        <li><a href="/#login">Login</a></li>
+      <ul id="nav-mobile" class="right hide-on-large-only side-nav">
+        <!-- ko foreach: $data.menuOptions -->
+        <li><a data-bind="text: text, attr: { href: link }"></a></li>
+        <!-- /ko -->
+        <li class="divider orange"><span></span></li>
+        <li data-bind="if: logged"><a href="" data-bind="click: logout" class="red-text">Logout</a></li>
       </ul>
-
 
       <ul data-bind="if: loggedWithoutUser" class="right hide-on-med-and-down navbar-list">
         <li><a href="" data-bind="click: logout">Logout</a></li>

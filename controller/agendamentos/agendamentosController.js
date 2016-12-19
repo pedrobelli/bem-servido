@@ -146,7 +146,7 @@ self.getByAno = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
 
-    return models.agendamentos.getByAno(req.body.ano);
+    return models.agendamentos.getByAno(req.body.ano, req.body.profissional);
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -160,7 +160,7 @@ self.getByDateInterval = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
 
-    return models.agendamentos.getByDateInterval(req.body.dataInicio, req.body.dataFim);
+    return models.agendamentos.getByDateInterval(req.body.dataInicio, req.body.dataFim, req.body.profissional);
 
   }).then(function(entities) {
     res.statusCode = 200;
@@ -174,7 +174,7 @@ self.getByDateIntervalFilterByYear = function(req, res) {
   return sequelize.transaction(function(t) {
     scopes = [];
 
-    return models.agendamentos.getByDateIntervalFilterByYear(req.body.dataInicio, req.body.dataFim);
+    return models.agendamentos.getByDateIntervalFilterByYear(req.body.dataInicio, req.body.dataFim, req.body.profissional);
 
   }).then(function(entities) {
     res.statusCode = 200;

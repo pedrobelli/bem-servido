@@ -117,7 +117,7 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
 
     var generatePayload = function(){
       var payload = {};
-
+      payload.profissional = localStorage.getItem('current_user_id');
       if (self.opcao() == 1) {
         payload.ano = self.ano();
       } else if (self.opcao() == 2) {
@@ -161,7 +161,7 @@ function(ko, template, bridge, $, swalComponent, momentComponent, datepickerComp
               horarioInicio : momentComponent.convertTimeToString(agendamento.dataInicio),
               horarioFim    : momentComponent.convertTimeToString(agendamento.dataFim),
               qualificado   : !!agendamento.qualificado ? 'Sim' : 'Não',
-              bloqueado     : !!agendamento.bloqueado ? 'Sim' : 'Não'
+              bloqueado     : !!agendamento.bloqueio ? 'Sim' : 'Não'
             }
           });
 
